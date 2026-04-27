@@ -136,7 +136,8 @@ jobs:
         if: ${{ matrix.build == 'windows' }}
         with:
           overwrite: false
-          asset_name: MDCx.exe
+          asset_name: MDCx-$tag.exe
           file: dist/MDCx.exe
           prerelease: ${{ steps.release-type.outputs.prerelease }}
           body: ${{ steps.get-changelog.outputs.CHANGELOG }}
+          tag: ${{ inputs.tag }}
