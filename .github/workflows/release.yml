@@ -1,10 +1,10 @@
 name: Build and Release with Python3.13
 
-于:
+on:
   release:
     types: [published]
   push:
-    标签:
+    tags:
       - 220*
   workflow_dispatch:
     inputs:
@@ -14,7 +14,7 @@ name: Build and Release with Python3.13
       prerelease:
         description: "是否作为预发布（pre-release）"
         required: false
-        默认: "false"
+        default: "false"
 
 jobs:
   init-matrix:
