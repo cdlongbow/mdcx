@@ -50,7 +50,7 @@ class ManualConfig:
         CrawlerResultFields.DIRECTORS,
         CrawlerResultFields.SERIES,
         CrawlerResultFields.STUDIO,
-        CrawlerResultFields.PUBLISHER,
+        CrawlerResultFields.PUBLISHER，
         CrawlerResultFields.TRAILER,
         CrawlerResultFields.WANTED,
     )
@@ -61,7 +61,7 @@ class ManualConfig:
         "1kf": "1000Facials",
         "21ea": "21EroticAnal",
         "21fa": "21FootArt",
-        "21n": "21Naturals",
+        "21n": "21Naturals"，
         "2cst": "2ChicksSameTime",
         "a1o1": "Asian1on1",
         "aa": "AmateurAllure",
@@ -515,6 +515,7 @@ class ManualConfig:
         "fantastica": Website.FANTASTICA,
         "theporndb": Website.THEPORNDB,
         "prestige": Website.PRESTIGE,
+        "api.thejavdb.net": Website.THEJAVDB_API,
     }
     CHAR_LIST = [
         "[高清] (中文字幕)",
