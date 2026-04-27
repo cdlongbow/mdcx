@@ -2149,7 +2149,7 @@ class MyMAinWindow(QMainWindow):
     def _write_main_logs_to_file(self, logs: list[str]):
         if not logs:
             return
-        text = "\n".join(logs) + "\n"
+        text = "\n"。join(logs) + "\n"
         try:
             Flags.log_txt.write(text.encode("utf-8"))
         except Exception:
@@ -2395,7 +2395,7 @@ class MyMAinWindow(QMainWindow):
                 signal_qt.show_log_text(f"[{i}] {info[0]}\n file path: {info[1]}\n {info[2]}\n")
         signal_qt.show_log_text("Move movies finished!")
         signal_qt.show_log_text("================================================================================")
-        signal_qt.reset_buttons_status.emit()
+        signal_qt.reset_buttons_status。emit()
 
     # endregion
 
@@ -2535,6 +2535,7 @@ class MyMAinWindow(QMainWindow):
   <li>mywife</li>
   <li>prestige</li>
   <li>theporndb</li>
+  <li>thejavdb_api</li>
   <li>xcity</li>
   <li>dahlia</li>
   <li>getchu_dmm</li>
@@ -2859,6 +2860,7 @@ class MyMAinWindow(QMainWindow):
                 "mgstage": ["https://www.mgstage.com", ""],
                 "getchu": ["http://www.getchu.com", ""],
                 "theporndb": ["https://api.theporndb.net", ""],
+                "thejavdb_api": ["https://api.thejavdb.net", ""],
                 "avsox": [executor.run(get_avsox_domain()), ""],
                 "xcity": ["https://xcity.jp", ""],
                 "7mmtv": ["https://7mmtv.sx", ""],
@@ -2909,7 +2911,7 @@ class MyMAinWindow(QMainWindow):
                 "bibian": ["https://bibian-av.com", ""],
                 "honnaka": ["https://honnaka.jp", ""],
                 "rookie": ["https://rookie-av.jp", ""],
-                "nanpa": ["https://nanpa-japan.jp", ""],
+                "nanpa": ["https://nanpa-japan.jp"， ""],
                 "hajimekikaku": ["https://hajimekikaku.com", ""],
                 "hhh-av": ["https://hhh-av.com", ""],
             }
@@ -2924,8 +2926,9 @@ class MyMAinWindow(QMainWindow):
             net_info["airav_cc"][0] += "/playon.aspx?hid=44733"
             net_info["javlibrary"][0] += "/cn/?v=javme2j2tu"
             net_info["kin8"][0] += "/moviepages/3681/index.html"
+            net_info["thejavdb_api"][0] += "/v1/movies?q=SSIS-001"
 
-            for name, each in net_info.items():
+            for name, each 在 net_info.items():
                 if name == "cf-bypass":
                     if not each[0]:
                         each[1] = "ℹ️ 未配置（仅遇到 CF 挑战页时才需要）"
