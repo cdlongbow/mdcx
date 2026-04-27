@@ -131,6 +131,12 @@ jobs:
           body: ${{ steps.get-changelog.outputs.CHANGELOG }}
           tag: ${{ github.event.inputs.tag || github.ref }}
 
+      - name: Save Windows executable as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MDCx-${{ github.run_number }}
+          path: dist/MDCx.exe
+
       - name: Create Release - Windows
         uses: svenstaro/upload-release-action@v2
         if: ${{ matrix.build == 'windows' }}
