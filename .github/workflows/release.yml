@@ -1,10 +1,10 @@
 name: Build and Release with Python3.13
 
-on:
+于:
   release:
     types: [published]
   push:
-    tags:
+    标签:
       - 220*
   workflow_dispatch:
     inputs:
@@ -14,7 +14,7 @@ on:
       prerelease:
         description: "是否作为预发布（pre-release）"
         required: false
-        default: "false"
+        默认: "false"
 
 jobs:
   init-matrix:
@@ -135,7 +135,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         if: ${{ matrix.build == 'windows' }}
         with:
-          overwrite: true
+          overwrite: false
           asset_name: MDCx-$tag-${{ matrix.build }}-${{ matrix.arch }}${{ matrix.tail }}-${{ github.sha }}.exe
           file: dist/MDCx.exe
           prerelease: ${{ steps.release-type.outputs.prerelease }}
