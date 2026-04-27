@@ -131,13 +131,19 @@ jobs:
           body: ${{ steps.get-changelog.outputs.CHANGELOG }}
           tag: ${{ github.event.inputs.tag || github.ref }}
 
+      - name: name: Save Windows executable as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MDCx-${{ github.run_number }}
+          path: dist/MDCx.exe
+
       - name: Create Release - Windows
         uses: svenstaro/upload-release-action@v2
         if: ${{ matrix.build == 'windows' }}
         with:
-          overwrite: false
-          asset_name: MDCx-$tag.exe
+          overwrite: true
+          asset_name: MDCx-$tag-${{ matrix.build }}-${{ matrix.arch }}${{ matrix.tail }}-${{ github.sha }}.exe
           file: dist/MDCx.exe
           prerelease: ${{ steps.release-type.outputs.prerelease }}
           body: ${{ steps.get-changelog.outputs.CHANGELOG }}
-          tag: ${{ inputs.tag }}
+          tag: ${{ github.event.inputs.tag || github.ref }}
