@@ -73,7 +73,7 @@ jobs:
           activate-environment: true
 
       - name: Set up python env
-        run: uv sync --locked --all-extras --de
+        run: uv sync --locked --all-extras --dev
 
       - name: Build Windows app - Windows
         if: ${{ matrix.build == 'windows' }}
