@@ -84,10 +84,15 @@ def _normalize_amazon_image_url(pic_url: str, *, target_size: str = "SL1500") ->
     return f"{pic_url[:-4]}.{target_size}.jpg"
 
 
-def _set_amazon_match_state(result: CrawlersResult, *, is_hard: bool, reason: str, url: str = "") -> None:
+def _set_amazon_match_state(
+    result: CrawlersResult, *, is_hard: bool, reason: str, url: str = "", title: str = "", search_keyword: str = ""
+) -> None:
     result.amazon_match_is_hard = is_hard
     result.amazon_match_reason = reason
     result.amazon_match_url = url
+    # 搜索发现的日亚商品标题与搜索词（软校验通过后 web 层入库用；库命中/条码路径为空——不需要）
+    result.amazon_match_title = title
+    result.amazon_match_search_keyword = search_keyword
 
 
 async def _save_asin_record(
@@ -1176,6 +1181,8 @@ async def get_big_pic_by_amazon(
                     is_hard=bool(number_match),
                     reason="number" if number_match else "actor_fallback",
                     url=matched_url,
+                    title=str(matched_title or ""),
+                    search_keyword=str(matched_actor or ""),
                 )
                 return matched_url
 
@@ -1193,6 +1200,8 @@ async def get_big_pic_by_amazon(
             is_hard=bool(number_match),
             reason="number" if number_match else "actor_fallback",
             url=matched_url,
+            title=str(matched_title or ""),
+            search_keyword=str(matched_actor or ""),
         )
         return ""
 
@@ -1607,16 +1616,11 @@ async def get_big_pic_by_amazon(
                         is_hard=candidate_number_match(best_candidate),
                         reason="number" if candidate_number_match(best_candidate) else "barcode_weak",
                         url=str(best_candidate["url"]),
+                        title=str(best_candidate["pic_title"]),
+                        search_keyword=str(barcode),
                     )
                     detail_url_str = str(best_candidate.get("detail_url", ""))
                     asin = normalize_detail_url(detail_url_str).split("/dp/")[-1] if detail_url_str else ""
-                    await _save_asin_record(
-                        result,
-                        asin=asin,
-                        title=str(best_candidate["pic_title"]),
-                        poster_url=str(best_candidate["url"]),
-                        search_keyword=barcode,
-                    )
                     return str(best_candidate["url"])
                 result.poster = str(best_candidate["url"])
                 result.poster_from = "Amazon"
@@ -1625,16 +1629,11 @@ async def get_big_pic_by_amazon(
                     is_hard=candidate_number_match(best_candidate),
                     reason="number" if candidate_number_match(best_candidate) else "barcode_weak",
                     url=str(best_candidate["url"]),
+                    title=str(best_candidate["pic_title"]),
+                    search_keyword=str(barcode),
                 )
                 detail_url_str = str(best_candidate.get("detail_url", ""))
                 asin = normalize_detail_url(detail_url_str).split("/dp/")[-1] if detail_url_str else ""
-                await _save_asin_record(
-                    result,
-                    asin=asin,
-                    title=str(best_candidate["pic_title"]),
-                    poster_url=str(best_candidate["url"]),
-                    search_keyword=barcode,
-                )
                 LogBuffer.log().write(
                     f"\n 🟡 Amazon 条码快路径弱确认低清图：标题置信度 ({float(best_candidate['title_confidence']):.2f}) "
                     f"番号命中 ({candidate_number_match(best_candidate)}) "
@@ -1786,16 +1785,11 @@ async def get_big_pic_by_amazon(
                         is_hard=candidate_is_hard_match(each_candidate),
                         reason=candidate_match_reason(each_candidate),
                         url=str(each_candidate["url"]),
+                        title=str(each_candidate["pic_title"]),
+                        search_keyword=str(current_title if "current_title" in locals() else ""),
                     )
                     detail_url_str = str(each_candidate.get("detail_url", ""))
                     asin = normalize_detail_url(detail_url_str).split("/dp/")[-1] if detail_url_str else ""
-                    await _save_asin_record(
-                        result,
-                        asin=asin,
-                        title=str(each_candidate["pic_title"]),
-                        poster_url=str(each_candidate["url"]),
-                        search_keyword=str(current_title if "current_title" in locals() else ""),
-                    )
                     return str(each_candidate["url"])
             if best_fallback_candidate:
                 result.poster = str(best_fallback_candidate["url"])
@@ -1805,16 +1799,11 @@ async def get_big_pic_by_amazon(
                     is_hard=candidate_is_hard_match(best_fallback_candidate),
                     reason=candidate_match_reason(best_fallback_candidate),
                     url=str(best_fallback_candidate["url"]),
+                    title=str(best_fallback_candidate["pic_title"]),
+                    search_keyword=str(current_title if "current_title" in locals() else ""),
                 )
                 detail_url_str = str(best_fallback_candidate.get("detail_url", ""))
                 asin = normalize_detail_url(detail_url_str).split("/dp/")[-1] if detail_url_str else ""
-                await _save_asin_record(
-                    result,
-                    asin=asin,
-                    title=str(best_fallback_candidate["pic_title"]),
-                    poster_url=str(best_fallback_candidate["url"]),
-                    search_keyword=str(current_title if "current_title" in locals() else ""),
-                )
                 LogBuffer.log().write(
                     f"\n 🟡 Amazon命中低清图：标题置信度 ({float(best_fallback_candidate['title_confidence']):.2f}) "
                     f"番号命中 ({candidate_number_match(best_fallback_candidate)}) "

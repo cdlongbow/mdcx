@@ -2,3 +2,4 @@
 !.gitignore
 *.xlsx
 !dmm_cid_routes.json
+!tenhow_asin_cids.json

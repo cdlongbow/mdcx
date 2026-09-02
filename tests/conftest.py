@@ -269,6 +269,13 @@ class _DummyResources:
     def u(self, relative_path):
         return manager_module.manager.data_folder / "userdata" / relative_path
 
+    def r(self, relative_path):
+        # 内置资源路径（asin_cid_index 等模块用 r 读随包资源；测试无真实资源文件，
+        # Path 不存在时调用方自行返回空索引——与生产降级路径一致）
+        from pathlib import Path
+
+        return Path(__file__).resolve().parent.parent / "resources" / relative_path
+
     def get_fonts(self):
         # 主窗口启动冒烟测试会调用（真实实现读资源字体文件）
         return None

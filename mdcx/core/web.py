@@ -46,9 +46,11 @@ from .amazon import (
     is_amazon_hard_match,
     try_get_amazon_barcodes_from_covers,
 )
+from .asin_cid_index import asin_matches_number
 from .image import cut_thumb_to_poster
 from .media_resource import MediaResourceContext
 from .mosaic import has_leak_mark, has_umr_mark
+from .title_match import contains_compilation_keyword, title_series_match
 
 AMAZON_SEARCH_SCRAPING_TYPES = {FixedScrapingType.YOUMA}
 AMAZON_SEARCH_SPECIAL_MOSAICS = {"里番", "裏番", "动漫", "動漫"}
@@ -468,6 +470,131 @@ async def _load_dmm_official_reference(number: str, media_context: MediaResource
     return None
 
 
+async def _save_verified_asin_record(result: CrawlersResult, amazon_url: str) -> None:
+    """soft 路径采信后的延迟入库（v2：通过裁决才写库）。
+
+    素材来自 amazon_match_state（搜索阶段已携带 title/search_keyword）；
+    ASIN 从 match_url（/dp/{asin}）提取。hard 路径（barcode/EAN）的入库
+    已在搜索阶段完成，此处不重复。
+    """
+    try:
+        match_url = getattr(result, "amazon_match_url", "")
+        asin = _extract_asin_from_amazon_url(match_url)
+        if not asin:
+            return
+        from .amazon import _save_asin_record
+
+        save_reason = getattr(result, "amazon_match_reason", "")
+        if save_reason in ("barcode", "number"):
+            return  # hard 路径搜索阶段已入库（_save_asin_record）
+        await _save_asin_record(
+            result,
+            asin=asin,
+            title=str(getattr(result, "amazon_match_title", "")),
+            poster_url=amazon_url,
+            search_keyword=str(getattr(result, "amazon_match_search_keyword", "")),
+        )
+        LogBuffer.log().write(f"\n 📚 Amazon ASIN 数据库：软匹配通过 v2 裁决后入库 {result.number} → {asin}")
+    except Exception as e:
+        LogBuffer.log().write(f"\n 🟡 Amazon ASIN 延迟入库失败: {e!s}")
+
+
+def _extract_asin_from_amazon_url(url: str) -> str:
+    """从日亚 URL/图 URL 提取 ASIN（/dp/{asin} 形态；无则空）。"""
+    m = re.search(r"/dp/([A-Z0-9]{10})", str(url or ""))
+    return m.group(1) if m else ""
+
+
+async def _verify_soft_amazon_candidate(
+    amazon_url: str,
+    *,
+    result,
+    thumb_path: Path | None,
+    original_poster_url: str,
+    original_poster_from: str,
+    media_context: MediaResourceContext | None = None,
+) -> bool:
+    """路径 D（软匹配发现）的 v2 裁决链接入适配层。
+
+    - 上下文（番号/片名/发现路径/ASIN）从 result 取, 零额外请求
+    - D1（soft/number）与 D2（actor_fallback）共用此入口: 标题证据在场与否由
+      movie_title 是否可自动裁决——详情页文本已在搜索阶段聚合到 result, 缺失时
+      自然落到图像兜底（与设计 r2 的 D 分层一致）
+    """
+    asin = getattr(result, "amazon_asin", "") or _extract_asin_from_amazon_url(getattr(result, "amazon_match_url", ""))
+
+    async def _image_gate() -> bool:
+        return await _verify_soft_amazon_poster(
+            amazon_url,
+            number=getattr(result, "number", ""),
+            thumb_path=thumb_path,
+            original_poster_url=original_poster_url,
+            original_poster_from=original_poster_from,
+            media_context=media_context,
+        )
+
+    # 无 ASIN 可旁证（如爬虫自带 media-amazon 图）→ 直接图像检疫（路径 D'）
+    if not asin:
+        return await _image_gate()
+
+    return await verify_soft_amazon_candidate(
+        asin=asin,
+        number=getattr(result, "number", ""),
+        amazon_title=getattr(result, "amazon_match_title", ""),
+        movie_title=getattr(result, "title", ""),
+        match_reason=getattr(result, "amazon_match_reason", "soft"),
+        verify_image=_image_gate,
+    )
+
+
+async def verify_soft_amazon_candidate(
+    *,
+    asin: str,
+    number: str,
+    amazon_title: str,
+    movie_title: str,
+    match_reason: str,
+    verify_image,
+) -> bool:
+    """软校验裁决链 v2（路径 D 软匹配发现的入库门槛）。
+
+    按证据强度顺序裁决（设计 r2, 2026-09-02）：
+    1. tenhow cid 旁证（零请求）: 一致=实锤; 不一致=强警示阻止（不定罪）
+    2. 标题门: 合集词一票否决; NFKC 系列互含=通过; 无关=阻止
+    3. 图像门兜底: 仅当 cid/标题均无证据时, 调用现有图像验证
+    免验路径（库命中/条码/EAN）不进入本函数。
+    """
+    # 第 1 步: cid 旁证
+    cid_verdict = asin_matches_number(asin, number)
+    if cid_verdict is True:
+        LogBuffer.log().write(f"\n 🟢 Amazon校验通过：tenhow cid 旁证一致（{number} ↔ {asin}）")
+        return True
+    if cid_verdict is False:
+        LogBuffer.log().write(f"\n 🟡 Amazon校验未通过：tenhow cid 映射不一致（{number} ↔ {asin}），阻止入库待人工")
+        return False
+
+    # 第 2 步: 标题门（两份标题都在场才可比）
+    if amazon_title and movie_title:
+        if contains_compilation_keyword(amazon_title):
+            LogBuffer.log().write(
+                f"\n 🟡 Amazon校验未通过：日亚标题含合集/特典词（{str(amazon_title)[:40]}），非单片不入库"
+            )
+            return False
+        if title_series_match(amazon_title, movie_title):
+            LogBuffer.log().write(f"\n 🟢 Amazon校验通过：标题系列匹配（{str(amazon_title)[:40]}）")
+            return True
+        LogBuffer.log().write(
+            f"\n 🟡 Amazon校验未通过：标题无关（日亚「{str(amazon_title)[:30]}」 vs 片名「{str(movie_title)[:30]}」）"
+        )
+        return False
+
+    # 第 3 步: 图像门兜底（无标题证据或标题缺一）
+    if verify_image is None:
+        LogBuffer.log().write("\n 🟡 Amazon校验未通过：无 cid/标题证据且无图像验证通道")
+        return False
+    return await verify_image()
+
+
 async def _verify_soft_amazon_poster(
     amazon_url: str,
     *,
@@ -748,15 +875,17 @@ async def _get_big_poster(
             # 软校验仅作用于搜索新发现（未入库）的候选图
             amazon_match_is_hard = is_amazon_hard_match(result)
             should_verify_amazon = not amazon_match_is_hard
-            amazon_verify_passed = not should_verify_amazon or await _verify_soft_amazon_poster(
+            amazon_verify_passed = not should_verify_amazon or await _verify_soft_amazon_candidate(
                 amazon_url,
-                number=result.number,
+                result=result,
                 thumb_path=other.thumb_path,
                 original_poster_url=poster_url,
                 original_poster_from=poster_from_before_amazon,
                 media_context=media_context,
             )
             if amazon_verify_passed:
+                # v2 采信点入库：soft 路径的入库从搜索阶段延迟至此（通过裁决才写库）
+                await _save_verified_asin_record(result, amazon_url)
                 if poster_auto_best:
                     result.poster = poster_url
                     result.poster_from = poster_from_before_amazon
