@@ -152,11 +152,12 @@ async def test_merge_asin_db_from_backup(_tmp_asin_db, tmp_path):
     wb.save(backup_path)
     wb.close()
 
-    # 用户库：已有 ABC-123（含值）和 DEF-456（ASIN 空缺）
+    # 用户库：已有 ABC-123（含值）、DEF-456（ASIN 空缺）、ZZZ-999（出厂库没有）
     await amazon_database.save_asin_to_excel(
         [
             {"number": "ABC-123", "asin": "B999999999", "title": "User Kept Title", "product_url": "https://user.url"},
             {"number": "DEF-456", "asin": ""},
+            {"number": "ZZZ-999", "asin": "B000000999", "title": "User Only Title"},
         ],
         _tmp_asin_db,
     )
@@ -172,16 +173,19 @@ async def test_merge_asin_db_from_backup(_tmp_asin_db, tmp_path):
         if num:
             rows[num] = [ws.cell(row=r, column=c).value for c in range(2, 7)]
             order.append(num)
-    # 已有番号不覆盖用户值
-    assert rows["ABC-123"][0] == "B999999999"  # ASIN 不被出厂覆盖
-    assert rows["ABC-123"][1] == "https://user.url"  # 链接不被覆盖
-    # 空缺字段被补全
+    # 出厂库权威：已有番号无条件覆盖用户值
+    assert rows["ABC-123"][0] == "B000000001"  # ASIN 被出厂覆盖
+    assert rows["ABC-123"][1] == "https://www.amazon.co.jp/dp/B000000001"  # 链接被出厂覆盖
+    # 用户库空缺字段也被出厂库覆盖
     assert rows["DEF-456"][0] == "B000000002"
     # 新番号追加
     assert rows["NEW-001"][0] == "B000000003"
     assert rows["NEW-001"][1] == "https://www.amazon.co.jp/dp/B000000003"
+    # 出厂库没有的用户库番号保留
+    assert rows["ZZZ-999"][0] == "B000000999"
+    assert rows["ZZZ-999"][2] == "User Only Title"
     # 合并后按番号排序
-    assert order == ["ABC-123", "DEF-456", "NEW-001"]
+    assert order == ["ABC-123", "DEF-456", "NEW-001", "ZZZ-999"]
     wb.close()
 
 

@@ -157,12 +157,16 @@ def _resort_asin_worksheet(local_path: Path) -> None:
 
 
 def merge_asin_db_from_backup(backup_path: Path, local_path: Path) -> None:
-    """把出厂 ASIN 库的增量同步进已存在的用户库（按番号去重，只增不删、不覆盖用户已有值）。
+    """把出厂 ASIN 库同步进用户库（出厂库是权威数据）。
 
-    出厂库随软件版本更新（新增/修正番号→ASIN 映射），老用户的用户库不会自动获得
-    这些改进。此函数在启动时把出厂库中「用户库没有的番号」完整追加，给「用户库
-    已有但字段空缺」的条目补全，绝不覆盖用户已填的值、绝不删除用户库任何行。
-    合并产生新增行时，合并后按番号（前缀字母 + 数字）整体重排并重新格式化。
+    合并规则：
+    - 番号相同：出厂库数据**无条件覆盖**用户库数据（番号外 5 列全替换）。
+    - 番号仅在出厂库存在：追加到用户库。
+    - 番号仅在用户库存在：保留不删。
+
+    出厂库随软件版本更新（新增/修正番号→ASIN 映射），用户库可能残留历史错配
+    或过期数据，以出厂库为权威源整体纠偏。
+    合并有变化时，按番号（前缀字母 + 数字）整体重排并重新格式化。
 
     用出厂库文件 md5 作为合并标记写入 local_path 同目录的 .asin_db_merge_marker，
     出厂库内容未变时跳过，避免每次启动重复扫描。
@@ -195,7 +199,7 @@ def merge_asin_db_from_backup(backup_path: Path, local_path: Path) -> None:
                 number_row_map.setdefault(str(row[0]).strip().upper(), row_no)
 
         added = 0
-        filled = 0
+        replaced = 0
         backup_wb = openpyxl.load_workbook(backup_path, read_only=True, data_only=True)
         backup_ws = backup_wb.active
         for row in backup_ws.iter_rows(min_row=2, max_col=6, values_only=True):
@@ -203,14 +207,14 @@ def merge_asin_db_from_backup(backup_path: Path, local_path: Path) -> None:
                 continue
             number = str(row[0]).strip().upper()
             if number in number_row_map:
-                # 字段补全：仅填空缺，不覆盖已有值
+                # 出厂库权威：番号外 5 列无条件覆盖用户值
                 existing_row = number_row_map[number]
                 for col_idx in range(1, 6):  # 番号列除外
-                    cur = ws.cell(row=existing_row, column=col_idx + 1).value
                     new = row[col_idx] if col_idx < len(row) else None
-                    if (cur is None or str(cur).strip() == "") and new not in (None, ""):
+                    cur = ws.cell(row=existing_row, column=col_idx + 1).value
+                    if cur != new:
                         ws.cell(row=existing_row, column=col_idx + 1, value=new)
-                        filled += 1
+                        replaced += 1
                 continue
             ws.append(list(row[:6]))
             number_row_map[number] = next_row
@@ -218,15 +222,15 @@ def merge_asin_db_from_backup(backup_path: Path, local_path: Path) -> None:
             added += 1
         backup_wb.close()
 
-        if added or filled:
+        if added or replaced:
             wb.save(local_path)
         wb.close()
         write_file_atomic(marker_path, backup_hash, "utf-8")
         if added:
-            # 有新增行才整体重排（纯字段补全不改变行数与顺序，无需重排）
+            # 有新增行才整体重排（纯覆盖不改变行数与顺序，无需重排）
             _resort_asin_worksheet(local_path)
-        if added or filled:
-            LogBuffer.log().write(f"  ℹ️ [ASIN 数据库] 出厂库增量合并: 新增 {added} 条, 补全 {filled} 个字段")
+        if added or replaced:
+            LogBuffer.log().write(f"  ℹ️ [ASIN 数据库] 出厂库合并: 新增 {added} 条, 覆盖 {replaced} 个字段")
     except Exception as e:
         LogBuffer.log().write(f"  ⚠️ [ASIN 数据库] 出厂库合并失败: {e}")
 
@@ -326,10 +330,23 @@ async def save_asin_to_excel(
 
 
 def _format_asin_worksheet(ws) -> None:
-    """格式化 ASIN 数据库工作表：固定表头、自动筛选、列宽、边框、超链接、表头样式。"""
+    """格式化 ASIN 数据库工作表：按番号排序 + 固定表头、自动筛选、列宽、边框、超链接、表头样式。"""
     try:
         import openpyxl
         from openpyxl.utils import get_column_letter
+
+        # 先按番号排序数据行（前缀字母升序 + 数字升序），再做样式
+        data_rows: list[tuple] = [
+            tuple(c.value for c in r[:6])
+            for r in ws.iter_rows(min_row=2, max_col=6)
+            if r and r[0].value is not None and str(r[0].value).strip()
+        ]
+        if data_rows:
+            data_rows.sort(key=_asin_sort_key)
+            if ws.max_row > 1:
+                ws.delete_rows(2, ws.max_row - 1)
+            for row in data_rows:
+                ws.append(list(row))
 
         ws.freeze_panes = "B2"
 
@@ -494,6 +511,51 @@ async def update_asin_record(
         wb.save(excel_path)
     wb.close()
     return updated
+
+
+async def replace_asin_record(
+    number: str,
+    asin: str,
+    title: str,
+    product_url: str,
+    poster_url: str,
+    search_keyword: str,
+    excel_path: Path | None = None,
+) -> bool:
+    """按番号全行替换（特典让位规则：旧记录是特典版、新记录是正品时调用）。
+
+    保留行位置（原地替换），ASIN/标题/链接/关键词全量换新。
+    """
+    try:
+        import openpyxl
+    except ImportError:
+        return False
+
+    if excel_path is None:
+        excel_path = _get_default_excel_path()
+
+    if not excel_path.exists():
+        return False
+
+    wb = openpyxl.load_workbook(excel_path)
+    ws = wb.active
+
+    replaced = False
+    for row in ws.iter_rows(min_row=2, values_only=False):
+        row_number = str(row[0].value or "").upper()
+        if row_number == number.upper():
+            row[1].value = asin
+            row[2].value = product_url
+            row[3].value = title
+            row[4].value = poster_url
+            row[5].value = search_keyword
+            replaced = True
+            break
+
+    if replaced:
+        wb.save(excel_path)
+    wb.close()
+    return replaced
 
 
 async def query_asin_database(
