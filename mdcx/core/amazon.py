@@ -95,6 +95,22 @@ def _set_amazon_match_state(
     result.amazon_match_search_keyword = search_keyword
 
 
+def _decide_save_outcome(existing_title: str, new_title: str) -> str:
+    """同番号已有记录时的入库三态决策（特典让位规则）。
+
+    Returns:
+        "replace" — 旧记录是特典/限定版、新记录是正品 → 替换（让位）
+        "skip"     — 其余情况（新特典/新旧同类）→ 跳过，先到先得保留
+    """
+    from .title_match import is_bonus_edition
+
+    existing_is_bonus = is_bonus_edition(existing_title)
+    new_is_bonus = is_bonus_edition(new_title)
+    if existing_is_bonus and not new_is_bonus:
+        return "replace"
+    return "skip"
+
+
 async def _save_asin_record(
     result: CrawlersResult,
     asin: str,
@@ -121,6 +137,22 @@ async def _save_asin_record(
     existing_records = await amazon_database.query_asin_database(number=result.number)
     if existing_records:
         existing = existing_records[0]
+        # 特典让位规则：旧记录是特典/限定版、新记录是正品 → 全行替换；
+        # 新特典/新旧同类 → 跳过（先到先得）。特典版唯一时正常入库（图是真的）。
+        outcome = _decide_save_outcome(existing_title=str(existing.get("title") or ""), new_title=title)
+        if outcome == "replace":
+            await amazon_database.replace_asin_record(
+                number=result.number,
+                asin=asin,
+                title=title,
+                product_url=f"https://www.amazon.co.jp/dp/{asin}",
+                poster_url=poster_url,
+                search_keyword=search_keyword,
+            )
+            LogBuffer.log().write(
+                f"\n 📚 Amazon ASIN 数据库：正品让位替换 {result.number} → {asin}（旧记录为特典/限定版）"
+            )
+            return
         if existing.get("poster_url"):
             LogBuffer.log().write(f"\n 📚 Amazon ASIN 数据库：{result.number} 已有完整记录，跳过保存")
             return

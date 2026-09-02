@@ -15,9 +15,17 @@ from __future__ import annotations
 import re
 import unicodedata
 
-# 合集/特典词：语义为"非单片商品"，命中即一票否决入库
+# 真合集词：语义为"非单片商品"（多片拼盘/精选），图不是单片封面，
+# 无论是否唯一候选都不应挂到单片番号下——v2 裁决链一票否决
 _COMPILATION_RE = re.compile(
-    r"BEST|コンプリート|COMPLETE|\d+時間|[0-9０-９]+\s*時間|特典|ディレクターズカット|DC版|総集編",
+    r"BEST|コンプリート|COMPLETE|\d+時間|[0-9０-９]+\s*時間|ディレクターズカット|DC版|総集編",
+    re.IGNORECASE,
+)
+
+# 特典/限定版词：语义仍是该单片（仅包装带赠品），图是真的——
+# 唯一 ASIN 时正常入库使用；同番号有正品竞争时让位（_save_asin_record 去重让位规则）
+_BONUS_EDITION_RE = re.compile(
+    r"特典|数量限定|生写真|初回限定|限定版|【特典|封入特典|特典付き",
     re.IGNORECASE,
 )
 
@@ -45,9 +53,15 @@ def normalize_title(text: str) -> str:
 
 
 def contains_compilation_keyword(text: str) -> bool:
-    """合集/特典词识别（一票否决依据）。"""
+    """真合集词识别（一票否决依据——图非单片封面）。特典/限定版不在此列（is_bonus_edition）。"""
     normalized = unicodedata.normalize("NFKC", str(text or ""))
     return bool(_COMPILATION_RE.search(normalized))
+
+
+def is_bonus_edition(text: str) -> bool:
+    """特典/限定版识别（同番号竞争时让位正品；唯一候选时正常入库使用）。"""
+    normalized = unicodedata.normalize("NFKC", str(text or ""))
+    return bool(_BONUS_EDITION_RE.search(normalized))
 
 
 def _segments(text: str) -> set[str]:
