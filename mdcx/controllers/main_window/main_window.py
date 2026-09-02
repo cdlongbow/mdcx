@@ -1023,6 +1023,16 @@ class MyMAinWindow(QMainWindow):
 
         pushButton_nfo_lib_select_dir_clicked(self)
 
+    def pushButton_nfo_lib_select_all_clicked(self):
+        from .nfo_library import pushButton_nfo_lib_select_all_clicked
+
+        pushButton_nfo_lib_select_all_clicked(self)
+
+    def pushButton_nfo_lib_select_none_clicked(self):
+        from .nfo_library import pushButton_nfo_lib_select_none_clicked
+
+        pushButton_nfo_lib_select_none_clicked(self)
+
     def pushButton_nfo_lib_refresh_clicked(self):
         from .nfo_library import pushButton_nfo_lib_refresh_clicked
 

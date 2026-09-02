@@ -291,6 +291,8 @@ def Init_Singal(self: "MyMAinWindow"):
     self.Ui.pushButton_nfo_lib_refresh.clicked.connect(self.pushButton_nfo_lib_refresh_clicked)
     self.Ui.pushButton_nfo_lib_save.clicked.connect(self.pushButton_nfo_lib_save_clicked)
     self.Ui.pushButton_nfo_lib_crop.clicked.connect(self.pushButton_nfo_lib_crop_clicked)
+    self.Ui.pushButton_nfo_lib_select_all.clicked.connect(self.pushButton_nfo_lib_select_all_clicked)
+    self.Ui.pushButton_nfo_lib_select_none.clicked.connect(self.pushButton_nfo_lib_select_none_clicked)
     self.Ui.listWidget_nfo_lib.itemSelectionChanged.connect(self.listWidget_nfo_lib_item_clicked)
     self.Ui.listWidget_nfo_lib.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
     self.Ui.listWidget_nfo_lib.customContextMenuRequested.connect(self.listWidget_nfo_lib_context_menu)

@@ -54,11 +54,32 @@ def pushButton_cover_backfill_start_clicked(self):
 
 
 def pushButton_emby_actor_manager_clicked(self):
+    """打开 Emby 演员管理器（单例）。议题 #61：原版每次点击新建 dialog →
+    可同时开多个，"提交或获取数据相互干扰/请求过载"。改为单例复用 +
+    destroyed 信号清引用。"""
     try:
         from mdcx.tools.emby_actor_manager_ui import EmbyActorManagerDialog
 
-        self._emby_dialog = EmbyActorManagerDialog(self)
-        self._emby_dialog.show()
+        existing = getattr(self, "_emby_dialog", None)
+        if existing is not None:
+            try:
+                # 已存在且未销毁 → 提前台复用（含从最小化还原）
+                if existing.isMinimized():
+                    existing.showNormal()
+                else:
+                    existing.show()
+                existing.raise_()
+                existing.activateWindow()
+                return
+            except RuntimeError:
+                # C++ 对象已被销毁（WA_DeleteOnClose 释放），换新的
+                self._emby_dialog = None
+
+        dialog = EmbyActorManagerDialog()
+        # 主窗口侧只保存弱存在语义：destroyed 时清引用，避免悬空指针
+        dialog.destroyed.connect(lambda *_: setattr(self, "_emby_dialog", None))
+        self._emby_dialog = dialog
+        dialog.show()
     except Exception as e:
         signal_qt.show_log_text(f"❌ Emby 演员管理器打开失败: {e}\n{traceback.format_exc()}")
 

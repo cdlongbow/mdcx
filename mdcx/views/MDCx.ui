@@ -24834,6 +24834,27 @@ p, li { white-space: pre-wrap; }
                           </widget>
                         </item>
                         <item>
+                          <layout class="QHBoxLayout" name="nfo_lib_select_btns_layout">
+                            <property name="spacing">
+                              <number>6</number>
+                            </property>
+                            <item>
+                              <widget class="QPushButton" name="pushButton_nfo_lib_select_all">
+                                <property name="text">
+                                  <string>全选</string>
+                                </property>
+                              </widget>
+                            </item>
+                            <item>
+                              <widget class="QPushButton" name="pushButton_nfo_lib_select_none">
+                                <property name="text">
+                                  <string>全不选</string>
+                                </property>
+                              </widget>
+                            </item>
+                          </layout>
+                        </item>
+                        <item>
                           <widget class="QListWidget" name="listWidget_nfo_lib">
                             <property name="minimumSize">
                               <size>
@@ -24966,6 +24987,9 @@ p, li { white-space: pre-wrap; }
                     <widget class="CustomScrollArea" name="scrollArea_nfo_lib_form">
                       <property name="widgetResizable">
                         <bool>true</bool>
+                      </property>
+                      <property name="horizontalScrollBarPolicy">
+                        <enum>Qt::ScrollBarAlwaysOff</enum>
                       </property>
                       <property name="minimumSize">
                         <size>
@@ -25114,7 +25138,13 @@ p, li { white-space: pre-wrap; }
                               <property name="minimumSize">
                                 <size>
                                   <width>0</width>
-                                  <height>80</height>
+                                  <height>60</height>
+                                </size>
+                              </property>
+                              <property name="maximumSize">
+                                <size>
+                                  <width>16777215</width>
+                                  <height>110</height>
                                 </size>
                               </property>
                             </widget>
@@ -25131,7 +25161,13 @@ p, li { white-space: pre-wrap; }
                               <property name="minimumSize">
                                 <size>
                                   <width>0</width>
-                                  <height>80</height>
+                                  <height>60</height>
+                                </size>
+                              </property>
+                              <property name="maximumSize">
+                                <size>
+                                  <width>16777215</width>
+                                  <height>110</height>
                                 </size>
                               </property>
                             </widget>

@@ -301,7 +301,9 @@ class EmbyActorManagerDialog(QDialog):
     _gfriends_result = Signal(object)
 
     def __init__(self, parent=None):
-        super().__init__(parent)
+        # 不传 parent：始终保持独立顶层窗口。议题 #61——以主窗口为 parent 时，
+        # 主窗口 hide 会级联隐藏 dialog，最大化 dialog 又会把主窗口带出。
+        super().__init__(None)
         self.setWindowTitle("Emby 演员管理器")
         self.setMinimumSize(1100, 700)
         self.setWindowFlags(
@@ -310,6 +312,8 @@ class EmbyActorManagerDialog(QDialog):
             | Qt.WindowType.WindowMinimizeButtonHint
             | Qt.WindowType.WindowMaximizeButtonHint
         )
+        # 关闭时由 Qt 销毁 C++ 对象，主窗口侧的 destroyed 信号随之清空引用。
+        self.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose, True)
         # 初始落在最小尺寸上体验局促，默认取屏幕可用区 80%（离屏/无屏环境回退最小尺寸）
         screen = QGuiApplication.primaryScreen()
         if screen is not None:

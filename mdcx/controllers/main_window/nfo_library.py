@@ -116,6 +116,18 @@ def pushButton_nfo_lib_select_dir_clicked(self: MyMAinWindow) -> None:
     _scan_nfo_directory(self, Path(folder))
 
 
+def pushButton_nfo_lib_select_all_clicked(self: MyMAinWindow) -> None:
+    """全选 NFO 列表（议题 #61：列表右侧缺全选快捷键）。
+
+    只选可见项（筛选后剩下行），避免误把筛选时隐藏的条目批量提交。"""
+    self.Ui.listWidget_nfo_lib.selectAll()
+
+
+def pushButton_nfo_lib_select_none_clicked(self: MyMAinWindow) -> None:
+    """清空 NFO 列表选择。"""
+    self.Ui.listWidget_nfo_lib.clearSelection()
+
+
 def pushButton_nfo_lib_refresh_clicked(self: MyMAinWindow) -> None:
     """刷新当前目录的 NFO 列表。"""
     dir_text = self.Ui.lineEdit_nfo_lib_dir.text().strip()

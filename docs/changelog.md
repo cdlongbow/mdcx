@@ -4,6 +4,7 @@
 
 ### 修复
 
+- **议题 #61 Emby 演员管理器与 NFO 管理体验问题**：**演员管理器**单例化（原每次点击新建实例导致多开，提交/取数据相互干扰）——复用现有窗口，最小化时还原+提前台，destroyed 信号清主窗口引用；改为独立顶层窗口（parent=None + WA_DeleteOnClose），主窗口 hide 不再级联隐藏、最大化不再带出已隐藏的主窗口、最小化进任务栏而非缩到主窗口左下角。**NFO 管理**：①列表顶部加「全选/全不选」按钮（原只能 Ctrl+点击逐个选）；②"简介/标签" QPlainTextEdit 增加 maxHeight=110（原 minHeight=80 无上限，长文本把「保存当前 NFO」按钮挤出可视区）；③编辑区 scrollArea 横向滚动条禁用（本页面表单按宽度自适应，不应出横滚条）。议题其余诉求（删除功能本身）经评估不采纳——底层 emby_shared/emby_actor_info 被主刮削链引用，存在活跃使用者
 - **议题 #68 Windows 原生窗口边框下缩放/切页布局错乱**：`QStackedWidget` 只会把当前可见页 resize 到自身尺寸，休眠页永远停留在设计尺寸 820x692——「先缩放窗口再切页」时休眠页内组件全部按陈旧尺寸布局（日志页上栏只占设计高 61%≈292px 留大片空白、按钮按设计宽锚定飘出页面右侧/底部、工具页 scrollArea 右侧被裁），且 `show_hide_logs()` 硬编码 `resize(790, 418/689)` 会覆盖窗口缩放同步结果。修复：`_sync_page_layouts()` 先统一 resize 所有 stacked pages 再同步内部组件（沿用 #66 tab page 修复模式），`stackedWidget.currentChanged` 连接切页即时同步；日志页下栏隐藏时上栏铺满整页、显示时恢复 61:39 分栏；日志页/网络页按钮按页面右缘/下缘动态锚定；`show_hide_logs()` 移除硬编码改由 `_sync_page_layouts()` 统一处理。新增 `tests/test_window_state_matrix.py` 6 项矩阵回归（休眠页尺寸/先缩放再切页/日志收起铺满/设置页 12 tab/原生边框与隐藏边框两种模式）。附带修复测试基建：conftest `_DummySignals` 缺 `get_log()` 使任何带 `processEvents` 的主窗口测试触发 PyQt6 槽内 `AttributeError` → `qFatal` abort（qt_assert 栈崩溃的根因），已补空串桩
 - **议题 #32 Jellyfin/Emby 演员刮取系列修复**（报告人 fork 真机验证方案吸收，四轮反馈逐层递进）：
   - **连接失败（Jellyfin 10.11+）**：后端重写起 auth middleware 要求完整 MediaBrowser 设备标识，仅携带 Token 的请求被拒。`emby_shared._build_jellyfin_headers` 补全 `Client/Device/DeviceId/Version` 字段（向下兼容 10.8+，17 个调用点统一受益）；连接测试 Jellyfin 分支去掉 URL 上的 `?api_key=` 明文密钥，统一走 Authorization 头
