@@ -337,7 +337,6 @@ def Init_Singal(self: "MyMAinWindow"):
     self.Ui.pushButton_check_net.clicked.connect(self.pushButton_check_net_clicked)
     self.Ui.pushButton_net_retry.clicked.connect(self.pushButton_net_retry_clicked)
     self.Ui.pushButton_net_copy.clicked.connect(self.pushButton_net_copy_clicked)
-    self.Ui.pushButton_net_settings.clicked.connect(self.pushButton_setting_clicked)
     self.Ui.pushButton_check_javdb_cookie.clicked.connect(self.pushButton_check_javdb_cookie_clicked)
     self.Ui.pushButton_check_fc2ppvdb_cookie.clicked.connect(self.pushButton_check_fc2ppvdb_cookie_clicked)
     self.Ui.pushButton_check_javbus_cookie.clicked.connect(self.pushButton_check_javbus_cookie_clicked)

@@ -1525,9 +1525,9 @@
             <property name="geometry">
               <rect>
                 <x>30</x>
-                <y>0</y>
+                <y>60</y>
                 <width>790</width>
-                <height>682</height>
+                <height>622</height>
               </rect>
             </property>
             <property name="styleSheet">
@@ -1586,22 +1586,6 @@
             </property>
             <property name="text">
               <string>重试失败项</string>
-            </property>
-          </widget>
-          <widget class="QPushButton" name="pushButton_net_settings">
-            <property name="geometry">
-              <rect>
-                <x>290</x>
-                <y>13</y>
-                <width>140</width>
-                <height>40</height>
-              </rect>
-            </property>
-            <property name="toolTip">
-              <string>跳到「设置 → 网络」页配置代理、Cookie、CF Bypass 等</string>
-            </property>
-            <property name="text">
-              <string>打开网络设置</string>
             </property>
           </widget>
         </widget>

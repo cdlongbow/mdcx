@@ -465,7 +465,7 @@ def format_summary(
     if failed or warning:
         lines.append(
             "建议优先查看失败/警告项；若基础连通性失败，先检查代理或系统网络；"
-            "代理/Cookie/CF Bypass 等配置可点上方「打开网络设置」按钮直达。"
+            "代理/Cookie/CF Bypass 等配置请在「设置 → 网络」页调整。"
         )
     lines.append("=" * 88)
     return lines

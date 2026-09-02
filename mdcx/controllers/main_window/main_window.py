@@ -190,6 +190,11 @@ class MyMAinWindow(QMainWindow):
 
         self.window_radius = 0  # 窗口四角弧度，为0时表示显示窗口标题栏
         self.window_border = 0  # 窗口描边，为0时表示显示窗口标题栏
+        # 议题 #67: 隐藏系统标题栏最大化按钮(连续多个议题的布局错乱均由最大化触发,
+        # 用户要求直接禁用)。拖拽边缘缩放与 _sync_page_layouts 同步逻辑保留。
+        # 注意须在 window_radius 等属性初始化后调用: setWindowFlags 触发 changeEvent,
+        # 处理器会访问这些属性, 过早调用会在事件处理器内抛 AttributeError。
+        self.setWindowFlags(self.windowFlags() & ~Qt.WindowType.WindowMaximizeButtonHint)
         self.dark_mode = False  # 暗黑模式标识
         self.check_mac = True  # 检测配置目录
         self._actor_db_running: set[str] = set()  # 正在运行的 actor_db 异步任务的 btn_attr 集合
@@ -587,13 +592,15 @@ class MyMAinWindow(QMainWindow):
             scroll_10.setGeometry(20, 0, max(tool_area.width() - 20 - 20, 400), max(tool_area.height() - 0, 300))
 
         # ============ page_net: textBrowser_net_main + 右侧按钮 ============
+        # 议题 #67: 文本区从按钮条带下方 (y=60) 开始, 按钮不再悬浮遮挡日志首行
         net_area = ui.page_net
         net_browser = ui.textBrowser_net_main
         if net_browser.parentWidget() == net_area:
-            net_browser.setGeometry(30, 0, max(net_area.width() - 30 - 2, 400), max(net_area.height() - 0, 300))
-        # 设计基准页面宽 822：check_net 右缘 800(右距20)、net_copy 右缘 670(右距152)
+            net_browser.setGeometry(30, 60, max(net_area.width() - 30 - 2, 400), max(net_area.height() - 60, 300))
+        # 设计基准页面宽 822：check_net 右缘 800(右距20)、net_copy 右缘 670(右距152)、net_retry 右缘 548(右距274)
         ui.pushButton_check_net.move(max(net_area.width() - 142, 20), 13)
         ui.pushButton_net_copy.move(max(net_area.width() - 262, 20), 13)
+        ui.pushButton_net_retry.move(max(net_area.width() - 384, 20), 13)
 
         # ============ page_about: textBrowser_about ============
         about_browser = ui.textBrowser_about
