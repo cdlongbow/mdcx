@@ -763,9 +763,10 @@ async def get_big_pic_by_amazon(
         tenhow_url, tenhow_size = await _probe_tenhow_image(cache_hit["asin"])
         if tenhow_url:
             LogBuffer.log().write(f"  命中 tenhow 图床高清封面 ({tenhow_size[0]}x{tenhow_size[1]})")
+            # 读零校验：ASIN 库交付时已全量验证（番号↔ASIN↔图），库命中即信任
             _set_amazon_match_state(
                 result,
-                is_hard=False,
+                is_hard=True,
                 reason="tenhow",
                 url=f"https://www.amazon.co.jp/dp/{cache_hit['asin']}",
             )
@@ -777,7 +778,7 @@ async def get_big_pic_by_amazon(
             LogBuffer.log().write("  tenhow 图床不可用，使用缓存的封面 URL")
             _set_amazon_match_state(
                 result,
-                is_hard=False,
+                is_hard=True,
                 reason="cache",
                 url=f"https://www.amazon.co.jp/dp/{cache_hit['asin']}",
             )

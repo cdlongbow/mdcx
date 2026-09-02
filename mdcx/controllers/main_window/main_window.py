@@ -2235,14 +2235,12 @@ class MyMAinWindow(QMainWindow):
             self.set_main_info(self.show_data)
 
     def update_amazon_strict_pic_verify_state(self, *_args):
+        """Amazon 高清搜索关闭时联动禁用其子选项（严格校验开关已随读零校验架构移除）。"""
         amazon_enabled = self.Ui.checkBox_amazon_big_pic.isChecked()
         self.Ui.checkBox_amazon_skip_poster_size_precheck.setEnabled(amazon_enabled)
         self.Ui.label_amazon_skip_poster_size_precheck.setEnabled(amazon_enabled)
-        self.Ui.checkBox_amazon_strict_pic_verify.setEnabled(amazon_enabled)
-        self.Ui.label_amazon_strict_pic_verify.setEnabled(amazon_enabled)
         if not amazon_enabled:
             self.Ui.checkBox_amazon_skip_poster_size_precheck.setChecked(False)
-            self.Ui.checkBox_amazon_strict_pic_verify.setChecked(False)
 
     def update_field_priority_try_all_images_state(self, *_args):
         self.Ui.checkBox_field_priority_try_all_images.setEnabled(self.Ui.radioButton_scrape_info.isChecked())

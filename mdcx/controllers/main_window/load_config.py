@@ -606,9 +606,7 @@ def load_config(self: "MyMAinWindow"):
             (self.Ui.checkBox_amazon_big_pic, HDPicSource.AMAZON),
         )
         self.Ui.checkBox_amazon_skip_poster_size_precheck.setChecked(manager.config.amazon_skip_poster_size_precheck)
-        self.Ui.checkBox_amazon_strict_pic_verify.setChecked(manager.config.amazon_strict_pic_verify)
         self.Ui.checkBox_dmm_fallback.setChecked(manager.config.dmm_fallback_enabled)
-        self.update_amazon_strict_pic_verify_state()
         # endregion
 
         # region Name_Rule

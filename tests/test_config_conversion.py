@@ -264,13 +264,15 @@ def test_removed_hd_pic_sources_are_filtered_from_old_config():
 
 
 def test_old_config_gets_default_amazon_strict_pic_verify():
-    data = {"config_version": 1}
+    """严格校验开关已移除（读零校验架构）：旧配置残留键被迁移清洗，字段不再存在。"""
+    data = {"config_version": 1, "amazon_strict_pic_verify": True}
 
     Config.update(data)
     config = Config.model_validate(data)
 
+    assert "amazon_strict_pic_verify" not in data
     assert config.amazon_skip_poster_size_precheck is False
-    assert config.amazon_strict_pic_verify is False
+    assert not hasattr(config, "amazon_strict_pic_verify")
     assert config.compress_downloaded_images is False
     assert config.field_priority_try_all_images is False
 
@@ -299,7 +301,7 @@ def test_default_config_template_is_valid_json_and_matches_current_model():
     assert config.softlink_path == "X:\\Media\\Softlink"
     assert config.failed_output_folder == "D:\\Media\\Input\\failed"
     assert config.amazon_skip_poster_size_precheck is False
-    assert config.amazon_strict_pic_verify is False
+    assert not hasattr(config, "amazon_strict_pic_verify")
     assert config.field_priority_try_all_images is False
     assert config.website_youma == Config().website_youma
     assert config.get_field_config(CrawlerResultFields.TITLE).site_prority == DEFAULT_FIELD_SITE_PRIORITY

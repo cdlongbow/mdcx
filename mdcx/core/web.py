@@ -744,8 +744,10 @@ async def _get_big_poster(
         amazon_url = hd_pic_url or (result.poster if result.poster_from == "Amazon" else "")
         amazon_is_hd = bool(hd_pic_url)
         if amazon_url:
+            # 读零校验：ASIN 库命中（match state 标 hard, reason=tenhow/cache）即信任跳过；
+            # 软校验仅作用于搜索新发现（未入库）的候选图
             amazon_match_is_hard = is_amazon_hard_match(result)
-            should_verify_amazon = manager.config.amazon_strict_pic_verify or not amazon_match_is_hard
+            should_verify_amazon = not amazon_match_is_hard
             amazon_verify_passed = not should_verify_amazon or await _verify_soft_amazon_poster(
                 amazon_url,
                 number=result.number,
