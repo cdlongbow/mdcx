@@ -179,8 +179,11 @@ def migrate_config_data(data: dict[str, Any]) -> list[str]:
     data.pop("google_used", None)
     data.pop("google_exclude", None)
     # 严格校验开关移除（读零校验架构下语义为空）：旧配置残留键静默清洗
+    # 注意: 本函数返回的所有消息均为「迁移警告」而非校验错误, 必须带 [迁移] 前缀——
+    # load_config 只把无前缀消息视为致命错误并触发 _failed.json 保护分支,
+    # 漏加前缀会让正常迁移的用户配置被误判为「读取配置文件出错」且无法切回(议题 #69)。
     if data.pop("amazon_strict_pic_verify", None) is not None:
-        warnings.append("已移除配置项「严格校验 Amazon 图片」：ASIN 库命中即信任，软校验仅用于新 ASIN 入库")
+        warnings.append("[迁移] 已移除配置项「严格校验 Amazon 图片」：ASIN 库命中即信任，软校验仅用于新 ASIN 入库")
     _migrate_builtin_naming_templates(data)
     _migrate_removed_hd_pic_sources(data)
 

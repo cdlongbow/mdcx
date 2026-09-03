@@ -56,11 +56,15 @@ def load_config(self: "MyMAinWindow"):
     }
 
     errors = manager.load()
-    v1_msgs = [e for e in errors if e.startswith("[V1]")]
-    if v1_msgs:
-        joined = "\n\t".join(v1_msgs)
+    # [V1]/[迁移] 前缀消息均为正常迁移的通知, 不属于校验失败:
+    # 只有无前缀的消息才是真正的校验错误, 才触发 _failed.json 保护分支。
+    # 反例(议题 #69): 迁移警告无前缀时被当成「读取配置文件出错」,
+    # 含旧配置键的用户配置被永久弹到 _failed.json, 表现为「不能切换配置」。
+    notice_msgs = [e for e in errors if e.startswith("[V1]") or e.startswith("[迁移]")]
+    if notice_msgs:
+        joined = "\n\t".join(notice_msgs)
         signal_qt.show_log_text(f"\n\t{joined}\n\n")
-        errors = [e for e in errors if not e.startswith("[V1]")]
+        errors = [e for e in errors if not (e.startswith("[V1]") or e.startswith("[迁移]"))]
     if errors:
         joined = "\n\t".join(errors)
         signal_qt.show_log_text(
