@@ -388,6 +388,9 @@ class Switch(Enum):
     HIDE_CLOSE = "hide_close"
     HIDE_MINI = "hide_mini"
     HIDE_NONE = "hide_none"
+    # 议题 #71: 左侧导航入口显隐开关（设置 → 高级 → 隐藏入口）
+    HIDE_ACTOR_NAV = "hide_actor_nav"
+    HIDE_NFO_NAV = "hide_nfo_nav"
     # deperated
     IPV4_ONLY = "ipv4_only"
 
@@ -413,6 +416,8 @@ class Switch(Enum):
             "Hide Close",
             "Hide Mini",
             "Hide None",
+            "Hide Actor Nav",
+            "Hide Nfo Nav",
         ]
 
 

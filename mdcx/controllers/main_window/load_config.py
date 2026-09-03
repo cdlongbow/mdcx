@@ -1045,6 +1045,15 @@ def load_config(self: "MyMAinWindow"):
         apply_site_priority_theme(self)
         self.show_hide_logs(Switch.SHOW_LOGS in switch_on)
 
+        # 议题 #71: 左侧导航「Emby演员管理」/「NFO库管理」入口显隐
+        # 仅隐藏入口, 功能本身保留; 保存后 load_config 会被再次调用, 即时生效
+        hide_actor_nav = Switch.HIDE_ACTOR_NAV in switch_on
+        hide_nfo_nav = Switch.HIDE_NFO_NAV in switch_on
+        self.Ui.checkBox_hide_actor_nav.setChecked(hide_actor_nav)
+        self.Ui.checkBox_hide_nfo_nav.setChecked(hide_nfo_nav)
+        self.Ui.pushButton_emby_manager_nav.setVisible(not hide_actor_nav)
+        self.Ui.pushButton_nfo_library.setVisible(not hide_nfo_nav)
+
         # 隐藏窗口设置
         if Switch.HIDE_CLOSE in switch_on:
             hide_mode = "close"

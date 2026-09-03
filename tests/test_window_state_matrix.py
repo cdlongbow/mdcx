@@ -141,6 +141,38 @@ def test_maximized_window_layout_sync(win, app):
     assert win.Ui.pushButton_start_cap2.geometry().right() <= page.width()
 
 
+def test_nav_buttons_hide_switch(win, app):
+    """议题 #71: 设置-高级「隐藏入口」开关控制导航按钮显隐（保存后 load_config 即时生效）。"""
+    from mdcx.config.enums import Switch
+    from mdcx.config.manager import manager
+
+    actor_btn = win.Ui.pushButton_emby_manager_nav
+    nfo_btn = win.Ui.pushButton_nfo_library
+    assert not actor_btn.isHidden()
+    assert not nfo_btn.isHidden()
+
+    old_switch_on = list(manager.config.switch_on)
+    try:
+        manager.config.switch_on = [*old_switch_on, Switch.HIDE_ACTOR_NAV, Switch.HIDE_NFO_NAV]
+        win.load_config()
+        app.processEvents()
+        assert actor_btn.isHidden()
+        assert nfo_btn.isHidden()
+        # 设置页复选框同步回写勾选状态
+        assert win.Ui.checkBox_hide_actor_nav.isChecked()
+        assert win.Ui.checkBox_hide_nfo_nav.isChecked()
+
+        # 取消开关后入口恢复显示
+        manager.config.switch_on = old_switch_on
+        win.load_config()
+        app.processEvents()
+        assert not actor_btn.isHidden()
+        assert not nfo_btn.isHidden()
+        assert not win.Ui.checkBox_hide_actor_nav.isChecked()
+    finally:
+        manager.config.switch_on = old_switch_on
+
+
 def test_setting_tabs_scrollareas_follow_window(win, app):
     """设置页 12 个 tab 的 scrollArea 跟随窗口（#66 回归，含休眠 tab）。"""
     win.resize(1400, 950)

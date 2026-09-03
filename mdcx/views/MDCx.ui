@@ -24112,33 +24112,107 @@
                               </widget>
                             </item>
                             <item>
-                              <widget class="QLabel" name="label_427">
-                                <property name="sizePolicy">
-                                  <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                                    <horstretch>0</horstretch>
-                                    <verstretch>0</verstretch>
-                                  </sizepolicy>
-                                </property>
-                                <property name="minimumSize">
-                                  <size>
-                                    <width>0</width>
-                                    <height>30</height>
-                                  </size>
-                                </property>
-                                <property name="styleSheet">
-                                  <string notr="true">color: rgb(8, 128, 128);</string>
-                                </property>
-                                <property name="text">
-                                  <string>保存后重启软件生效，可能会有点模糊</string>
-                                </property>
-                                <property name="alignment">
-                                  <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                                </property>
-                              </widget>
-                            </item>
-                          </layout>
-                        </item>
-                      </layout>
+                               <widget class="QLabel" name="label_427">
+                                 <property name="sizePolicy">
+                                   <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                                     <horstretch>0</horstretch>
+                                     <verstretch>0</verstretch>
+                                   </sizepolicy>
+                                 </property>
+                                 <property name="minimumSize">
+                                   <size>
+                                     <width>0</width>
+                                     <height>30</height>
+                                   </size>
+                                 </property>
+                                 <property name="styleSheet">
+                                   <string notr="true">color: rgb(8, 128, 128);</string>
+                                 </property>
+                                 <property name="text">
+                                   <string>保存后重启软件生效，可能会有点模糊</string>
+                                 </property>
+                                 <property name="alignment">
+                                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                                 </property>
+                               </widget>
+                             </item>
+                           </layout>
+                         </item>
+                         <item row="12" column="0">
+                           <widget class="QLabel" name="label_nav_hide">
+                             <property name="sizePolicy">
+                               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                                 <horstretch>0</horstretch>
+                                 <verstretch>0</verstretch>
+                               </sizepolicy>
+                             </property>
+                             <property name="text">
+                               <string>隐藏入口：</string>
+                             </property>
+                           </widget>
+                         </item>
+                         <item row="12" column="1">
+                           <layout class="QHBoxLayout" name="horizontalLayout_nav_hide">
+                             <item>
+                               <widget class="QCheckBox" name="checkBox_hide_actor_nav">
+                                 <property name="minimumSize">
+                                   <size>
+                                     <width>0</width>
+                                     <height>30</height>
+                                   </size>
+                                 </property>
+                                 <property name="toolTip">
+                                   <string>隐藏左侧导航的「Emby演员管理」入口，可随时在此重新开启</string>
+                                 </property>
+                                 <property name="text">
+                                   <string>隐藏 Emby 演员管理</string>
+                                 </property>
+                               </widget>
+                             </item>
+                             <item>
+                               <widget class="QCheckBox" name="checkBox_hide_nfo_nav">
+                                 <property name="minimumSize">
+                                   <size>
+                                     <width>0</width>
+                                     <height>30</height>
+                                   </size>
+                                 </property>
+                                 <property name="toolTip">
+                                   <string>隐藏左侧导航的「NFO库管理」入口，可随时在此重新开启</string>
+                                 </property>
+                                 <property name="text">
+                                   <string>隐藏 NFO 库管理</string>
+                                 </property>
+                               </widget>
+                             </item>
+                             <item>
+                               <widget class="QLabel" name="label_nav_hide_hint">
+                                 <property name="sizePolicy">
+                                   <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                                     <horstretch>0</horstretch>
+                                     <verstretch>0</verstretch>
+                                   </sizepolicy>
+                                 </property>
+                                 <property name="minimumSize">
+                                   <size>
+                                     <width>0</width>
+                                     <height>30</height>
+                                   </size>
+                                 </property>
+                                 <property name="styleSheet">
+                                   <string notr="true">color: rgb(8, 128, 128);</string>
+                                 </property>
+                                 <property name="text">
+                                   <string>仅隐藏入口，功能本身保留，保存后立即生效</string>
+                                 </property>
+                                 <property name="alignment">
+                                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                                 </property>
+                               </widget>
+                             </item>
+                           </layout>
+                         </item>
+                       </layout>
                     </widget>
                   </widget>
                 </widget>

@@ -706,6 +706,8 @@ def save_config(self: "MyMAinWindow"):
         (self.Ui.checkBox_hide_menu_icon, Switch.HIDE_MENU),
         (self.Ui.checkBox_dark_mode, Switch.DARK_MODE),
         (self.Ui.checkBox_copy_netdisk_nfo, Switch.COPY_NETDISK_NFO),
+        (self.Ui.checkBox_hide_actor_nav, Switch.HIDE_ACTOR_NAV),
+        (self.Ui.checkBox_hide_nfo_nav, Switch.HIDE_NFO_NAV),
     )
 
     # 手动添加 show_logs 设置
