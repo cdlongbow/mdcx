@@ -115,6 +115,32 @@ def test_log_lower_hidden_upper_fills_page(win, app):
     assert upper.height() == pytest.approx(page.height() * 0.61, abs=2)
 
 
+def test_maximize_button_present(win):
+    """议题 #69: 最大化按钮恢复（#67 曾按报告人要求用 WindowMaximizeButtonHint 屏蔽）。
+
+    #62/#66/#68 的最大化布局错乱根因已修复（见本文件其余用例），
+    禁用按钮只是绕过症状且与拖拽边缘缩放能力自相矛盾，应恢复按钮。
+    """
+    from PyQt6.QtCore import Qt
+
+    assert win.windowFlags() & Qt.WindowType.WindowMaximizeButtonHint
+
+
+def test_maximized_window_layout_sync(win, app):
+    """最大化路径整体回归：showMaximized 后所有休眠页与内部组件跟随新窗口尺寸。"""
+    win.showMaximized()
+    app.processEvents()
+    stacked = win.Ui.stackedWidget
+    for i in range(stacked.count()):
+        page = stacked.widget(i)
+        assert page.width() == stacked.width(), f"{page.objectName()} 最大化后未跟随宽度"
+        assert page.height() == stacked.height(), f"{page.objectName()} 最大化后未跟随高度"
+    page = _goto(win, app, "page_log")
+    upper = win.Ui.textBrowser_log_main
+    assert upper.height() == pytest.approx(page.height() * 0.61, abs=2)
+    assert win.Ui.pushButton_start_cap2.geometry().right() <= page.width()
+
+
 def test_setting_tabs_scrollareas_follow_window(win, app):
     """设置页 12 个 tab 的 scrollArea 跟随窗口（#66 回归，含休眠 tab）。"""
     win.resize(1400, 950)

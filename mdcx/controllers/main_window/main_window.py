@@ -190,11 +190,13 @@ class MyMAinWindow(QMainWindow):
 
         self.window_radius = 0  # 窗口四角弧度，为0时表示显示窗口标题栏
         self.window_border = 0  # 窗口描边，为0时表示显示窗口标题栏
-        # 议题 #67: 隐藏系统标题栏最大化按钮(连续多个议题的布局错乱均由最大化触发,
-        # 用户要求直接禁用)。拖拽边缘缩放与 _sync_page_layouts 同步逻辑保留。
-        # 注意须在 window_radius 等属性初始化后调用: setWindowFlags 触发 changeEvent,
-        # 处理器会访问这些属性, 过早调用会在事件处理器内抛 AttributeError。
-        self.setWindowFlags(self.windowFlags() & ~Qt.WindowType.WindowMaximizeButtonHint)
+        # 议题 #69: 恢复系统标题栏最大化按钮(议题 #67 曾按报告人要求禁用)。
+        # #62/#66/#68 的最大化布局错乱根因(缩放三连)已在当时修复:
+        # resizeEvent → _sync_page_layouts 会统一同步所有休眠页与内部组件,
+        # 最大化路径由 tests/test_window_state_matrix.py 的最大化用例回归锁定。
+        # 历史陷阱记录: setWindowFlags 触发 changeEvent, 若在 window_radius 等属性
+        # 初始化前调用会在事件处理器内抛 AttributeError(PyQt6 qFatal abort 的形态之一)。
+        # 当前无 setWindowFlags 调用, 此陷阱仅作为后续改动的注意事项保留。
         self.dark_mode = False  # 暗黑模式标识
         self.check_mac = True  # 检测配置目录
         self._actor_db_running: set[str] = set()  # 正在运行的 actor_db 异步任务的 btn_attr 集合
