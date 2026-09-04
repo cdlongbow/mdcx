@@ -24162,7 +24162,7 @@
                                    </size>
                                  </property>
                                  <property name="toolTip">
-                                   <string>隐藏左侧导航的「Emby演员管理」入口，可随时在此重新开启</string>
+                                   <string>隐藏左侧导航的「演员管理」入口，可随时在此重新开启</string>
                                  </property>
                                  <property name="text">
                                    <string>隐藏 Emby 演员管理</string>
@@ -24178,7 +24178,7 @@
                                    </size>
                                  </property>
                                  <property name="toolTip">
-                                   <string>隐藏左侧导航的「NFO库管理」入口，可随时在此重新开启</string>
+                                   <string>隐藏左侧导航的「信息管理」入口，可随时在此重新开启</string>
                                  </property>
                                  <property name="text">
                                    <string>隐藏 NFO 库管理</string>
@@ -25437,7 +25437,7 @@ p, li { white-space: pre-wrap; }
             </property>
             <layout class="QVBoxLayout" name="verticalLayout">
               <property name="spacing">
-                <number>0</number>
+                <number>8</number>
               </property>
               <property name="sizeConstraint">
                 <enum>QLayout::SetMinimumSize</enum>
@@ -25486,22 +25486,6 @@ p, li { white-space: pre-wrap; }
                 </widget>
               </item>
               <item>
-                <spacer name="verticalSpacer_2">
-                  <property name="orientation">
-                    <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeType">
-                    <enum>QSizePolicy::Fixed</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                    <size>
-                      <width>20</width>
-                      <height>8</height>
-                    </size>
-                  </property>
-                </spacer>
-              </item>
-              <item>
                 <widget class="QPushButton" name="pushButton_log">
                   <property name="minimumSize">
                     <size>
@@ -25519,22 +25503,6 @@ p, li { white-space: pre-wrap; }
                     <string> 日志</string>
                   </property>
                 </widget>
-              </item>
-              <item>
-                <spacer name="verticalSpacer">
-                  <property name="orientation">
-                    <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeType">
-                    <enum>QSizePolicy::Fixed</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                    <size>
-                      <width>20</width>
-                      <height>8</height>
-                    </size>
-                  </property>
-                </spacer>
               </item>
               <item>
                 <widget class="QPushButton" name="pushButton_tool">
@@ -25556,22 +25524,6 @@ p, li { white-space: pre-wrap; }
                 </widget>
               </item>
               <item>
-                <spacer name="verticalSpacer_emby_nav">
-                  <property name="orientation">
-                    <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeType">
-                    <enum>QSizePolicy::Fixed</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                    <size>
-                      <width>20</width>
-                      <height>8</height>
-                    </size>
-                  </property>
-                </spacer>
-              </item>
-              <item>
                 <widget class="QPushButton" name="pushButton_emby_manager_nav">
                   <property name="minimumSize">
                     <size>
@@ -25586,28 +25538,12 @@ p, li { white-space: pre-wrap; }
                     </size>
                   </property>
                   <property name="text">
-                    <string> Emby演员管理</string>
+                    <string> 演员管理</string>
                   </property>
                   <property name="toolTip">
                     <string>Emby 演员管理器（管理演员头像和简介）：连接 Emby 后获取演员列表、匹配头像简介、批量同步写入</string>
                   </property>
                 </widget>
-              </item>
-              <item>
-                <spacer name="verticalSpacer_6">
-                  <property name="orientation">
-                    <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeType">
-                    <enum>QSizePolicy::Fixed</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                    <size>
-                      <width>20</width>
-                      <height>8</height>
-                    </size>
-                  </property>
-                </spacer>
               </item>
               <item>
                 <widget class="QPushButton" name="pushButton_nfo_library">
@@ -25624,25 +25560,9 @@ p, li { white-space: pre-wrap; }
                     </size>
                   </property>
                   <property name="text">
-                    <string> NFO库管理</string>
+                    <string> 信息管理</string>
                   </property>
                 </widget>
-              </item>
-              <item>
-                <spacer name="verticalSpacer_nfo_lib">
-                  <property name="orientation">
-                    <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeType">
-                    <enum>QSizePolicy::Fixed</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                    <size>
-                      <width>20</width>
-                      <height>8</height>
-                    </size>
-                  </property>
-                </spacer>
               </item>
               <item>
                 <widget class="QPushButton" name="pushButton_setting">
@@ -25664,22 +25584,6 @@ p, li { white-space: pre-wrap; }
                 </widget>
               </item>
               <item>
-                <spacer name="verticalSpacer_4">
-                  <property name="orientation">
-                    <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeType">
-                    <enum>QSizePolicy::Fixed</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                    <size>
-                      <width>20</width>
-                      <height>8</height>
-                    </size>
-                  </property>
-                </spacer>
-              </item>
-              <item>
                 <widget class="QPushButton" name="pushButton_net">
                   <property name="minimumSize">
                     <size>
@@ -25697,22 +25601,6 @@ p, li { white-space: pre-wrap; }
                     <string> 检测网络</string>
                   </property>
                 </widget>
-              </item>
-              <item>
-                <spacer name="verticalSpacer_5">
-                  <property name="orientation">
-                    <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeType">
-                    <enum>QSizePolicy::Fixed</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                    <size>
-                      <width>20</width>
-                      <height>8</height>
-                    </size>
-                  </property>
-                </spacer>
               </item>
               <item>
                 <widget class="QPushButton" name="pushButton_about">

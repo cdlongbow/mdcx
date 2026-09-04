@@ -179,6 +179,26 @@ def test_groupboxes_fit_scroll_area():
     assert not problems, "UI 滚动区溢出问题:\n" + "\n".join(problems)
 
 
+def test_nav_layout_no_fixed_spacers():
+    """左侧导航 verticalLayout 必须用 spacing 分隔按钮，不得包含 spacer。
+
+    议题 #72 回归锁定：原实现用 7 个 8px 固定 QSpacerItem 分隔导航按钮，
+    而隐藏入口开关（议题 #71，setVisible）无法隐藏 QSpacerItem——隐藏
+    「演员管理」「信息管理」后 spacer 残留叠出 16px 空洞且间距不一致。
+    现改为 layout spacing=8，Qt 对隐藏按钮自动收紧间距。若有人再往该
+    布局添加 spacer，隐藏入口功能会再次出现间隙回归，在此拦截。
+    """
+    root = _parse_ui()
+    nav = next((lay for lay in root.iter("layout") if lay.get("name") == "verticalLayout"), None)
+    assert nav is not None, "未找到左侧导航 verticalLayout"
+
+    spacing = nav.find("property/number")
+    assert spacing is not None and spacing.text == "8", "导航 verticalLayout spacing 应为 8（隐藏入口后自动收紧的前提）"
+
+    spacers = nav.findall("item/spacer")
+    assert not spacers, f"导航布局内不应有 spacer（改用 layout spacing）: {[s.get('name') for s in spacers]}"
+
+
 def test_mdcx_py_in_sync_with_ui():
     """MDCx.py 必须与 MDCx.ui 保持同步（pyuic6 重编译 + ruff format 后文本一致）。
 

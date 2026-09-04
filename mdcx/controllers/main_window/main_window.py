@@ -925,6 +925,11 @@ class MyMAinWindow(QMainWindow):
         if feedback or download_link:
             self.main_logs_show.emit(f"{feedback}{download_link}")
         signal_qt.show_log_text("================================================================================")
+        # 议题 #73: 用户误以为启动自检在某项失败后"停止检测"。声明自检范围与
+        # 全量检测入口, 避免混淆（全量检测在「检测网络」页, 单站失败互相独立）。
+        signal_qt.show_log_text(
+            " 启动自检：数据库 / ThePornDB / JavDb / JavBus 连通性（如需检测全部站点，请到左侧「检测网络」页）"
+        )
         # QWidget 与 cookie 检查必须在主线程执行：通过信号调度回主线程
         self.version_check_done.emit(has_new_version)
         if manager.config.use_database:

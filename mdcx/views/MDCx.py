@@ -12019,7 +12019,7 @@ class Ui_MDCx(object):
         self.verticalLayout = QtWidgets.QVBoxLayout(self.layoutWidget6)
         self.verticalLayout.setSizeConstraint(QtWidgets.QLayout.SizeConstraint.SetMinimumSize)
         self.verticalLayout.setContentsMargins(18, 0, 18, 0)
-        self.verticalLayout.setSpacing(0)
+        self.verticalLayout.setSpacing(8)
         self.verticalLayout.setObjectName("verticalLayout")
         self.pushButton_main = QtWidgets.QPushButton(parent=self.layoutWidget6)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Minimum)
@@ -12033,64 +12033,36 @@ class Ui_MDCx(object):
         self.pushButton_main.setAutoFillBackground(False)
         self.pushButton_main.setObjectName("pushButton_main")
         self.verticalLayout.addWidget(self.pushButton_main)
-        spacerItem2 = QtWidgets.QSpacerItem(
-            20, 8, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Fixed
-        )
-        self.verticalLayout.addItem(spacerItem2)
         self.pushButton_log = QtWidgets.QPushButton(parent=self.layoutWidget6)
         self.pushButton_log.setMinimumSize(QtCore.QSize(0, 40))
         self.pushButton_log.setMaximumSize(QtCore.QSize(16777215, 40))
         self.pushButton_log.setObjectName("pushButton_log")
         self.verticalLayout.addWidget(self.pushButton_log)
-        spacerItem3 = QtWidgets.QSpacerItem(
-            20, 8, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Fixed
-        )
-        self.verticalLayout.addItem(spacerItem3)
         self.pushButton_tool = QtWidgets.QPushButton(parent=self.layoutWidget6)
         self.pushButton_tool.setMinimumSize(QtCore.QSize(0, 40))
         self.pushButton_tool.setMaximumSize(QtCore.QSize(16777215, 40))
         self.pushButton_tool.setObjectName("pushButton_tool")
         self.verticalLayout.addWidget(self.pushButton_tool)
-        spacerItem4 = QtWidgets.QSpacerItem(
-            20, 8, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Fixed
-        )
-        self.verticalLayout.addItem(spacerItem4)
         self.pushButton_emby_manager_nav = QtWidgets.QPushButton(parent=self.layoutWidget6)
         self.pushButton_emby_manager_nav.setMinimumSize(QtCore.QSize(0, 40))
         self.pushButton_emby_manager_nav.setMaximumSize(QtCore.QSize(16777215, 40))
         self.pushButton_emby_manager_nav.setObjectName("pushButton_emby_manager_nav")
         self.verticalLayout.addWidget(self.pushButton_emby_manager_nav)
-        spacerItem5 = QtWidgets.QSpacerItem(
-            20, 8, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Fixed
-        )
-        self.verticalLayout.addItem(spacerItem5)
         self.pushButton_nfo_library = QtWidgets.QPushButton(parent=self.layoutWidget6)
         self.pushButton_nfo_library.setMinimumSize(QtCore.QSize(0, 40))
         self.pushButton_nfo_library.setMaximumSize(QtCore.QSize(16777215, 40))
         self.pushButton_nfo_library.setObjectName("pushButton_nfo_library")
         self.verticalLayout.addWidget(self.pushButton_nfo_library)
-        spacerItem6 = QtWidgets.QSpacerItem(
-            20, 8, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Fixed
-        )
-        self.verticalLayout.addItem(spacerItem6)
         self.pushButton_setting = QtWidgets.QPushButton(parent=self.layoutWidget6)
         self.pushButton_setting.setMinimumSize(QtCore.QSize(0, 40))
         self.pushButton_setting.setMaximumSize(QtCore.QSize(16777215, 40))
         self.pushButton_setting.setObjectName("pushButton_setting")
         self.verticalLayout.addWidget(self.pushButton_setting)
-        spacerItem7 = QtWidgets.QSpacerItem(
-            20, 8, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Fixed
-        )
-        self.verticalLayout.addItem(spacerItem7)
         self.pushButton_net = QtWidgets.QPushButton(parent=self.layoutWidget6)
         self.pushButton_net.setMinimumSize(QtCore.QSize(0, 40))
         self.pushButton_net.setMaximumSize(QtCore.QSize(16777215, 40))
         self.pushButton_net.setObjectName("pushButton_net")
         self.verticalLayout.addWidget(self.pushButton_net)
-        spacerItem8 = QtWidgets.QSpacerItem(
-            20, 8, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Fixed
-        )
-        self.verticalLayout.addItem(spacerItem8)
         self.pushButton_about = QtWidgets.QPushButton(parent=self.layoutWidget6)
         self.pushButton_about.setMinimumSize(QtCore.QSize(0, 40))
         self.pushButton_about.setMaximumSize(QtCore.QSize(16777215, 40))
@@ -14115,10 +14087,10 @@ class Ui_MDCx(object):
         self.label_427.setText(_translate("MDCx", "保存后重启软件生效，可能会有点模糊"))
         self.label_nav_hide.setText(_translate("MDCx", "隐藏入口："))
         self.checkBox_hide_actor_nav.setToolTip(
-            _translate("MDCx", "隐藏左侧导航的「Emby演员管理」入口，可随时在此重新开启")
+            _translate("MDCx", "隐藏左侧导航的「演员管理」入口，可随时在此重新开启")
         )
         self.checkBox_hide_actor_nav.setText(_translate("MDCx", "隐藏 Emby 演员管理"))
-        self.checkBox_hide_nfo_nav.setToolTip(_translate("MDCx", "隐藏左侧导航的「NFO库管理」入口，可随时在此重新开启"))
+        self.checkBox_hide_nfo_nav.setToolTip(_translate("MDCx", "隐藏左侧导航的「信息管理」入口，可随时在此重新开启"))
         self.checkBox_hide_nfo_nav.setText(_translate("MDCx", "隐藏 NFO 库管理"))
         self.label_nav_hide_hint.setText(_translate("MDCx", "仅隐藏入口，功能本身保留，保存后立即生效"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab5), _translate("MDCx", " 高级 "))
@@ -14346,13 +14318,13 @@ class Ui_MDCx(object):
         self.pushButton_main.setText(_translate("MDCx", " 主界面"))
         self.pushButton_log.setText(_translate("MDCx", " 日志"))
         self.pushButton_tool.setText(_translate("MDCx", " 工具"))
-        self.pushButton_emby_manager_nav.setText(_translate("MDCx", " Emby演员管理"))
+        self.pushButton_emby_manager_nav.setText(_translate("MDCx", " 演员管理"))
         self.pushButton_emby_manager_nav.setToolTip(
             _translate(
                 "MDCx", "Emby 演员管理器（管理演员头像和简介）：连接 Emby 后获取演员列表、匹配头像简介、批量同步写入"
             )
         )
-        self.pushButton_nfo_library.setText(_translate("MDCx", " NFO库管理"))
+        self.pushButton_nfo_library.setText(_translate("MDCx", " 信息管理"))
         self.pushButton_setting.setText(_translate("MDCx", " 设置"))
         self.pushButton_net.setText(_translate("MDCx", " 检测网络"))
         self.pushButton_about.setText(_translate("MDCx", " 使用说明"))
