@@ -630,7 +630,7 @@ async def move_file_to_failed_folder(failed_folder: Path, file_path: Path, folde
         await move_file_async(file_path, file_new_path)
         LogBuffer.log().write("\n 🔴 Move file to the failed folder!")
         LogBuffer.log().write(f"\n 🙊 [Movie] {file_new_path}")
-        error_info = LogBuffer.error().get()
+        error_info = LogBuffer.error().get(only_self=True)
         LogBuffer.error().clear()
         LogBuffer.error().write(error_info.replace(str(file_path), str(file_new_path)))
 

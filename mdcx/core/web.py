@@ -744,7 +744,10 @@ async def trailer_download(
 
     # 带文件名时，选择下载不保留，或者选择保留但没有预告片，检查是否有其他分集已下载或本地预告片
     # 选择下载不保留，当没有下载成功时，不会删除不保留的文件
-    done_trailer_path = Flags.file_done_dic.get(result.number, cast(FileDoneDict, {})).get("trailer")
+    # done 记录读取纳入 _file_done_lock：与写入端（download 成功后的 update）构成
+    # 原子 read-then-write，同番号分集并发时不互相漏判（全库审查 B7）
+    async with Flags._file_done_lock:
+        done_trailer_path = Flags.file_done_dic.get(result.number, cast(FileDoneDict, {})).get("trailer")
     if not trailer_name and done_trailer_path and await aiofiles.os.path.exists(done_trailer_path):
         if await aiofiles.os.path.exists(trailer_file_path):
             await delete_file_async(trailer_file_path)
@@ -784,8 +787,9 @@ async def trailer_download(
                 if trailer_file_path_temp != trailer_file_path:
                     await move_file_async(trailer_file_path_temp, trailer_file_path, overwrite=True)
                     await delete_file_async(trailer_file_path_temp)
-                done_trailer_path = Flags.file_done_dic.get(result.number, cast(FileDoneDict, {})).get("trailer")
+                # 锁内重读（写入判定与读取原子化，防同番号分集并发覆盖记录）
                 async with Flags._file_done_lock:
+                    done_trailer_path = Flags.file_done_dic.get(result.number, cast(FileDoneDict, {})).get("trailer")
                     if not done_trailer_path:
                         Flags.file_done_dic[result.number].update({"trailer": trailer_file_path})
                         if trailer_name == 0:
@@ -805,8 +809,9 @@ async def trailer_download(
         LogBuffer.log().write(f"\n 🟠 Trailer download failed! ({trailer_url}) ")
 
     if await aiofiles.os.path.exists(trailer_file_path):
-        done_trailer_path = Flags.file_done_dic.get(result.number, cast(FileDoneDict, {})).get("trailer")
+        # 锁内读取：与写入端原子化（同上）
         async with Flags._file_done_lock:
+            done_trailer_path = Flags.file_done_dic.get(result.number, cast(FileDoneDict, {})).get("trailer")
             if not done_trailer_path:
                 Flags.file_done_dic[result.number].update({"trailer": trailer_file_path})
                 if trailer_name == 0:
@@ -950,7 +955,9 @@ async def thumb_download(
 
     # 尝试复制其他分集。看分集有没有下载，如果下载完成则可以复制，否则就自行下载
     if cd_part:
-        done_thumb_path = Flags.file_done_dic.get(result.number, cast(FileDoneDict, {})).get("thumb")
+        # 锁内读取 done 记录（与写入端原子化，全库审查 B7）
+        async with Flags._file_done_lock:
+            done_thumb_path = Flags.file_done_dic.get(result.number, cast(FileDoneDict, {})).get("thumb")
         if (
             done_thumb_path
             and await aiofiles.os.path.exists(done_thumb_path)
@@ -1295,7 +1302,9 @@ async def poster_download(
 
     # 尝试复制其他分集。看分集有没有下载，如果下载完成则可以复制，否则就自行下载
     if cd_part:
-        done_poster_path = Flags.file_done_dic.get(result.number, cast(FileDoneDict, {})).get("poster")
+        # 锁内读取 done 记录（与写入端原子化，全库审查 B7）
+        async with Flags._file_done_lock:
+            done_poster_path = Flags.file_done_dic.get(result.number, cast(FileDoneDict, {})).get("poster")
         if (
             done_poster_path
             and await aiofiles.os.path.exists(done_poster_path)
@@ -1499,7 +1508,9 @@ async def fanart_download(
 
     # 尝试复制其他分集。看分集有没有下载，如果下载完成则可以复制，否则就自行下载
     if cd_part:
-        done_fanart_path = Flags.file_done_dic.get(number, cast(FileDoneDict, {})).get("fanart")
+        # 锁内读取 done 记录（与写入端原子化，全库审查 B7）
+        async with Flags._file_done_lock:
+            done_fanart_path = Flags.file_done_dic.get(number, cast(FileDoneDict, {})).get("fanart")
         if (
             done_fanart_path
             and await aiofiles.os.path.exists(done_fanart_path)

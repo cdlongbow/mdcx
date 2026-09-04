@@ -50,7 +50,12 @@ def normalize_uncensored_digit_number(number: str) -> str:
         return f"{match['head']}{match['sep']}{match['tail']}"
 
     if match := UNCENSORED_DIGIT_NUMBER_PREFIX_PATTERN.fullmatch(raw_number):
-        return f"{match['head']}{match['sep']}{match['tail']}"
+        # 保留站点前缀：route_uncensored_official 按前缀精确路由；
+        # 剥掉前缀会让 1pondo(尾号>=100) 误路由 pacopacomama、
+        # pacopacomama(尾号 001-099) 误路由 1pondo（尾号长度猜测不可靠）。
+        # 用 "-" 连接前缀与数字段，与 official_uncensored 的
+        # DIGIT_NUMBER_WITH_PREFIX_RE（[-_ ]* 分隔）兼容。
+        return f"{match['prefix']}-{match['head']}{match['sep']}{match['tail']}"
 
     return ""
 

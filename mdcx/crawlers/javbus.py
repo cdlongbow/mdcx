@@ -385,6 +385,27 @@ async def _upgrade_dmm_cover(ctx, number: str, cover_url: str, poster_url: str) 
     return await upgrade_dmm_cover(ctx, number, cover_url, poster_url)
 
 
+def is_match(each_url: str, number: str) -> bool:
+    """搜索结果 href 与番号匹配判定。
+
+    两侧归一对齐：站侧 href 形如 /fc2-ppv-123456（剥横杠/PPV 后 /FC2123456），
+    FC2 番号侧同样剥 "PPV"（FC2-123456 → /FC2123456）——否则恒不匹配，
+    搜索兜底对 FC2 番号必然报"未匹配到番号"（全库审查 A5）。
+    """
+
+    def _normalize(value: str, strip_ppv: bool) -> str:
+        upper = value.upper().replace("-", "")
+        if strip_ppv and upper.lstrip("/").startswith("FC2"):
+            upper = upper.replace("PPV", "", 1)
+        return upper
+
+    each_upper = _normalize(each_url, strip_ppv=True)
+    normalized = _normalize(number, strip_ppv=True)
+    number_1 = "/" + normalized
+    number_2 = number_1 + "_"
+    return each_upper.endswith(number_1) or number_2 in each_upper
+
+
 async def get_real_url(client, ctx: Context, number, url_type, javbus_url, headers):  # 获取详情页链接
     # 搜索走镜像轮换: 优先当前 javbus_url, 失败/未命中时依次尝试其他镜像
     if url_type == "us":  # 欧美
@@ -412,10 +433,7 @@ async def get_real_url(client, ctx: Context, number, url_type, javbus_url, heade
         html = etree.fromstring(html_search, etree.HTMLParser())
         url_list = html.xpath("//a[@class='movie-box']/@href")
         for each in url_list:
-            each_url = each.upper().replace("-", "")
-            number_1 = "/" + number.upper().replace(".", "").replace("-", "")
-            number_2 = number_1 + "_"
-            if each_url.endswith(number_1) or number_2 in each_url:
+            if is_match(each, number):
                 ctx.debug(f"番号地址: {each}")
                 # 搜索结果 href 可能是根相对路径（如 /SSIS-538），直接请求会因 host 为空而失败，需补全为绝对 URL
                 if each.startswith("/"):

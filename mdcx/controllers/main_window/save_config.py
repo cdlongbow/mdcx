@@ -45,6 +45,18 @@ if TYPE_CHECKING:
     from .main_window import MyMAinWindow
 
 
+def _int_or(text: str, default: int) -> int:
+    """UI 文本转 int，非法/空输入回退默认值。
+
+    裸 int() 会在输入为空/非数字时抛 ValueError 中断保存流程——异常点之前
+    已赋值的几十个字段全部残留内存，配置呈"半写"状态（全库审查 B8）。
+    """
+    try:
+        return int(text)
+    except (ValueError, TypeError):
+        return default
+
+
 def save_config(self: "MyMAinWindow"):
     """
     从 UI 获取配置并保存到 config 对象中, 并更新配置文件
@@ -139,7 +151,10 @@ def save_config(self: "MyMAinWindow"):
         manager.config.website_single = Website.AIRAV_CC
 
     def get_sites(text: str) -> list[Website]:
-        return list(dict.fromkeys(Website(site) for site in str_to_list(text, ",") if site != Website.AIRAV.value))
+        # 非法站点名静默跳过（对齐迁移层 parse_sites 策略）——裸 Website() 会
+        # ValueError 中断保存流程造成配置半写状态（全库审查 B8）
+        valid_sites = (site for site in str_to_list(text, ",") if site in Website)
+        return list(dict.fromkeys(Website(site) for site in valid_sites if site != Website.AIRAV.value))
 
     manager.config.website_youma = get_sites(self.Ui.lineEdit_website_youma.text())
     manager.config.website_wuma = get_sites(self.Ui.lineEdit_website_wuma.text())
@@ -456,9 +471,9 @@ def save_config(self: "MyMAinWindow"):
     release_rule = self.Ui.lineEdit_release_rule.text()  # 发行日期
     manager.config.release_rule = re.sub(r'[\\/:*?"<>|\r\n]+', "-", release_rule).strip()
 
-    manager.config.folder_name_max = int(self.Ui.lineEdit_folder_name_max.text())  # 长度命名规则-目录
-    manager.config.file_name_max = int(self.Ui.lineEdit_file_name_max.text())  # 长度命名规则-文件名
-    manager.config.actor_name_max = int(self.Ui.lineEdit_actor_name_max.text())  # 长度命名规则-演员数量
+    manager.config.folder_name_max = _int_or(self.Ui.lineEdit_folder_name_max.text(), 60)  # 长度命名规则-目录
+    manager.config.file_name_max = _int_or(self.Ui.lineEdit_file_name_max.text(), 60)  # 长度命名规则-文件名
+    manager.config.actor_name_max = _int_or(self.Ui.lineEdit_actor_name_max.text(), 3)  # 长度命名规则-演员数量
 
     manager.config.umr_style = self.Ui.lineEdit_umr_style.text()  # 无码破解版本命名
     manager.config.leak_style = self.Ui.lineEdit_leak_style.text()  # 无码流出版本命名
@@ -673,17 +688,17 @@ def save_config(self: "MyMAinWindow"):
     # endregion
 
     # region other
-    manager.config.rest_count = int(self.Ui.lineEdit_rest_count.text())  # 间歇刮削文件数量
+    manager.config.rest_count = _int_or(self.Ui.lineEdit_rest_count.text(), 20)  # 间歇刮削文件数量
 
     rest_time_text = self.Ui.lineEdit_rest_time.text()  # 格式: HH:MM:SS
-    if re.match(r"^\d{2}:\d{2}:\d{2}$", rest_time_text):
+    if re.match(r"^\d{2,3}:\d{2}:\d{2}$", rest_time_text):
         h, m, s = map(int, rest_time_text.split(":"))
         manager.config.rest_time = timedelta(hours=h, minutes=m, seconds=s)
     else:
         manager.config.rest_time = timedelta(minutes=1, seconds=2)  # 默认值
 
     timed_interval_text = self.Ui.lineEdit_timed_interval.text()  # 格式: HH:MM:SS
-    if re.match(r"^\d{2}:\d{2}:\d{2}$", timed_interval_text):
+    if re.match(r"^\d{2,3}:\d{2}:\d{2}$", timed_interval_text):
         h, m, s = map(int, timed_interval_text.split(":"))
         manager.config.timed_interval = timedelta(hours=h, minutes=m, seconds=s)
     else:

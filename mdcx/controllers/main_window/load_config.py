@@ -961,10 +961,13 @@ def load_config(self: "MyMAinWindow"):
         self.Ui.lineEdit_rest_count.setText(str(rest_count))
 
         # 间歇刮削间隔时间 - 转换 timedelta 为字符串格式
+        # days*24 累加：timedelta.seconds 只含日内部分，≥24h 间隔
+        # 直接取 seconds 会显示 00:00:00，再保存即静默归零（全库审查 B9）
         rest_time = manager.config.rest_time
-        rest_hours = rest_time.seconds // 3600
-        rest_minutes = (rest_time.seconds % 3600) // 60
-        rest_seconds = rest_time.seconds % 60
+        rest_total_seconds = int(rest_time.total_seconds())
+        rest_hours = rest_total_seconds // 3600
+        rest_minutes = (rest_total_seconds % 3600) // 60
+        rest_seconds = rest_total_seconds % 60
         rest_time_str = f"{rest_hours:02d}:{rest_minutes:02d}:{rest_seconds:02d}"
         self.Ui.lineEdit_rest_time.setText(rest_time_str)
         # 换算（秒）
@@ -972,9 +975,10 @@ def load_config(self: "MyMAinWindow"):
 
         # 循环任务间隔时间 - 转换 timedelta 为字符串格式
         timed_interval = manager.config.timed_interval
-        timed_hours = timed_interval.seconds // 3600
-        timed_minutes = (timed_interval.seconds % 3600) // 60
-        timed_seconds = timed_interval.seconds % 60
+        timed_total_seconds = int(timed_interval.total_seconds())
+        timed_hours = timed_total_seconds // 3600
+        timed_minutes = (timed_total_seconds % 3600) // 60
+        timed_seconds = timed_total_seconds % 60
         timed_interval_str = f"{timed_hours:02d}:{timed_minutes:02d}:{timed_seconds:02d}"
         self.Ui.lineEdit_timed_interval.setText(timed_interval_str)
         # 换算（毫秒）

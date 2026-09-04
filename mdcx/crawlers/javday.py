@@ -49,9 +49,13 @@ def get_studio(series, tag, lable_list):
 
 
 def get_cover(html, javday_url):
-    result = html.xpath("/html/head/meta[8]")
+    # 语义定位替代绝对位置 meta[8]：页面 head 增删任一 meta（统计脚本/SEO）
+    # 都会让 meta[8] 指向无关元素，静默产出错误封面 URL（全库审查 C3）
+    result = html.xpath("//meta[@property='og:image']/@content")
+    if not result:
+        result = html.xpath("//meta[contains(@name, 'image')]/@content")
     if result:
-        result = result[0].get("content")
+        result = result[0]
         if "http" not in result:
             result = javday_url + result
     return result if result else ""

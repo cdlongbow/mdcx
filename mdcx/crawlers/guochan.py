@@ -1014,7 +1014,9 @@ def get_extra_info(
         tag_list = []
         all_tag = get_lable_list()
         for each in all_tag:
-            if re.search(f"{each}", all_info, re.IGNORECASE):
+            # 子串语义用 in；标签名直接嵌正则在含元字符 ((+[] 等) 时抛 re.error
+            # 使整链崩溃（全库审查 C6，当前列表无元字符属潜伏缺陷）
+            if each in all_info:
                 tag_list.append(each)
         new_tag_list = []
         [new_tag_list.append(i) for i in tag_list if i and i not in new_tag_list]
@@ -1025,7 +1027,8 @@ def get_extra_info(
         actor_list = []
         all_actor = get_actor_list()
         for each in all_actor:
-            if re.search(rf"\b{each}\b", all_info, re.IGNORECASE):
+            # re.escape：演员名含正则元字符时防 re.error/误匹配
+            if re.search(rf"\b{re.escape(each)}\b", all_info, re.IGNORECASE):
                 actor_list.append(each)
         new_actor_list = []
         [new_actor_list.append(i) for i in actor_list if i and i not in new_actor_list]

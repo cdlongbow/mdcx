@@ -964,7 +964,8 @@ async def test_call_bypass_mirror_rejects_untrusted_redirect_target():
     assert "不在白名单" in error
 
 
-def test_is_cf_challenge_response_does_not_misjudge_passive_script_injection():
+@pytest.mark.asyncio
+async def test_is_cf_challenge_response_does_not_misjudge_passive_script_injection():
     client = AsyncWebClient(timeout=1)
     response = _fake_response(
         status_code=200,
@@ -975,10 +976,11 @@ def test_is_cf_challenge_response_does_not_misjudge_passive_script_injection():
         ),
     )
 
-    assert client._is_cf_challenge_response(response) is False
+    assert await client._is_cf_challenge_response(response) is False
 
 
-def test_is_cf_challenge_response_detects_orchestrate_challenge_page():
+@pytest.mark.asyncio
+async def test_is_cf_challenge_response_detects_orchestrate_challenge_page():
     client = AsyncWebClient(timeout=1)
     response = _fake_response(
         status_code=403,
@@ -990,4 +992,30 @@ def test_is_cf_challenge_response_detects_orchestrate_challenge_page():
         ),
     )
 
-    assert client._is_cf_challenge_response(response) is True
+    assert await client._is_cf_challenge_response(response) is True
+
+
+@pytest.mark.asyncio
+async def test_is_cf_challenge_response_reads_stream_response_body():
+    """流式响应 content 初始为 b""，判定必须经 acontent() 读体（全库审查 B1）。
+
+    修复前流式 403 挑战页 body_text 恒空 → has_marker=False → 挑战页漏检，
+    分块下载遇 CF 挑战只当普通错误重试耗尽。
+    """
+
+    class _StreamResponse:
+        """模拟 curl_cffi 流式响应：content 为空，acontent 拉全量。"""
+
+        status_code = 403
+        headers = {"server": "cloudflare", "cf-ray": "abc123", "content-type": "text/html"}
+        content = b""
+        body = (
+            b"<html><title>Just a moment...</title>"
+            b"<script src='/cdn-cgi/challenge-platform/h/b/orchestrate/jsd/v1/x.js'></script></html>"
+        )
+
+        async def acontent(self):
+            return self.body
+
+    client = AsyncWebClient(timeout=1)
+    assert await client._is_cf_challenge_response(_StreamResponse()) is True

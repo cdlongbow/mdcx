@@ -1045,7 +1045,8 @@ class Config(BaseModel):
     def convert_time_str_to_timedelta(cls, v):
         if isinstance(v, timedelta):
             return v
-        if isinstance(v, str) and re.match(r"^\d{2}:\d{2}:\d{2}$", v):
+        # 3 位小时段允许 ≥24h 间隔（显示侧已用 days*24 往返，见 load_config）
+        if isinstance(v, str) and re.match(r"^\d{2,3}:\d{2}:\d{2}$", v):
             h, m, s = map(int, v.split(":"))
             return timedelta(hours=h, minutes=m, seconds=s)
         return v

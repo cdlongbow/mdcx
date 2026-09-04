@@ -7,7 +7,7 @@
 - prefer_nfo: 本地 NFO 优先，新数据仅填空
 - merge_arrays: 数组字段合并去重，标量字段用新数据
 - preserve_existing: 本地有值就不动，只写本地没有的字段
-- fill_missing_only: 只填完全空的字段
+- fill_missing_only: 只填完全空的字段（新数据为主，空字段从本地 NFO 补）
 """
 
 import copy
@@ -89,7 +89,12 @@ def _merge_scalar(
     match strategy:
         case NfoMergeStrategy.PREFER_SCRAPER | NfoMergeStrategy.MERGE_ARRAYS:
             return scraped_val, "scraper"
-        case NfoMergeStrategy.PREFER_NFO | NfoMergeStrategy.PRESERVE_EXISTING | NfoMergeStrategy.FILL_MISSING_ONLY:
+        case NfoMergeStrategy.FILL_MISSING_ONLY:
+            # "仅填空字段"（UI 名称/models 描述/docstring 三处一致）：新数据为主，
+            # 只在刮削结果为空时从本地 NFO 补——与 preserve_existing（本地为主）语义相反。
+            # 原实现与 preserve_existing 同分支，导致两策略在 UI 上完全重复且新数据被丢弃。
+            return scraped_val, "scraper"
+        case NfoMergeStrategy.PREFER_NFO | NfoMergeStrategy.PRESERVE_EXISTING:
             return nfo_val, "nfo"
 
 

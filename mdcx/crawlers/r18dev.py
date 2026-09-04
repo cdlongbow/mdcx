@@ -240,9 +240,14 @@ class R18devCrawler(BaseCrawler):
                 ctx.debug(f"R18dev 精确匹配: {combined_url}")
                 return [combined_url]
         if content_id:
-            combined_url = f"{_API_BASE}/videos/vod/movies/detail/-/combined={content_id}/json"
-            ctx.debug(f"R18dev content_id 匹配: {combined_url}")
-            return [combined_url]
+            # content_id 兜底命中也须校验 dvd_id：变体 cid 可能恰好是另一影片的
+            # 真实 cid，无校验会张冠李戴返回错误影片元数据（全库审查 C5，
+            # dmm_api 同类逻辑有 _match_score 打分，此处对齐防护）
+            returned_dvd = _normalize_id(data.get("dvd_id", "") or "")
+            if returned_dvd and returned_dvd == _normalize_id(ctx.input.number):
+                combined_url = f"{_API_BASE}/videos/vod/movies/detail/-/combined={content_id}/json"
+                ctx.debug(f"R18dev content_id 匹配: {combined_url}")
+                return [combined_url]
         return None
 
     @override
@@ -405,6 +410,10 @@ class R18devCrawler(BaseCrawler):
                 continue
             content_id = data.get("content_id", "")
             if content_id and (data.get("dvd_id") or data.get("title_ja")):
+                # 变体命中须 dvd_id 等值校验（防跨影片 cid 碰撞，全库审查 C5）
+                returned_dvd = _normalize_id(data.get("dvd_id", "") or "")
+                if not returned_dvd or returned_dvd != _normalize_id(number):
+                    continue
                 combined_url = f"{_API_BASE}/videos/vod/movies/detail/-/combined={content_id}/json"
                 ctx.debug(f"R18dev content_id 变体命中: {combined_url}")
                 return [combined_url]

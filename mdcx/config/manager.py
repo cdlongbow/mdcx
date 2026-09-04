@@ -134,14 +134,25 @@ class ConfigManager:
             self.path = v2path
             return [f"[V1] {v1path} 是旧版配置文件, 对应的新版配置文件已存在, 改为加载新版配置: {v2path}"] + self.load()
 
-        d, errors = load_v1(self.path)
+        try:
+            d, v1_errors = load_v1(self.path)
+            config_v1 = ConfigV1(**d)
+            config_v1.init()
+        except Exception as e:
+            # 迁移链任何异常都不能打穿 ConfigManager()（模块级实例化会连锁崩溃整个应用）；
+            # 也不写 v2path MARK_FILE（此时 v2 文件并不存在，指向它会让下次启动 reset 丢配置），
+            # 保留 v1 路径回退默认配置，让用户仍可从旧文件手动恢复。
+            logger.exception("v1 配置迁移失败: %s", v1path)
+            self._replace_config(Config())
+            return [
+                f"[V1] 旧版配置文件 {v1path} 自动转换失败（{e!s}）。",
+                "[V1] 已为您加载默认配置；旧版配置文件未被删除，可提交 issue 附带该文件排查。",
+            ]
         self.path = v2path
         errors = [
             f"[V1] {v1path} 是旧版配置文件, 将自动转换为新版配置并保存到 {v2path}",
             "[V1] 旧版配置文件不会被删除. 当保存配置时, 仅会写入新版配置文件, 后续会自动使用新版配置文件",
-        ] + errors
-        config_v1 = ConfigV1(**d)
-        config_v1.init()
+        ] + v1_errors
         self._replace_config(config_v1.to_pydantic_model())
         self.save()
         return errors

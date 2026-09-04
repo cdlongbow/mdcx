@@ -1073,9 +1073,14 @@ async def get_actorname(number: str) -> tuple[bool, str]:
     url = f"https://av-wiki.net/?s={number}"
     async with manager.acquire_computed() as computed:
         res, error = await computed.async_client.get_text(url)
-    if res is None:
-        return False, f"Error: {error}"
+    # 空串会穿透 is None 判定，etree.fromstring("") 返回 None 后 .xpath
+    # 抛 AttributeError 打穿 translate_actor（无 try）使整片刮削失败——
+    # 演员真名查询是非致命辅助步骤，失败只应降级记日志（全库审查 B2）
+    if not res:
+        return False, f"Error: 未获取到页面内容 {error or '(空响应)'}"
     html_detail = etree.fromstring(res, etree.HTMLParser(encoding="utf-8"))
+    if html_detail is None:
+        return False, "Error: 页面内容解析失败"
     actor_box = html_detail.xpath('//ul[@class="post-meta clearfix"]')
     for each in actor_box:
         actor_name = each.xpath('li[@class="actress-name"]/a/text()')

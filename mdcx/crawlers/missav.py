@@ -473,6 +473,16 @@ class MissavCrawler(BaseCrawler):
         if not normalized:
             return ""
 
+        # 无码官网前缀形态（1pondo-072625_101 等）——本函数的语义是产出
+        # missav 站内番号/无码数字形态，站点前缀不参与，剥掉交给
+        # UNCENSORED_DIGIT_PATTERN 判定，防止 _parse_code_parts 把
+        # "1pondo-31926" 误切成 prefix="pondo"（前缀首字母被当番号字母段）
+        if match := re.match(
+            r"^(1pondo|1pon|10musume|caribbeancom|caribbeancompr|carib|pacopacomama|pacoma|paco)[-_ ]*(\d{6}[-_]\d{2,4})$",
+            normalized,
+        ):
+            normalized = match.group(2)
+
         parsed = cls._parse_code_parts(normalized)
         if parsed:
             prefix, digits = parsed

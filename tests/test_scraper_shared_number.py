@@ -73,3 +73,28 @@ async def test_same_number_failed_status_returns_without_wait(monkeypatch: pytes
 
     result = await asyncio.wait_for(scraper._process_one_file(file_info, FileMode.Default), timeout=1)
     assert result == (None, None)
+
+
+@pytest.mark.asyncio
+async def test_empty_number_never_registers_shared_status(monkeypatch: pytest.MonkeyPatch):
+    """空番号不注册共享缓存（全库审查 A4）。
+
+    指定 URL 重刮（again_dic 番号留空）且详情页无番号标记时 number 为空串；
+    原实现 "" 被注册为共享键，同批第二个此类文件直接复用第一个影片的数据，
+    NFO/重命名张冠李戴。
+    """
+    scraper_module = _setup_scraper_test_env(monkeypatch)
+    scraper = scraper_module.Scraper(crawler_provider=object())
+    file_info = _build_file_info("")
+
+    task = asyncio.create_task(scraper._process_one_file(file_info, FileMode.Default))
+    await asyncio.sleep(0.01)
+
+    # 空番号不得注册任何共享状态
+    assert "" not in Flags.json_get_status
+    assert "" not in Flags.json_get_set
+    assert "" not in Flags.json_get_events
+
+    task.cancel()
+    with pytest.raises(asyncio.CancelledError):
+        await asyncio.wait_for(task, timeout=1)

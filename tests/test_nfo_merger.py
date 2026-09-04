@@ -70,9 +70,15 @@ class TestMergeScalar:
         assert src == "nfo"
 
     def test_both_have_value_fill_missing_only(self):
+        """fill_missing_only："仅填空字段"——新数据为主，两源都有值时取新数据。
+
+        原实现误与 preserve_existing 同分支（取本地旧值），与 UI 名称
+        "仅填空字段"/models 描述/docstring 语义矛盾，导致两个选项行为完全重复
+        （全库审查 A3，测试原断言锁定的是 bug 行为，随修复反转）。
+        """
         val, src = _merge_scalar("outline", "新简介", "本地简介", NfoMergeStrategy.FILL_MISSING_ONLY)
-        assert val == "本地简介"
-        assert src == "nfo"
+        assert val == "新简介"
+        assert src == "scraper"
 
     def test_both_have_value_merge_arrays(self):
         val, src = _merge_scalar("outline", "新简介", "本地简介", NfoMergeStrategy.MERGE_ARRAYS)
@@ -159,29 +165,33 @@ class TestMergeNfoFields:
         assert result.runtime == "120"
 
     def test_fill_missing_only_preserves_all_existing(self):
-        """fill_missing_only 策略：本地有值就保留，本地空才用新数据。"""
-        scraped = _make_result(title="新标题", outline="新简介", runtime="120", studio="新片商")
-        nfo = _make_result(title="本地标题", outline="", runtime="", studio="")
+        """fill_missing_only 策略：新数据为主，刮削结果为空才从本地补。"""
+        scraped = _make_result(title="新标题", outline="", runtime="120", studio="新片商")
+        nfo = _make_result(title="本地标题", outline="本地简介", runtime="", studio="")
 
         result = merge_nfo_fields(scraped, nfo, NfoMergeStrategy.FILL_MISSING_ONLY)
 
-        # 本地有值：保留本地
-        assert result.title == "本地标题"
-        # 本地为空：用新数据
-        assert result.outline == "新简介"
+        # 两源都有值：新数据
+        assert result.title == "新标题"
         assert result.runtime == "120"
         assert result.studio == "新片商"
+        # 刮削结果为空：从本地补
+        assert result.outline == "本地简介"
 
-    def test_preserve_existing_same_as_fill_missing(self):
-        """preserve_existing 策略对标量字段与 fill_missing_only 行为一致。"""
+    def test_preserve_existing_differs_from_fill_missing(self):
+        """preserve_existing（本地为主）与 fill_missing_only（新数据为主）标量行为相反。"""
         scraped = _make_result(title="新标题", outline="新简介", runtime="120")
         nfo = _make_result(title="本地标题", outline="本地简介", runtime="")
 
-        result = merge_nfo_fields(scraped, nfo, NfoMergeStrategy.PRESERVE_EXISTING)
+        preserved = merge_nfo_fields(scraped, nfo, NfoMergeStrategy.PRESERVE_EXISTING)
+        assert preserved.title == "本地标题"
+        assert preserved.outline == "本地简介"
+        assert preserved.runtime == "120"
 
-        assert result.title == "本地标题"
-        assert result.outline == "本地简介"
-        assert result.runtime == "120"
+        filled = merge_nfo_fields(scraped, nfo, NfoMergeStrategy.FILL_MISSING_ONLY)
+        assert filled.title == "新标题"
+        assert filled.outline == "新简介"
+        assert filled.runtime == "120"
 
     def test_merge_arrays_combines_tags_and_actors(self):
         """merge_arrays 策略：数组字段合并去重，标量用新数据。"""

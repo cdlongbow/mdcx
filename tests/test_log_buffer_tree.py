@@ -137,3 +137,35 @@ async def test_single_task_write_get_roundtrip():
     assert "[tool]" in got
     LogBuffer.clear_task()
     assert "[tool]" not in LogBuffer.log().get()
+
+
+def test_error_get_only_self_excludes_log_channel():
+    """error 通道 get(only_self=True) 不聚合本组 log 通道（全库审查 B3）。
+
+    修复前 error().get() 把本组几十行正常刮削日志拼进失败原因，
+    随 Flags.failed_list 与 SQLite error 列持久化，失败报告被污染。
+    """
+    LogBuffer.new_root()
+    LogBuffer.log().write("字段获取: title 来自 javdb\n")
+    LogBuffer.log().write("下载封面: xxx.jpg 完成\n")
+    LogBuffer.error().write("刮削失败: 所有刮削来源均未返回可用数据\n")
+
+    err = LogBuffer.error().get(only_self=True)
+    assert err == "刮削失败: 所有刮削来源均未返回可用数据\n"
+    assert "字段获取" not in err
+    assert "下载封面" not in err
+
+    # log 通道聚合行为保持不变（含本组其他通道）
+    combined = LogBuffer.log().get()
+    assert "字段获取" in combined
+
+
+def test_get_default_behavior_unchanged():
+    """默认 get() 聚合行为不变（log 通道跨子任务聚合语义保留）。"""
+    LogBuffer.new_root()
+    LogBuffer.log().write("正常日志A\n")
+    LogBuffer.error().write("错误B\n")
+
+    combined = LogBuffer.log().get()
+    assert "正常日志A" in combined
+    assert "错误B" in combined

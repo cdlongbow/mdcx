@@ -66,10 +66,12 @@ def test_get_file_number_preserves_number_with_dotcom_extension():
         (r"D:/test/100225_100.mp4", "100225_100"),
         (r"D:/test/111111_111.mp4", "111111_111"),
         (r"D:/test/111111-111.mp4", "111111-111"),
-        (r"D:/test/1pondo_031926_001.mp4", "031926_001"),
-        (r"D:/test/caribbeancom-031426-001.mp4", "031426-001"),
-        (r"D:/test/pacopacomama_031726_100.mp4", "031726_100"),
-        (r"D:/test/10musume_031426_01.mp4", "031426_01"),
+        # 无码官网带前缀形态：保留前缀（route_uncensored_official 按前缀精确路由，
+        # 剥前缀会让 1pondo/pacopacomama 按尾号长度互相误路由——全库审查 A2）
+        (r"D:/test/1pondo_031926_001.mp4", "1PONDO-031926_001"),
+        (r"D:/test/caribbeancom-031426-001.mp4", "CARIBBEANCOM-031426-001"),
+        (r"D:/test/pacopacomama_031726_100.mp4", "PACOPACOMAMA-031726_100"),
+        (r"D:/test/10musume_031426_01.mp4", "10MUSUME-031426_01"),
     ],
 )
 def test_get_file_number_normalizes_uncensored_digit_numbers(raw_number: str, expected_number: str):
@@ -170,8 +172,8 @@ async def test_get_video_size_path_strips_noise_and_number_tokens(
     ("file_path", "expected_number"),
     [
         (Path("D:/test/100225_100.mp4"), "100225_100"),
-        (Path("D:/test/1pondo_031926_001.mp4"), "031926_001"),
-        (Path("D:/test/10musume_031426_01.mp4"), "031426_01"),
+        (Path("D:/test/1pondo_031926_001.mp4"), "1PONDO-031926_001"),
+        (Path("D:/test/10musume_031426_01.mp4"), "10MUSUME-031426_01"),
     ],
 )
 async def test_get_file_info_marks_uncensored_digit_numbers(file_path: Path, expected_number: str):

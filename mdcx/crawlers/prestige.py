@@ -34,12 +34,16 @@ def get_tag(page_data):
 
 
 def get_real_url(html_search, number):
-    result = html_search["hits"]["hits"]
+    # .get() 链式取值：API 200 但结构漂移（空结果/错误对象/字段缺失）时
+    # 返回 "" 走既有"未匹配到番号"分支，而非裸 KeyError 冒泡成整站失败
+    # 且无法诊断（全库审查 C2）
+    result = (html_search or {}).get("hits", {}).get("hits", []) or []
     for each in result:
-        productUuid = each["_source"]["productUuid"]
-        deliveryItemId = each["_source"]["deliveryItemId"]
-        if deliveryItemId.endswith(number.upper()):
-            return "https://www.prestige-av.com/api/product/" + productUuid
+        source = each.get("_source", {}) if isinstance(each, dict) else {}
+        product_uuid = source.get("productUuid", "")
+        delivery_item_id = source.get("deliveryItemId", "")
+        if delivery_item_id.endswith(number.upper()):
+            return "https://www.prestige-av.com/api/product/" + product_uuid
     return ""
 
 

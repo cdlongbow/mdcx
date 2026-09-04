@@ -265,3 +265,40 @@ def test_close_flushes_deferred_write(tmp_path: Path):
     assert reopened.open() is True
     assert reopened.get_state(p) is not None
     reopened.close()
+
+
+def test_cleanup_missing_keeps_failed_records_by_origin_path(cache: ScrapeStateCache, tmp_path: Path):
+    """独立失败目录：failed 记录按 origin_path 判存活（全库审查 B5）。
+
+    set_failed 的 key 是移入 failed_folder 后的路径；失败目录在扫描集合之外时，
+    原实现按 key 判存活会把全部 failed 记录误删，跨会话恢复（list_pending）失效。
+    """
+    origin = tmp_path / "media" / "SSIS-538.mp4"
+    origin.parent.mkdir(exist_ok=True)
+    origin.touch()
+    failed_key = tmp_path / "failed_dir" / "SSIS-538.mp4"  # 独立失败目录（不在扫描集合内）
+    failed_key.parent.mkdir(exist_ok=True)
+    failed_key.touch()
+
+    cache.set_failed(failed_key, mtime=1.0, error="测试失败", origin_path=origin)
+
+    # 扫描集合只含源文件（不含失败目录）
+    existing = {origin}
+    removed = cache.cleanup_missing(existing)
+    assert removed == 0, "failed 记录不得因 key 不在扫描集合而被误删"
+
+    # 源文件也消失时才清理
+    existing = set()
+    removed = cache.cleanup_missing(existing)
+    assert removed == 1
+
+
+def test_set_failed_accumulates_fail_count_via_origin_key(cache: ScrapeStateCache, tmp_path: Path):
+    """set_failed 携带 origin_path 时重试计数仍按 key 累积。"""
+    p = tmp_path / "movie.mp4"
+    p.touch()
+    cache.set_failed(p, mtime=1.0, error="第一次", origin_path=p)
+    cache.set_failed(p, mtime=1.0, error="第二次", origin_path=p)
+    state = cache.get_state(p)
+    assert state.fail_count == 2
+    assert state.origin_path == str(p)

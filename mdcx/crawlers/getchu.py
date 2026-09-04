@@ -181,16 +181,20 @@ class GetchuCrawler(BaseCrawler):
             if html_search is None:
                 raise CrawlerException(f"网络请求错误: {error}")
             html = etree.fromstring(html_search, etree.HTMLParser())
-            url_list = html.xpath("//a[@class='blueb']/@href")
-            title_list = html.xpath("//a[@class='blueb']/text()")
+            # 单次选 a 元素再分别取 href/text：两个独立 XPath 列表按下标配对，
+            # a 内含 <br>/<b> 等嵌套时 text() 数量与 href 不一致，错位配对或
+            # IndexError（全库审查 C1）
+            a_elements = html.xpath("//a[@class='blueb']")
+            url_list = [a.get("href", "") for a in a_elements]
             if not url_list:
                 ctx.debug("getchu 未匹配到结果，尝试 DL Getchu")
                 return await getchu_dl.scrape_dl_getchu(self.async_client, number, appoint_url, ctx)
 
             real_url = normalize_detail_url(self.base_url + url_list[0].replace("../", "/") + "&gc=gc")
             keyword_temp = re.sub(r"[ \[\]\［\］]+", "", keyword)
-            for i, url in enumerate(url_list):
-                title_temp = re.sub(r"[ \[\]\［\］]+", "", title_list[i])
+            for a, url in zip(a_elements, url_list, strict=False):
+                title_text = "".join(a.xpath(".//text()"))
+                title_temp = re.sub(r"[ \[\]\［\］]+", "", title_text)
                 if keyword_temp in title_temp:
                     real_url = normalize_detail_url(self.base_url + url.replace("../", "/") + "&gc=gc")
                     break

@@ -4,12 +4,36 @@ Amazon ASIN 数据库保存功能
 """
 
 import asyncio
+import os
 import threading
 from datetime import datetime
 from pathlib import Path
 from typing import TypedDict
 
 from ..utils.file import write_file_atomic
+
+
+def _save_workbook_atomic(wb, excel_path: Path) -> None:
+    """xlsx 原子保存：先写 .tmp 再 os.replace（全库审查 B4）。
+
+    wb.save() 直接原地覆盖时，进程被杀（停止刮削/强关）或磁盘满会让
+    zip 半写损坏，下次启动 merge_asin_db_from_backup 的 load_workbook
+    异常被吞后整个用户 ASIN 库被静默废弃。同文件 marker 已用
+    write_file_atomic，主体数据文件更应对齐。Windows 上 replace 目标被
+    占用时抛 PermissionError，与原语义一致向上传。
+    """
+    tmp_path = excel_path.with_name(excel_path.name + ".tmp")
+    try:
+        wb.save(tmp_path)
+        os.replace(tmp_path, excel_path)
+    except Exception:
+        # 保存/替换失败时清掉半写 tmp，避免残留占盘（下次保存会重建）
+        try:
+            if tmp_path.exists():
+                tmp_path.unlink()
+        except OSError:
+            pass
+        raise
 
 
 class AsinRecord(TypedDict, total=False):
@@ -152,7 +176,7 @@ def _resort_asin_worksheet(local_path: Path) -> None:
     for r in rows:
         new_ws.append(list(r))
     _format_asin_worksheet(new_ws)
-    new_wb.save(local_path)
+    _save_workbook_atomic(new_wb, local_path)
     new_wb.close()
 
 
@@ -223,16 +247,96 @@ def merge_asin_db_from_backup(backup_path: Path, local_path: Path) -> None:
         backup_wb.close()
 
         if added or replaced:
-            wb.save(local_path)
+            _save_workbook_atomic(wb, local_path)
         wb.close()
-        write_file_atomic(marker_path, backup_hash, "utf-8")
         if added:
             # 有新增行才整体重排（纯覆盖不改变行数与顺序，无需重排）
             _resort_asin_worksheet(local_path)
+        # marker 必须在保存+重排全部成功后写：先写 marker 后重排失败时，
+        # 下次启动 marker 匹配跳过合并，库永远停留未排序形态（全库审查发现8）
+        write_file_atomic(marker_path, backup_hash, "utf-8")
+        invalidate_asin_cache(local_path)
         if added or replaced:
             LogBuffer.log().write(f"  ℹ️ [ASIN 数据库] 出厂库合并: 新增 {added} 条, 覆盖 {replaced} 个字段")
     except Exception as e:
         LogBuffer.log().write(f"  ⚠️ [ASIN 数据库] 出厂库合并失败: {e}")
+
+
+def _save_asin_to_excel_sync(
+    records: list[AsinRecord],
+    excel_path: Path,
+    sheet_name: str,
+) -> None:
+    """save_asin_to_excel 的同步核心（load→去重→append→格式化→原子保存）。
+
+    独立成函数供 asyncio.to_thread 调用——openpyxl 全表格式化在 4 万行库上
+    耗时秒级，直接在 async 函数体内跑会阻塞整个事件循环，所有并发刮削协程
+    （含网络 IO）停摆（全库审查 B4）。
+    """
+    from ..models.log_buffer import LogBuffer
+
+    try:
+        import openpyxl
+        from openpyxl.utils import get_column_letter
+    except ImportError:
+        LogBuffer.log().write("  ⚠️ [ASIN 数据库] 缺少 openpyxl，无法保存 amazon_asin_database.xlsx")
+        raise ImportError("请安装 openpyxl 库：pip install openpyxl") from None
+
+    excel_path.parent.mkdir(parents=True, exist_ok=True)
+
+    try:
+        wb = openpyxl.load_workbook(excel_path)
+    except FileNotFoundError:
+        wb = openpyxl.Workbook()
+
+    try:
+        ws = wb.active
+        ws.title = sheet_name
+
+        # 去重：以番号为键，用户库已有该番号时跳过不写（避免重复行）
+        existing_numbers: set[str] = set()
+        for row in ws.iter_rows(min_row=2, values_only=True):
+            if row and row[0]:
+                existing_numbers.add(str(row[0]).strip().upper())
+
+        if not ws["A1"].value:
+            headers = [
+                "影片番号",
+                "ASIN 编号",
+                "影片链接",
+                "商品标题",
+                "封面 URL",
+                "搜索关键词",
+            ]
+            # 使用 cell() 直接设置表头，避免 append() 的空行问题
+            for col, header in enumerate(headers, 1):
+                cell = ws.cell(row=1, column=col, value=header)
+                cell.font = openpyxl.styles.Font(bold=True)
+                cell.fill = openpyxl.styles.PatternFill("solid", fgColor="C0C0C0")
+                cell.alignment = openpyxl.styles.Alignment(horizontal="center")
+
+            ws.auto_filter.ref = f"A1:{get_column_letter(len(headers))}1"
+
+        for record in records:
+            number = str(record.get("number", "") or "").strip().upper()
+            if not number or number in existing_numbers:
+                continue
+            existing_numbers.add(number)
+            row_data = [
+                record.get("number", ""),
+                record.get("asin", ""),
+                record.get("product_url", ""),
+                record.get("title", ""),
+                record.get("poster_url", ""),
+                record.get("search_keyword", ""),
+            ]
+            ws.append(row_data)
+
+        _format_asin_worksheet(ws)
+
+        _save_workbook_atomic(wb, excel_path)
+    finally:
+        wb.close()
 
 
 async def save_asin_to_excel(
@@ -258,8 +362,7 @@ async def save_asin_to_excel(
     from ..models.log_buffer import LogBuffer
 
     try:
-        import openpyxl
-        from openpyxl.utils import get_column_letter
+        import openpyxl  # noqa: F401  # 线程内还要用，提前做可用性检查给出可读错误
     except ImportError:
         LogBuffer.log().write("  ⚠️ [ASIN 数据库] 缺少 openpyxl，无法保存 amazon_asin_database.xlsx")
         raise ImportError("请安装 openpyxl 库：pip install openpyxl") from None
@@ -269,63 +372,9 @@ async def save_asin_to_excel(
     elif isinstance(excel_path, str):
         excel_path = Path(excel_path)
 
-    excel_path.parent.mkdir(parents=True, exist_ok=True)
-
-    try:
-        wb = openpyxl.load_workbook(excel_path)
-    except FileNotFoundError:
-        wb = openpyxl.Workbook()
-
-    ws = wb.active
-    ws.title = sheet_name
-
-    # 去重：以番号为键，用户库已有该番号时跳过不写（避免重复行）
-    existing_numbers: set[str] = set()
-    for row in ws.iter_rows(min_row=2, values_only=True):
-        if row and row[0]:
-            existing_numbers.add(str(row[0]).strip().upper())
-
-    if not ws["A1"].value:
-        headers = [
-            "影片番号",
-            "ASIN 编号",
-            "影片链接",
-            "商品标题",
-            "封面 URL",
-            "搜索关键词",
-        ]
-        # 使用 cell() 直接设置表头，避免 append() 的空行问题
-        for col, header in enumerate(headers, 1):
-            cell = ws.cell(row=1, column=col, value=header)
-            cell.font = openpyxl.styles.Font(bold=True)
-            cell.fill = openpyxl.styles.PatternFill("solid", fgColor="C0C0C0")
-            cell.alignment = openpyxl.styles.Alignment(horizontal="center")
-
-        ws.auto_filter.ref = f"A1:{get_column_letter(len(headers))}1"
-
-    for record in records:
-        number = str(record.get("number", "") or "").strip().upper()
-        if not number or number in existing_numbers:
-            continue
-        existing_numbers.add(number)
-        row_data = [
-            record.get("number", ""),
-            record.get("asin", ""),
-            record.get("product_url", ""),
-            record.get("title", ""),
-            record.get("poster_url", ""),
-            record.get("search_keyword", ""),
-        ]
-        ws.append(row_data)
-
-    _format_asin_worksheet(ws)
-
-    try:
-        wb.save(excel_path)
-        wb.close()
-    except PermissionError as e:
-        raise PermissionError(f"无法保存 Excel 文件，可能文件正被其他程序打开：{excel_path}") from e
-
+    # openpyxl 全表格式化（4 万行库秒级）挪出事件循环
+    await asyncio.to_thread(_save_asin_to_excel_sync, records, excel_path, sheet_name)
+    invalidate_asin_cache(excel_path)
     return excel_path
 
 
@@ -469,6 +518,33 @@ async def save_single_asin_record(
         return False
 
 
+def _update_asin_record_sync(number: str, poster_url: str, excel_path: Path) -> bool:
+    """update_asin_record 同步核心（to_thread 调用，防 4 万行库保存阻塞事件循环）。"""
+    try:
+        import openpyxl
+    except ImportError:
+        return False
+
+    if not excel_path.exists():
+        return False
+
+    wb = openpyxl.load_workbook(excel_path)
+    try:
+        ws = wb.active
+        updated = False
+        for row in ws.iter_rows(min_row=2, values_only=False):
+            row_number = str(row[0].value or "").upper()
+            if row_number == number.upper():
+                row[4].value = poster_url
+                updated = True
+                break
+        if updated:
+            _save_workbook_atomic(wb, excel_path)
+        return updated
+    finally:
+        wb.close()
+
+
 async def update_asin_record(
     number: str,
     poster_url: str,
@@ -485,32 +561,51 @@ async def update_asin_record(
     Returns:
         bool: 更新成功返回 True，未找到记录返回 False
     """
+    if excel_path is None:
+        excel_path = _get_default_excel_path()
+    updated = await asyncio.to_thread(_update_asin_record_sync, number, poster_url, excel_path)
+    if updated:
+        invalidate_asin_cache(excel_path)
+    return updated
+
+
+def _replace_asin_record_sync(
+    number: str,
+    asin: str,
+    title: str,
+    product_url: str,
+    poster_url: str,
+    search_keyword: str,
+    excel_path: Path,
+) -> bool:
+    """replace_asin_record 同步核心（to_thread 调用，防 4 万行库保存阻塞事件循环）。"""
     try:
         import openpyxl
     except ImportError:
         return False
 
-    if excel_path is None:
-        excel_path = _get_default_excel_path()
-
     if not excel_path.exists():
         return False
 
     wb = openpyxl.load_workbook(excel_path)
-    ws = wb.active
-
-    updated = False
-    for row in ws.iter_rows(min_row=2, values_only=False):
-        row_number = str(row[0].value or "").upper()
-        if row_number == number.upper():
-            row[4].value = poster_url
-            updated = True
-            break
-
-    if updated:
-        wb.save(excel_path)
-    wb.close()
-    return updated
+    try:
+        ws = wb.active
+        replaced = False
+        for row in ws.iter_rows(min_row=2, values_only=False):
+            row_number = str(row[0].value or "").upper()
+            if row_number == number.upper():
+                row[1].value = asin
+                row[2].value = product_url
+                row[3].value = title
+                row[4].value = poster_url
+                row[5].value = search_keyword
+                replaced = True
+                break
+        if replaced:
+            _save_workbook_atomic(wb, excel_path)
+        return replaced
+    finally:
+        wb.close()
 
 
 async def replace_asin_record(
@@ -526,35 +621,13 @@ async def replace_asin_record(
 
     保留行位置（原地替换），ASIN/标题/链接/关键词全量换新。
     """
-    try:
-        import openpyxl
-    except ImportError:
-        return False
-
     if excel_path is None:
         excel_path = _get_default_excel_path()
-
-    if not excel_path.exists():
-        return False
-
-    wb = openpyxl.load_workbook(excel_path)
-    ws = wb.active
-
-    replaced = False
-    for row in ws.iter_rows(min_row=2, values_only=False):
-        row_number = str(row[0].value or "").upper()
-        if row_number == number.upper():
-            row[1].value = asin
-            row[2].value = product_url
-            row[3].value = title
-            row[4].value = poster_url
-            row[5].value = search_keyword
-            replaced = True
-            break
-
+    replaced = await asyncio.to_thread(
+        _replace_asin_record_sync, number, asin, title, product_url, poster_url, search_keyword, excel_path
+    )
     if replaced:
-        wb.save(excel_path)
-    wb.close()
+        invalidate_asin_cache(excel_path)
     return replaced
 
 

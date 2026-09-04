@@ -29,6 +29,7 @@ class ScrapeState:
     fail_count: int = 0  # 连续失败次数
     scraped_at: float = 0.0  # 最后处理时间戳
     error: str = ""  # 最后错误信息（失败时）
+    origin_path: str = ""  # 失败前的源文件路径（失败文件被移入 failed_folder 时与 file_path 不同）
 
 
 class ScrapeStateCache:
@@ -72,6 +73,12 @@ class ScrapeStateCache:
             columns = {row["name"] for row in conn.execute("PRAGMA table_info(scrape_state)").fetchall()}
             if "summary_json" not in columns:
                 conn.execute("ALTER TABLE scrape_state ADD COLUMN summary_json TEXT NOT NULL DEFAULT ''")
+            # 迁移：origin_path 存失败前的源文件路径（全库审查 B5）——
+            # set_failed 的 key 是移入 failed_folder 后的路径，失败目录在扫描
+            # 集合之外时 cleanup_missing 会误判"源文件已不存在"删光 failed 记录，
+            # 跨会话恢复（list_pending）随之失效
+            if "origin_path" not in columns:
+                conn.execute("ALTER TABLE scrape_state ADD COLUMN origin_path TEXT NOT NULL DEFAULT ''")
             conn.commit()
             self._conn = conn
             self._pending_writes = 0
@@ -146,7 +153,7 @@ class ScrapeStateCache:
 
     def get_state(self, file_path: Path) -> ScrapeState | None:
         rows = self._fetch(
-            "SELECT file_path, mtime, status, number, fail_count, scraped_at, error "
+            "SELECT file_path, mtime, status, number, fail_count, scraped_at, error, origin_path "
             "FROM scrape_state WHERE file_path = ?",
             (str(file_path),),
         )
@@ -161,6 +168,7 @@ class ScrapeStateCache:
             fail_count=row["fail_count"],
             scraped_at=row["scraped_at"],
             error=row["error"],
+            origin_path=row["origin_path"],
         )
 
     def set_done(
@@ -191,21 +199,30 @@ class ScrapeStateCache:
             commit=commit,
         )
 
-    def set_failed(self, file_path: Path, mtime: float, error: str = "", commit: bool = True) -> None:
+    def set_failed(
+        self, file_path: Path, mtime: float, error: str = "", commit: bool = True, origin_path: Path | None = None
+    ) -> None:
+        """记录失败状态。
+
+        origin_path：失败前的源文件路径。文件刮削失败被移入 failed_folder 后
+        file_path 是移动后的路径——与扫描集合无交集，cleanup_missing 按
+        origin 判存活才能保住 failed 记录（全库审查 B5）。
+        """
         import time
 
         self._execute(
             """
-            INSERT INTO scrape_state (file_path, mtime, status, number, fail_count, scraped_at, error)
-            VALUES (?, ?, 'failed', '', 1, ?, ?)
+            INSERT INTO scrape_state (file_path, mtime, status, number, fail_count, scraped_at, error, origin_path)
+            VALUES (?, ?, 'failed', '', 1, ?, ?, ?)
             ON CONFLICT(file_path) DO UPDATE SET
                 mtime=excluded.mtime,
                 status='failed',
                 fail_count=fail_count + 1,
                 scraped_at=excluded.scraped_at,
-                error=excluded.error
+                error=excluded.error,
+                origin_path=excluded.origin_path
             """,
-            (str(file_path), mtime, time.time(), error),
+            (str(file_path), mtime, time.time(), error, str(origin_path) if origin_path else ""),
             commit=commit,
         )
 
@@ -276,15 +293,27 @@ class ScrapeStateCache:
         return summaries
 
     def cleanup_missing(self, existing: set[Path]) -> int:
-        """清理源文件已不存在的过期记录，返回清理条数。"""
-        rows = self._fetch("SELECT file_path FROM scrape_state")
+        """清理源文件已不存在的过期记录，返回清理条数。
+
+        failed 记录优先按 origin_path（失败前源路径）判存活——key 是移入
+        failed_folder 后的路径，独立失败目录配置下与扫描集合无交集，
+        按 key 判会把全部 failed 记录误删（跨会话恢复失效，全库审查 B5）。
+        """
+        rows = self._fetch("SELECT file_path, status, origin_path FROM scrape_state")
+        existing_str = {str(p) for p in existing}
         removed = 0
         for row in rows:
-            p = Path(row["file_path"])
-            if p not in existing:
-                # commit=False 批量积累，共享一个事务（原逐条独立事务，大库数千条产生数千次 commit）
-                if self._execute("DELETE FROM scrape_state WHERE file_path = ?", (row["file_path"],), commit=False):
-                    removed += 1
+            raw_path = row["file_path"]
+            if row["status"] == "failed" and row["origin_path"]:
+                # failed 记录：源路径（origin）或失败目录内路径（key）任一存活即保留
+                if str(Path(raw_path)) in existing_str or row["origin_path"] in existing_str:
+                    continue
+            else:
+                if str(Path(raw_path)) in existing_str:
+                    continue
+            # commit=False 批量积累，共享一个事务（原逐条独立事务，大库数千条产生数千次 commit）
+            if self._execute("DELETE FROM scrape_state WHERE file_path = ?", (raw_path,), commit=False):
+                removed += 1
         self.flush()
         return removed
 
@@ -333,7 +362,7 @@ class ScrapeStateCache:
     def list_failed_detail(self, limit: int = 500) -> list[ScrapeState]:
         """返回失败记录详情（含 error/fail_count），按最后处理时间倒序，限 limit 条。"""
         rows = self._fetch(
-            "SELECT file_path, mtime, status, number, fail_count, scraped_at, error "
+            "SELECT file_path, mtime, status, number, fail_count, scraped_at, error, origin_path "
             "FROM scrape_state WHERE status='failed' ORDER BY scraped_at DESC LIMIT ?",
             (limit,),
         )
@@ -345,6 +374,7 @@ class ScrapeStateCache:
                 number=r["number"],
                 fail_count=r["fail_count"],
                 scraped_at=r["scraped_at"],
+                origin_path=r["origin_path"],
                 error=r["error"],
             )
             for r in rows

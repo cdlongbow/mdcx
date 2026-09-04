@@ -1170,19 +1170,45 @@ class AsyncWebClient:
         host_prefix = f"{host} " if host else ""
         self._log(f"🛡️ [CF] {host_prefix}{message}")
 
-    def _is_cf_challenge_response(self, response: Response) -> bool:
+    async def _is_cf_challenge_response(self, response: Response) -> bool:
+        """判定 Cloudflare 挑战页。
+
+        流式响应 content 初始为 b""（header 阶段即返回），直接读 content 会漏检
+        ——改用 acontent() 读前 8192 字节；读取结果缓存在响应对象上避免
+        同一响应多次判定重复读流（全库审查 B1）。
+        """
         status = response.status_code
         headers = {str(k): v for k, v in response.headers.items()}
         server = self._extract_header_case_insensitive(headers, "server").lower()
         cf_ray = self._extract_header_case_insensitive(headers, "cf-ray")
 
         content_type = self._extract_header_case_insensitive(headers, "content-type").lower()
-        body_text = ""
-        if "text/html" in content_type or not content_type:
+        cached_text = getattr(response, "_mdcx_cf_body_text", None)  # noqa: B009
+        if cached_text is not None:
+            body_text = cached_text
+        else:
+            body_text = ""
+            if "text/html" in content_type or not content_type:
+                try:
+                    if response.content:
+                        # 非流式（content 已就位）直接读
+                        body_bytes = response.content[:8192]
+                    else:
+                        # 流式：content 初始为 b""，acontent() 拉取响应体
+                        # （挑战页本身很小，读全量代价可忽略）
+                        body_bytes = await asyncio.wait_for(response.acontent(), timeout=5)
+                        body_bytes = body_bytes[:8192]
+                    body_text = body_bytes.decode("utf-8", errors="ignore").lower()
+                except Exception:
+                    body_text = ""
+            # 同一响应只读一次：request 循环里最多被 2 处判定调用。
+            # 流式响应二次 acontent() 会因 queue 已消费而 assert 失败，
+            # 故必须缓存；curl_cffi Response 未声明该属性，属性赋值需同时
+            # 压制 mypy attr-defined 与 ruff SLF001
             try:
-                body_text = response.content[:8192].decode("utf-8", errors="ignore").lower()
+                response._mdcx_cf_body_text = body_text  # type: ignore[attr-defined] # noqa: SLF001
             except Exception:
-                body_text = ""
+                pass
 
         challenge_markers = (
             "just a moment",
@@ -1295,7 +1321,7 @@ class AsyncWebClient:
             self._bind_response_effective_url(response, current_url)
             response.headers["x-mdcx-bypass-mode"] = "mirror"
 
-            if self._is_cf_challenge_response(response):
+            if await self._is_cf_challenge_response(response):
                 return None, "mirror 返回 Cloudflare 挑战页"
 
             if response.status_code >= 400:
@@ -1643,11 +1669,16 @@ class AsyncWebClient:
 
                     # 检测到 Cloudflare 挑战页：无论是否启用 bypass，都强制轮换该池指纹，
                     # 让重试有机会换新指纹（含 safari17_2_ios）绕过（missav 等站点有效）
-                    if host and self._is_cf_challenge_response(resp):
+                    if host and await self._is_cf_challenge_response(resp):
                         self._log_cf(f"🛑 Cloudflare 挑战页，轮换指纹重试: {method} {url}", host)
                         self._force_rotate_fingerprint(pool_base_key, fingerprint)
 
-                    if enable_cf_bypass and self._cf_bypass_enabled and host and self._is_cf_challenge_response(resp):
+                    if (
+                        enable_cf_bypass
+                        and self._cf_bypass_enabled
+                        and host
+                        and await self._is_cf_challenge_response(resp)
+                    ):
                         self._log_cf(f"🛑 检测到 Cloudflare 挑战页: {method} {url}", host)
                         self._cf_host_challenge_hits[host] = self._cf_host_challenge_hits.get(host, 0) + 1
                         if bypass_round >= self._cf_request_bypass_rounds:

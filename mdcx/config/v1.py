@@ -22,8 +22,11 @@ def load_v1(path: str | Path) -> tuple[dict[str, Any], list[str]]:
             try:
                 if key not in field_types:
                     # 特例处理: 支持自定义网站配置
+                    # 必须经 unknown_fields 通道交给 _update() setattr 消化——
+                    # 直接放进 d 会让 ConfigV1(**d) 抛 TypeError（dataclass 未声明这些字段），
+                    # 模块级 manager 实例化时连锁崩溃，且 v2path MARK_FILE 已写出导致旧配置永久丢失
                     if key.endswith("_website") and key[:-8] in ManualConfig.SUPPORTED_WEBSITES and value:
-                        d[key] = value
+                        unknown_fields[key] = value
                         continue
                     unknown_fields[key] = value
                     errors.append(f"未知配置: {key} (位于 {section})")

@@ -165,7 +165,7 @@ class LogBuffer:
                 return
             self.buffer.append(message)
 
-    def get(self):
+    def get(self, only_self: bool = False):
         """取本任务组的聚合日志（自己 + 派生后代），不含陌生兄弟任务。
 
         旧实现拼接【全局所有】任务的 buffer（c089eaf 为聚合子协程日志引入），
@@ -173,11 +173,16 @@ class LogBuffer:
         原因互相污染（写入 Flags.failed_list 与 SQLite 断点缓存，实测复现）。
         写入侧已统一按 root 归因落键，此处只读本组键即可——子协程与
         to_thread 线程写入天然包含在内，兄弟组互不可见。
+
+        only_self=True 时只返回自身 buffer 不做组内聚合——error 通道专用：
+        error().get() 若聚合本组 log 通道，失败原因会被几十行正常刮削日志
+        （字段来源/下载过程）稀释污染，随 failed_list/SQLite error 列持久化
+        （全库审查 B3）。
         """
         root = LogBuffer._current_root()
         with LogBuffer._lock:
             result = "".join(self.buffer)
-            if root is None:
+            if only_self or root is None:
                 return result
             group = LogBuffer.all_buffers.get(root)
             if group is None:

@@ -18,14 +18,23 @@ def _xpath_joined_text(html, xpath: str) -> str:
     return ",".join(text.strip() for text in html.xpath(xpath) if text and text.strip())
 
 
+def is_match(text: str, number: str) -> bool:
+    """标题/文本与番号匹配判定。
+
+    两侧归一对齐：javlibrary 页面标题形如 FC2-PPV-1234567（剥横杠后 FC2PPV1234567），
+    FC2 番号侧同样剥 "PPV"——否则恒不匹配，搜索兜底对 FC2 番号必然失败（全库审查 A5）。
+    """
+    normalized = number.strip().replace("-", "").upper().replace("PPV", "", 1) + " "
+    return normalized in text.replace("-", "").upper().replace("PPV", "", 1)
+
+
 def get_real_url(html, number, domain_2):
     real_url = ""
     origin = urllib.parse.urlsplit(domain_2)._replace(path="", query="", fragment="").geturl()
-    new_number = number.strip().replace("-", "").upper() + " "
     result = html.xpath('//div[@id="video_title"]/h3/a/text()')
 
     for each in result:
-        if new_number in each.replace("-", "").upper():
+        if is_match(each, number):
             hrefs = html.xpath('//div[@id="video_title"]/h3/a[contains(text(), $title)]/@href', title=each)
             if hrefs:
                 return urllib.parse.urljoin(origin, hrefs[0])
@@ -33,7 +42,7 @@ def get_real_url(html, number, domain_2):
     result = html.xpath('//a[contains(@href, "/?v=jav")]/@title')
 
     for each in result:
-        if new_number in each.replace("-", "").upper():
+        if is_match(each, number):
             hrefs = html.xpath("//a[@title=$title]/@href", title=each)
             if hrefs:
                 real_url = hrefs[0]

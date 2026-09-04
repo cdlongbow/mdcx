@@ -34,7 +34,7 @@ from ..config.enums import (
 from ..config.extend import get_movie_path_setting, parse_media_paths
 from ..config.manager import manager
 from ..config.resources import resources
-from ..core.scrape_cache import ScrapeStateCache
+from ..core.scrape_cache import MAX_RETRY_COUNT, ScrapeStateCache
 from ..core.tmdb_actor import _normalize_translation
 from ..crawler import CrawlerProvider
 from ..models.enums import FileMode
@@ -245,14 +245,31 @@ class Scraper:
                 else:
                     before = len(movie_list)
                     filtered = []
+                    exhausted = 0
                     for p in movie_list:
                         mtime = await _safe_mtime(p)
                         if not cache.should_skip(p, mtime, force=False):
+                            # failed 且重试次数耗尽的文件跳过（MAX_RETRY_COUNT 语义
+                            # 对主扫描路径生效——原实现只判 done，注定失败的文件
+                            # 每次全量刮削都无限重试，全库审查 B5）
+                            state = cache.get_state(p)
+                            if (
+                                state is not None
+                                and state.status == "failed"
+                                and state.fail_count >= MAX_RETRY_COUNT
+                                and abs(state.mtime - mtime) < 1e-6
+                            ):
+                                exhausted += 1
+                                continue
                             filtered.append(p)
                     skipped = before - len(filtered)
                     if skipped:
                         movie_list = filtered
                         signal.show_log_text(f" ⏭ 断点续刮：跳过 {skipped} 个已刮削且未变化的文件")
+                    if exhausted:
+                        signal.show_log_text(
+                            f" ⏭ 断点续刮：跳过 {exhausted} 个连续失败超过 {MAX_RETRY_COUNT} 次的文件（强制重刮可重试）"
+                        )
                 pending = cache.list_pending(existing)
                 if pending:
                     movie_list.extend(pending)
@@ -559,7 +576,7 @@ class Scraper:
                     + file_info.definition
                 )
                 signal.show_list_name("fail", show_data, number)
-                error_msg = LogBuffer.error().get() or scrape_error or "未知错误"
+                error_msg = LogBuffer.error().get(only_self=True) or scrape_error or "未知错误"
                 LogBuffer.log().write(f"\n 🔴 [Failed] Reason: {error_msg}")
                 if "WinError 5" in error_msg:
                     LogBuffer.log().write(
@@ -577,6 +594,7 @@ class Scraper:
                             await _safe_mtime(fail_file_path),
                             error=error_msg,
                             commit=False,
+                            origin_path=file_path,  # 失败前源路径（cleanup_missing 存活判定）
                         )
                     except Exception:
                         pass
@@ -599,7 +617,7 @@ class Scraper:
             if manager.config.show_web_log:
                 signal.show_log_text(scrape_info_begin + LogBuffer.log().get() + scrape_info_after)
             else:
-                fail_reason = LogBuffer.error().get()
+                fail_reason = LogBuffer.error().get(only_self=True)
                 if fail_reason:
                     signal.show_log_text(
                         scrape_info_begin + f"\n 🔴 [Failed] Reason: {fail_reason}" + scrape_info_after
@@ -711,9 +729,20 @@ class Scraper:
         await add_mark(other, file_info, res.mosaic)
 
         if extrafanart_task is not None:
-            await extrafanart_task
-            await extrafanart_copy2(folder_new_path)
-            await extrafanart_extras_copy(folder_new_path)
+            # 返回 False = 部分剧照下载失败：不复制不完整目录到副本目录
+            # （extrafanart_copy2 会把残缺目录传播出去），返回 False 让上层按
+            # 图片失败处理（IGNORE_PIC_FAIL 决定是否计失败）——原实现不查返回值
+            # 静默吞掉部分失败并照常 copy2（全库审查 B6）。
+            # None = should_remove_existing 删除策略（已 rmtree，同样不复制）
+            extrafanart_ok = await extrafanart_task
+            if extrafanart_ok is True:
+                await extrafanart_copy2(folder_new_path)
+                await extrafanart_extras_copy(folder_new_path)
+            else:
+                if extrafanart_ok is False:
+                    LogBuffer.error().write("extrafanart 部分剧照下载失败")
+                if extrafanart_ok is False and DownloadableFile.IGNORE_PIC_FAIL not in manager.config.download_files:
+                    return False
 
         return True
 
@@ -925,7 +954,14 @@ class Scraper:
         # 获取已刮削的json_data
         if file_classification is None:
             file_classification = classify_scrape_task(file_info.crawl_task(), manager.config)
-        enable_shared_json = "." not in movie_number and file_classification.scraping_type != FixedScrapingType.GUOCHAN
+        # 番号为空时不启用共享缓存（指定 URL 重刮且详情页无番号标记时 number 为空串，
+        # "" 会被注册为共享键——同批两个此类文件第二个直接复用第一个影片的数据，
+        # NFO/重命名张冠李戴——全库审查 A4）
+        enable_shared_json = (
+            bool(movie_number)
+            and "." not in movie_number
+            and file_classification.scraping_type != FixedScrapingType.GUOCHAN
+        )
         if enable_shared_json:
             # 首次发现该番号时原子性标记为“正在刮削”，避免两个协程同时走“首次”分支导致重复刮削
             async with Flags._json_get_lock:
