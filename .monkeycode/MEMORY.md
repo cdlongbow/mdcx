@@ -18,26 +18,28 @@
   - **长时间任务标准做法**：① `background_terminal_create` 后台终端；② checkpoint 断点续传（state 落盘）；③ 分批处理批间落盘；④ wrapper 45-50 分钟自重启（云环境超时杀进程；**后台终端 1 小时上限会连 wrapper 一起回收**——checkpoint 是唯一恢复手段）；⑤ 进度看落盘文件不看终端日志（stdout 全缓冲可能 0 字节假象）。
   - **功能移除类需求先调研证据再答**：查活跃度（近期 bug 修复/议题）、底层共享依赖（删壳删不干净）、移除成本（UI 整页+槽函数+重生成）。用户转述的声音与代码证据矛盾时以代码为准（Emby 管理器/NFO 库管理案例：调研"不建议删"被接受）。
   - **用户报告的"错误消息"可能不是错误，而是正常通知被误判**（#69 实证）：程序把「已移除配置项」的迁移警告当成校验失败触发 `_failed.json` 保护分支，用户被卡在"不能切换配置"。排查链路类故障时先验证报错消息本身是"真失败"还是"通知被误伤"——消息产生端（警告/错误共用返回通道）与消费端（`if 非空` 判定）各自都要查。
+  - **用户描述的"程序停止/卡住"先核实报告的前提是否成立**（#73 实证）：日志在 JavDb ❌ 后无更多输出被报告为"检测出异常就停止"，实际那是启动自检固定四项（数据库/ThePornDB/JavDb/JavBus）全部跑完了，"停止"是用户对清单长度的错觉。同类还有"检测网络页停止"——先分清日志属于哪条链路（启动自检 vs 检测网络页 run_network_check），再定性是 bug 还是误读。
 
 ## GitHub 议题处理
 
 - Date: 2026-09-03（持续更新）
 - Category: 环境配置
 - Instructions:
-  - devbox 本地跑测试的完整姿势：uv 不在 PATH 且项目无 .venv——先 `pip3 install --break-system-packages uv` 再 `uv sync --frozen` 建环境；PyQt6 测试前装系统库 `libgl1 libegl1 libxkbcommon0 libdbus-1-3 libfontconfig1 libglib2.0-0`（缺 libGL 会 ImportError），且必须 `QT_QPA_PLATFORM=offscreen` 运行（不设则 `QApplication()` 创建即 qFatal abort，栈里看不到原因）。**devbox 镜像包索引是空的：apt 装任何系统库前先 `apt-get update`**（实测直装报 E: Couldn't find package，update 后正常）。
-  - CI（ci.yaml）有同款配置但 runner 是 Ubuntu、devbox 是 Debian 12，包名一致可直接照抄 CI 的 apt 列表。
+   - devbox 本地跑测试的完整姿势：uv 不在 PATH 且项目无 .venv——先 `pip3 install --break-system-packages uv` 再 `uv sync --frozen` 建环境；PyQt6 测试前装系统库 `libgl1 libegl1 libxkbcommon0 libdbus-1-3 libfontconfig1 libglib2.0-0`（缺 libGL 会 ImportError），且必须 `QT_QPA_PLATFORM=offscreen` 运行（不设则 `QApplication()` 创建即 qFatal abort，栈里看不到原因）。**devbox 镜像包索引是空的：apt 装任何系统库前先 `apt-get update`**（实测直装报 E: Couldn't find package，update 后正常）。
+   - **background_terminal 用 sh（dash）解释器**，脚本含 `[[ ]]` 会报 `[[: not found` 且循环空转——后台脚本一律用 POSIX 语法（`case`/`grep`）或 `bash -c "..."` 包装。
+   - CI（ci.yaml）有同款配置但 runner 是 Ubuntu、devbox 是 Debian 12，包名一致可直接照抄 CI 的 apt 列表。
 
 - Date: 2026-08-29
 - Category: 环境配置
 - Instructions:
-  - `gh` 自带 token 失效。正确姿势：`TOKEN=$(printf "protocol=https\nhost=github.com\n\n" | git credential fill | sed -n 's/^password=//p')` 再 `GH_TOKEN="$TOKEN" gh api ...`。`gh api user` 403 属正常（integration 无权限），仓库读写不受影响。凭据值禁止回显/落盘。
+   - `gh` 自带 token 失效。正确姿势：`TOKEN=$(printf "protocol=https\nhost=github.com\n\n" | git credential fill | sed -n 's/^password=//p')` 再 `GH_TOKEN="$TOKEN" gh api ...`。`gh` 未登录（`gh auth login` 提示）时同样用此 token 走 curl 直连 API。`gh api user` 403 属正常（integration 无权限），仓库读写不受影响。凭据值禁止回显/落盘。
   - 议题截图（user-attachments/assets/xxx）直接 `curl -sL` 下载后用 Read 工具查看，无需认证；多图并行下载。截图是议题的主要证据源，不要跳过看图环节。
   - 同一报告人连续多议题时先横向看历史议题再定夺：诉求可能延续（#61 要求删功能 → #71 退让为隐藏入口），也可能与其他报告人冲突（#67 要求禁最大化 vs #69 要求恢复）——冲突时以代码证据和功能根因是否已修为裁决依据。
   - 用户一段描述里常夹带多个独立诉求（#70「代理问题 + 顺带要求删按钮」），回帖必须逐项回应，不遗漏。
   - 读议题优先 `gh api`；退化抓网页时评论正文从内联 JSON `"body"` 字段提取。未认证直连 api.github.com 撞 IP 级限流。
-  - 回帖用 `-F body=@文件`（**必须 `-F` 不是 `-f`**，`-f` 会把 `@/tmp/...` 当字面值发送）。发送后 `gh api --jq '.body' | head -1` 验证。
-  - 关议题：修复完整且用户明确要求才关。根因未清时保留 open，回帖写明"已修的解释什么/解释不了什么"+需报告人补充的信息+已排除假设清单。
-  - **CI 失败排查**：runs 列表 → jobs jq 定位 failure → job logs 落盘再 grep `\.py:[0-9]+: error`。同 head_sha 重跑会有两条记录看最新。
+   - 回帖正确姿势（议题 #72/#73 实证）：**用 JSON POST**，`-d @/tmp/x.json` + `Content-Type: application/json`（`{"body": "..."}`，python3 打包）。**不要用 `-F body=@file`**——那是 multipart/form-data，评论接口返回 400。发送后 jq 验证 html_url。
+   - 议题关闭：修复完整且用户明确要求才关。根因未清时保留 open，回帖写明"已修的解释什么/解释不了什么"+需报告人补充的信息+已排除假设清单。
+   - **CI 状态查询两个坑**（#72 提交实证）：① push 后 workflow run 注册有几秒到 1 分钟延迟，立即查 `head_sha` 过滤会空手而归——改查不带过滤的 runs 列表再对 head_sha；② `?head_sha=` 查询参数过滤器本身不可靠（列表里有、过滤后没有），一律拉列表本地过滤。CI 排查：runs 列表 → jobs jq 定位 failure → job logs 落盘再 grep `\.py:[0-9]+: error`。同 head_sha 重跑会有两条记录看最新。
 
 ## 排查与本地验证
 
@@ -56,13 +58,7 @@
   - **conftest dummy 陷阱（M6 案例）**：测试断言依赖的属性可能被 conftest 的 `_DummyManager` 实例属性遮蔽（dummy.path 是实例属性，直接赋 `manager._path` 后断言读 dummy.path 仍返回旧值）；给真实 manager 加新方法时必须同步给 dummy 加同名方法，否则 AttributeError 以 qFatal 形态在 Qt 测试里爆。绕 dummy 验证真实模块用独立 `uv run python` 脚本（无 conftest 干扰）；模块内做 AST 哨兵测试比 importlib 加载真实模块文件可靠（相对导入会失败）。
   - **ruff B010/B009 与 mypy attr-defined 的组合**：动态属性读写（缓存挂到第三方 Response 对象上）需 `obj._x = v  # type: ignore[attr-defined] # noqa: SLF001` + `getattr(obj, "_x", None)  # noqa: B009`；`setattr` 常量属性被 B010 禁止。
   - **外部探测任务的错误监控先分类错误构成再设阈值**：404 在爬虫场景是"未收录"业务常态（DMM 实测事故：404 计入错误率 → 84%"异常" → 误降并发误回滚三轮折腾）。真实限流信号只有 403/429/连接异常。单 host 批量探测速率天花板是站点侧吞吐（awsimgsrc ~17 req/s），提速靠减少请求数而非加并发。
-  - 大范围撤回用 `git revert --no-commit <多提交>` 合并单撤销提交。
-  - **多源判定合并禁用 or 链**：`src.get('a_verdict') or src.get('b_verdict')` 在多源 dict（b 结果保留 a 字段）上短路吞判定（真 bug：31 个翻案行差点误移）。按源类型精确索引。
-  - **数据治理前先看列值形态分布**：title 列为 "tenhow" 的 367 行是导入残留（无标题可搜），对它们跑标题反查=对错误对象用正确方法（83% 假"无结果"）；治理大批量数据前先 `Counter` 关键列，识别导入批次残留再选方法。
-  - **openpyxl `delete_rows` 遍历陷阱**（2026-09-02 实证）：迭代中 `delete_rows(row_idx, 1)` 后下方行上移，继续按旧 row_idx 循环会跳过行（漏删 20 个重复 ASIN）。稳定模式：**一次读出 → 筛选/去重 → 清空重写**（`ws.delete_rows(2, ws.max_row - 1)` 清数据区 + `ws.append` 重写）。
-  - **javbus 搜索不识别 ASIN**：直接用 ASIN 搜 javbus 全 389 行失败（返回结果页但无匹配数据）。正确姿势是**番号→javbus 详情页标题→与日亚标题比对**（`libre_recheck.py::title_verdict` / `jb_title_recheck.py::jb_title`），不是反方向搜；番号→标题的反查通道稳定可用。
-  - **校验批量任务的路标判定**：v2 裁决链三步（tenhow cid→标题门→图像门）已能覆盖 95%+ 的批量校验场景；剩余待人工行要给用户列出具体一句话解释（为什么是待人工、差什么证据），让用户快速裁量。
-  - **外部 API 错误码 marker 取响应原文字面值**（真 bug：`InvalidSignature` 无空格，写成 "invalid signature" 带空格永远匹配不上）。
+   - 大范围撤回用 `git revert --no-commit <多提交>` 合并单撤销提交。
 
 ## 并发与网络库行为（实测实证）
 
@@ -78,7 +74,8 @@
 - Date: 2026-09-02（持续更新）
 - Category: UI 开发与排查
 - Instructions:
-  - 改 UI 先改 `.ui`（唯一权威源）→ pyuic **相对路径**编译（绝对路径会写进头部注释导致 `test_mdcx_py_in_sync_with_ui` 失败）→ `ruff format` → `tests/test_ui_structure.py`。禁手工改 MDCx.py。
+   - 改 UI 先改 `.ui`（唯一权威源）→ pyuic **相对路径**编译（绝对路径会写进头部注释导致 `test_mdcx_py_in_sync_with_ui` 失败）→ `ruff format` → `tests/test_ui_structure.py`。禁手工改 MDCx.py。**devbox 上 `scripts/pyuic.sh` 会 `pyuic6: command not found`**（PATH 无独立命令），改用 `uv run python -m PyQt6.uic.pyuic mdcx/views/MDCx.ui -o mdcx/views/MDCx.py` + `uv run python scripts/fix_qt_enums.py` + `uv run ruff format`；.ui 与生成 .py 的文本同步由 test_ui_structure 锁定，任一侧漏改 CI 即红。
+   - **`setVisible(False)` 只作用于 widget，`QSpacerItem` 是独立 layout item 不受控件显隐控制**（#72 真 bug 实证）：导航按钮间隔靠 7 个 8px 固定 spacer 实现时，#71 的隐藏入口开关只藏了按钮，spacer 残留叠出 16px 空洞且间距错乱。修法：删按钮间全部固定 spacer 改 layout `spacing=8`（Qt 对隐藏 widget 自动收紧），`test_ui_structure.py` 加回归锁定"导航布局不得再出现 spacer"。**新加隐藏开关时审计布局里所有非 widget 占位项**（spacer/stretch/label 摆设位），凡是 setVisible 管不到的都要换方案。
   - 主窗口全局绝对定位无布局管理器：长文本 QLabel 用 wordWrap 查 sizeHint；新增顶层控件纳入 resizeEvent 手动几何同步。
   - QComboBox 装饰后缀：`addItem(icon, 文本, UserRole 纯值)`，消费点统一 `currentData()` 取值；信号 handler 收文本须剥后缀。改动必查 currentText/itemText/currentData/信号连接/AllItems.index 全部点。
   - 打包前逐页切 stackedWidget 审计边界溢出（scripts/check_ui_layout.py、tests/test_ui_geometry.py）。
@@ -137,6 +134,7 @@
   - tenhow.net 图床：`images/{ASIN}.jpg` 与日亚 SL1500 同源同分辨率，免代理直取（T0 优先，404 回退）；页面条目图名即可入库 ASIN（全站索引 36441 条）。旧索引 8126 条抓取残缺已作废。
   - 环境限制：DMM/fanza 地区锁；日亚 dp 页 devbox 直连 404 需代理；tesseract 对日系封面效果差不可作依据。
   - **HTTP 4xx 定位顺序**（#56）：先看客户端实际发了什么（条件分支误判覆盖鉴权头之类），再想服务端；同函数多调用点的硬编码分支改一处漏一处是高频错误形态。
+  - **ASIN 校验工程散点教训**（2026-09-02 治理实证）：① 数据治理前先 `Counter` 关键列识别导入批次残留（title 全为 "tenhow" 的 367 行对标题反查=对错误对象用正确方法）；② openpyxl 迭代中 `delete_rows` 后行上移会跳行，稳定模式是一次读出→去重→清空重写；③ javbus 搜索不识别 ASIN，正查通道是番号→详情页标题→与日亚标题比对；④ 多源判定合并禁用 or 链（多源 dict 上 `src.get('a') or src.get('b')` 短路吞判定）；⑤ 外部 API 错误码 marker 取响应原文字面值；⑥ v2 裁决链覆盖 95%+，剩余待人工行给用户一句话解释差什么证据。
 
 ## javdb 系爬虫与图源
 
