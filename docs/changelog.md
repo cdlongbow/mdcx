@@ -92,6 +92,8 @@
 
 - **设置页「跳过前置 Poster 大小校验」说明文案修正**：原「不因当前 Poster >=400KB 跳过 Amazon」改为「不因当前 Poster 已达标跳过 Amazon（DMM >=700px / >=400KB / 不小于右裁剪）」，对齐前置校验实际含三条分支（DMM 宽≥700 快路、YOUMA 裁剪面积比较、字节≥400KB）
 
+- **修复 3 个 Dependabot 安全警报（tornado 6.5.7 → 6.5.8）**：三条警报全部指向 dev 依赖组 Jupyter 工具链（ipykernel）的传递依赖 tornado——GHSA-8423-8fgw-73vq（multipart 解析在 max_parts 检查前 split 出巨大临时列表，内存放大 DoS）、GHSA-mpf4-983q-p7j4/CVE-2026-82397（urlencoded body 解析未限制字段数，单请求可拖死事件循环）、GHSA-wwv5-g3v4-889x（CVE-2026-35536 cookie 属性注入修复不完整，经 legacy `**kwargs` 路径重开）。dev 组显式声明 `tornado>=6.5.8` 下限并升级锁文件。生产无影响：tornado 不在生产依赖、打包 `EXCLUDED_MODULES` 明确排除 Jupyter 全家、三个漏洞均为"接收恶意 HTTP 请求"场景而本项目内 tornado 仅作开发工具不监听网络；升级后经 OSV 全量复扫 123 个锁定依赖 0 已知漏洞
+
 ## v2.0.6 (2026-08-23)
 
 ### 功能

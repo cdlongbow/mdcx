@@ -59,6 +59,7 @@ dev = [
     "pyinstaller>=6.14.2",
     "pyright>=1.1.400",
     "pytest>=9.0.3",  # GHSA-6w46-j5rx-g56g tmpdir 处理漏洞 (dev)
+    "tornado>=6.5.8",  # GHSA-8423-8fgw-73vq / mpf4-983q-p7j4 / wwv5-g3v4-889x (ipykernel 传递依赖)
     "pytest-asyncio>=1.1.0",
     "pytest-cov>=6.2.1",
     "rich>=14.1.0",
