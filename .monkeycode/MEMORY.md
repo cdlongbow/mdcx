@@ -21,10 +21,10 @@
 
 ## GitHub 议题处理
 
-- Date: 2026-09-03
+- Date: 2026-09-03（持续更新）
 - Category: 环境配置
 - Instructions:
-  - devbox 本地跑测试的完整姿势：uv 不在 PATH 且项目无 .venv——先 `pip3 install --break-system-packages uv` 再 `uv sync --frozen` 建环境；PyQt6 测试前装系统库 `libgl1 libegl1 libxkbcommon0 libdbus-1-3 libfontconfig1 libglib2.0-0`（缺 libGL 会 ImportError），且必须 `QT_QPA_PLATFORM=offscreen` 运行（不设则 `QApplication()` 创建即 qFatal abort，栈里看不到原因）。
+  - devbox 本地跑测试的完整姿势：uv 不在 PATH 且项目无 .venv——先 `pip3 install --break-system-packages uv` 再 `uv sync --frozen` 建环境；PyQt6 测试前装系统库 `libgl1 libegl1 libxkbcommon0 libdbus-1-3 libfontconfig1 libglib2.0-0`（缺 libGL 会 ImportError），且必须 `QT_QPA_PLATFORM=offscreen` 运行（不设则 `QApplication()` 创建即 qFatal abort，栈里看不到原因）。**devbox 镜像包索引是空的：apt 装任何系统库前先 `apt-get update`**（实测直装报 E: Couldn't find package，update 后正常）。
   - CI（ci.yaml）有同款配置但 runner 是 Ubuntu、devbox 是 Debian 12，包名一致可直接照抄 CI 的 apt 列表。
 
 - Date: 2026-08-29
@@ -50,6 +50,11 @@
   - 结构约束类修复用 **AST 哨兵测试**锁定位置；写完拿修复前代码反向喂哨兵确认能判失败（防恒真）。注意 ast 无 `node.await` 属性——await 调用要找 `ast.Await` 包装节点。
   - conftest 用 dummy 替换了 `mdcx.config.manager`/`resources`/`signals`；独立验证脚本须 import mdcx 前手工注入同样 dummy。**dummy 桩加方法时同步更新 conftest 注释**（缺方法会以 AttributeError 形态在 Qt 测试里触发 qFatal abort）。
   - **subagent 排查要求输出"已排除假设清单+理由"**；标注"已验证"的结论不可直接采信（实证：22 项宣称 11 项编造/夸大），修复前必须独立复现脚本重现每一条。
+  - **全库审查方法论（2026-09-04 两批 26 项修复实证）**：4 个 subagent 按域并行（并发网络/爬虫解析/配置持久化/核心业务）产出候选 → 逐项独立复现验证（可执行脚本复刻源码逻辑；纯逻辑用系统 python 快速 trace）→ 宣称 30 项验证后 19 项成立、3 项证伪（freejavbt `list.remove` 按值删 N 个同名恰好 N 次 remove 永不耗尽、iqqtv 双斜杠触发条件与宣称不符、curl_cffi 跨 loop 单 loop 架构下不可达）。**典型证伪形态：subagent 断言崩溃阈值/触发条件，独立复现时边界值行为与宣称不符——"3 次必崩"实测 5 次仍安全**。
+  - **测试锁定 bug 时以文档语义为仲裁**（FILL_MISSING_ONLY 案例）：UI 名称/models description/docstring 三处一致而与实现矛盾、且两选项行为完全重复，判定实现错测试锁错，修实现同步反转测试断言。
+  - **用户质疑审查结论时先验证触发链再降级**（FC2 案例）：subagent 说"FC2 番号会被分到 javbus"，人工质疑后追分类链——`classify_scrape_task` 对 FC2 强制走 website_fc2 组（不含 javbus/javlibrary），触发面收窄为单站模式/指定 URL/自定义列表，A 级降 B 级。触发链的每一环都要落实，"功能上可达"不等于"正常路径会走到"。
+  - **conftest dummy 陷阱（M6 案例）**：测试断言依赖的属性可能被 conftest 的 `_DummyManager` 实例属性遮蔽（dummy.path 是实例属性，直接赋 `manager._path` 后断言读 dummy.path 仍返回旧值）；给真实 manager 加新方法时必须同步给 dummy 加同名方法，否则 AttributeError 以 qFatal 形态在 Qt 测试里爆。绕 dummy 验证真实模块用独立 `uv run python` 脚本（无 conftest 干扰）；模块内做 AST 哨兵测试比 importlib 加载真实模块文件可靠（相对导入会失败）。
+  - **ruff B010/B009 与 mypy attr-defined 的组合**：动态属性读写（缓存挂到第三方 Response 对象上）需 `obj._x = v  # type: ignore[attr-defined] # noqa: SLF001` + `getattr(obj, "_x", None)  # noqa: B009`；`setattr` 常量属性被 B010 禁止。
   - **外部探测任务的错误监控先分类错误构成再设阈值**：404 在爬虫场景是"未收录"业务常态（DMM 实测事故：404 计入错误率 → 84%"异常" → 误降并发误回滚三轮折腾）。真实限流信号只有 403/429/连接异常。单 host 批量探测速率天花板是站点侧吞吐（awsimgsrc ~17 req/s），提速靠减少请求数而非加并发。
   - 大范围撤回用 `git revert --no-commit <多提交>` 合并单撤销提交。
   - **多源判定合并禁用 or 链**：`src.get('a_verdict') or src.get('b_verdict')` 在多源 dict（b 结果保留 a 字段）上短路吞判定（真 bug：31 个翻案行差点误移）。按源类型精确索引。
