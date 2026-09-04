@@ -3,7 +3,7 @@ import platform
 import sys
 from pathlib import Path
 
-LOCAL_VERSION = 20260903  # 数值版本号(纯数字 YYYYMMDD): 用于版本比较/更新检查/bump构建脚本; 注意 GitHub release 的 Tag 也必须是纯数字(因 check_version 对 tag_name 做 int()), 切勿用 vX.Y.Z 格式
+LOCAL_VERSION = 20260905  # 数值版本号(纯数字 YYYYMMDD): 用于版本比较/更新检查/bump构建脚本; 注意 GitHub release 的 Tag 也必须是纯数字(因 check_version 对 tag_name 做 int()), 切勿用 vX.Y.Z 格式
 VERSION_NAME = "v2.0.7"  # 展示用版本名
 
 # 系统信息（进程启动时计算一次）。
