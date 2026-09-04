@@ -269,9 +269,14 @@ async def fetch_person_item_stats(
                         if name not in titles:
                             titles[name] = []
                         titles[name].append(f"[{item_type}] {item_name}")
-                total_count = int(response.get("TotalRecordCount") or 0)
+                # TotalRecordCount 缺失/为 0 时不能短路退出：start_index(500) >= 0
+                # 恒真会让循环只拉第一页，出演统计大面积缺失——此时退化为
+                # 仅靠短页信号（len(items) < page_limit）判定终止（全库审查 M7）
+                total_count = response.get("TotalRecordCount")
                 start_index += page_limit
-                if start_index >= total_count or len(items) < page_limit:
+                if (total_count is not None and int(total_count) > 0 and start_index >= int(total_count)) or (
+                    len(items) < page_limit
+                ):
                     break
     return counts, titles, person_names
 

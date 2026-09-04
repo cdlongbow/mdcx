@@ -216,6 +216,10 @@ class _DummyManager:
         self.data_folder.mkdir(parents=True, exist_ok=True)
         self.path.write_text("{}", encoding="utf-8")
 
+    def switch_to_failed_session(self):
+        # 对齐真实 manager：_failed.json 保护分支（不发 MARK_FILE 副作用）
+        self.path = self.data_folder / "_failed.json"
+
     def list_configs(self):
         # 列出配置目录下的 *.json；目录不存在时回退默认项。
         try:

@@ -10,9 +10,12 @@
 """
 
 import sys
+from pathlib import Path
 
 import pytest
 from PyQt6.QtWidgets import QApplication
+
+import mdcx
 
 _app: QApplication | None = None
 
@@ -93,3 +96,39 @@ def test_real_error_still_redirects_to_failed_json(win, app, monkeypatch):
     finally:
         # manager 是进程级单例, 恢复路径避免污染共享 fixture 的其他用例
         manager.path = manager.data_folder / "config.json"
+
+
+def test_failed_json_branch_does_not_rewrite_mark_file():
+    """真错误切 _failed.json 时不写 MARK_FILE（全库审查 M6）。
+
+    修复前 path setter 把 MARK_FILE 指向不存在的 _failed.json——用户直接
+    关闭程序后，下次启动 reset() 写默认值进 _failed.json 并永久指向，
+    原配置完好在原处却永不再加载。
+
+    AST 哨兵：load_config 的保护分支必须调用 switch_to_failed_session
+    （其实现绕过 MARK_FILE 写入，行为验证见 docstring 与实现注释），
+    禁止回退为 manager.path = ... 赋值。
+    """
+    import ast
+
+    source = Path(mdcx.__file__).parent / "controllers" / "main_window" / "load_config.py"
+    tree = ast.parse(source.read_text(encoding="utf-8"))
+
+    switch_calls = 0
+    path_assigns = 0
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute):
+            if node.func.attr == "switch_to_failed_session":
+                switch_calls += 1
+        if isinstance(node, ast.Assign):
+            for t in node.targets:
+                if (
+                    isinstance(t, ast.Attribute)
+                    and t.attr == "path"
+                    and isinstance(t.value, ast.Attribute)
+                    and t.value.attr == "manager"
+                ):
+                    path_assigns += 1
+
+    assert switch_calls >= 1, "load_config 应调用 manager.switch_to_failed_session()"
+    assert path_assigns == 0, "load_config 不得对 manager.path 赋值（会写 MARK_FILE 指向 _failed.json）"

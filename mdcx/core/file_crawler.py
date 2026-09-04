@@ -602,11 +602,20 @@ class FileScraper:
         else:
             reduced.year = ""
 
-        # 处理 mosaic
-        for _site_key, result in all_res.items():
-            if mosaic := normalize_mosaic(result.mosaic):
+        # 处理 mosaic——按确定性顺序采信：并发请求完成顺序会让 all_res 的
+        # dict 顺序在多次刮削间抖动，mosaic 决定 NFO 标签与文件夹归类，
+        # 同文件重刮翻转归类结果属数据级不一致（对齐上方 thumb_list 的
+        # 优先级→来源排序双段模式）
+        for site in poster_priority_sites:
+            data = self._get_cached_site_result(all_res, site, poster_language)
+            if data and (mosaic := normalize_mosaic(data.mosaic)):
                 reduced.mosaic = mosaic
                 break
+        else:
+            for data in sorted(all_res.values(), key=lambda d: d.source or ""):
+                if mosaic := normalize_mosaic(data.mosaic):
+                    reduced.mosaic = mosaic
+                    break
 
         # 使用 actors 字段补全 all_actors, 理想情况下前者应该是后者的子集
         # 对 actors 的所有后处理都需要同样地应用到 all_actors

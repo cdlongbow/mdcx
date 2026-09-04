@@ -72,7 +72,10 @@ def load_config(self: "MyMAinWindow"):
             "为避免破坏配置文件，已自动切换为 _failed.json\n"
             f'这是非预期错误，请提交 <a href="{GITHUB_ISSUES_URL}">GitHub Issue</a>\n'
         )
-        manager.path = manager.data_folder / "_failed.json"
+        # switch_to_failed_session 不写 MARK_FILE（普通 path 赋值会把标记指向
+        # 不存在的 _failed.json，用户关程序后重启即被永久指向默认配置，
+        # 原配置永不再加载——全库审查 M6）
+        manager.switch_to_failed_session()
         return
     config_folder = manager.data_folder
     config_file = manager.file

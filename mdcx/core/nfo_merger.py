@@ -15,8 +15,11 @@ import copy
 from ..config.enums import NfoMergeStrategy
 from ..models.model_types import CrawlersResult
 
-# 关键字段：两源都为空时也不允许空，回退到另一源
-_CRITICAL_FIELDS = {"number", "title"}
+# 关键字段：两源都为空时也不允许空，回退到另一源。
+# 注：number 不在此集——合并循环只遍历 _SCALAR_FIELDS（不含 number），
+# 且上游 file_crawler 总会用文件番号覆盖 res.number，为其写保护回退
+# 是永不触发的死代码，移除防误导（全库审查 M8）
+_CRITICAL_FIELDS = {"title"}
 
 # 标量字段列表（字符串）
 _SCALAR_FIELDS = (

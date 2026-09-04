@@ -275,7 +275,10 @@ class MissavCrawler(BaseCrawler):
     _domains: list[str] = _MISSAV_DOMAINS
     parser = Parser()
 
-    CODE_PATTERN = re.compile(r"(?i)([a-z]{2,10})[-_ ]?(\d{2,6})")
+    # 数字段上限 8 位：FC2-PPV 长 ID（7-8 位）按 6 位截断会得到错误番号
+    # （fc2-ppv-1234567 → ppv-123456，全库审查 C4）；正常 JAV 番号数字段
+    # 3-5 位，8 位上限不影响
+    CODE_PATTERN = re.compile(r"(?i)([a-z]{2,10})[-_ ]?(\d{2,8})")
     UNCENSORED_DIGIT_PATTERN = re.compile(r"^\d{6}[-_]\d{2,4}$")
     URL_LANG_SUFFIXES = {"cn", "en", "jp", "ja", "tw", "hk"}
 

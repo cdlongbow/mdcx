@@ -123,6 +123,15 @@ class ScrapeStateCache:
                     self._pending_writes = 0
             return True
         except Exception as e:
+            # commit 失败（如 database is locked 超时）时事务悬挂打开，后续
+            # 写会追加进旧事务混入下次提交——rollback 回到干净边界并把计数
+            # 归零，丢弃的只是本批未提交状态（与"失败返回 False"语义一致）
+            try:
+                with self._lock:
+                    self._conn.rollback()
+                    self._pending_writes = 0
+            except Exception:
+                pass
             self._log(f"数据库写入失败: {e}")
             return False
 
@@ -137,6 +146,13 @@ class ScrapeStateCache:
                     self._pending_writes = 0
             return True
         except Exception as e:
+            # 同 _execute：commit 失败 rollback 清边界，防悬挂事务混入后续提交
+            try:
+                with self._lock:
+                    self._conn.rollback()
+                    self._pending_writes = 0
+            except Exception:
+                pass
             self._log(f"数据库提交失败: {e}")
             return False
 

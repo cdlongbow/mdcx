@@ -56,6 +56,10 @@ class AsinRecord(TypedDict, total=False):
 _asin_index_lock = threading.Lock()
 _asin_index_cache: dict[Path, dict] = {}
 
+# xlsx 写互斥：写路径已挪 asyncio.to_thread，并发刮削协程对同一库文件的
+# save 会真并行（load→改→save 交错丢更新）；单写者锁串行化（全库审查 M5）
+_asin_db_write_lock = threading.Lock()
+
 
 def invalidate_asin_cache(excel_path: Path | None = None) -> None:
     """失效查询索引缓存（写入/合并 ASIN 库后调用）；无参清空全部。"""
@@ -198,7 +202,10 @@ def merge_asin_db_from_backup(backup_path: Path, local_path: Path) -> None:
     from ..models.log_buffer import LogBuffer
 
     try:
-        import openpyxl
+        import importlib.util
+
+        if not importlib.util.find_spec("openpyxl"):
+            raise ImportError("openpyxl not found")
     except ImportError:
         LogBuffer.log().write("  ⚠️ [ASIN 数据库] 缺少 openpyxl，无法合并 amazon_asin_database.xlsx")
         return
@@ -214,6 +221,23 @@ def merge_asin_db_from_backup(backup_path: Path, local_path: Path) -> None:
         if marker_path.exists() and marker_path.read_text(encoding="utf-8").strip() == backup_hash:
             return  # 出厂库未变化，无需合并
 
+        # 与刮削写路径互斥（全库审查 M5）：合并读改写期间并发 save 会丢更新
+        with _asin_db_write_lock:
+            _merge_asin_db_locked(backup_path, local_path, marker_path, backup_hash, LogBuffer)
+    except Exception as e:
+        LogBuffer.log().write(f"  ⚠️ [ASIN 数据库] 出厂库合并失败: {e}")
+
+
+def _merge_asin_db_locked(
+    backup_path: Path,
+    local_path: Path,
+    marker_path: Path,
+    backup_hash: str,
+    LogBuffer,  # noqa: N803
+) -> None:
+    import openpyxl  # noqa: F401  # 外壳已验证可导入，此处供本函数体使用
+
+    try:
         wb = openpyxl.load_workbook(local_path)
         ws = wb.active
         number_row_map: dict[str, int] = {}
@@ -273,12 +297,22 @@ def _save_asin_to_excel_sync(
     耗时秒级，直接在 async 函数体内跑会阻塞整个事件循环，所有并发刮削协程
     （含网络 IO）停摆（全库审查 B4）。
     """
-    from ..models.log_buffer import LogBuffer
 
+    with _asin_db_write_lock:
+        _save_asin_to_excel_locked(records, excel_path, sheet_name)
+
+
+def _save_asin_to_excel_locked(
+    records: list[AsinRecord],
+    excel_path: Path,
+    sheet_name: str,
+) -> None:
     try:
         import openpyxl
         from openpyxl.utils import get_column_letter
     except ImportError:
+        from ..models.log_buffer import LogBuffer
+
         LogBuffer.log().write("  ⚠️ [ASIN 数据库] 缺少 openpyxl，无法保存 amazon_asin_database.xlsx")
         raise ImportError("请安装 openpyxl 库：pip install openpyxl") from None
 
@@ -520,6 +554,11 @@ async def save_single_asin_record(
 
 def _update_asin_record_sync(number: str, poster_url: str, excel_path: Path) -> bool:
     """update_asin_record 同步核心（to_thread 调用，防 4 万行库保存阻塞事件循环）。"""
+    with _asin_db_write_lock:
+        return _update_asin_record_locked(number, poster_url, excel_path)
+
+
+def _update_asin_record_locked(number: str, poster_url: str, excel_path: Path) -> bool:
     try:
         import openpyxl
     except ImportError:
@@ -579,6 +618,19 @@ def _replace_asin_record_sync(
     excel_path: Path,
 ) -> bool:
     """replace_asin_record 同步核心（to_thread 调用，防 4 万行库保存阻塞事件循环）。"""
+    with _asin_db_write_lock:
+        return _replace_asin_record_locked(number, asin, title, product_url, poster_url, search_keyword, excel_path)
+
+
+def _replace_asin_record_locked(
+    number: str,
+    asin: str,
+    title: str,
+    product_url: str,
+    poster_url: str,
+    search_keyword: str,
+    excel_path: Path,
+) -> bool:
     try:
         import openpyxl
     except ImportError:

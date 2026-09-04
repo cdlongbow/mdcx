@@ -91,6 +91,18 @@ class ConfigManager:
         self.write_mark_file(p)  # 更新标记文件路径
         self._path = p
 
+    def switch_to_failed_session(self) -> None:
+        """把当前会话切到 _failed.json（校验失败保护分支专用）。
+
+        与 path setter 的区别：不写 MARK_FILE——_failed.json 此刻并不存在，
+        把标记文件指向它，用户直接关闭程序后下次启动 reset() 会把默认配置
+        写进 _failed.json 并永久指向，原配置完好在原处却永不再加载
+        （全库审查 M6）。绕过标记后 _failed.json 仅是本会话内存配置，
+        MARK_FILE 保持指向原配置，重启即自动回到原文件。
+        """
+        self._path = self.data_folder / "_failed.json"
+        self.data_folder, self.file = self._path.parent, self._path.name
+
     def load(self) -> list[str]:
         if self._path.suffix == ".ini":  # handle v1 config
             return self.handle_v1()
