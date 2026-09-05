@@ -278,6 +278,10 @@ def _should_retry_link_error(error: str) -> bool:
         return False
     if "http 404" in normalized or "http 410" in normalized:
         return False
+    # curl_cffi 内部对象竞态（session 重建/cleanup 阶段的 "initializer for ctype"
+    # TypeError），重试必然再次失败——属库内错误而非网络问题，跳过以免浪费时间
+    if "ctype" in normalized and ("pointer" in normalized or "cdata" in normalized):
+        return False
     return any(
         marker in normalized
         for marker in (
