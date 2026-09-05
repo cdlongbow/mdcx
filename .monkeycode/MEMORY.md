@@ -19,7 +19,7 @@
   - **长时间任务标准做法**：① `background_terminal_create` 后台终端；② checkpoint 断点续传（state 落盘）；③ 分批处理批间落盘；④ wrapper 45-50 分钟自重启（云环境超时杀进程；**后台终端 1 小时上限会连 wrapper 一起回收**——checkpoint 是唯一恢复手段）；⑤ 进度看落盘文件不看终端日志（stdout 全缓冲可能 0 字节假象）。
   - **功能移除类需求先调研证据再答**：查活跃度（近期 bug 修复/议题）、底层共享依赖（删壳删不干净）、移除成本（UI 整页+槽函数+重生成）。用户转述的声音与代码证据矛盾时以代码为准（Emby 管理器/NFO 库管理案例：调研"不建议删"被接受）。
   - **用户报告的"错误消息"可能不是错误，而是正常通知被误判**（#69 实证）：程序把「已移除配置项」的迁移警告当成校验失败触发 `_failed.json` 保护分支，用户被卡在"不能切换配置"。排查链路类故障时先验证报错消息本身是"真失败"还是"通知被误伤"——消息产生端（警告/错误共用返回通道）与消费端（`if 非空` 判定）各自都要查。
-  - **Qt 布局排查纪律：理论推断必须经最小复现验证**（#72/#74 两轮教训）：#72 按“spacer 残留”理论推断的修复被用户反馈“依然没用”——最小复现（纯 PyQt 几十个按钮）证实根因是**固定高容器 + BoxLayout 缺底部 Expanding spacer**（隐藏按钮后多余空间摊进可见间隙 8→22px），与 setVisible 无关；#72 的 spacer 删除修的是另一层（spacer 不受 setVisible 控制导致的残留）。修复布局问题时：**先做最小复现锁定 Qt 原生行为，再动业务代码**；QBoxLayout 里凡是要“隐藏后紧凑排列”的场景，布局末尾必须有 Expanding spacer 吸收多余空间。
+   - **布局排查纪律：【最小复现锁定平台原生行为】再动项目代码**（#72/#74 两轮教训）：#72 按\"spacer 残留\"推断的修复被用户反馈\"依然没用\"——纯 PyQt 最小复现证实根因是**固定高容器的 BoxLayout 缺末尾 Expanding spacer**（隐藏按钮后多余空间摊进可见按钮间隙 8→22px），与 setVisible 无关。**凡 Qt 布局问题先剥离项目代码写最小复现脚本（几十个 widget 的最小场景）验证 Qt 原生行为，再设计项目侧修复**；QBoxLayout 里凡是要\"隐藏后紧凑排列\"的场景，布局末尾必须有 Expanding spacer 吸收多余空间。
   - **议题定性前必须看完用户附上的全部证据，尤其每张截图**（#73 教训）：用户报告"网络检测异常就停止并长时间停止"，我依据日志文本定性为"启动自检误读"并加了引导文案，用户反馈"没解决"——回看才发现第一张截图（未查看）直接显示检测网络页跑到中途输出"网络检测出现异常："后整轮停止，主循环 `task.result()` 无兜底让单项逃逸异常炸掉整轮，是真 bug。**日志文本不是证据全集；附图必须逐张下载查看并与文本交叉验证**。定性为"用户误读"前要额外谨慎：误读判定等于断言"不存在 bug"，错判代价是真实缺陷被放过一轮。
 
 ## GitHub 议题处理
@@ -56,7 +56,8 @@
   - **subagent 排查要求输出"已排除假设清单+理由"**；标注"已验证"的结论不可直接采信（实证：22 项宣称 11 项编造/夸大），修复前必须独立复现脚本重现每一条。
   - **全库审查方法论（2026-09-04 两批 26 项修复实证）**：4 个 subagent 按域并行（并发网络/爬虫解析/配置持久化/核心业务）产出候选 → 逐项独立复现验证（可执行脚本复刻源码逻辑；纯逻辑用系统 python 快速 trace）→ 宣称 30 项验证后 19 项成立、3 项证伪（freejavbt `list.remove` 按值删 N 个同名恰好 N 次 remove 永不耗尽、iqqtv 双斜杠触发条件与宣称不符、curl_cffi 跨 loop 单 loop 架构下不可达）。**典型证伪形态：subagent 断言崩溃阈值/触发条件，独立复现时边界值行为与宣称不符——"3 次必崩"实测 5 次仍安全**。
   - **测试锁定 bug 时以文档语义为仲裁**（FILL_MISSING_ONLY 案例）：UI 名称/models description/docstring 三处一致而与实现矛盾、且两选项行为完全重复，判定实现错测试锁错，修实现同步反转测试断言。
-  - **CancelledError 在任务收集点的处理边界**（#73 二次踩坑实证）：设计为「穿透取消语义」的 `except asyncio.CancelledError: raise` 反而成了整轮中止的新根因——单个 task 的 CancelledError（如 wait_for 子协程清理残留）被误当中断信号冒泡到 future.result()。原则：`asyncio.wait` 轮询中 `task.result()` 的收点，CancelledError 必须与 Exception 同级软着陆（记 CANCELLED/FAILED）继续跑——整轮取消只由统一入口（如 cancel_event 分支批量 cancel + return）负责，单项内部取消没有全局含义。
+  - **数据质量治理前必须做实证全量抽查，不能纯代码推断**：dmm_cid_routes.json 2291 个系列看似"mono pad3 老片路径"是全局推断，实测才发现 10.6% 的系列（JUL/MIAB 等）是真实有效的。先跑全量验证脚本（libredmm 挨个打图片 HEAD），区分真实形态后再删除，防止误杀。这次差点按理论推断删除 JUL 系列的 mono 路径（实际是有效的）——**任何基于归纳数据的批量清理，必须先全量验证命中率**。
+  - **CancelledError 在 task 收集点的边界**（#73 两次复审实证）：`asyncio.wait` + `task.result()` 的收集点，`CancelledError` 必须与 `Exception` 同级软着陆（单项记 CANCELLED 继续跑）——整轮取消只由 cancel_event 分支统一负责。写成 `raise` 穿透语义反而会把子任务等待超时清理的 CancelledError（wait_for 的 cancel 残留）误认为中断信号，导致整轮检测中止。
   - **用户质疑审查结论时先验证触发链再降级**（FC2 案例）：subagent 说"FC2 番号会被分到 javbus"，人工质疑后追分类链——`classify_scrape_task` 对 FC2 强制走 website_fc2 组（不含 javbus/javlibrary），触发面收窄为单站模式/指定 URL/自定义列表，A 级降 B 级。触发链的每一环都要落实，"功能上可达"不等于"正常路径会走到"。
   - **conftest dummy 陷阱（M6 案例）**：测试断言依赖的属性可能被 conftest 的 `_DummyManager` 实例属性遮蔽（dummy.path 是实例属性，直接赋 `manager._path` 后断言读 dummy.path 仍返回旧值）；给真实 manager 加新方法时必须同步给 dummy 加同名方法，否则 AttributeError 以 qFatal 形态在 Qt 测试里爆。绕 dummy 验证真实模块用独立 `uv run python` 脚本（无 conftest 干扰）；模块内做 AST 哨兵测试比 importlib 加载真实模块文件可靠（相对导入会失败）。
   - **ruff B010/B009 与 mypy attr-defined 的组合**：动态属性读写（缓存挂到第三方 Response 对象上）需 `obj._x = v  # type: ignore[attr-defined] # noqa: SLF001` + `getattr(obj, "_x", None)  # noqa: B009`；`setattr` 常量属性被 B010 禁止。
@@ -132,6 +133,7 @@
   - **番号规范化预检防假案**：缩位写法（ABF-34 vs ABF-034）会制造"自己和自己冲突"；比对一律 (系列字母, int(数字)) 做 key。批量导入 xlsx 必须走含去重入口（`save_asin_to_excel`），直接 ws.append 产生成批重复。
   - cid→番号规则：`^(\d*)([a-z]+)(\d+)([a-z]?)$` → `系列大写-{int:03d}`（绝不缩成 PED-30）；变体字母归并同番号。tenhow cid 离线索引 `resources/userdata/tenhow_asin_cids.json`（36441 条，`core/asin_cid_index.py` 三态裁决）。
   - **libredmm 归纳安全过滤教训**（提交 e0c98b7）：外部归纳数据接入前先在高频样本做候选顺序回归（覆盖率掩盖顺序污染）；防污染不弃真实增量——按"顺序影响"分级（append 兜底）而非二元弃用（GVG-564 的 mono 3 位真实数据曾被 v1 错杀）。
+  - **DMM 路由表月度健康检查**：`dmm_cid_routes.json` 若后续再从归纳数据重新生成，生成后必须先跑全量验证（libredmm 实测逐系列打 pics.dmm.co.jp 图片 HEAD 判定占位图/死链），把死链的组合筛掉再推送到生产。本次清理后掌握 2291 条（3925->1634 个数字 pad3 组合全为占位图）已清除；若 regenerating：`generate_image_candidates` 中 `pads 全≤3` 的判断已经内置兜底，但数据源层面的组合仍需独立验证。
   - **DMM cid 结构**：前缀映射 + 数字双态（5 位补零 digital 与 3 位原样 mono **同系列可并存**）+ 双路径（digital/video 与 mono/movie/adult 各半）+ 变体后缀无需枚举。DMM 图床：站点下架但 CDN 不删对象；占位图 200+<4KB 已拒收（`_validate_dmm_image_url`）。
   - **日亚图域知识**：SL1500 商品图**物理无条码**（0/50，条码 OCR 只能从 DMM/爬虫侧封面联图拿——app 横版联图获取率 94%）；老商品标题用**半角片假名**（NFKC 必做）；日亚 DVD 封与 DMM digital 封**版本不同**，图像比对天花板 ~0.62。
   - tenhow.net 图床：`images/{ASIN}.jpg` 与日亚 SL1500 同源同分辨率，免代理直取（T0 优先，404 回退）；页面条目图名即可入库 ASIN（全站索引 36441 条）。旧索引 8126 条抓取残缺已作废。
