@@ -115,6 +115,47 @@ def test_log_lower_hidden_upper_fills_page(win, app):
     assert upper.height() == pytest.approx(page.height() * 0.61, abs=2)
 
 
+def test_nav_gap_uniform_when_entries_hidden(win, app, monkeypatch):
+    """议题 #74：原生边框下开启隐藏入口后，剩余导航按钮间隙必须一致且等于 spacing。
+
+    根因：导航 layout 的固定高度容器没有底部 Expanding spacer，隐藏入口后多余
+    空间被摊进可见按钮间隙（实测 8→22px）。修复：垂直布局末尾加 Expanding spacer
+    吸收多余空间。本测试锁定隐藏后的间隙与整体结构。
+    """
+    from mdcx.config.enums import Switch
+    from mdcx.controllers.main_window import main_window as mw_mod
+
+    old = list(mw_mod.manager.config.switch_on)
+    monkeypatch.setattr(mw_mod.manager.config, "window_title", "show")  # 原生边框
+    monkeypatch.setattr(mw_mod.manager.config, "switch_on", [*old, Switch.HIDE_ACTOR_NAV, Switch.HIDE_NFO_NAV])
+    win.load_config()
+    win._windows_auto_adjust()
+    win.show()
+    app.processEvents()
+
+    layout = win.Ui.verticalLayout
+    assert win.Ui.pushButton_emby_manager_nav.isHidden()
+    assert win.Ui.pushButton_nfo_library.isHidden()
+
+    nav_buttons = [
+        win.Ui.pushButton_main,
+        win.Ui.pushButton_log,
+        win.Ui.pushButton_tool,
+        win.Ui.pushButton_emby_manager_nav,
+        win.Ui.pushButton_nfo_library,
+        win.Ui.pushButton_setting,
+        win.Ui.pushButton_net,
+        win.Ui.pushButton_about,
+    ]
+    visible = [b for b in nav_buttons if not b.isHidden()]
+    assert len(visible) == 6
+
+    from itertools import pairwise
+
+    gaps = [b.y() - (a.y() + a.height()) for a, b in pairwise(visible)]
+    assert all(g == layout.spacing() for g in gaps), f"导航间隙不等于 spacing: {gaps}"
+
+
 def test_maximize_button_present(win):
     """议题 #69: 最大化按钮恢复（#67 曾按报告人要求用 WindowMaximizeButtonHint 屏蔽）。
 

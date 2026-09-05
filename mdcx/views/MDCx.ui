@@ -25621,6 +25621,23 @@ p, li { white-space: pre-wrap; }
                   </property>
                 </widget>
               </item>
+              <item>
+                <!-- 议题 #74: 末尾 Expanding spacer 吸收容器剩余空间，否则隐藏入口后多余高度被摊进按钮间隙 -->
+                <spacer name="verticalSpacer_nav_bottom">
+                  <property name="orientation">
+                    <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeType">
+                    <enum>QSizePolicy::Expanding</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                    <size>
+                      <width>20</width>
+                      <height>0</height>
+                    </size>
+                  </property>
+                </spacer>
+              </item>
             </layout>
           </widget>
         </widget>

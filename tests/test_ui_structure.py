@@ -180,23 +180,31 @@ def test_groupboxes_fit_scroll_area():
 
 
 def test_nav_layout_no_fixed_spacers():
-    """左侧导航 verticalLayout 必须用 spacing 分隔按钮，不得包含 spacer。
+    """左侧导航 verticalLayout 必须用 spacing 分隔按钮，按钮间不得出现 spacer。
 
-    议题 #72 回归锁定：原实现用 7 个 8px 固定 QSpacerItem 分隔导航按钮，
-    而隐藏入口开关（议题 #71，setVisible）无法隐藏 QSpacerItem——隐藏
-    「演员管理」「信息管理」后 spacer 残留叠出 16px 空洞且间距不一致。
-    现改为 layout spacing=8，Qt 对隐藏按钮自动收紧间距。若有人再往该
-    布局添加 spacer，隐藏入口功能会再次出现间隙回归，在此拦截。
+    议题 #72 回归锁定：固定 QSpacerItem 不受 setVisible 控制，隐藏按钮后残留
+    叠出空洞。现按钮间无 spacer、改用 layout spacing=8。
+    例外：布局末尾允许且必须保留一个 Expanding spacer（议题 #74：固定高容器
+    在隐藏按钮后会把多余空间摊进按钮间隙，末尾 Expanding spacer 吸收之）。
     """
     root = _parse_ui()
     nav = next((lay for lay in root.iter("layout") if lay.get("name") == "verticalLayout"), None)
     assert nav is not None, "未找到左侧导航 verticalLayout"
 
     spacing = nav.find("property/number")
-    assert spacing is not None and spacing.text == "8", "导航 verticalLayout spacing 应为 8（隐藏入口后自动收紧的前提）"
+    assert spacing is not None and spacing.text == "8", "导航 verticalLayout spacing 应为 8"
 
-    spacers = nav.findall("item/spacer")
-    assert not spacers, f"导航布局内不应有 spacer（改用 layout spacing）: {[s.get('name') for s in spacers]}"
+    items = nav.findall("item")
+    spacers = [it.find("spacer") for it in items if it.find("spacer") is not None]
+    # 仅允许末尾一个 Expanding spacer，按钮间不允许任何 spacer
+    assert len(spacers) == 1, f"导航布局应有且仅有 1 个末尾 Expanding spacer，实际 {len(spacers)}"
+    sp = spacers[0]
+    last_item = items[-1]
+    assert last_item.find("spacer") is sp, "Spacer 必须位于布局末尾"
+    size_type = sp.find("property[@name='sizeType']/enum")
+    assert size_type is not None and "Expanding" in size_type.text, (
+        f"末尾 spacer 必须 Expanding: {size_type and size_type.text}"
+    )
 
 
 def test_mdcx_py_in_sync_with_ui():

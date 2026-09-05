@@ -1058,6 +1058,8 @@ def load_config(self: "MyMAinWindow"):
 
         # 议题 #71: 左侧导航「演员管理」/「信息管理」入口显隐
         # 仅隐藏入口, 功能本身保留; 保存后 load_config 会被再次调用, 即时生效
+        # 议题 #74: 间隙摊大的根因是布局缺少底部 Expanding spacer（固定高容器
+        # 会把多余空间摊给可见项间隙），已由 .ui 末尾 spacer 修复；setVisible 语义本身正确
         hide_actor_nav = Switch.HIDE_ACTOR_NAV in switch_on
         hide_nfo_nav = Switch.HIDE_NFO_NAV in switch_on
         self.Ui.checkBox_hide_actor_nav.setChecked(hide_actor_nav)
