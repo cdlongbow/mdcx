@@ -4,7 +4,7 @@
 
 ### 修复
 
-- **刮削速度退化修复**：curl_cffi 内部对象竞态产生的 TypeError「initializer for ctype ... must be a cdata pointer, not NoneType」被 `_should_retry_link_error` 归为「curl-cffi 异常」一律重试（最多 3 次 + 递增等待），每张图片最多多耗数秒；这类库内部错误重试无法解决，现改为识别后即视为不可重试立即跳过。同时定位到 mono/movie/adult 路径的错误 cid 前缀候选（77ssis / 88ssis 等老片 Mono 形态被路由表错误套用到新片 digital 上造成多张 404 探测），将在后续版本清理学习表格式
+- **刮削速度退化修复**：curl_cffi 内部对象竞态产生的 TypeError「initializer for ctype ... must be a cdata pointer, not NoneType」被 `_should_retry_link_error` 归为「curl-cffi 异常」一律重试（最多 3 次 + 递增等待），每张图片最多多耗数秒；这类库内部错误重试无法解决，现改为识别后即视为不可重试立即跳过。同时修复路由表归纳污染：libredmm 把老片 mono/movie/adult 形态的 cid 前缀（如 77ssis、88ssis，对应 `pad=3` 的三位老编号空间）错误归纳到 SSIS 等仍在发行的系列名下，导致每张新片都先尝试数次 mono 路径的 404；现改为 **combo 的 pads 全部 ≤3 时不再生成 mono 候选**（它们是纯老片形态，对新片无意义），并**在学习表入库前前置过滤**——只从 `digital/video` 路径的 URL 学习 cid 前缀，拒收 mono 形态的带回数据。GVG-564 等 pads 混合形态的真实老片不受影响
 - **议题 #74 隐藏入口后间隙摊大的真根因**：前次按“spacer 残留”修复后间隙仍摊大（实测 8→22px）。实锤根因：导航容器的 layoutWidget 固定 380px 高而 QVBoxLayout 缺少底部 Expanding spacer，隐藏按钮后多余空间被摊进可见按钮间隙。修复：导航布局末尾加 Expanding spacer 吸收多余空间，隐藏后按钮保持紧凑的 8px 间距。新增 `test_nav_gap_uniform_when_entries_hidden` 实测锁定（show 后断言按钮间隙等于 spacing）
 - **议题 #72 隐藏入口后导航间隙不齐 + 导航改名**：隐藏「演员管理」「信息管理」后按钮间残留 16px 空洞且间距不一致（按钮间的固定 spacer 不受隐藏开关控制）。改为布局统一间距，隐藏后剩余按钮间距自动恢复一致。导航按钮改名：「Emby演员管理」→「演员管理」、「NFO库管理」→「信息管理」
 - **议题 #73 检测网络页中途异常中断**：检测跑到中途弹出「网络检测出现异常：」（空消息）后整轮停止，后续站点不再检测。根因有两层：① 主循环对单项任务的逃逸异常（如空消息的裸 TimeoutError）没有兜底；② 初次修复中对 CancelledError 的错误穿透——单个任务内部协程被底层取消后，冒泡到主循环又触发整轮终止。修复：主循环对所有异常统一软着陆，单项失败/取消各归该项不再炸整轮，异常携带类型名与 traceback「复制结果」可直接回传定位；空消息异常不再空白。启动自检开头另加范围说明（自检固定四项，全量检测请到「检测网络」页）

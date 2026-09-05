@@ -66,6 +66,22 @@ def test_append_mode_legacy_three_digit_fallback():
     assert any(url.startswith("https://pics.dmm.co.jp/mono/movie/adult/13gvg564/") for url in urls)
 
 
+def test_ssis_pure_pad3_mono_combos_are_skipped():
+    """纯 pad≤3 的 mono 组合（老片 CID 空间）不应为新片产生 mono 候选。
+
+    议题反馈：SSIS-742 这类新片被反复尝试 mono 路径（77ssis742 / 88ssis742
+    等），全部 404 + 「图片已被网站删除」拖慢刮削。根因：libredmm 归纳把
+    老片的 mono 组合错误地关联到了新片系列。这些组合对新片无效，一律跳过。
+
+    对比：GVG-564 的 pads 是混合形态 [3, 5]（数字资源确实存在于 mono 3 位），
+    保留不动，test_append_mode_legacy_three_digit_fallback 锁定。
+    """
+    urls = [url for _, url in dmm_direct.generate_image_candidates("SSIS-742")]
+    assert not any("mono/movie/adult" in url for url in urls), (
+        "SSIS-742 不应生成 mono 路径候选（其路由条目全是 pad=3 的老片形态）"
+    )
+
+
 def test_route_hit_step_reach():
     """路由系列一步直达：AAJB 真实 cid 是基线盲枚举第 4 位，路由后首候选命中。"""
     cids = dmm_direct.generate_cid_candidates("AAJB-100")

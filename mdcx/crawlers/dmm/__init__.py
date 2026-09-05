@@ -243,7 +243,9 @@ class DmmCrawler(GenericBaseCrawler[DMMContext]):
 
             # https://awsimgsrc.dmm.co.jp/pics_dig/digital/video/{cid}/{cid}ps.jpg
             segments = normalized.rstrip("/").split("/")
-            if len(segments) >= 2:
+            # 只在 digital/video 路径学习——mono 路径的 cid 前缀属于老片独立
+            # 编号空间，学到会污染新片探测（议题：刮削变慢）
+            if len(segments) >= 4 and segments[-4] == "digital" and segments[-3] == "video":
                 cid = segments[-2]
                 if cid:
                     record_success(number, cid)

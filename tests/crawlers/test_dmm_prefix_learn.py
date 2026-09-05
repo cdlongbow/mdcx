@@ -18,6 +18,29 @@ def _isolated_learn(monkeypatch: pytest.MonkeyPatch, tmp_path):
     dmm_prefix_learn.reset_for_testing()
 
 
+def test_dmm_monopath_url_not_learned(monkeypatch: pytest.MonkeyPatch, _isolated_learn):
+    """mono/movie/adult 路径的 cid（老片前缀形态）不得写入学习表。
+
+    实证：mono 形态的 cid（如 77ssis742）与新片 digital 形态（ssis00742）
+    是两个不同的编号空间；它们混学后旧前缀会被错误应用到新片，造成
+    无损每张图的 mono 路径 404 试探。
+    """
+    from mdcx.crawlers import dmm_direct
+
+    recorded = []
+    monkeypatch.setattr(dmm_prefix_learn, "record_success", lambda number, cid: recorded.append((number, cid)))
+
+    # mono 路径（老片）：不应学习
+    dmm_direct._record_learn_evidence("ssis-742", ["https://pics.dmm.co.jp/mono/movie/adult/77ssis742/77ssis742ps.jpg"])
+    assert recorded == []
+
+    # digital 路径（新片）：正常学习
+    dmm_direct._record_learn_evidence(
+        "ssis-742", ["https://awsimgsrc.dmm.co.jp/pics_dig/digital/video/ssis00742/ssis00742ps.jpg"]
+    )
+    assert recorded == [("ssis-742", "ssis00742")]
+
+
 def test_record_success_promotes_after_two_codes(_isolated_learn):
     dmm_prefix_learn.record_success("sone-833", "sone00833")
     assert dmm_prefix_learn.get_learned_prefixes("sone") == ([], [""])  # 空前缀 sone，provisional

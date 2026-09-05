@@ -364,7 +364,14 @@ def generate_image_candidates(number: str) -> list[tuple[str, str]]:
             cid_series = str(combo.get("s", ""))
             if not cid_series:
                 continue
-            for pad in combo.get("pads", []):
+            pads = combo.get("pads", [])
+            # mono 组合里 pads 全部 ≤3 时，该 mono 形态归属「老片的 CID 空间」，对新片
+            # 毫无意义。SSIS 的 5 条 mono 组合全是 pad=3（纯老片形态），把 742 号
+            # 新片映射过去必然 404 且不断重试（议题：刮削变慢，「图片已被网站删除」）。
+            # 组合里若同时存在 ≥4 位的 pad（如 GVG 的 pad=3+5 混合真实老片），保留 mono 输出。
+            if pads and all(p <= 3 for p in pads if isinstance(p, int)):
+                continue
+            for pad in pads:
                 if not isinstance(pad, int) or pad <= 0:
                     continue
                 cid = f"{prefix}{cid_series}{num:0{pad}d}"
@@ -466,7 +473,12 @@ async def _is_dmm_hd_image(url: str) -> bool:
 
 
 def _record_learn_evidence(number: str, candidates: list[str]) -> None:
-    """从命中的 DMM 候选 URL 提取 cid 并写入学习表（静默失败不影响主流程）。"""
+    """从命中的 DMM 候选 URL 提取 cid 并写入学习表（静默失败不影响主流程）。
+
+    只学习 digital/video 路径的 URL——mono/movie/adult 路径的 cid 前缀
+    （如老片的 77ssis/88ssis）属于独立编号空间，学到会污染新片的数字
+    前缀探测，表现为每张图多等几次 mono 路径 404。
+    """
     try:
         from mdcx.crawlers.dmm_prefix_learn import record_success
 
@@ -475,7 +487,8 @@ def _record_learn_evidence(number: str, candidates: list[str]) -> None:
                 continue
             # https://awsimgsrc.dmm.co.jp/pics_dig/digital/video/{cid}/{cid}ps.jpg
             segments = url.rstrip("/").split("/")
-            if len(segments) >= 2:
+            # digital/video 形如 [...、"digital", "video", "<cid>", "<cid>ps.jpg"]
+            if len(segments) >= 4 and segments[-4] == "digital" and segments[-3] == "video":
                 cid = segments[-2]
                 if cid:
                     record_success(number, cid)
