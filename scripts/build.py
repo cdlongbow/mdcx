@@ -203,6 +203,10 @@ class BuildManager:
             # NFO 合并策略引擎(nfo.py 写入前函数内延迟导入)
             "--hidden-import",
             "mdcx.core.nfo_merger",
+            # 7mmtv 爬虫(模块名数字开头, 经 importlib.import_module 动态注册,
+            # PyInstaller 静态分析不可靠, 必须显式收录否则打包版运行时刮削崩溃)
+            "--hidden-import",
+            "mdcx.crawlers.7mmtv",
             "--collect-all",
             "defusedxml",
             "--collect-all",

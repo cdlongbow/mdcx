@@ -1049,7 +1049,7 @@ def check_theporndb_api_token() -> str:
         "Accept": "application/json",
     }
     if not api_token:
-        tips = "❌ 未填写 API Token，影响欧美刮削！可在「设置」-「网络」添加！"
+        tips = "❌ 未填写 API Token，影响欧美刮削！可在「软件设置」-「网络」添加！"
     else:
         try:
             with manager.acquire_computed() as computed:
@@ -1063,7 +1063,7 @@ def check_theporndb_api_token() -> str:
             signal.show_log_text(tips)
             return tips
         if response.status_code == 401 and "Unauthenticated" in str(response.text):
-            tips = "❌ API Token 错误！影响欧美刮削！请到「设置」-「网络」中修改。"
+            tips = "❌ API Token 错误！影响欧美刮削！请到「软件设置」-「网络」中修改。"
         elif response.status_code == 200:
             tips = "✅ 连接正常！" if response.json().get("data") else "❌ 返回数据异常！"
         else:

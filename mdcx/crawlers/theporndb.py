@@ -207,7 +207,7 @@ class TheporndbCrawler(BaseCrawler):
     def _headers(self):
         api_token = manager.config.theporndb_api_token
         if not api_token:
-            raise CrawlerException("请添加 API Token 后刮削！（「设置」-「网络」-「API Token」）")
+            raise CrawlerException("请添加 API Token 后刮削！（「软件设置」-「网络」-「API Token」）")
         return {
             "Authorization": f"Bearer {api_token}",
             "Content-Type": "application/json",

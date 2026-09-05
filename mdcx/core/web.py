@@ -1080,7 +1080,7 @@ async def thumb_download(
         LogBuffer.log().write(f"\n 🟠 Thumb download failed（已忽略）({get_used_time(start_time)}s)")
         return True
     LogBuffer.log().write(
-        "\n 🔴 Thumb download failed! 你可以到「设置」-「下载」，勾选「图片下载失败时，不视为失败！」 "
+        "\n 🔴 Thumb download failed! 你可以到「软件设置」-「下载」，勾选「图片下载失败时，不视为失败！」 "
     )
     return False
 
@@ -1440,7 +1440,7 @@ async def poster_download(
             LogBuffer.log().write(f"\n 🟠 Poster download failed（已忽略）({get_used_time(start_time)}s)")
             return True
         LogBuffer.log().write(
-            "\n 🔴 Poster download failed! 你可以到「设置」-「下载」，勾选「图片下载失败时，不视为失败！」 "
+            "\n 🔴 Poster download failed! 你可以到「软件设置」-「下载」，勾选「图片下载失败时，不视为失败！」 "
         )
         return False
 
@@ -1467,7 +1467,9 @@ async def poster_download(
     if DownloadableFile.IGNORE_PIC_FAIL in download_files:
         LogBuffer.log().write(f"\n 🟠 Poster cut failed（已忽略）({get_used_time(start_time)}s)")
         return True
-    LogBuffer.log().write("\n 🔴 Poster cut failed! 你可以到「设置」-「下载」，勾选「图片下载失败时，不视为失败！」 ")
+    LogBuffer.log().write(
+        "\n 🔴 Poster cut failed! 你可以到「软件设置」-「下载」，勾选「图片下载失败时，不视为失败！」 "
+    )
     return False
 
 
@@ -1542,7 +1544,7 @@ async def fanart_download(
     if DownloadableFile.IGNORE_PIC_FAIL in download_files:
         LogBuffer.log().write(f"\n 🟠 Fanart failed（已忽略）({get_used_time(start_time)}s)")
         return True
-    LogBuffer.log().write("\n 🔴 Fanart failed! 你可以到「设置」-「下载」，勾选「图片下载失败时，不视为失败！」 ")
+    LogBuffer.log().write("\n 🔴 Fanart failed! 你可以到「软件设置」-「下载」，勾选「图片下载失败时，不视为失败！」 ")
     return False
 
 

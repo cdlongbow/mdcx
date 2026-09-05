@@ -3794,7 +3794,7 @@ class MyMAinWindow(QMainWindow):
         input_cookie = self.Ui.plainTextEdit_cookie_javdb.toPlainText()
         if not input_cookie:
             self.set_javdb_status.emit("❌ 未填写 Cookie")
-            self.show_log_text(" ❌ JavDb 未填写 Cookie，可在「设置」-「网络」添加！")
+            self.show_log_text(" ❌ JavDb 未填写 Cookie，可在「软件设置」-「网络」添加！")
             return
         self.set_javdb_status.emit("⏳ 正在检测中...")
         try:
@@ -3988,7 +3988,7 @@ class MyMAinWindow(QMainWindow):
         input_cookie = self.Ui.plainTextEdit_cookie_fc2ppvdb.toPlainText().strip()
         if not input_cookie:
             self.set_fc2ppvdb_status.emit("❌ 未填写 Cookie")
-            self.show_log_text(" ❌ FC2PPVDB 未填写 Cookie，可在「设置」-「网络」添加！")
+            self.show_log_text(" ❌ FC2PPVDB 未填写 Cookie，可在「软件设置」-「网络」添加！")
             return
         self.set_fc2ppvdb_status.emit("⏳ 正在检测中...")
         try:
