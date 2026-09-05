@@ -584,6 +584,36 @@ class MyMAinWindow(QMainWindow):
         # 选择目录按钮跟随开始按钮左移，保持 14px 视觉间距（设计 666 与 680 之间）
         ui.pushButton_select_media_folder.move(max(ui.pushButton_start_cap.x() - 101 - 14, 20), 13)
 
+        # 信息区宽幅标签拉伸（设计右缘 570，右侧留白区）：简介/标签/行分隔线
+        # 右界锚定结果树左缘 - 30（设计 600-30），避免与右列视觉重叠。
+        # 平移一律用「设计基准 + extra」固定公式，保证重复同步幂等（resize 反复
+        # 触发时基于当前值的增量平移会累积漂移）
+        info_right = max(ui.treeWidget_number.x() - 30, 400)
+        info_extra = max(info_right - 570, -440)  # 窄窗口时收缩下限，避免负宽
+        ui.label_outline.resize(max(500 + info_extra, 60), ui.label_outline.height())
+        ui.label_tag.resize(max(500 + info_extra, 60), ui.label_tag.height())
+        for ln in ("line_6", "line_7"):
+            getattr(ui, ln).resize(max(500 + info_extra, 60), 20)
+        # 下半区双列（设计右列 x=350）：右列整组平移，左列保持原位
+        for ln, dx in (
+            ("label_series", 350),
+            ("label_publish", 350),
+            ("label_31", 310),
+            ("label_24", 310),
+            ("line_9", 350),
+            ("line_10", 350),
+            ("line_11", 350),
+        ):
+            w = getattr(ui, ln)
+            w.move(dx + info_extra, w.y())
+        # 上区行（y70 番号/演员、y110 标题）右界受同右行按钮限制（label_source 460 /
+        # pushButton_open_nfo 427）：右界 = min(对应限制, 结果树左缘-30)
+        top_right = max(min(450, ui.treeWidget_number.x() - 30), 420)
+        title_right = max(min(417, ui.treeWidget_number.x() - 30), 390)
+        ui.label_number.resize(max(top_right - 80, 161), ui.label_number.height())
+        ui.label_actor.resize(max(top_right - 300, 161), ui.label_actor.height())
+        ui.label_title.resize(max(title_right - 80, 341), ui.label_title.height())
+
         # ============ page_setting: tabWidget + 内部12个 scrollArea ============
         # tabWidget 设计参考几何(20,10,800,682) → scrollArea(0,0,796,658)
         # 保持 tabWidget 固定 X/Y=20,10，宽高跟随主窗口
@@ -603,6 +633,20 @@ class MyMAinWindow(QMainWindow):
             scroll_area = tab_page.findChild(CustomScrollArea)
             if scroll_area is not None and scroll_area.parentWidget() == tab_page:
                 scroll_area.setGeometry(0, 0, scroll_w, scroll_h)
+
+        # ---- page_setting 底部配置操作浮框（当前配置/另存为/恢复默认/保存）----
+        # 设计基准 y620-692 贴页底（page_setting 高 692）。窗口放大后浮框停在设计
+        # 高度、视觉悬空——整组按 (设计页高 692 - 设计 y) 的下缘边距锚定新底部，
+        # 保存按钮（设计右缘 731/页宽 820）同步右缘锚定，背景 label 拉伸贴宽。
+        setting_page = ui.page_setting
+        sp_h = setting_page.height()
+        sp_w = setting_page.width()
+        bottom = max(sp_h - (692 - 630), 100)  # 控件组设计基线 y=630
+        ui.label_config.setGeometry(0, max(sp_h - (692 - 620), 90), max(sp_w - 21, 400), 72)
+        ui.comboBox_change_config.move(100, max(bottom + 5, 105))
+        ui.pushButton_save_new_config.move(270, bottom)
+        ui.pushButton_init_config.move(380, bottom)
+        ui.pushButton_save_config.move(max(sp_w - 241 - 89, 500), bottom)
 
         # ============ page_tool: scrollArea_10 ============
         tool_area = ui.page_tool

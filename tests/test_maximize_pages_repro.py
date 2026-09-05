@@ -110,6 +110,63 @@ def test_maximize_content_follow_all_pages(win, app):
     )
 
 
+def test_setting_config_bar_docked_to_bottom(win, app):
+    """设置页底部配置操作浮框（当前配置/另存为/恢复默认/保存）跟随贴底 + 保存按钮右缘锚定."""
+
+    win.resize(1040, 760)
+    win.show()
+    app.processEvents()
+
+    setting_page = _goto(win, app, "page_setting")
+    page_h = setting_page.height()
+
+    win.resize(1920, 1040)
+    app.processEvents()
+    page_h = setting_page.height()
+
+    # 整组控件贴新底部（设计基线距底 692-630=62，允许 DPI 误差）
+    for btn, name in (
+        (win.Ui.pushButton_save_new_config, "另存为"),
+        (win.Ui.pushButton_init_config, "恢复默认"),
+        (win.Ui.pushButton_save_config, "保存"),
+    ):
+        dock = page_h - btn.y()
+        assert 55 <= dock <= 75, f"{name} 未贴底: 距底 {dock}（页高 {page_h}）"
+
+    # 保存按钮右缘锚定（设计右距 820-731=89）
+    right_gap = setting_page.width() - (win.Ui.pushButton_save_config.x() + win.Ui.pushButton_save_config.width())
+    assert 80 <= right_gap <= 100, f"保存按钮右缘未锚定: 右距 {right_gap}"
+
+    # 背景 label 拉伸贴宽
+    assert win.Ui.label_config.width() >= setting_page.width() - 30, (
+        f"配置浮框背景未拉伸: {win.Ui.label_config.width()} / {setting_page.width()}"
+    )
+
+
+def test_setting_form_inputs_stretch_with_viewport(win, app):
+    """设置页表单输入控件随视口拉宽（gridLayout 重排，修复"表单缩在左侧"）."""
+
+    win.resize(1040, 760)
+    win.show()
+    app.processEvents()
+
+    _goto(win, app, "page_setting")
+    # 切到刮削目录 tab（tab0），取其中行编辑框
+    from PyQt6.QtWidgets import QLineEdit
+
+    tab0 = win.Ui.tabWidget.widget(0)
+    edits = tab0.findChildren(QLineEdit)
+    assert edits, "刮削目录 tab 无输入框"
+    before = max(e.width() for e in edits)
+
+    win.resize(1920, 1040)
+    app.processEvents()
+
+    after = max(e.width() for e in edits)
+    print(f"form edit width: {before} -> {after}")
+    assert after > before + 100, f"表单输入框未随视口拉宽: {before} -> {after}"
+
+
 def test_scroll_content_follow_viewport(win, app):
     """工具页 scrollArea 内部内容跟随视口宽（切页显示后验证，对齐用户观察路径）."""
 
@@ -144,6 +201,48 @@ def test_scroll_content_follow_viewport(win, app):
     print(f"groupBox widths: {[(g.objectName(), g.width()) for g in wide_groups[:4]]}")
     for g in wide_groups:
         assert g.width() >= 700 + extra - 4, f"宽幅容器 {g.objectName()} 未跟随拉伸: {g.width()} (extra={extra})"
+
+
+def test_probe_main_tool_content(win, app):
+    """软件界面/软件工具页内容随视口拉宽（与设置页同款自适应）。"""
+
+    from PyQt6.QtWidgets import QLineEdit
+
+    win.resize(1040, 760)
+    win.show()
+    app.processEvents()
+
+    tool_page = _goto(win, app, "page_tool")
+    before_edit = max((e.width() for e in tool_page.findChildren(QLineEdit)), default=0)
+    before_outline = win.Ui.label_outline.width()
+    before_series_x = win.Ui.label_series.x()
+
+    win.resize(1920, 1040)
+    app.processEvents()
+
+    # 软件工具页：输入框跟随拉宽
+    after_edit = max((e.width() for e in tool_page.findChildren(QLineEdit)), default=0)
+    print(f"tool_lineEdit : {before_edit} -> {after_edit}")
+    print(f"main_outline  : {before_outline} -> {win.Ui.label_outline.width()}")
+    print(f"series_x      : {before_series_x} -> {win.Ui.label_series.x()}")
+    assert after_edit > before_edit + 200, f"工具页输入框未随视口拉宽: {before_edit} -> {after_edit}"
+
+    # 软件界面：信息区标签拉伸、下半区右列平移（贴结果树左缘-30）
+    tree_x = win.Ui.treeWidget_number.x()
+    assert win.Ui.label_outline.width() > before_outline + 200, "简介标签未拉伸"
+    assert win.Ui.label_outline.geometry().right() == pytest.approx(tree_x - 30, abs=4)
+    assert win.Ui.label_series.x() > before_series_x + 200, "下半区右列未平移"
+    # 上区受右侧按钮限制的拉伸右界
+    assert win.Ui.label_number.geometry().right() == pytest.approx(min(450, tree_x - 30), abs=4)
+
+    # 幂等性：还原-再放大后，几何与直接放大结果一致（固定公式基准，无累积漂移）
+    win.resize(1040, 760)
+    app.processEvents()
+    win.resize(1920, 1040)
+    app.processEvents()
+    assert win.Ui.label_series.x() == pytest.approx(350 + (tree_x - 30 - 570), abs=4), "右列平移漂移"
+    assert win.Ui.label_outline.geometry().right() == pytest.approx(tree_x - 30, abs=4), "标签拉伸漂移"
+    assert after_edit == max((e.width() for e in tool_page.findChildren(QLineEdit)), default=0), "工具页输入框宽漂移"
 
 
 def test_switch_to_pages_after_maximize_content_visible(win, app):
