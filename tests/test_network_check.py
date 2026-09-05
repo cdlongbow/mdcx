@@ -181,24 +181,39 @@ async def test_run_network_check_survives_task_level_exception(monkeypatch: pyte
 
 
 @pytest.mark.anyio
-async def test_run_network_check_cancelled_task_propagates(monkeypatch: pytest.MonkeyPatch):
-    """取消语义必须穿透：done 集合中被取消的 task，其 CancelledError 不应被吞成 FAILED。"""
+async def test_run_network_check_cancelled_task_does_not_stop(monkeypatch: pytest.MonkeyPatch):
+    """单个 task 内部抛 CancelledError 应软着陆（记 CANCELLED），不中断整轮（议题 #73）。
+
+    用户截图实锤：CancelledError 从 future.result() 逃逸导致整轮停止。
+    整轮取消由 cancel_event 分支统一处理，单项内部取消不应穿透。
+    """
     import asyncio
 
     async def fake_specs():
         return [
             NetworkCheckSpec(name="cancelled", group="基础连通性", url="https://c.example"),
+            NetworkCheckSpec(name="good", group="基础连通性", url="https://g.example"),
         ]
 
     monkeypatch.setattr("mdcx.core.network_check.build_network_check_specs", fake_specs)
 
-    async def cancelled_item(spec, *, cancel_event=None, client=None):
-        raise asyncio.CancelledError
+    real_item = nc.run_network_check_item
 
-    monkeypatch.setattr("mdcx.core.network_check.run_network_check_item", cancelled_item)
+    async def flaky_item(spec, *, cancel_event=None, client=None):
+        if spec.name == "cancelled":
+            raise asyncio.CancelledError
+        return await real_item(spec, cancel_event=cancel_event, client=client)
 
-    with pytest.raises(asyncio.CancelledError):
-        await run_network_check(progress=lambda line: None, client=FakeClient(), emit_header=False)
+    monkeypatch.setattr("mdcx.core.network_check.run_network_check_item", flaky_item)
+    lines: list[str] = []
+
+    results = await run_network_check(progress=lines.append, client=FakeClient(), emit_header=False)
+
+    assert len(results) == 2
+    by_name = {r.spec.name: r for r in results}
+    assert by_name["cancelled"].status == NetworkCheckStatus.CANCELLED
+    assert by_name["good"].status == NetworkCheckStatus.OK
+    assert any("网络检测已完成" in line for line in lines)
 
 
 @pytest.mark.anyio

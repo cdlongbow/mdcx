@@ -992,10 +992,19 @@ async def run_network_check(
                 try:
                     result = task.result()
                 except asyncio.CancelledError:
-                    raise  # 取消语义必须穿透，不吞成FAILED
+                    # 单项任务内部协程被取消（底层连接清理/wait_for 子协程残留等），
+                    # 只影响该项，不应炸掉整轮——议题 #73/#74 实证 CancelledError
+                    # 从 future.result() 逃逸导致整轮停止。整轮取消由 cancel_event
+                    # 分支统一处理，这里把单项记为 CANCELLED 继续跑。
+                    result = NetworkCheckResult(
+                        spec=tasks[task],
+                        status=NetworkCheckStatus.CANCELLED,
+                        message="已取消",
+                        error="CancelledError",
+                    )
                 except Exception as exc:
                     # 单项任务逃逸了 run_network_check_item 的兜底（探测链深层异常等）。
-                    # 绝不允许一项异常中断整轮检测——转 FAILED 记名续跑（议题 #73）。
+                    # 绝不允许一项异常中断整轮检测——转 FAILED 记名续跑。
                     # 空消息异常（裸 TimeoutError 等）必须带类型名，否则用户只见空行。
                     result = NetworkCheckResult(
                         spec=tasks[task],
