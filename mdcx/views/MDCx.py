@@ -12068,10 +12068,6 @@ class Ui_MDCx(object):
         self.pushButton_about.setMaximumSize(QtCore.QSize(16777215, 40))
         self.pushButton_about.setObjectName("pushButton_about")
         self.verticalLayout.addWidget(self.pushButton_about)
-        spacerItem2 = QtWidgets.QSpacerItem(
-            20, 0, QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Expanding
-        )
-        self.verticalLayout.addItem(spacerItem2)
         self.left_backgroud_widget = QtWidgets.QWidget(parent=self.widget_setting)
         self.left_backgroud_widget.setGeometry(QtCore.QRect(0, 0, 210, 700))
         self.left_backgroud_widget.setObjectName("left_backgroud_widget")
@@ -12544,36 +12540,36 @@ class Ui_MDCx(object):
     def retranslateUi(self, MDCx):
         _translate = QtCore.QCoreApplication.translate
         MDCx.setWindowTitle(_translate("MDCx", "MDCx"))
-        self.pushButton_start_cap.setText(_translate("MDCx", "开始"))
-        self.label_number1.setText(_translate("MDCx", "番号："))
-        self.label_13.setText(_translate("MDCx", "日期："))
-        self.label_actor1.setText(_translate("MDCx", "演员："))
-        self.label_18.setText(_translate("MDCx", "简介："))
-        self.label_title1.setText(_translate("MDCx", "标题："))
-        self.label_23.setText(_translate("MDCx", "导演："))
-        self.label_24.setText(_translate("MDCx", "发行："))
-        self.label_30.setText(_translate("MDCx", "制作："))
-        self.label_31.setText(_translate("MDCx", "系列："))
-        self.label_33.setText(_translate("MDCx", "标签："))
-        self.checkBox_cover.setText(_translate("MDCx", "显示封面"))
-        self.label_result.setText(_translate("MDCx", " 等待开始 ..."))
-        self.label_22.setText(_translate("MDCx", "时长："))
-        self.label_thumb.setText(_translate("MDCx", "缩略图"))
-        self.label_poster.setText(_translate("MDCx", "封面图"))
-        self.label_poster1.setText(_translate("MDCx", "封面："))
+        self.pushButton_start_cap.setText(_translate("MDCx", "寮€濮?))
+        self.label_number1.setText(_translate("MDCx", "鐣彿锛?))
+        self.label_13.setText(_translate("MDCx", "鏃ユ湡锛?))
+        self.label_actor1.setText(_translate("MDCx", "婕斿憳锛?))
+        self.label_18.setText(_translate("MDCx", "绠€浠嬶細"))
+        self.label_title1.setText(_translate("MDCx", "鏍囬锛?))
+        self.label_23.setText(_translate("MDCx", "瀵兼紨锛?))
+        self.label_24.setText(_translate("MDCx", "鍙戣锛?))
+        self.label_30.setText(_translate("MDCx", "鍒朵綔锛?))
+        self.label_31.setText(_translate("MDCx", "绯诲垪锛?))
+        self.label_33.setText(_translate("MDCx", "鏍囩锛?))
+        self.checkBox_cover.setText(_translate("MDCx", "鏄剧ず灏侀潰"))
+        self.label_result.setText(_translate("MDCx", " 绛夊緟寮€濮?..."))
+        self.label_22.setText(_translate("MDCx", "鏃堕暱锛?))
+        self.label_thumb.setText(_translate("MDCx", "缂╃暐鍥?))
+        self.label_poster.setText(_translate("MDCx", "灏侀潰鍥?))
+        self.label_poster1.setText(_translate("MDCx", "灏侀潰锛?))
         self.treeWidget_number.setSortingEnabled(False)
         self.treeWidget_number.headerItem().setText(0, _translate("MDCx", "111"))
         __sortingEnabled = self.treeWidget_number.isSortingEnabled()
         self.treeWidget_number.setSortingEnabled(False)
-        self.treeWidget_number.topLevelItem(0).setText(0, _translate("MDCx", "成功"))
-        self.treeWidget_number.topLevelItem(1).setText(0, _translate("MDCx", "失败"))
+        self.treeWidget_number.topLevelItem(0).setText(0, _translate("MDCx", "鎴愬姛"))
+        self.treeWidget_number.topLevelItem(1).setText(0, _translate("MDCx", "澶辫触"))
         self.treeWidget_number.setSortingEnabled(__sortingEnabled)
         self.label_file_path.setText(
             _translate(
-                "MDCx", "视频目录设置：【设置】-【目录】-【待刮削视频目录】。程序将刮削该目录及子目录的所有文件。"
+                "MDCx", "瑙嗛鐩綍璁剧疆锛氥€愯缃€?銆愮洰褰曘€?銆愬緟鍒墛瑙嗛鐩綍銆戙€傜▼搴忓皢鍒墛璇ョ洰褰曞強瀛愮洰褰曠殑鎵€鏈夋枃浠躲€?
             )
         )
-        self.pushButton_select_media_folder.setText(_translate("MDCx", "选择目录"))
+        self.pushButton_select_media_folder.setText(_translate("MDCx", "閫夋嫨鐩綍"))
         self.textBrowser_log_main_2.setHtml(
             _translate(
                 "MDCx",
@@ -12595,7 +12591,7 @@ class Ui_MDCx(object):
                 '                <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:\'Microsoft YaHei UI\'; font-size:9pt;"> </span></p></body></html>',
             )
         )
-        self.pushButton_start_cap2.setText(_translate("MDCx", "开始"))
+        self.pushButton_start_cap2.setText(_translate("MDCx", "寮€濮?))
         self.textBrowser_log_main.setHtml(
             _translate(
                 "MDCx",
@@ -12617,7 +12613,7 @@ class Ui_MDCx(object):
                 '                <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:\'Microsoft YaHei UI\'; font-size:9pt;"> </span></p></body></html>',
             )
         )
-        self.pushButton_view_failed_list.setText(_translate("MDCx", "失败 0"))
+        self.pushButton_view_failed_list.setText(_translate("MDCx", "澶辫触 0"))
         self.textBrowser_log_main_3.setHtml(
             _translate(
                 "MDCx",
@@ -12639,1378 +12635,1378 @@ class Ui_MDCx(object):
                 '                <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:\'Microsoft YaHei UI\'; font-size:9pt;"> </span></p></body></html>',
             )
         )
-        self.pushButton_scraper_failed_list.setText(_translate("MDCx", "当有失败任务时，点击可以一键刮削当前失败列表"))
+        self.pushButton_scraper_failed_list.setText(_translate("MDCx", "褰撴湁澶辫触浠诲姟鏃讹紝鐐瑰嚮鍙互涓€閿埉鍓婂綋鍓嶅け璐ュ垪琛?))
         self.pushButton_check_net.setToolTip(
-            _translate("MDCx", "从头检测全部项目：基础连通性、各刮削站点、账号 API 与辅助服务")
+            _translate("MDCx", "浠庡ご妫€娴嬪叏閮ㄩ」鐩細鍩虹杩為€氭€с€佸悇鍒墛绔欑偣銆佽处鍙?API 涓庤緟鍔╂湇鍔?)
         )
-        self.pushButton_check_net.setText(_translate("MDCx", "开始检测"))
+        self.pushButton_check_net.setText(_translate("MDCx", "寮€濮嬫娴?))
         self.pushButton_net_copy.setToolTip(
             _translate(
-                "MDCx", "把本页全部检测结果（含版本与系统概要，代理地址自动脱敏）复制到剪贴板，方便提 issue 求助"
+                "MDCx", "鎶婃湰椤靛叏閮ㄦ娴嬬粨鏋滐紙鍚増鏈笌绯荤粺姒傝锛屼唬鐞嗗湴鍧€鑷姩鑴辨晱锛夊鍒跺埌鍓创鏉匡紝鏂逛究鎻?issue 姹傚姪"
             )
         )
-        self.pushButton_net_copy.setText(_translate("MDCx", "复制结果"))
-        self.pushButton_net_retry.setToolTip(_translate("MDCx", "只重新检测上次结果为失败/警告的项目，不重复全部检测"))
-        self.pushButton_net_retry.setText(_translate("MDCx", "重试失败项"))
+        self.pushButton_net_copy.setText(_translate("MDCx", "澶嶅埗缁撴灉"))
+        self.pushButton_net_retry.setToolTip(_translate("MDCx", "鍙噸鏂版娴嬩笂娆＄粨鏋滀负澶辫触/璀﹀憡鐨勯」鐩紝涓嶉噸澶嶅叏閮ㄦ娴?))
+        self.pushButton_net_retry.setText(_translate("MDCx", "閲嶈瘯澶辫触椤?))
         self.groupBox_7.setTitle(
-            _translate("MDCx", "单文件刮削（指定某个文件的番号网址进行刮削，当存在相同番号时可用这个）")
+            _translate("MDCx", "鍗曟枃浠跺埉鍓婏紙鎸囧畾鏌愪釜鏂囦欢鐨勭暘鍙风綉鍧€杩涜鍒墛锛屽綋瀛樺湪鐩稿悓鐣彿鏃跺彲鐢ㄨ繖涓級")
         )
-        self.pushButton_select_file.setText(_translate("MDCx", "选择文件"))
-        self.label_10.setText(_translate("MDCx", "*番号网址："))
-        self.pushButton_start_single_file.setText(_translate("MDCx", "刮削"))
-        self.label_3.setText(_translate("MDCx", "*文件路径："))
+        self.pushButton_select_file.setText(_translate("MDCx", "閫夋嫨鏂囦欢"))
+        self.label_10.setText(_translate("MDCx", "*鐣彿缃戝潃锛?))
+        self.pushButton_start_single_file.setText(_translate("MDCx", "鍒墛"))
+        self.label_3.setText(_translate("MDCx", "*鏂囦欢璺緞锛?))
         self.label.setText(
-            _translate("MDCx", "不要填写网站首页地址！！！要填写该番号的网页地址！！！然后选择对应网站，点击刮削即可！")
+            _translate("MDCx", "涓嶈濉啓缃戠珯棣栭〉鍦板潃锛侊紒锛佽濉啓璇ョ暘鍙风殑缃戦〉鍦板潃锛侊紒锛佺劧鍚庨€夋嫨瀵瑰簲缃戠珯锛岀偣鍑诲埉鍓婂嵆鍙紒")
         )
-        self.pushButton_select_file_clear_info.setText(_translate("MDCx", "清空信息"))
-        self.groupBox_13.setTitle(_translate("MDCx", "裁剪图片（将某个图片裁剪为封面图大小，支持加水印）"))
-        self.pushButton_select_thumb.setText(_translate("MDCx", "选择图片"))
-        self.label_6.setText(_translate("MDCx", "此工具支持拖动选择裁剪范围，可将图片裁剪为封面图（poster）。"))
-        self.groupBox_19.setTitle(_translate("MDCx", "检查演员缺失番号（检查资源库中指定演员本地缺失的番号）"))
-        self.label_53.setText(_translate("MDCx", "演员名："))
-        self.label_72.setText(_translate("MDCx", "本地资源库："))
-        self.pushButton_find_missing_number.setText(_translate("MDCx", "检查缺失番号"))
-        self.pushButton_select_local_library.setText(_translate("MDCx", "选择目录"))
-        self.label_62.setText(_translate("MDCx", "本地资源库和演员名都可以填写多个，以逗号分开（中英文逗号都可以）"))
+        self.pushButton_select_file_clear_info.setText(_translate("MDCx", "娓呯┖淇℃伅"))
+        self.groupBox_13.setTitle(_translate("MDCx", "瑁佸壀鍥剧墖锛堝皢鏌愪釜鍥剧墖瑁佸壀涓哄皝闈㈠浘澶у皬锛屾敮鎸佸姞姘村嵃锛?))
+        self.pushButton_select_thumb.setText(_translate("MDCx", "閫夋嫨鍥剧墖"))
+        self.label_6.setText(_translate("MDCx", "姝ゅ伐鍏锋敮鎸佹嫋鍔ㄩ€夋嫨瑁佸壀鑼冨洿锛屽彲灏嗗浘鐗囪鍓负灏侀潰鍥撅紙poster锛夈€?))
+        self.groupBox_19.setTitle(_translate("MDCx", "妫€鏌ユ紨鍛樼己澶辩暘鍙凤紙妫€鏌ヨ祫婧愬簱涓寚瀹氭紨鍛樻湰鍦扮己澶辩殑鐣彿锛?))
+        self.label_53.setText(_translate("MDCx", "婕斿憳鍚嶏細"))
+        self.label_72.setText(_translate("MDCx", "鏈湴璧勬簮搴擄細"))
+        self.pushButton_find_missing_number.setText(_translate("MDCx", "妫€鏌ョ己澶辩暘鍙?))
+        self.pushButton_select_local_library.setText(_translate("MDCx", "閫夋嫨鐩綍"))
+        self.label_62.setText(_translate("MDCx", "鏈湴璧勬簮搴撳拰婕斿憳鍚嶉兘鍙互濉啓澶氫釜锛屼互閫楀彿鍒嗗紑锛堜腑鑻辨枃閫楀彿閮藉彲浠ワ級"))
         self.groupBox_6.setTitle(
-            _translate("MDCx", "移动视频、字幕（将待刮削目录下所有子目录中的视频移动到一个目录中以方便进行查看）")
+            _translate("MDCx", "绉诲姩瑙嗛銆佸瓧骞曪紙灏嗗緟鍒墛鐩綍涓嬫墍鏈夊瓙鐩綍涓殑瑙嗛绉诲姩鍒颁竴涓洰褰曚腑浠ユ柟渚胯繘琛屾煡鐪嬶級")
         )
-        self.pushButton_move_mp4.setText(_translate("MDCx", "开始移动"))
-        self.label_41.setText(_translate("MDCx", "排除目录："))
+        self.pushButton_move_mp4.setText(_translate("MDCx", "寮€濮嬬Щ鍔?))
+        self.label_41.setText(_translate("MDCx", "鎺掗櫎鐩綍锛?))
         self.label_8.setText(
             _translate(
-                "MDCx", "移动「待刮削视频目录」中的所有视频和字幕到「待刮削视频目录」下的「Movie_moved」目录下。"
+                "MDCx", "绉诲姩銆屽緟鍒墛瑙嗛鐩綍銆嶄腑鐨勬墍鏈夎棰戝拰瀛楀箷鍒般€屽緟鍒墛瑙嗛鐩綍銆嶄笅鐨勩€孧ovie_moved銆嶇洰褰曚笅銆?
             )
         )
         self.groupBox_21.setTitle(
-            _translate("MDCx", "软链接助手（将挂载的网盘文件目录及子目录中的所有视频一键创建软链接到本地）")
+            _translate("MDCx", "杞摼鎺ュ姪鎵嬶紙灏嗘寕杞界殑缃戠洏鏂囦欢鐩綍鍙婂瓙鐩綍涓殑鎵€鏈夎棰戜竴閿垱寤鸿蒋閾炬帴鍒版湰鍦帮級")
         )
-        self.label_338.setText(_translate("MDCx", "本地目录："))
-        self.label_339.setText(_translate("MDCx", "网盘目录："))
-        self.pushButton_creat_symlink.setText(_translate("MDCx", "一键创建软链接"))
-        self.pushButton_select_netdisk_path.setText(_translate("MDCx", "选择目录"))
-        self.label_340.setText(_translate("MDCx", "本地目录中的软链接文件位置将同步按照网盘的文件目录结构创建"))
-        self.pushButton_select_localdisk_path.setText(_translate("MDCx", "选择目录"))
-        self.checkBox_copy_netdisk_nfo.setText(_translate("MDCx", "同时复制网盘目录的nfo、图片、字幕文件到软链接目录"))
+        self.label_338.setText(_translate("MDCx", "鏈湴鐩綍锛?))
+        self.label_339.setText(_translate("MDCx", "缃戠洏鐩綍锛?))
+        self.pushButton_creat_symlink.setText(_translate("MDCx", "涓€閿垱寤鸿蒋閾炬帴"))
+        self.pushButton_select_netdisk_path.setText(_translate("MDCx", "閫夋嫨鐩綍"))
+        self.label_340.setText(_translate("MDCx", "鏈湴鐩綍涓殑杞摼鎺ユ枃浠朵綅缃皢鍚屾鎸夌収缃戠洏鐨勬枃浠剁洰褰曠粨鏋勫垱寤?))
+        self.pushButton_select_localdisk_path.setText(_translate("MDCx", "閫夋嫨鐩綍"))
+        self.checkBox_copy_netdisk_nfo.setText(_translate("MDCx", "鍚屾椂澶嶅埗缃戠洏鐩綍鐨刵fo銆佸浘鐗囥€佸瓧骞曟枃浠跺埌杞摼鎺ョ洰褰?))
         self.label_341.setText(
-            _translate("MDCx", "勾选后将同时复制网盘中刮削好的nfo等文件到本地，或者你也可以重新刮削这些软链接")
+            _translate("MDCx", "鍕鹃€夊悗灏嗗悓鏃跺鍒剁綉鐩樹腑鍒墛濂界殑nfo绛夋枃浠跺埌鏈湴锛屾垨鑰呬綘涔熷彲浠ラ噸鏂板埉鍓婅繖浜涜蒋閾炬帴")
         )
-        self.checkBox_create_link.setText(_translate("MDCx", "刮削过程中自动创建软链接"))
+        self.checkBox_create_link.setText(_translate("MDCx", "鍒墛杩囩▼涓嚜鍔ㄥ垱寤鸿蒋閾炬帴"))
         self.groupBox_actor_db_maintenance.setTitle(
-            _translate("MDCx", "演员库维护（直接操作 actor_database.xlsx，复用当前配置的 TMDB API）")
+            _translate("MDCx", "婕斿憳搴撶淮鎶わ紙鐩存帴鎿嶄綔 actor_database.xlsx锛屽鐢ㄥ綋鍓嶉厤缃殑 TMDB API锛?)
         )
         self.label_actor_db_desc.setText(
-            _translate("MDCx", "以下操作均直接读写 actor_database.xlsx 文件，无需输入演员名单。")
+            _translate("MDCx", "浠ヤ笅鎿嶄綔鍧囩洿鎺ヨ鍐?actor_database.xlsx 鏂囦欢锛屾棤闇€杈撳叆婕斿憳鍚嶅崟銆?)
         )
-        self.pushButton_actor_db_translate.setText(_translate("MDCx", "补全中文名"))
-        self.pushButton_actor_db_link.setText(_translate("MDCx", "补全 LibreDMM 链接"))
-        self.label_actor_db_translate_desc.setText(_translate("MDCx", "扫描已有 TMDB ID 缺中文名的条目"))
-        self.label_actor_db_link_desc.setText(_translate("MDCx", "扫描已有 TMDB ID 缺链接的条目"))
-        self.pushButton_actor_db_open.setText(_translate("MDCx", "打开演员数据库"))
-        self.pushButton_actor_db_stop.setText(_translate("MDCx", "停止当前维护任务"))
-        self.label_actor_db_open_desc.setText(_translate("MDCx", "用默认程序打开 xlsx 供查看与手工编辑"))
+        self.pushButton_actor_db_translate.setText(_translate("MDCx", "琛ュ叏涓枃鍚?))
+        self.pushButton_actor_db_link.setText(_translate("MDCx", "琛ュ叏 LibreDMM 閾炬帴"))
+        self.label_actor_db_translate_desc.setText(_translate("MDCx", "鎵弿宸叉湁 TMDB ID 缂轰腑鏂囧悕鐨勬潯鐩?))
+        self.label_actor_db_link_desc.setText(_translate("MDCx", "鎵弿宸叉湁 TMDB ID 缂洪摼鎺ョ殑鏉＄洰"))
+        self.pushButton_actor_db_open.setText(_translate("MDCx", "鎵撳紑婕斿憳鏁版嵁搴?))
+        self.pushButton_actor_db_stop.setText(_translate("MDCx", "鍋滄褰撳墠缁存姢浠诲姟"))
+        self.label_actor_db_open_desc.setText(_translate("MDCx", "鐢ㄩ粯璁ょ▼搴忔墦寮€ xlsx 渚涙煡鐪嬩笌鎵嬪伐缂栬緫"))
         self.label_actor_db_note.setText(
-            _translate("MDCx", "提示：补全结果将输出到日志页。所有按钮均防重入，运行中按钮禁用。")
+            _translate("MDCx", "鎻愮ず锛氳ˉ鍏ㄧ粨鏋滃皢杈撳嚭鍒版棩蹇楅〉銆傛墍鏈夋寜閽潎闃查噸鍏ワ紝杩愯涓寜閽鐢ㄣ€?)
         )
-        self.pushButton_actor_db_clean_male.setText(_translate("MDCx", "剔除男演员"))
+        self.pushButton_actor_db_clean_male.setText(_translate("MDCx", "鍓旈櫎鐢锋紨鍛?))
         self.pushButton_actor_db_fill_minnano.setToolTip(
             _translate(
                 "MDCx",
-                "从 minnano-av 补全缺生日/简介的条目（已有生日且简介非空的行跳过）。只补空缺，不覆盖已有值，作用于当前用户演员库。补全时会将出身/爱好/事务所/标签等日文字段翻译成中文（事务所/标签优先用内置信息库映射，其余用已配置的翻译引擎）。需联网。",
+                "浠?minnano-av 琛ュ叏缂虹敓鏃?绠€浠嬬殑鏉＄洰锛堝凡鏈夌敓鏃ヤ笖绠€浠嬮潪绌虹殑琛岃烦杩囷級銆傚彧琛ョ┖缂猴紝涓嶈鐩栧凡鏈夊€硷紝浣滅敤浜庡綋鍓嶇敤鎴锋紨鍛樺簱銆傝ˉ鍏ㄦ椂浼氬皢鍑鸿韩/鐖卞ソ/浜嬪姟鎵€/鏍囩绛夋棩鏂囧瓧娈电炕璇戞垚涓枃锛堜簨鍔℃墍/鏍囩浼樺厛鐢ㄥ唴缃俊鎭簱鏄犲皠锛屽叾浣欑敤宸查厤缃殑缈昏瘧寮曟搸锛夈€傞渶鑱旂綉銆?,
             )
         )
-        self.pushButton_actor_db_fill_minnano.setText(_translate("MDCx", "minnano 补全"))
+        self.pushButton_actor_db_fill_minnano.setText(_translate("MDCx", "minnano 琛ュ叏"))
         self.label_actor_db_fill_minnano_desc.setText(
-            _translate("MDCx", "从 minnano-av 补全缺生日/简介，日文字段自动翻译")
+            _translate("MDCx", "浠?minnano-av 琛ュ叏缂虹敓鏃?绠€浠嬶紝鏃ユ枃瀛楁鑷姩缈昏瘧")
         )
         self.pushButton_actor_db_verify_tmdbid.setToolTip(
             _translate(
                 "MDCx",
-                "校验库中所有 tmdbid 是否仍有效。TMDB 是公开平台，person id 可能被删除/重建，失效 id 会被清除，并自动按名字重新搜索补回新 id（搜不到则保持无 id，刮削按名字兜底搜索）。需配置 TMDB API Key。",
+                "鏍￠獙搴撲腑鎵€鏈?tmdbid 鏄惁浠嶆湁鏁堛€俆MDB 鏄叕寮€骞冲彴锛宲erson id 鍙兘琚垹闄?閲嶅缓锛屽け鏁?id 浼氳娓呴櫎锛屽苟鑷姩鎸夊悕瀛楅噸鏂版悳绱㈣ˉ鍥炴柊 id锛堟悳涓嶅埌鍒欎繚鎸佹棤 id锛屽埉鍓婃寜鍚嶅瓧鍏滃簳鎼滅储锛夈€傞渶閰嶇疆 TMDB API Key銆?,
             )
         )
-        self.pushButton_actor_db_verify_tmdbid.setText(_translate("MDCx", "校验 tmdbid 有效性"))
+        self.pushButton_actor_db_verify_tmdbid.setText(_translate("MDCx", "鏍￠獙 tmdbid 鏈夋晥鎬?))
         self.label_actor_db_verify_tmdbid_desc.setText(
-            _translate("MDCx", "失效 id 清除后自动按名字重搜补回新 id（搜不到则保持无 id，刮削兜底）")
+            _translate("MDCx", "澶辨晥 id 娓呴櫎鍚庤嚜鍔ㄦ寜鍚嶅瓧閲嶆悳琛ュ洖鏂?id锛堟悳涓嶅埌鍒欎繚鎸佹棤 id锛屽埉鍓婂厹搴曪級")
         )
         self.pushButton_actor_db_check.setToolTip(
             _translate(
                 "MDCx",
-                "检查当前使用的演员库（运行库）中的格式错误和数据异常，弹窗报告问题。安全项（格式/结构/生日/生涯）可一键自动修复，tmdb 相关项（重复 id、无 id 有 url 等）需人工处理后给出详细步骤。",
+                "妫€鏌ュ綋鍓嶄娇鐢ㄧ殑婕斿憳搴擄紙杩愯搴擄級涓殑鏍煎紡閿欒鍜屾暟鎹紓甯革紝寮圭獥鎶ュ憡闂銆傚畨鍏ㄩ」锛堟牸寮?缁撴瀯/鐢熸棩/鐢熸动锛夊彲涓€閿嚜鍔ㄤ慨澶嶏紝tmdb 鐩稿叧椤癸紙閲嶅 id銆佹棤 id 鏈?url 绛夛級闇€浜哄伐澶勭悊鍚庣粰鍑鸿缁嗘楠ゃ€?,
             )
         )
-        self.pushButton_actor_db_check.setText(_translate("MDCx", "检查用户库"))
+        self.pushButton_actor_db_check.setText(_translate("MDCx", "妫€鏌ョ敤鎴峰簱"))
         self.label_actor_db_check_desc.setText(
-            _translate("MDCx", "检查格式错误、数据异常，安全项自动修复，tmdb 项给人工修复步骤")
+            _translate("MDCx", "妫€鏌ユ牸寮忛敊璇€佹暟鎹紓甯革紝瀹夊叏椤硅嚜鍔ㄤ慨澶嶏紝tmdb 椤圭粰浜哄伐淇姝ラ")
         )
         self.pushButton_actor_db_fill_zh_javdb.setToolTip(
             _translate(
                 "MDCx",
-                "从 JavDB 移动端 API 查询演员的中文名/繁体名。仅处理「中文名 == 日文原名」的行（即未做中文化、且日文原名含汉字的条目），用 JavDB 的 name_zht/name 字段补全正式中文名，繁体转简体写入中文名列、繁体写入繁体名列。无需 TMDB API Key，按日文原名搜索。配合「起始行/限量」可分片续跑。",
+                "浠?JavDB 绉诲姩绔?API 鏌ヨ婕斿憳鐨勪腑鏂囧悕/绻佷綋鍚嶃€備粎澶勭悊銆屼腑鏂囧悕 == 鏃ユ枃鍘熷悕銆嶇殑琛岋紙鍗虫湭鍋氫腑鏂囧寲銆佷笖鏃ユ枃鍘熷悕鍚眽瀛楃殑鏉＄洰锛夛紝鐢?JavDB 鐨?name_zht/name 瀛楁琛ュ叏姝ｅ紡涓枃鍚嶏紝绻佷綋杞畝浣撳啓鍏ヤ腑鏂囧悕鍒椼€佺箒浣撳啓鍏ョ箒浣撳悕鍒椼€傛棤闇€ TMDB API Key锛屾寜鏃ユ枃鍘熷悕鎼滅储銆傞厤鍚堛€岃捣濮嬭/闄愰噺銆嶅彲鍒嗙墖缁窇銆?,
             )
         )
-        self.pushButton_actor_db_fill_zh_javdb.setText(_translate("MDCx", "JavDB 中文名"))
+        self.pushButton_actor_db_fill_zh_javdb.setText(_translate("MDCx", "JavDB 涓枃鍚?))
         self.label_actor_db_fill_zh_javdb_desc.setText(
-            _translate("MDCx", "JavDB 的 name_zht 转简体补全中文名；仅处理「中文==日文原名」的行")
+            _translate("MDCx", "JavDB 鐨?name_zht 杞畝浣撹ˉ鍏ㄤ腑鏂囧悕锛涗粎澶勭悊銆屼腑鏂?=鏃ユ枃鍘熷悕銆嶇殑琛?)
         )
-        self.lineEdit_actor_db_nfo_dir.setPlaceholderText(_translate("MDCx", "选择 nfo 目录"))
-        self.pushButton_actor_db_pick_nfo_dir.setText(_translate("MDCx", "选择目录"))
+        self.lineEdit_actor_db_nfo_dir.setPlaceholderText(_translate("MDCx", "閫夋嫨 nfo 鐩綍"))
+        self.pushButton_actor_db_pick_nfo_dir.setText(_translate("MDCx", "閫夋嫨鐩綍"))
         self.pushButton_actor_db_update_nfo_tmdbid.setToolTip(
             _translate(
                 "MDCx",
-                "批量更新指定目录下所有 nfo 中 actor 的 tmdbid：用本地演员库（已校验+补回）的新 id 覆盖 nfo 旧 id，nfo 原本没有 tmdbid 的也补上。仅改 tmdbid 值，保留 nfo 其他内容。",
+                "鎵归噺鏇存柊鎸囧畾鐩綍涓嬫墍鏈?nfo 涓?actor 鐨?tmdbid锛氱敤鏈湴婕斿憳搴擄紙宸叉牎楠?琛ュ洖锛夌殑鏂?id 瑕嗙洊 nfo 鏃?id锛宯fo 鍘熸湰娌℃湁 tmdbid 鐨勪篃琛ヤ笂銆備粎鏀?tmdbid 鍊硷紝淇濈暀 nfo 鍏朵粬鍐呭銆?,
             )
         )
-        self.pushButton_actor_db_update_nfo_tmdbid.setText(_translate("MDCx", "更新 nfo tmdbid"))
+        self.pushButton_actor_db_update_nfo_tmdbid.setText(_translate("MDCx", "鏇存柊 nfo tmdbid"))
         self.label_actor_db_update_nfo_desc.setText(
-            _translate("MDCx", "用本地库新 id 覆盖 nfo 旧 id；原本没有的补上（nfo 是持久源，改这里 Emby 重扫才一致）")
+            _translate("MDCx", "鐢ㄦ湰鍦板簱鏂?id 瑕嗙洊 nfo 鏃?id锛涘師鏈病鏈夌殑琛ヤ笂锛坣fo 鏄寔涔呮簮锛屾敼杩欓噷 Emby 閲嶆壂鎵嶄竴鑷达級")
         )
         self.pushButton_actor_db_sync_aliases.setToolTip(
             _translate(
                 "MDCx",
-                "从所选来源（TMDB / minnano / JavDB）同步别名到 keyword 列。默认仅处理别名列为空的条目；勾选「全量更新」后所有条目都并入来源别名（不覆盖本地已有别名）。",
+                "浠庢墍閫夋潵婧愶紙TMDB / minnano / JavDB锛夊悓姝ュ埆鍚嶅埌 keyword 鍒椼€傞粯璁や粎澶勭悊鍒悕鍒椾负绌虹殑鏉＄洰锛涘嬀閫夈€屽叏閲忔洿鏂般€嶅悗鎵€鏈夋潯鐩兘骞跺叆鏉ユ簮鍒悕锛堜笉瑕嗙洊鏈湴宸叉湁鍒悕锛夈€?,
             )
         )
-        self.pushButton_actor_db_sync_aliases.setText(_translate("MDCx", "补全别名"))
+        self.pushButton_actor_db_sync_aliases.setText(_translate("MDCx", "琛ュ叏鍒悕"))
         self.comboBox_actor_db_alias_source.setItemText(0, _translate("MDCx", "TMDB"))
         self.comboBox_actor_db_alias_source.setItemText(1, _translate("MDCx", "minnano"))
         self.comboBox_actor_db_alias_source.setItemText(2, _translate("MDCx", "JavDB"))
         self.checkBox_actor_db_alias_all.setToolTip(
-            _translate("MDCx", "勾选后对全部条目补别名（含已有别名的行），并入不覆盖本地已有别名。")
+            _translate("MDCx", "鍕鹃€夊悗瀵瑰叏閮ㄦ潯鐩ˉ鍒悕锛堝惈宸叉湁鍒悕鐨勮锛夛紝骞跺叆涓嶈鐩栨湰鍦板凡鏈夊埆鍚嶃€?)
         )
-        self.checkBox_actor_db_alias_all.setText(_translate("MDCx", "全量更新（并入）"))
-        self.label_actor_db_sync_offset.setText(_translate("MDCx", "起始行"))
+        self.checkBox_actor_db_alias_all.setText(_translate("MDCx", "鍏ㄩ噺鏇存柊锛堝苟鍏ワ級"))
+        self.label_actor_db_sync_offset.setText(_translate("MDCx", "璧峰琛?))
         self.spinBox_actor_db_sync_offset.setToolTip(
             _translate(
                 "MDCx",
-                "跳过数据文件前 N 行（不含表头）再扫描。用于上次中断后的手动续跑：填入上次日志中已处理的最大行号，从下一行继续。",
+                "璺宠繃鏁版嵁鏂囦欢鍓?N 琛岋紙涓嶅惈琛ㄥご锛夊啀鎵弿銆傜敤浜庝笂娆′腑鏂悗鐨勬墜鍔ㄧ画璺戯細濉叆涓婃鏃ュ織涓凡澶勭悊鐨勬渶澶ц鍙凤紝浠庝笅涓€琛岀户缁€?,
             )
         )
-        self.label_actor_db_sync_limit.setText(_translate("MDCx", "限量"))
+        self.label_actor_db_sync_limit.setText(_translate("MDCx", "闄愰噺"))
         self.spinBox_actor_db_sync_limit.setToolTip(
             _translate(
-                "MDCx", "本次最多处理的条目数。0 表示不限制；非 0 时分片推进，建议 500~2000 之间按网络状况选择。"
+                "MDCx", "鏈鏈€澶氬鐞嗙殑鏉＄洰鏁般€? 琛ㄧず涓嶉檺鍒讹紱闈?0 鏃跺垎鐗囨帹杩涳紝寤鸿 500~2000 涔嬮棿鎸夌綉缁滅姸鍐甸€夋嫨銆?
             )
         )
-        self.spinBox_actor_db_sync_limit.setSpecialValueText(_translate("MDCx", "不限"))
-        self.label_actor_db_sync_slice_hint.setText(_translate("MDCx", "0 起始行+5000 限量 = 默认行为"))
+        self.spinBox_actor_db_sync_limit.setSpecialValueText(_translate("MDCx", "涓嶉檺"))
+        self.label_actor_db_sync_slice_hint.setText(_translate("MDCx", "0 璧峰琛?5000 闄愰噺 = 榛樿琛屼负"))
         self.label_actor_db_sync_aliases_desc.setText(
             _translate(
                 "MDCx",
-                "来源 TMDB 需配置 API Key；minnano 直接抓取みんなのAV。默认仅补缺别名的行，勾选「全量更新」则并入全部行；用「起始行/限量」可分片续跑",
+                "鏉ユ簮 TMDB 闇€閰嶇疆 API Key锛沵innano 鐩存帴鎶撳彇銇裤倱銇伄AV銆傞粯璁や粎琛ョ己鍒悕鐨勮锛屽嬀閫夈€屽叏閲忔洿鏂般€嶅垯骞跺叆鍏ㄩ儴琛岋紱鐢ㄣ€岃捣濮嬭/闄愰噺銆嶅彲鍒嗙墖缁窇",
             )
         )
         self.groupBox_cover_backfill.setTitle(
-            _translate("MDCx", "封面补图（按番号补齐缺失的封面、缩略图，复用当前配置的各项规则）")
+            _translate("MDCx", "灏侀潰琛ュ浘锛堟寜鐣彿琛ラ綈缂哄け鐨勫皝闈€佺缉鐣ュ浘锛屽鐢ㄥ綋鍓嶉厤缃殑鍚勯」瑙勫垯锛?)
         )
         self.label_cover_backfill_desc.setText(
             _translate(
                 "MDCx",
-                "输入番号（多个用空格分隔），将自动刮削并补齐封面和缩略图。复用当前配置的站点优先级、命名、裁切、水印规则。输出目录为当前数据目录（可在设置页修改）。",
+                "杈撳叆鐣彿锛堝涓敤绌烘牸鍒嗛殧锛夛紝灏嗚嚜鍔ㄥ埉鍓婂苟琛ラ綈灏侀潰鍜岀缉鐣ュ浘銆傚鐢ㄥ綋鍓嶉厤缃殑绔欑偣浼樺厛绾с€佸懡鍚嶃€佽鍒囥€佹按鍗拌鍒欍€傝緭鍑虹洰褰曚负褰撳墠鏁版嵁鐩綍锛堝彲鍦ㄨ缃〉淇敼锛夈€?,
             )
         )
-        self.lineEdit_cover_backfill_numbers.setPlaceholderText(_translate("MDCx", "例如：SSIS-001 ABF-371 JIMMY-003"))
-        self.pushButton_cover_backfill_start.setText(_translate("MDCx", "开始补图"))
-        self.checkBox_cover_backfill_overwrite.setText(_translate("MDCx", "覆盖已有图片"))
-        self.checkBox_cover_backfill_watermark.setText(_translate("MDCx", "添加水印"))
+        self.lineEdit_cover_backfill_numbers.setPlaceholderText(_translate("MDCx", "渚嬪锛歋SIS-001 ABF-371 JIMMY-003"))
+        self.pushButton_cover_backfill_start.setText(_translate("MDCx", "寮€濮嬭ˉ鍥?))
+        self.checkBox_cover_backfill_overwrite.setText(_translate("MDCx", "瑕嗙洊宸叉湁鍥剧墖"))
+        self.checkBox_cover_backfill_watermark.setText(_translate("MDCx", "娣诲姞姘村嵃"))
         self.label_cover_backfill_note.setText(
-            _translate("MDCx", "提示：补图结果将输出到日志页，可在日志页查看详细进度和错误信息。")
+            _translate("MDCx", "鎻愮ず锛氳ˉ鍥剧粨鏋滃皢杈撳嚭鍒版棩蹇楅〉锛屽彲鍦ㄦ棩蹇楅〉鏌ョ湅璇︾粏杩涘害鍜岄敊璇俊鎭€?)
         )
         self.groupBox_scrape_cache.setTitle(
-            _translate("MDCx", "刮削缓存管理（断点续刮/失败重试状态，清缓存只影响是否跳过，不删已生成 NFO）")
+            _translate("MDCx", "鍒墛缂撳瓨绠＄悊锛堟柇鐐圭画鍒?澶辫触閲嶈瘯鐘舵€侊紝娓呯紦瀛樺彧褰卞搷鏄惁璺宠繃锛屼笉鍒犲凡鐢熸垚 NFO锛?)
         )
-        self.label_scrape_cache_done.setText(_translate("MDCx", "已完成：0"))
-        self.label_scrape_cache_failed.setText(_translate("MDCx", "失败：0"))
-        self.label_scrape_cache_exhausted.setText(_translate("MDCx", "超限失败：0"))
-        self.label_scrape_cache_total.setText(_translate("MDCx", "总计：0"))
-        self.pushButton_scrape_cache_refresh.setText(_translate("MDCx", "刷新统计"))
-        self.label_scrape_cache_dbpath.setText(_translate("MDCx", "数据库：未加载"))
-        self.label_scrape_cache_dbsize.setText(_translate("MDCx", "大小：0 KB"))
+        self.label_scrape_cache_done.setText(_translate("MDCx", "宸插畬鎴愶細0"))
+        self.label_scrape_cache_failed.setText(_translate("MDCx", "澶辫触锛?"))
+        self.label_scrape_cache_exhausted.setText(_translate("MDCx", "瓒呴檺澶辫触锛?"))
+        self.label_scrape_cache_total.setText(_translate("MDCx", "鎬昏锛?"))
+        self.pushButton_scrape_cache_refresh.setText(_translate("MDCx", "鍒锋柊缁熻"))
+        self.label_scrape_cache_dbpath.setText(_translate("MDCx", "鏁版嵁搴擄細鏈姞杞?))
+        self.label_scrape_cache_dbsize.setText(_translate("MDCx", "澶у皬锛? KB"))
         item = self.tableWidget_scrape_cache_failed.horizontalHeaderItem(0)
-        item.setText(_translate("MDCx", "文件名"))
+        item.setText(_translate("MDCx", "鏂囦欢鍚?))
         item = self.tableWidget_scrape_cache_failed.horizontalHeaderItem(1)
-        item.setText(_translate("MDCx", "番号"))
+        item.setText(_translate("MDCx", "鐣彿"))
         item = self.tableWidget_scrape_cache_failed.horizontalHeaderItem(2)
-        item.setText(_translate("MDCx", "失败次数"))
+        item.setText(_translate("MDCx", "澶辫触娆℃暟"))
         item = self.tableWidget_scrape_cache_failed.horizontalHeaderItem(3)
-        item.setText(_translate("MDCx", "最后错误"))
+        item.setText(_translate("MDCx", "鏈€鍚庨敊璇?))
         item = self.tableWidget_scrape_cache_failed.horizontalHeaderItem(4)
-        item.setText(_translate("MDCx", "时间"))
-        self.pushButton_scrape_cache_export.setText(_translate("MDCx", "导出失败列表 CSV"))
-        self.pushButton_scrape_cache_reset.setText(_translate("MDCx", "重置选中记录"))
-        self.pushButton_scrape_cache_clear.setText(_translate("MDCx", "清空全部缓存"))
-        self.groupBox_16.setTitle(_translate("MDCx", "刮削目录"))
-        self.pushButton_select_softlink_folder.setText(_translate("MDCx", "选择目录"))
+        item.setText(_translate("MDCx", "鏃堕棿"))
+        self.pushButton_scrape_cache_export.setText(_translate("MDCx", "瀵煎嚭澶辫触鍒楄〃 CSV"))
+        self.pushButton_scrape_cache_reset.setText(_translate("MDCx", "閲嶇疆閫変腑璁板綍"))
+        self.pushButton_scrape_cache_clear.setText(_translate("MDCx", "娓呯┖鍏ㄩ儴缂撳瓨"))
+        self.groupBox_16.setTitle(_translate("MDCx", "鍒墛鐩綍"))
+        self.pushButton_select_softlink_folder.setText(_translate("MDCx", "閫夋嫨鐩綍"))
         self.label_58.setText(
-            _translate("MDCx", "指不想要刮削的目录，可以填写多个目录，以逗号分开（中英文逗号都可以）")
+            _translate("MDCx", "鎸囦笉鎯宠鍒墛鐨勭洰褰曪紝鍙互濉啓澶氫釜鐩綍锛屼互閫楀彿鍒嗗紑锛堜腑鑻辨枃閫楀彿閮藉彲浠ワ級")
         )
-        self.label_49.setText(_translate("MDCx", "待刮削视频目录："))
-        self.checkBox_no_escape_dir.setText(_translate("MDCx", "不排除"))
+        self.label_49.setText(_translate("MDCx", "寰呭埉鍓婅棰戠洰褰曪細"))
+        self.checkBox_no_escape_dir.setText(_translate("MDCx", "涓嶆帓闄?))
         self.label_56.setText(
             _translate(
                 "MDCx",
-                "可填一个或多个视频目录，多个目录用英文 ; 或中文 ；分隔。\n刮削各目录（含子目录）中的视频元数据。",
+                "鍙～涓€涓垨澶氫釜瑙嗛鐩綍锛屽涓洰褰曠敤鑻辨枃 ; 鎴栦腑鏂?锛涘垎闅斻€俓n鍒墛鍚勭洰褰曪紙鍚瓙鐩綍锛変腑鐨勮棰戝厓鏁版嵁銆?,
             )
         )
         self.checkBox_scrape_softlink_path.setText(
-            _translate("MDCx", "在以下目录为待刮削目录中的视频创建软链接，然后刮削以下目录（适合网盘用户）")
+            _translate("MDCx", "鍦ㄤ互涓嬬洰褰曚负寰呭埉鍓婄洰褰曚腑鐨勮棰戝垱寤鸿蒋閾炬帴锛岀劧鍚庡埉鍓婁互涓嬬洰褰曪紙閫傚悎缃戠洏鐢ㄦ埛锛?)
         )
-        self.label_47.setText(_translate("MDCx", "成功输出目录："))
-        self.pushButton_select_media_folder_setting_page.setText(_translate("MDCx", "选择目录"))
-        self.label_48.setText(_translate("MDCx", "排除目录："))
+        self.label_47.setText(_translate("MDCx", "鎴愬姛杈撳嚭鐩綍锛?))
+        self.pushButton_select_media_folder_setting_page.setText(_translate("MDCx", "閫夋嫨鐩綍"))
+        self.label_48.setText(_translate("MDCx", "鎺掗櫎鐩綍锛?))
         self.label_57.setText(
-            _translate("MDCx", "指刮削失败时，视频将移动到这个文件夹。输出目录可以不在待刮削视频目录下")
+            _translate("MDCx", "鎸囧埉鍓婂け璐ユ椂锛岃棰戝皢绉诲姩鍒拌繖涓枃浠跺す銆傝緭鍑虹洰褰曞彲浠ヤ笉鍦ㄥ緟鍒墛瑙嗛鐩綍涓?)
         )
-        self.pushButton_select_failed_folder.setText(_translate("MDCx", "选择目录"))
-        self.label_46.setText(_translate("MDCx", "失败输出目录："))
-        self.pushButton_select_sucess_folder.setText(_translate("MDCx", "选择目录"))
+        self.pushButton_select_failed_folder.setText(_translate("MDCx", "閫夋嫨鐩綍"))
+        self.label_46.setText(_translate("MDCx", "澶辫触杈撳嚭鐩綍锛?))
+        self.pushButton_select_sucess_folder.setText(_translate("MDCx", "閫夋嫨鐩綍"))
         self.label_29.setText(
-            _translate("MDCx", "指刮削成功时，视频将移动到这个文件夹。输出目录可以不在待刮削视频目录下")
+            _translate("MDCx", "鎸囧埉鍓婃垚鍔熸椂锛岃棰戝皢绉诲姩鍒拌繖涓枃浠跺す銆傝緭鍑虹洰褰曞彲浠ヤ笉鍦ㄥ緟鍒墛瑙嗛鐩綍涓?)
         )
         self.label_383.setText(
             _translate(
                 "MDCx",
-                "<p>如果创建软链接时要复制图片和NFO，请到「工具」-「软链接助手」勾选即可</p><p>1，软链接路径支持命名字段：</p><p>end_folder_name （指待刮削目录上最后的文件夹名）</p><p>2，成功/失败输出目录支持命名字段：</p><p>end_folder_name，first_folder_name （指待刮削目录下第一层子文件夹名）</p>",
+                "<p>濡傛灉鍒涘缓杞摼鎺ユ椂瑕佸鍒跺浘鐗囧拰NFO锛岃鍒般€屽伐鍏枫€?銆岃蒋閾炬帴鍔╂墜銆嶅嬀閫夊嵆鍙?/p><p>1锛岃蒋閾炬帴璺緞鏀寔鍛藉悕瀛楁锛?/p><p>end_folder_name 锛堟寚寰呭埉鍓婄洰褰曚笂鏈€鍚庣殑鏂囦欢澶瑰悕锛?/p><p>2锛屾垚鍔?澶辫触杈撳嚭鐩綍鏀寔鍛藉悕瀛楁锛?/p><p>end_folder_name锛宖irst_folder_name 锛堟寚寰呭埉鍓婄洰褰曚笅绗竴灞傚瓙鏂囦欢澶瑰悕锛?/p>",
             )
         )
-        self.groupBox_32.setTitle(_translate("MDCx", "文件扫描设置"))
-        self.label_336.setText(_translate("MDCx", "检查软链接："))
+        self.groupBox_32.setTitle(_translate("MDCx", "鏂囦欢鎵弿璁剧疆"))
+        self.label_336.setText(_translate("MDCx", "妫€鏌ヨ蒋閾炬帴锛?))
         self.label_337.setText(
-            _translate("MDCx", "勾选后将检查软链接文件指向的目标文件是否存在，若不存在则会删除该软链接")
+            _translate("MDCx", "鍕鹃€夊悗灏嗘鏌ヨ蒋閾炬帴鏂囦欢鎸囧悜鐨勭洰鏍囨枃浠舵槸鍚﹀瓨鍦紝鑻ヤ笉瀛樺湪鍒欎細鍒犻櫎璇ヨ蒋閾炬帴")
         )
         self.label_348.setText(
-            _translate("MDCx", "支持记录和跳过已刮削成功的文件，避免新增视频时重复刮削之前成功的文件")
+            _translate("MDCx", "鏀寔璁板綍鍜岃烦杩囧凡鍒墛鎴愬姛鐨勬枃浠讹紝閬垮厤鏂板瑙嗛鏃堕噸澶嶅埉鍓婁箣鍓嶆垚鍔熺殑鏂囦欢")
         )
-        self.checkBox_skip_success_file.setText(_translate("MDCx", "跳过之前已刮削成功的文件"))
-        self.checkBox_record_success_file.setText(_translate("MDCx", "记录刮削成功的文件列表"))
-        self.pushButton_view_success_file.setText(_translate("MDCx", "查看"))
-        self.checkBox_no_escape_file.setText(_translate("MDCx", "不跳过"))
-        self.label_346.setText(_translate("MDCx", "跳过已刮削文件："))
+        self.checkBox_skip_success_file.setText(_translate("MDCx", "璺宠繃涔嬪墠宸插埉鍓婃垚鍔熺殑鏂囦欢"))
+        self.checkBox_record_success_file.setText(_translate("MDCx", "璁板綍鍒墛鎴愬姛鐨勬枃浠跺垪琛?))
+        self.pushButton_view_success_file.setText(_translate("MDCx", "鏌ョ湅"))
+        self.checkBox_no_escape_file.setText(_translate("MDCx", "涓嶈烦杩?))
+        self.label_346.setText(_translate("MDCx", "璺宠繃宸插埉鍓婃枃浠讹細"))
         self.label_88.setText(
-            _translate("MDCx", "识别番号时，将先过滤多余字符再进行识别。（填写时以逗号分割，不用区分大小写）")
+            _translate("MDCx", "璇嗗埆鐣彿鏃讹紝灏嗗厛杩囨护澶氫綑瀛楃鍐嶈繘琛岃瘑鍒€傦紙濉啓鏃朵互閫楀彿鍒嗗壊锛屼笉鐢ㄥ尯鍒嗗ぇ灏忓啓锛?)
         )
-        self.checkBox_check_symlink.setText(_translate("MDCx", "检查并清理失效的软链接"))
-        self.checkBox_check_symlink_definition.setText(_translate("MDCx", "获取软链接指向的原文件的分辨率"))
+        self.checkBox_check_symlink.setText(_translate("MDCx", "妫€鏌ュ苟娓呯悊澶辨晥鐨勮蒋閾炬帴"))
+        self.checkBox_check_symlink_definition.setText(_translate("MDCx", "鑾峰彇杞摼鎺ユ寚鍚戠殑鍘熸枃浠剁殑鍒嗚鲸鐜?))
         self.label_94.setText(
-            _translate("MDCx", "用于过滤本地的一些广告视频，此处填写文件大小，小于该大小的视频将跳过刮削")
+            _translate("MDCx", "鐢ㄤ簬杩囨护鏈湴鐨勪竴浜涘箍鍛婅棰戯紝姝ゅ濉啓鏂囦欢澶у皬锛屽皬浜庤澶у皬鐨勮棰戝皢璺宠繃鍒墛")
         )
-        self.label_83.setText(_translate("MDCx", "过滤文件名多余字符："))
-        self.label_93.setText(_translate("MDCx", "跳过小文件(MB) <："))
-        self.groupBox_61.setTitle(_translate("MDCx", "文件清理设置"))
-        self.checkBox_clean_file_ext.setText(_translate("MDCx", "启用"))
-        self.label_177.setText(_translate("MDCx", "扩展名等于："))
-        self.label_184.setText(_translate("MDCx", "文件名包含："))
-        self.checkBox_clean_excluded_file_ext.setText(_translate("MDCx", "启用"))
-        self.label_178.setText(_translate("MDCx", "文件名等于："))
-        self.label_262.setText(_translate("MDCx", "⚠️ 清理文件规则"))
-        self.checkBox_clean_file_contains.setText(_translate("MDCx", "启用"))
+        self.label_83.setText(_translate("MDCx", "杩囨护鏂囦欢鍚嶅浣欏瓧绗︼細"))
+        self.label_93.setText(_translate("MDCx", "璺宠繃灏忔枃浠?MB) <锛?))
+        self.groupBox_61.setTitle(_translate("MDCx", "鏂囦欢娓呯悊璁剧疆"))
+        self.checkBox_clean_file_ext.setText(_translate("MDCx", "鍚敤"))
+        self.label_177.setText(_translate("MDCx", "鎵╁睍鍚嶇瓑浜庯細"))
+        self.label_184.setText(_translate("MDCx", "鏂囦欢鍚嶅寘鍚細"))
+        self.checkBox_clean_excluded_file_ext.setText(_translate("MDCx", "鍚敤"))
+        self.label_178.setText(_translate("MDCx", "鏂囦欢鍚嶇瓑浜庯細"))
+        self.label_262.setText(_translate("MDCx", "鈿狅笍 娓呯悊鏂囦欢瑙勫垯"))
+        self.checkBox_clean_file_contains.setText(_translate("MDCx", "鍚敤"))
         self.label_199.setText(
-            _translate("MDCx", "以下已启用的规则中有任一命中时，文件将被清理。（多个内容以｜分割，区分大小写）")
+            _translate("MDCx", "浠ヤ笅宸插惎鐢ㄧ殑瑙勫垯涓湁浠讳竴鍛戒腑鏃讹紝鏂囦欢灏嗚娓呯悊銆傦紙澶氫釜鍐呭浠ワ綔鍒嗗壊锛屽尯鍒嗗ぇ灏忓啓锛?)
         )
-        self.label_261.setText(_translate("MDCx", "文件名包含："))
-        self.label_270.setText(_translate("MDCx", "⚠️ 不清理文件规则"))
-        self.checkBox_clean_excluded_file_contains.setText(_translate("MDCx", "启用"))
-        self.label_202.setText(_translate("MDCx", "扩展名等于："))
-        self.label_263.setText(_translate("MDCx", "文件大小(KB)<=："))
+        self.label_261.setText(_translate("MDCx", "鏂囦欢鍚嶅寘鍚細"))
+        self.label_270.setText(_translate("MDCx", "鈿狅笍 涓嶆竻鐞嗘枃浠惰鍒?))
+        self.checkBox_clean_excluded_file_contains.setText(_translate("MDCx", "鍚敤"))
+        self.label_202.setText(_translate("MDCx", "鎵╁睍鍚嶇瓑浜庯細"))
+        self.label_263.setText(_translate("MDCx", "鏂囦欢澶у皬(KB)<=锛?))
         self.label_162.setText(
-            _translate("MDCx", "以下已启用的规则中有任一命中时，文件将不被清理。（会优先处理不清理文件规则）")
+            _translate("MDCx", "浠ヤ笅宸插惎鐢ㄧ殑瑙勫垯涓湁浠讳竴鍛戒腑鏃讹紝鏂囦欢灏嗕笉琚竻鐞嗐€傦紙浼氫紭鍏堝鐞嗕笉娓呯悊鏂囦欢瑙勫垯锛?)
         )
-        self.checkBox_clean_file_size.setText(_translate("MDCx", "启用"))
-        self.checkBox_clean_file_name.setText(_translate("MDCx", "启用"))
-        self.pushButton_check_and_clean_files.setText(_translate("MDCx", "点击检查待刮削目录并清理文件"))
-        self.checkBox_auto_clean.setText(_translate("MDCx", "刮削时自动清理"))
+        self.checkBox_clean_file_size.setText(_translate("MDCx", "鍚敤"))
+        self.checkBox_clean_file_name.setText(_translate("MDCx", "鍚敤"))
+        self.pushButton_check_and_clean_files.setText(_translate("MDCx", "鐐瑰嚮妫€鏌ュ緟鍒墛鐩綍骞舵竻鐞嗘枃浠?))
+        self.checkBox_auto_clean.setText(_translate("MDCx", "鍒墛鏃惰嚜鍔ㄦ竻鐞?))
         self.checkBox_i_agree_clean.setText(
-            _translate("MDCx", "我已同意：无论出现任何问题，均与开发者无关，后果自行承担。")
+            _translate("MDCx", "鎴戝凡鍚屾剰锛氭棤璁哄嚭鐜颁换浣曢棶棰橈紝鍧囦笌寮€鍙戣€呮棤鍏筹紝鍚庢灉鑷鎵挎媴銆?)
         )
-        self.checkBox_i_understand_clean.setText(_translate("MDCx", "我已知晓：文件删除后无法恢复！操作须谨慎！"))
-        self.label_271.setText(_translate("MDCx", "⚠️ 使用前请确认规则是否已启用！！！不启用不生效！！！"))
-        self.groupBox_9.setTitle(_translate("MDCx", "文件格式设置"))
-        self.label_78.setText(_translate("MDCx", "字幕格式："))
-        self.label_50.setText(_translate("MDCx", "视频格式："))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab2), _translate("MDCx", " 刮削目录 "))
-        self.groupBox.setTitle(_translate("MDCx", "刮削模式"))
-        self.radioButton_mode_sort.setText(_translate("MDCx", "视频模式"))
-        self.label_312.setText(_translate("MDCx", "不刮削，读取本地信息并显示，适合检查媒体库或媒体库重新整理分类"))
-        self.radioButton_mode_common.setText(_translate("MDCx", "正常模式"))
+        self.checkBox_i_understand_clean.setText(_translate("MDCx", "鎴戝凡鐭ユ檽锛氭枃浠跺垹闄ゅ悗鏃犳硶鎭㈠锛佹搷浣滈』璋ㄦ厧锛?))
+        self.label_271.setText(_translate("MDCx", "鈿狅笍 浣跨敤鍓嶈纭瑙勫垯鏄惁宸插惎鐢紒锛侊紒涓嶅惎鐢ㄤ笉鐢熸晥锛侊紒锛?))
+        self.groupBox_9.setTitle(_translate("MDCx", "鏂囦欢鏍煎紡璁剧疆"))
+        self.label_78.setText(_translate("MDCx", "瀛楀箷鏍煎紡锛?))
+        self.label_50.setText(_translate("MDCx", "瑙嗛鏍煎紡锛?))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab2), _translate("MDCx", " 鍒墛鐩綍 "))
+        self.groupBox.setTitle(_translate("MDCx", "鍒墛妯″紡"))
+        self.radioButton_mode_sort.setText(_translate("MDCx", "瑙嗛妯″紡"))
+        self.label_312.setText(_translate("MDCx", "涓嶅埉鍓婏紝璇诲彇鏈湴淇℃伅骞舵樉绀猴紝閫傚悎妫€鏌ュ獟浣撳簱鎴栧獟浣撳簱閲嶆柊鏁寸悊鍒嗙被"))
+        self.radioButton_mode_common.setText(_translate("MDCx", "姝ｅ父妯″紡"))
         self.checkBox_read_has_nfo_update.setText(
-            _translate("MDCx", "本地已刮削成功的文件，重新整理分类（按更新模式规则）")
+            _translate("MDCx", "鏈湴宸插埉鍓婃垚鍔熺殑鏂囦欢锛岄噸鏂版暣鐞嗗垎绫伙紙鎸夋洿鏂版ā寮忚鍒欙級")
         )
-        self.label_345.setText(_translate("MDCx", "无需联网"))
-        self.checkBox_read_update_nfo.setText(_translate("MDCx", "允许更新 nfo 文件"))
+        self.label_345.setText(_translate("MDCx", "鏃犻渶鑱旂綉"))
+        self.checkBox_read_update_nfo.setText(_translate("MDCx", "鍏佽鏇存柊 nfo 鏂囦欢"))
         self.label_37.setText(
             _translate(
                 "MDCx",
-                "<p>将按 下方「Emby视频标题」、「设置」-「翻译」、<br>「设置」-「NFO」等的设置项，利用本地 nfo 更新 nfo 信息</p>",
+                "<p>灏嗘寜 涓嬫柟銆孍mby瑙嗛鏍囬銆嶃€併€岃缃€?銆岀炕璇戙€嶃€?br>銆岃缃€?銆孨FO銆嶇瓑鐨勮缃」锛屽埄鐢ㄦ湰鍦?nfo 鏇存柊 nfo 淇℃伅</p>",
             )
         )
-        self.checkBox_read_download_file_again.setText(_translate("MDCx", "重新下载图片等文件（nfo 需有链接）"))
-        self.label_347.setText(_translate("MDCx", "将按「设置」-「下载」，更新文件"))
-        self.checkBox_read_no_nfo_scrape.setText(_translate("MDCx", "本地没有nfo的文件，重新刮削（按正常模式规则）"))
-        self.label_nfo_merge_strategy.setText(_translate("MDCx", "NFO合并策略:"))
-        self.comboBox_nfo_merge_strategy.setItemText(0, _translate("MDCx", "新数据优先（覆盖）"))
-        self.comboBox_nfo_merge_strategy.setItemText(1, _translate("MDCx", "本地NFO优先"))
-        self.comboBox_nfo_merge_strategy.setItemText(2, _translate("MDCx", "合并数组（去重）"))
-        self.comboBox_nfo_merge_strategy.setItemText(3, _translate("MDCx", "保留已有（只补新字段）"))
-        self.comboBox_nfo_merge_strategy.setItemText(4, _translate("MDCx", "仅填空字段"))
+        self.checkBox_read_download_file_again.setText(_translate("MDCx", "閲嶆柊涓嬭浇鍥剧墖绛夋枃浠讹紙nfo 闇€鏈夐摼鎺ワ級"))
+        self.label_347.setText(_translate("MDCx", "灏嗘寜銆岃缃€?銆屼笅杞姐€嶏紝鏇存柊鏂囦欢"))
+        self.checkBox_read_no_nfo_scrape.setText(_translate("MDCx", "鏈湴娌℃湁nfo鐨勬枃浠讹紝閲嶆柊鍒墛锛堟寜姝ｅ父妯″紡瑙勫垯锛?))
+        self.label_nfo_merge_strategy.setText(_translate("MDCx", "NFO鍚堝苟绛栫暐:"))
+        self.comboBox_nfo_merge_strategy.setItemText(0, _translate("MDCx", "鏂版暟鎹紭鍏堬紙瑕嗙洊锛?))
+        self.comboBox_nfo_merge_strategy.setItemText(1, _translate("MDCx", "鏈湴NFO浼樺厛"))
+        self.comboBox_nfo_merge_strategy.setItemText(2, _translate("MDCx", "鍚堝苟鏁扮粍锛堝幓閲嶏級"))
+        self.comboBox_nfo_merge_strategy.setItemText(3, _translate("MDCx", "淇濈暀宸叉湁锛堝彧琛ユ柊瀛楁锛?))
+        self.comboBox_nfo_merge_strategy.setItemText(4, _translate("MDCx", "浠呭～绌哄瓧娈?))
         self.label_36.setText(
-            _translate("MDCx", "流程同正常模式，但命名按照更新模式规则执行（在下方设置），适合二次刮削")
+            _translate("MDCx", "娴佺▼鍚屾甯告ā寮忥紝浣嗗懡鍚嶆寜鐓ф洿鏂版ā寮忚鍒欐墽琛岋紙鍦ㄤ笅鏂硅缃級锛岄€傚悎浜屾鍒墛")
         )
-        self.radioButton_mode_read.setText(_translate("MDCx", "读取模式"))
-        self.radioButton_mode_update.setText(_translate("MDCx", "更新模式"))
+        self.radioButton_mode_read.setText(_translate("MDCx", "璇诲彇妯″紡"))
+        self.radioButton_mode_update.setText(_translate("MDCx", "鏇存柊妯″紡"))
         self.label_15.setText(
-            _translate("MDCx", "执行：刮削->重命名，仅整理本地视频，不下载图片，适合不要海报墙的情况")
+            _translate("MDCx", "鎵ц锛氬埉鍓?>閲嶅懡鍚嶏紝浠呮暣鐞嗘湰鍦拌棰戯紝涓嶄笅杞藉浘鐗囷紝閫傚悎涓嶈娴锋姤澧欑殑鎯呭喌")
         )
-        self.checkBox_sortmode_delpic.setText(_translate("MDCx", "删除本地已下载的图片和 nfo 文件"))
-        self.label_27.setText(_translate("MDCx", "不勾选，则不删除"))
-        self.label_11.setText(_translate("MDCx", "执行：刮削->下载封面->重命名->水印等全部操作，适合要海报墙的情况"))
-        self.groupBox_27.setTitle(_translate("MDCx", "刮削成功后移动文件"))
+        self.checkBox_sortmode_delpic.setText(_translate("MDCx", "鍒犻櫎鏈湴宸蹭笅杞界殑鍥剧墖鍜?nfo 鏂囦欢"))
+        self.label_27.setText(_translate("MDCx", "涓嶅嬀閫夛紝鍒欎笉鍒犻櫎"))
+        self.label_11.setText(_translate("MDCx", "鎵ц锛氬埉鍓?>涓嬭浇灏侀潰->閲嶅懡鍚?>姘村嵃绛夊叏閮ㄦ搷浣滐紝閫傚悎瑕佹捣鎶ュ鐨勬儏鍐?))
+        self.groupBox_27.setTitle(_translate("MDCx", "鍒墛鎴愬姛鍚庣Щ鍔ㄦ枃浠?))
         self.gridLayoutWidget_6.setStyleSheet(_translate("MDCx", "color: rgb(80, 80, 80);"))
-        self.label_54.setText(_translate("MDCx", "刮削成功时，移动文件到成功输出目录"))
+        self.label_54.setText(_translate("MDCx", "鍒墛鎴愬姛鏃讹紝绉诲姩鏂囦欢鍒版垚鍔熻緭鍑虹洰褰?))
         self.label_55.setText(
-            _translate("MDCx", "刮削成功时，不移动文件位置，仍在原目录（适合已整理好文件夹或二次刮削场景）")
+            _translate("MDCx", "鍒墛鎴愬姛鏃讹紝涓嶇Щ鍔ㄦ枃浠朵綅缃紝浠嶅湪鍘熺洰褰曪紙閫傚悎宸叉暣鐞嗗ソ鏂囦欢澶规垨浜屾鍒墛鍦烘櫙锛?)
         )
-        self.radioButton_succ_move_on.setText(_translate("MDCx", "开"))
-        self.radioButton_succ_move_off.setText(_translate("MDCx", "关"))
-        self.groupBox_15.setTitle(_translate("MDCx", "刮削失败时移动文件"))
-        self.label_34.setText(_translate("MDCx", "刮削失败后，移动文件到失败输出目录"))
-        self.label_35.setText(_translate("MDCx", "刮削失败后，不移动文件位置，仍在原目录"))
-        self.radioButton_fail_move_on.setText(_translate("MDCx", "开"))
-        self.radioButton_fail_move_off.setText(_translate("MDCx", "关"))
-        self.groupBox_30.setTitle(_translate("MDCx", "刮削结束后删除空文件夹"))
-        self.label_44.setText(_translate("MDCx", "刮削结束后，删除刮削目录中的所有空文件夹"))
-        self.label_51.setText(_translate("MDCx", "刮削结束后，不删除空文件夹"))
-        self.radioButton_del_empty_folder_on.setText(_translate("MDCx", "开"))
-        self.radioButton_del_empty_folder_off.setText(_translate("MDCx", "关"))
-        self.groupBox_5.setTitle(_translate("MDCx", "更新模式规则"))
-        self.label_218.setText(_translate("MDCx", "D目录命名规则 "))
-        self.label_14.setText(_translate("MDCx", "更新视频同级目录下的内容，即：../A/B/C[NEW].mp4"))
+        self.radioButton_succ_move_on.setText(_translate("MDCx", "寮€"))
+        self.radioButton_succ_move_off.setText(_translate("MDCx", "鍏?))
+        self.groupBox_15.setTitle(_translate("MDCx", "鍒墛澶辫触鏃剁Щ鍔ㄦ枃浠?))
+        self.label_34.setText(_translate("MDCx", "鍒墛澶辫触鍚庯紝绉诲姩鏂囦欢鍒板け璐ヨ緭鍑虹洰褰?))
+        self.label_35.setText(_translate("MDCx", "鍒墛澶辫触鍚庯紝涓嶇Щ鍔ㄦ枃浠朵綅缃紝浠嶅湪鍘熺洰褰?))
+        self.radioButton_fail_move_on.setText(_translate("MDCx", "寮€"))
+        self.radioButton_fail_move_off.setText(_translate("MDCx", "鍏?))
+        self.groupBox_30.setTitle(_translate("MDCx", "鍒墛缁撴潫鍚庡垹闄ょ┖鏂囦欢澶?))
+        self.label_44.setText(_translate("MDCx", "鍒墛缁撴潫鍚庯紝鍒犻櫎鍒墛鐩綍涓殑鎵€鏈夌┖鏂囦欢澶?))
+        self.label_51.setText(_translate("MDCx", "鍒墛缁撴潫鍚庯紝涓嶅垹闄ょ┖鏂囦欢澶?))
+        self.radioButton_del_empty_folder_on.setText(_translate("MDCx", "寮€"))
+        self.radioButton_del_empty_folder_off.setText(_translate("MDCx", "鍏?))
+        self.groupBox_5.setTitle(_translate("MDCx", "鏇存柊妯″紡瑙勫垯"))
+        self.label_218.setText(_translate("MDCx", "D鐩綍鍛藉悕瑙勫垯 "))
+        self.label_14.setText(_translate("MDCx", "鏇存柊瑙嗛鍚岀骇鐩綍涓嬬殑鍐呭锛屽嵆锛?./A/B/C[NEW].mp4"))
         self.label_20.setText(
-            _translate("MDCx", "在视频所在目录下为视频创建D目录，并更新C内容，即：../A/B/D/C[NEW].mp4")
+            _translate("MDCx", "鍦ㄨ棰戞墍鍦ㄧ洰褰曚笅涓鸿棰戝垱寤篋鐩綍锛屽苟鏇存柊C鍐呭锛屽嵆锛?./A/B/D/C[NEW].mp4")
         )
-        self.label_278.setText(_translate("MDCx", "C文件命名规则 "))
-        self.label_210.setText(_translate("MDCx", "B目录命名规则 "))
-        self.radioButton_update_b_c.setText(_translate("MDCx", "更新B和C"))
-        self.label_25.setText(_translate("MDCx", "更新视频所在目录及该目录下的内容，即：../A/B[NEW]/C[NEW].mp4"))
-        self.radioButton_update_d_c.setText(_translate("MDCx", "创建D目录"))
-        self.radioButton_update_c.setText(_translate("MDCx", "只更新C"))
-        self.checkBox_update_a.setText(_translate("MDCx", "同时更新A目录 "))
-        self.label_294.setText(_translate("MDCx", "Emby视频标题 "))
-        self.label_12.setText(_translate("MDCx", "假定视频文件现在的路径是： ../A/B/C.mp4"))
+        self.label_278.setText(_translate("MDCx", "C鏂囦欢鍛藉悕瑙勫垯 "))
+        self.label_210.setText(_translate("MDCx", "B鐩綍鍛藉悕瑙勫垯 "))
+        self.radioButton_update_b_c.setText(_translate("MDCx", "鏇存柊B鍜孋"))
+        self.label_25.setText(_translate("MDCx", "鏇存柊瑙嗛鎵€鍦ㄧ洰褰曞強璇ョ洰褰曚笅鐨勫唴瀹癸紝鍗筹細../A/B[NEW]/C[NEW].mp4"))
+        self.radioButton_update_d_c.setText(_translate("MDCx", "鍒涘缓D鐩綍"))
+        self.radioButton_update_c.setText(_translate("MDCx", "鍙洿鏂癈"))
+        self.checkBox_update_a.setText(_translate("MDCx", "鍚屾椂鏇存柊A鐩綍 "))
+        self.label_294.setText(_translate("MDCx", "Emby瑙嗛鏍囬 "))
+        self.label_12.setText(_translate("MDCx", "鍋囧畾瑙嗛鏂囦欢鐜板湪鐨勮矾寰勬槸锛?../A/B/C.mp4"))
         self.label_21.setText(
             _translate(
                 "MDCx",
-                "<p style='line-height:20px'>⚠️ 保留文件：请到 设置 > 下载 > 保留旧文件 或\n"
-                "                          下载，设置要保留或更新的文件内容<br>\n"
-                "                          ⚠️ 跳过文件：在视频目录新建一个名为 skip 的空文件，即可自动跳过该目录及子目录（所有模式均有效）<br>\n"
-                "                          ⚠️ 移动文件：失败时不移动文件，成功时按更新模式规则移动<br>\n"
-                "                          ⚠️ 重命名文件：在「成功后重命名文件」中设置是否重命名，命名规则同「命名」-「视频文件名」</p>",
+                "<p style='line-height:20px'>鈿狅笍 淇濈暀鏂囦欢锛氳鍒?璁剧疆 > 涓嬭浇 > 淇濈暀鏃ф枃浠?鎴朶n"
+                "                          涓嬭浇锛岃缃淇濈暀鎴栨洿鏂扮殑鏂囦欢鍐呭<br>\n"
+                "                          鈿狅笍 璺宠繃鏂囦欢锛氬湪瑙嗛鐩綍鏂板缓涓€涓悕涓?skip 鐨勭┖鏂囦欢锛屽嵆鍙嚜鍔ㄨ烦杩囪鐩綍鍙婂瓙鐩綍锛堟墍鏈夋ā寮忓潎鏈夋晥锛?br>\n"
+                "                          鈿狅笍 绉诲姩鏂囦欢锛氬け璐ユ椂涓嶇Щ鍔ㄦ枃浠讹紝鎴愬姛鏃舵寜鏇存柊妯″紡瑙勫垯绉诲姩<br>\n"
+                "                          鈿狅笍 閲嶅懡鍚嶆枃浠讹細鍦ㄣ€屾垚鍔熷悗閲嶅懡鍚嶆枃浠躲€嶄腑璁剧疆鏄惁閲嶅懡鍚嶏紝鍛藉悕瑙勫垯鍚屻€屽懡鍚嶃€?銆岃棰戞枃浠跺悕銆?/p>",
             )
         )
-        self.groupBox_18.setTitle(_translate("MDCx", "刮削成功后重命名文件"))
-        self.label_38.setText(_translate("MDCx", "刮削成功时，按「命名」-「视频命名规则」-「视频文件名」重命名文件"))
-        self.label_39.setText(_translate("MDCx", "刮削成功时，继续使用原来文件名"))
-        self.radioButton_succ_rename_on.setText(_translate("MDCx", "开"))
-        self.radioButton_succ_rename_off.setText(_translate("MDCx", "关"))
-        self.groupBox_53.setTitle(_translate("MDCx", "多线程刮削"))
-        self.label_237.setText(_translate("MDCx", "javdb延时(秒)"))
-        self.label_26.setText(_translate("MDCx", "设置 javdb 延时可降低 javdb 被封概率，将在1/2延时-1延时之间随机。"))
-        self.label_82.setText(_translate("MDCx", "线程数量"))
-        self.label_238.setText(_translate("MDCx", "线程间隔(秒)"))
-        self.groupBox_2.setTitle(_translate("MDCx", "刮削成功后在输出目录创建软链接或硬链接"))
-        self.radioButton_soft_off.setText(_translate("MDCx", "关"))
-        self.radioButton_soft_on.setText(_translate("MDCx", "创建软链接"))
+        self.groupBox_18.setTitle(_translate("MDCx", "鍒墛鎴愬姛鍚庨噸鍛藉悕鏂囦欢"))
+        self.label_38.setText(_translate("MDCx", "鍒墛鎴愬姛鏃讹紝鎸夈€屽懡鍚嶃€?銆岃棰戝懡鍚嶈鍒欍€?銆岃棰戞枃浠跺悕銆嶉噸鍛藉悕鏂囦欢"))
+        self.label_39.setText(_translate("MDCx", "鍒墛鎴愬姛鏃讹紝缁х画浣跨敤鍘熸潵鏂囦欢鍚?))
+        self.radioButton_succ_rename_on.setText(_translate("MDCx", "寮€"))
+        self.radioButton_succ_rename_off.setText(_translate("MDCx", "鍏?))
+        self.groupBox_53.setTitle(_translate("MDCx", "澶氱嚎绋嬪埉鍓?))
+        self.label_237.setText(_translate("MDCx", "javdb寤舵椂(绉?"))
+        self.label_26.setText(_translate("MDCx", "璁剧疆 javdb 寤舵椂鍙檷浣?javdb 琚皝姒傜巼锛屽皢鍦?/2寤舵椂-1寤舵椂涔嬮棿闅忔満銆?))
+        self.label_82.setText(_translate("MDCx", "绾跨▼鏁伴噺"))
+        self.label_238.setText(_translate("MDCx", "绾跨▼闂撮殧(绉?"))
+        self.groupBox_2.setTitle(_translate("MDCx", "鍒墛鎴愬姛鍚庡湪杈撳嚭鐩綍鍒涘缓杞摼鎺ユ垨纭摼鎺?))
+        self.radioButton_soft_off.setText(_translate("MDCx", "鍏?))
+        self.radioButton_soft_on.setText(_translate("MDCx", "鍒涘缓杞摼鎺?))
         self.label_link_off.setText(
             _translate(
                 "MDCx",
-                "<span>适合 NAS 和硬盘用户。本地党可随心所欲整理文件。<br>注意：选择此项，下面的「成功后移动文件」「失败后移动文件」才会生效</span>",
+                "<span>閫傚悎 NAS 鍜岀‖鐩樼敤鎴枫€傛湰鍦板厷鍙殢蹇冩墍娆叉暣鐞嗘枃浠躲€?br>娉ㄦ剰锛氶€夋嫨姝ら」锛屼笅闈㈢殑銆屾垚鍔熷悗绉诲姩鏂囦欢銆嶃€屽け璐ュ悗绉诲姩鏂囦欢銆嶆墠浼氱敓鏁?/span>",
             )
         )
-        self.radioButton_hard_on.setText(_translate("MDCx", "创建硬链接"))
+        self.radioButton_hard_on.setText(_translate("MDCx", "鍒涘缓纭摼鎺?))
         self.label_softlink.setText(
             _translate(
                 "MDCx",
-                "<span>适合网盘用户。刮削资料存本地，Emby 加载快，网盘读写少。<br>注意：Windows 用户，成功后的输出目录必须选择本地磁盘（系统限制）</span>",
+                "<span>閫傚悎缃戠洏鐢ㄦ埛銆傚埉鍓婅祫鏂欏瓨鏈湴锛孍mby 鍔犺浇蹇紝缃戠洏璇诲啓灏戙€?br>娉ㄦ剰锛歐indows 鐢ㄦ埛锛屾垚鍔熷悗鐨勮緭鍑虹洰褰曞繀椤婚€夋嫨鏈湴纾佺洏锛堢郴缁熼檺鍒讹級</span>",
             )
         )
         self.label_hardlink.setText(
             _translate(
                 "MDCx",
-                "<span>适合 PT 用户。刮削资料同盘单独存放，不影响分享率。<br>注意：Mac 用户，请选择创建软连接，输出目录同盘即可（硬链接有权限问题）</span>",
+                "<span>閫傚悎 PT 鐢ㄦ埛銆傚埉鍓婅祫鏂欏悓鐩樺崟鐙瓨鏀撅紝涓嶅奖鍝嶅垎浜巼銆?br>娉ㄦ剰锛歁ac 鐢ㄦ埛锛岃閫夋嫨鍒涘缓杞繛鎺ワ紝杈撳嚭鐩綍鍚岀洏鍗冲彲锛堢‖閾炬帴鏈夋潈闄愰棶棰橈級</span>",
             )
         )
-        self.label_342.setText(_translate("MDCx", "注：软硬链接不会移动和重命名原视频文件，仅移动和重命名链接文件"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab1), _translate("MDCx", " 刮削模式 "))
-        self.groupBox_80.setTitle(_translate("MDCx", "类型刮削网站"))
-        self.label_151.setText(_translate("MDCx", "无码番号："))
-        self.label_316.setText(_translate("MDCx", "动漫里番："))
-        self.label_322.setText(_translate("MDCx", "Mywife："))
+        self.label_342.setText(_translate("MDCx", "娉細杞‖閾炬帴涓嶄細绉诲姩鍜岄噸鍛藉悕鍘熻棰戞枃浠讹紝浠呯Щ鍔ㄥ拰閲嶅懡鍚嶉摼鎺ユ枃浠?))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab1), _translate("MDCx", " 鍒墛妯″紡 "))
+        self.groupBox_80.setTitle(_translate("MDCx", "绫诲瀷鍒墛缃戠珯"))
+        self.label_151.setText(_translate("MDCx", "鏃犵爜鐣彿锛?))
+        self.label_316.setText(_translate("MDCx", "鍔ㄦ极閲岀暘锛?))
+        self.label_322.setText(_translate("MDCx", "Mywife锛?))
         self.label_232.setText(
             _translate(
                 "MDCx",
-                "<span>「网站偏好」-「指定网站」指定 madouqu、madou_club，或文件路径含有「国产」、「麻豆」时，将自动使用以上网站刮削国产番号</span>",
+                "<span>銆岀綉绔欏亸濂姐€?銆屾寚瀹氱綉绔欍€嶆寚瀹?madouqu銆乵adou_club锛屾垨鏂囦欢璺緞鍚湁銆屽浗浜с€嶃€併€岄夯璞嗐€嶆椂锛屽皢鑷姩浣跨敤浠ヤ笂缃戠珯鍒墛鍥戒骇鐣彿</span>",
             )
         )
-        self.label_156.setText(_translate("MDCx", "比如：259LUXU-1111"))
-        self.label_157.setText(_translate("MDCx", "比如：FC2-111111"))
-        self.label_158.setText(_translate("MDCx", "比如：sexart.11.11.11"))
-        self.label_149.setText(_translate("MDCx", "欧美番号："))
-        self.label_155.setText(_translate("MDCx", "比如：111111-111，111111_111，n1111，HEYZO-1111，SMD-111"))
+        self.label_156.setText(_translate("MDCx", "姣斿锛?59LUXU-1111"))
+        self.label_157.setText(_translate("MDCx", "姣斿锛欶C2-111111"))
+        self.label_158.setText(_translate("MDCx", "姣斿锛歴exart.11.11.11"))
+        self.label_149.setText(_translate("MDCx", "娆х編鐣彿锛?))
+        self.label_155.setText(_translate("MDCx", "姣斿锛?11111-111锛?11111_111锛宯1111锛孒EYZO-1111锛孲MD-111"))
         self.label_318.setText(
             _translate(
                 "MDCx",
-                "<p>「网站偏好」-「指定网站」指定 getchu、dmm，或文件路径含有「里番」、「动漫」时，将自动使用 getchu 刮削</p>",
+                "<p>銆岀綉绔欏亸濂姐€?銆屾寚瀹氱綉绔欍€嶆寚瀹?getchu銆乨mm锛屾垨鏂囦欢璺緞鍚湁銆岄噷鐣€嶃€併€屽姩婕€嶆椂锛屽皢鑷姩浣跨敤 getchu 鍒墛</p>",
             )
         )
         self.label_323.setText(
             _translate(
                 "MDCx",
-                "<p>「网站偏好」-「指定网站」指定 mywife，或文件路径含有 mywife时，将自动使用 mywife 刮削（Mywife 番号规则： Mywife No.1230）</p>",
+                "<p>銆岀綉绔欏亸濂姐€?銆屾寚瀹氱綉绔欍€嶆寚瀹?mywife锛屾垨鏂囦欢璺緞鍚湁 mywife鏃讹紝灏嗚嚜鍔ㄤ娇鐢?mywife 鍒墛锛圡ywife 鐣彿瑙勫垯锛?Mywife No.1230锛?/p>",
             )
         )
-        self.label_154.setText(_translate("MDCx", "比如：MIDE-111，以及不符合以下类型的番号"))
-        self.label_152.setText(_translate("MDCx", "素人番号："))
-        self.label_153.setText(_translate("MDCx", "有码番号："))
-        self.label_148.setText(_translate("MDCx", "FC2番号："))
-        self.label_217.setText(_translate("MDCx", "国产番号："))
+        self.label_154.setText(_translate("MDCx", "姣斿锛歁IDE-111锛屼互鍙婁笉绗﹀悎浠ヤ笅绫诲瀷鐨勭暘鍙?))
+        self.label_152.setText(_translate("MDCx", "绱犱汉鐣彿锛?))
+        self.label_153.setText(_translate("MDCx", "鏈夌爜鐣彿锛?))
+        self.label_148.setText(_translate("MDCx", "FC2鐣彿锛?))
+        self.label_217.setText(_translate("MDCx", "鍥戒骇鐣彿锛?))
         self.comboBox_fixed_scraping_type.setToolTip(
             _translate(
-                "MDCx", "选择后跳过自动类型识别，所有番号直接使用指定类型的网站列表刮削。选择「自动判断」恢复默认行为。"
+                "MDCx", "閫夋嫨鍚庤烦杩囪嚜鍔ㄧ被鍨嬭瘑鍒紝鎵€鏈夌暘鍙风洿鎺ヤ娇鐢ㄦ寚瀹氱被鍨嬬殑缃戠珯鍒楄〃鍒墛銆傞€夋嫨銆岃嚜鍔ㄥ垽鏂€嶆仮澶嶉粯璁よ涓恒€?
             )
         )
-        self.comboBox_fixed_scraping_type.setItemText(0, _translate("MDCx", "自动判断"))
-        self.comboBox_fixed_scraping_type.setItemText(1, _translate("MDCx", "有码"))
-        self.comboBox_fixed_scraping_type.setItemText(2, _translate("MDCx", "无码"))
-        self.comboBox_fixed_scraping_type.setItemText(3, _translate("MDCx", "素人"))
+        self.comboBox_fixed_scraping_type.setItemText(0, _translate("MDCx", "鑷姩鍒ゆ柇"))
+        self.comboBox_fixed_scraping_type.setItemText(1, _translate("MDCx", "鏈夌爜"))
+        self.comboBox_fixed_scraping_type.setItemText(2, _translate("MDCx", "鏃犵爜"))
+        self.comboBox_fixed_scraping_type.setItemText(3, _translate("MDCx", "绱犱汉"))
         self.comboBox_fixed_scraping_type.setItemText(4, _translate("MDCx", "FC2"))
-        self.comboBox_fixed_scraping_type.setItemText(5, _translate("MDCx", "欧美"))
-        self.comboBox_fixed_scraping_type.setItemText(6, _translate("MDCx", "国产"))
-        self.label_fixed_scraping_type.setText(_translate("MDCx", "锁定刮削类型："))
+        self.comboBox_fixed_scraping_type.setItemText(5, _translate("MDCx", "娆х編"))
+        self.comboBox_fixed_scraping_type.setItemText(6, _translate("MDCx", "鍥戒骇"))
+        self.label_fixed_scraping_type.setText(_translate("MDCx", "閿佸畾鍒墛绫诲瀷锛?))
         self.label_fixed_scraping_type_desc.setText(
-            _translate("MDCx", "选择后跳过自动类型识别，所有番号直接使用指定类型的网站列表刮削。")
+            _translate("MDCx", "閫夋嫨鍚庤烦杩囪嚜鍔ㄧ被鍨嬭瘑鍒紝鎵€鏈夌暘鍙风洿鎺ヤ娇鐢ㄦ寚瀹氱被鍨嬬殑缃戠珯鍒楄〃鍒墛銆?)
         )
-        self.pushButton_edit_website_youma.setText(_translate("MDCx", "编辑网站"))
-        self.pushButton_priority_website_youma.setText(_translate("MDCx", "字段优先级"))
-        self.pushButton_edit_website_wuma.setText(_translate("MDCx", "编辑网站"))
-        self.pushButton_priority_website_wuma.setText(_translate("MDCx", "字段优先级"))
-        self.pushButton_edit_website_suren.setText(_translate("MDCx", "编辑网站"))
-        self.pushButton_priority_website_suren.setText(_translate("MDCx", "字段优先级"))
-        self.pushButton_edit_website_fc2.setText(_translate("MDCx", "编辑网站"))
-        self.pushButton_priority_website_fc2.setText(_translate("MDCx", "字段优先级"))
-        self.pushButton_edit_website_oumei.setText(_translate("MDCx", "编辑网站"))
-        self.pushButton_priority_website_oumei.setText(_translate("MDCx", "字段优先级"))
-        self.pushButton_edit_website_guochan.setText(_translate("MDCx", "编辑网站"))
-        self.pushButton_priority_website_guochan.setText(_translate("MDCx", "字段优先级"))
-        self.groupBox_35.setTitle(_translate("MDCx", "字段刮削网站"))
-        self.label_114.setText(_translate("MDCx", "标题："))
-        self.label_227.setText(_translate("MDCx", "导演："))
-        self.label_182.setText(_translate("MDCx", "发行时间："))
-        self.label_129.setText(_translate("MDCx", "原始标题："))
-        self.label_406.setText(_translate("MDCx", "简介："))
-        self.label_191.setText(_translate("MDCx", "封面（大）："))
-        self.label_183.setText(_translate("MDCx", "评分："))
-        self.label_144.setText(_translate("MDCx", "标签："))
-        self.label_211.setText(_translate("MDCx", "片商："))
-        self.label_180.setText(_translate("MDCx", "剧照："))
-        self.label_307.setText(_translate("MDCx", "想看人数："))
-        self.label_222.setText(_translate("MDCx", "发行商："))
-        self.label_142.setText(_translate("MDCx", "原始简介："))
-        self.label_229.setText(_translate("MDCx", "封面（小）："))
-        self.label_143.setText(_translate("MDCx", "女演员："))
-        self.label_181.setText(_translate("MDCx", "时长："))
-        self.label_206.setText(_translate("MDCx", "预告片："))
-        self.label_201.setText(_translate("MDCx", "系列："))
-        self.label_179.setText(_translate("MDCx", "所有演员："))
+        self.pushButton_edit_website_youma.setText(_translate("MDCx", "缂栬緫缃戠珯"))
+        self.pushButton_priority_website_youma.setText(_translate("MDCx", "瀛楁浼樺厛绾?))
+        self.pushButton_edit_website_wuma.setText(_translate("MDCx", "缂栬緫缃戠珯"))
+        self.pushButton_priority_website_wuma.setText(_translate("MDCx", "瀛楁浼樺厛绾?))
+        self.pushButton_edit_website_suren.setText(_translate("MDCx", "缂栬緫缃戠珯"))
+        self.pushButton_priority_website_suren.setText(_translate("MDCx", "瀛楁浼樺厛绾?))
+        self.pushButton_edit_website_fc2.setText(_translate("MDCx", "缂栬緫缃戠珯"))
+        self.pushButton_priority_website_fc2.setText(_translate("MDCx", "瀛楁浼樺厛绾?))
+        self.pushButton_edit_website_oumei.setText(_translate("MDCx", "缂栬緫缃戠珯"))
+        self.pushButton_priority_website_oumei.setText(_translate("MDCx", "瀛楁浼樺厛绾?))
+        self.pushButton_edit_website_guochan.setText(_translate("MDCx", "缂栬緫缃戠珯"))
+        self.pushButton_priority_website_guochan.setText(_translate("MDCx", "瀛楁浼樺厛绾?))
+        self.groupBox_35.setTitle(_translate("MDCx", "瀛楁鍒墛缃戠珯"))
+        self.label_114.setText(_translate("MDCx", "鏍囬锛?))
+        self.label_227.setText(_translate("MDCx", "瀵兼紨锛?))
+        self.label_182.setText(_translate("MDCx", "鍙戣鏃堕棿锛?))
+        self.label_129.setText(_translate("MDCx", "鍘熷鏍囬锛?))
+        self.label_406.setText(_translate("MDCx", "绠€浠嬶細"))
+        self.label_191.setText(_translate("MDCx", "灏侀潰锛堝ぇ锛夛細"))
+        self.label_183.setText(_translate("MDCx", "璇勫垎锛?))
+        self.label_144.setText(_translate("MDCx", "鏍囩锛?))
+        self.label_211.setText(_translate("MDCx", "鐗囧晢锛?))
+        self.label_180.setText(_translate("MDCx", "鍓х収锛?))
+        self.label_307.setText(_translate("MDCx", "鎯崇湅浜烘暟锛?))
+        self.label_222.setText(_translate("MDCx", "鍙戣鍟嗭細"))
+        self.label_142.setText(_translate("MDCx", "鍘熷绠€浠嬶細"))
+        self.label_229.setText(_translate("MDCx", "灏侀潰锛堝皬锛夛細"))
+        self.label_143.setText(_translate("MDCx", "濂虫紨鍛橈細"))
+        self.label_181.setText(_translate("MDCx", "鏃堕暱锛?))
+        self.label_206.setText(_translate("MDCx", "棰勫憡鐗囷細"))
+        self.label_201.setText(_translate("MDCx", "绯诲垪锛?))
+        self.label_179.setText(_translate("MDCx", "鎵€鏈夋紨鍛橈細"))
         self.label_325.setText(
             _translate(
                 "MDCx",
-                "<p>说明：对于某个字段，如果不指定刮削网站，则将使用任意已获取网站的数据；否则将依次使用字段刮削网站与该类型的刮削网站的交集。</p><p>例如，若标题设置为 theporndb,dmm,javdb,fc2ppvdb，有码设置为 dmm,javdb,javbus，FC2设置为 fc2,fc2ppvdb</p><p>则对于有码影片，将依次使用 dmm,javdb 的标题数据；对于FC2影片将使用 fc2ppvdb 的标题数据</p>",
+                "<p>璇存槑锛氬浜庢煇涓瓧娈碉紝濡傛灉涓嶆寚瀹氬埉鍓婄綉绔欙紝鍒欏皢浣跨敤浠绘剰宸茶幏鍙栫綉绔欑殑鏁版嵁锛涘惁鍒欏皢渚濇浣跨敤瀛楁鍒墛缃戠珯涓庤绫诲瀷鐨勫埉鍓婄綉绔欑殑浜ら泦銆?/p><p>渚嬪锛岃嫢鏍囬璁剧疆涓?theporndb,dmm,javdb,fc2ppvdb锛屾湁鐮佽缃负 dmm,javdb,javbus锛孎C2璁剧疆涓?fc2,fc2ppvdb</p><p>鍒欏浜庢湁鐮佸奖鐗囷紝灏嗕緷娆′娇鐢?dmm,javdb 鐨勬爣棰樻暟鎹紱瀵逛簬FC2褰辩墖灏嗕娇鐢?fc2ppvdb 鐨勬爣棰樻暟鎹?/p>",
             )
         )
-        self.groupBox_11.setTitle(_translate("MDCx", "网站偏好"))
-        self.radioButton_scrape_single.setText(_translate("MDCx", "指定网站"))
-        self.label_32.setText(_translate("MDCx", "按各个字段设置的刮削网站进行刮削，字段来自多个网站。字段全一些。"))
-        self.label_317.setText(_translate("MDCx", "当指定网站时，所有番号将只使用该网站刮削！"))
-        self.radioButton_scrape_info.setText(_translate("MDCx", "字段优先"))
-        self.label_28.setText(_translate("MDCx", "按番号类型设置的刮削网站进行刮削，字段来自单个网站。速度快一些。"))
-        self.radioButton_scrape_speed.setText(_translate("MDCx", "速度优先"))
+        self.groupBox_11.setTitle(_translate("MDCx", "缃戠珯鍋忓ソ"))
+        self.radioButton_scrape_single.setText(_translate("MDCx", "鎸囧畾缃戠珯"))
+        self.label_32.setText(_translate("MDCx", "鎸夊悇涓瓧娈佃缃殑鍒墛缃戠珯杩涜鍒墛锛屽瓧娈垫潵鑷涓綉绔欍€傚瓧娈靛叏涓€浜涖€?))
+        self.label_317.setText(_translate("MDCx", "褰撴寚瀹氱綉绔欐椂锛屾墍鏈夌暘鍙峰皢鍙娇鐢ㄨ缃戠珯鍒墛锛?))
+        self.radioButton_scrape_info.setText(_translate("MDCx", "瀛楁浼樺厛"))
+        self.label_28.setText(_translate("MDCx", "鎸夌暘鍙风被鍨嬭缃殑鍒墛缃戠珯杩涜鍒墛锛屽瓧娈垫潵鑷崟涓綉绔欍€傞€熷害蹇竴浜涖€?))
+        self.radioButton_scrape_speed.setText(_translate("MDCx", "閫熷害浼樺厛"))
         self.label_315.setText(
-            _translate("MDCx", "⚠️ 下载剧照、预告片，请选择「字段优先」或「指定网站」！「速度优先」信息不全！")
+            _translate("MDCx", "鈿狅笍 涓嬭浇鍓х収銆侀鍛婄墖锛岃閫夋嫨銆屽瓧娈典紭鍏堛€嶆垨銆屾寚瀹氱綉绔欍€嶏紒銆岄€熷害浼樺厛銆嶄俊鎭笉鍏紒")
         )
-        self.checkBox_field_priority_try_all_images.setText(_translate("MDCx", "是否尝试所有图片"))
+        self.checkBox_field_priority_try_all_images.setText(_translate("MDCx", "鏄惁灏濊瘯鎵€鏈夊浘鐗?))
         self.label_field_priority_try_all_images.setText(
-            _translate("MDCx", "字段优先图片下载失败时，继续尝试其它图片候选")
+            _translate("MDCx", "瀛楁浼樺厛鍥剧墖涓嬭浇澶辫触鏃讹紝缁х画灏濊瘯鍏跺畠鍥剧墖鍊欓€?)
         )
-        self.pushButton_scrape_note.setText(_translate("MDCx", "刮削不到？看这里！"))
-        self.label_300.setText(_translate("MDCx", "⚠️ 注意！！！选择「字段优先」时，以下设置才有效！！！"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MDCx", " 刮削网站 "))
-        self.groupBox_24.setTitle(_translate("MDCx", "下载"))
-        self.checkBox_download_poster.setText(_translate("MDCx", "封面图"))
-        self.checkBox_download_thumb.setText(_translate("MDCx", "缩略图"))
-        self.checkBox_download_fanart.setText(_translate("MDCx", "背景图"))
-        self.checkBox_download_extrafanart.setText(_translate("MDCx", "剧照"))
-        self.checkBox_download_trailer.setText(_translate("MDCx", "预告片"))
+        self.pushButton_scrape_note.setText(_translate("MDCx", "鍒墛涓嶅埌锛熺湅杩欓噷锛?))
+        self.label_300.setText(_translate("MDCx", "鈿狅笍 娉ㄦ剰锛侊紒锛侀€夋嫨銆屽瓧娈典紭鍏堛€嶆椂锛屼互涓嬭缃墠鏈夋晥锛侊紒锛?))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MDCx", " 鍒墛缃戠珯 "))
+        self.groupBox_24.setTitle(_translate("MDCx", "涓嬭浇"))
+        self.checkBox_download_poster.setText(_translate("MDCx", "灏侀潰鍥?))
+        self.checkBox_download_thumb.setText(_translate("MDCx", "缂╃暐鍥?))
+        self.checkBox_download_fanart.setText(_translate("MDCx", "鑳屾櫙鍥?))
+        self.checkBox_download_extrafanart.setText(_translate("MDCx", "鍓х収"))
+        self.checkBox_download_trailer.setText(_translate("MDCx", "棰勫憡鐗?))
         self.checkBox_download_nfo.setText(_translate("MDCx", "nfo"))
         self.checkBox_compress_downloaded_images.setToolTip(
             _translate(
                 "MDCx",
-                "刮削完成后压缩输出文件夹里的所有图片（封面/海报/缩略图/剧照）：长边超过 1100px 缩放到 1100px，JPEG/WEBP 质量 80，PNG 无损压缩，减小图片体积；关闭则保留原图不压缩",
+                "鍒墛瀹屾垚鍚庡帇缂╄緭鍑烘枃浠跺す閲岀殑鎵€鏈夊浘鐗囷紙灏侀潰/娴锋姤/缂╃暐鍥?鍓х収锛夛細闀胯竟瓒呰繃 1100px 缂╂斁鍒?1100px锛孞PEG/WEBP 璐ㄩ噺 80锛孭NG 鏃犳崯鍘嬬缉锛屽噺灏忓浘鐗囦綋绉紱鍏抽棴鍒欎繚鐣欏師鍥句笉鍘嬬缉",
             )
         )
-        self.checkBox_compress_downloaded_images.setText(_translate("MDCx", "压缩"))
-        self.checkBox_ignore_pic_fail.setText(_translate("MDCx", "图片下载失败时，不视为刮削失败"))
-        self.label_275.setText(_translate("MDCx", " 有时图片已被源网站删除，此时会下载失败"))
-        self.checkBox_ignore_youma.setText(_translate("MDCx", "有码封面不裁剪，直接复制缩略图"))
-        self.label_326.setText(_translate("MDCx", " 有码封面可以裁剪，如不想裁剪可以勾选"))
-        self.checkBox_poster_auto_best.setText(_translate("MDCx", "有码 Poster 竖图按大小自动选优"))
-        self.label_poster_auto_best.setText(_translate("MDCx", " 仅有码：直下/搜图/右裁剪选优"))
-        self.checkBox_ignore_wuma.setText(_translate("MDCx", "无码封面不裁剪，直接复制缩略图"))
-        self.label_273.setText(_translate("MDCx", " 无码封面人脸位置不固定，建议手动裁剪或直接复制"))
-        self.checkBox_ignore_oumei.setText(_translate("MDCx", "欧美封面不裁剪，直接复制缩略图"))
-        self.label_ignore_oumei.setText(_translate("MDCx", " 欧美封面人脸位置不固定，建议手动裁剪或直接复制"))
-        self.checkBox_ignore_fc2.setText(_translate("MDCx", "FC2 封面不裁剪，直接复制缩略图"))
-        self.label_292.setText(_translate("MDCx", " FC2 封面人脸位置不固定，建议手动裁剪或直接复制"))
-        self.checkBox_ignore_guochan.setText(_translate("MDCx", "国产封面不裁剪，直接复制缩略图"))
-        self.label_305.setText(_translate("MDCx", " 国产封面人脸位置不固定，建议手动裁剪或直接复制"))
-        self.checkBox_ignore_size.setText(_translate("MDCx", "预告片下载时，不校验文件大小"))
-        self.label_272.setText(_translate("MDCx", " 有时网络返回值不对，校验会导致预告片下载失败"))
+        self.checkBox_compress_downloaded_images.setText(_translate("MDCx", "鍘嬬缉"))
+        self.checkBox_ignore_pic_fail.setText(_translate("MDCx", "鍥剧墖涓嬭浇澶辫触鏃讹紝涓嶈涓哄埉鍓婂け璐?))
+        self.label_275.setText(_translate("MDCx", " 鏈夋椂鍥剧墖宸茶婧愮綉绔欏垹闄わ紝姝ゆ椂浼氫笅杞藉け璐?))
+        self.checkBox_ignore_youma.setText(_translate("MDCx", "鏈夌爜灏侀潰涓嶈鍓紝鐩存帴澶嶅埗缂╃暐鍥?))
+        self.label_326.setText(_translate("MDCx", " 鏈夌爜灏侀潰鍙互瑁佸壀锛屽涓嶆兂瑁佸壀鍙互鍕鹃€?))
+        self.checkBox_poster_auto_best.setText(_translate("MDCx", "鏈夌爜 Poster 绔栧浘鎸夊ぇ灏忚嚜鍔ㄩ€変紭"))
+        self.label_poster_auto_best.setText(_translate("MDCx", " 浠呮湁鐮侊細鐩翠笅/鎼滃浘/鍙宠鍓€変紭"))
+        self.checkBox_ignore_wuma.setText(_translate("MDCx", "鏃犵爜灏侀潰涓嶈鍓紝鐩存帴澶嶅埗缂╃暐鍥?))
+        self.label_273.setText(_translate("MDCx", " 鏃犵爜灏侀潰浜鸿劯浣嶇疆涓嶅浐瀹氾紝寤鸿鎵嬪姩瑁佸壀鎴栫洿鎺ュ鍒?))
+        self.checkBox_ignore_oumei.setText(_translate("MDCx", "娆х編灏侀潰涓嶈鍓紝鐩存帴澶嶅埗缂╃暐鍥?))
+        self.label_ignore_oumei.setText(_translate("MDCx", " 娆х編灏侀潰浜鸿劯浣嶇疆涓嶅浐瀹氾紝寤鸿鎵嬪姩瑁佸壀鎴栫洿鎺ュ鍒?))
+        self.checkBox_ignore_fc2.setText(_translate("MDCx", "FC2 灏侀潰涓嶈鍓紝鐩存帴澶嶅埗缂╃暐鍥?))
+        self.label_292.setText(_translate("MDCx", " FC2 灏侀潰浜鸿劯浣嶇疆涓嶅浐瀹氾紝寤鸿鎵嬪姩瑁佸壀鎴栫洿鎺ュ鍒?))
+        self.checkBox_ignore_guochan.setText(_translate("MDCx", "鍥戒骇灏侀潰涓嶈鍓紝鐩存帴澶嶅埗缂╃暐鍥?))
+        self.label_305.setText(_translate("MDCx", " 鍥戒骇灏侀潰浜鸿劯浣嶇疆涓嶅浐瀹氾紝寤鸿鎵嬪姩瑁佸壀鎴栫洿鎺ュ鍒?))
+        self.checkBox_ignore_size.setText(_translate("MDCx", "棰勫憡鐗囦笅杞芥椂锛屼笉鏍￠獙鏂囦欢澶у皬"))
+        self.label_272.setText(_translate("MDCx", " 鏈夋椂缃戠粶杩斿洖鍊间笉瀵癸紝鏍￠獙浼氬鑷撮鍛婄墖涓嬭浇澶辫触"))
         self.label_85.setText(
             _translate(
                 "MDCx",
-                "<p style='line-height:20px'>封面图：poster，当 Emby\n"
-                "                                视图选择封面图时，列表页会使用 poster（竖图）显示；<br>\n"
-                "                                缩略图：thumb，当 Emby 视图选择缩略图时，列表页会使用 Thumb（横图）显示；<br>\n"
-                "                                背景图：fanart，在 Emby 详情页作为背景图显示（复制缩略图得到背景图）；<br>\n"
-                "                                剧照：extrafanart，在 Emby 详情页作为背景轮播显示（停留约 50s 后进入轮播状态）；<br>\n"
-                "                                预告片：trailer，在 Emby 详情页可以播放预告片；<br>\n"
-                "                                nfo：包含标题、简介、标签等信息，在 Emby 详情页展示。</p>",
+                "<p style='line-height:20px'>灏侀潰鍥撅細poster锛屽綋 Emby\n"
+                "                                瑙嗗浘閫夋嫨灏侀潰鍥炬椂锛屽垪琛ㄩ〉浼氫娇鐢?poster锛堢珫鍥撅級鏄剧ず锛?br>\n"
+                "                                缂╃暐鍥撅細thumb锛屽綋 Emby 瑙嗗浘閫夋嫨缂╃暐鍥炬椂锛屽垪琛ㄩ〉浼氫娇鐢?Thumb锛堟í鍥撅級鏄剧ず锛?br>\n"
+                "                                鑳屾櫙鍥撅細fanart锛屽湪 Emby 璇︽儏椤典綔涓鸿儗鏅浘鏄剧ず锛堝鍒剁缉鐣ュ浘寰楀埌鑳屾櫙鍥撅級锛?br>\n"
+                "                                鍓х収锛歟xtrafanart锛屽湪 Emby 璇︽儏椤典綔涓鸿儗鏅疆鎾樉绀猴紙鍋滅暀绾?50s 鍚庤繘鍏ヨ疆鎾姸鎬侊級锛?br>\n"
+                "                                棰勫憡鐗囷細trailer锛屽湪 Emby 璇︽儏椤靛彲浠ユ挱鏀鹃鍛婄墖锛?br>\n"
+                "                                nfo锛氬寘鍚爣棰樸€佺畝浠嬨€佹爣绛剧瓑淇℃伅锛屽湪 Emby 璇︽儏椤靛睍绀恒€?/p>",
             )
         )
         self.label_310.setText(
-            _translate("MDCx", "⚠️ 下载剧照、预告片，请选择「字段优先」或「指定网站」！「速度优先」信息不全！")
+            _translate("MDCx", "鈿狅笍 涓嬭浇鍓х収銆侀鍛婄墖锛岃閫夋嫨銆屽瓧娈典紭鍏堛€嶆垨銆屾寚瀹氱綉绔欍€嶏紒銆岄€熷害浼樺厛銆嶄俊鎭笉鍏紒")
         )
-        self.groupBox_33.setTitle(_translate("MDCx", "保留旧文件"))
-        self.checkBox_old_poster.setText(_translate("MDCx", "封面图"))
-        self.checkBox_old_thumb.setText(_translate("MDCx", "缩略图"))
-        self.checkBox_old_fanart.setText(_translate("MDCx", "背景图"))
-        self.checkBox_old_extrafanart.setText(_translate("MDCx", "剧照"))
-        self.checkBox_old_trailer.setText(_translate("MDCx", "预告片"))
+        self.groupBox_33.setTitle(_translate("MDCx", "淇濈暀鏃ф枃浠?))
+        self.checkBox_old_poster.setText(_translate("MDCx", "灏侀潰鍥?))
+        self.checkBox_old_thumb.setText(_translate("MDCx", "缂╃暐鍥?))
+        self.checkBox_old_fanart.setText(_translate("MDCx", "鑳屾櫙鍥?))
+        self.checkBox_old_extrafanart.setText(_translate("MDCx", "鍓х収"))
+        self.checkBox_old_trailer.setText(_translate("MDCx", "棰勫憡鐗?))
         self.checkBox_old_nfo.setText(_translate("MDCx", "nfo"))
-        self.checkBox_old_extrafanart_copy.setText(_translate("MDCx", "剧照副本"))
-        self.checkBox_old_theme_videos.setText(_translate("MDCx", "主题视频"))
+        self.checkBox_old_extrafanart_copy.setText(_translate("MDCx", "鍓х収鍓湰"))
+        self.checkBox_old_theme_videos.setText(_translate("MDCx", "涓婚瑙嗛"))
         self.label_79.setText(
             _translate(
                 "MDCx",
-                "<p style='line-height:20px'>勾选时，将使用本地文件（如有），不再重新下载。<br>\n"
-                "                          ⚠️ 注意：不勾选时，本地旧文件将被删除！并根据上方设置的下载项重新下载！</p>",
+                "<p style='line-height:20px'>鍕鹃€夋椂锛屽皢浣跨敤鏈湴鏂囦欢锛堝鏈夛級锛屼笉鍐嶉噸鏂颁笅杞姐€?br>\n"
+                "                          鈿狅笍 娉ㄦ剰锛氫笉鍕鹃€夋椂锛屾湰鍦版棫鏂囦欢灏嗚鍒犻櫎锛佸苟鏍规嵁涓婃柟璁剧疆鐨勪笅杞介」閲嶆柊涓嬭浇锛?/p>",
             )
         )
-        self.groupBox_51.setTitle(_translate("MDCx", "创建主题视频"))
+        self.groupBox_51.setTitle(_translate("MDCx", "鍒涘缓涓婚瑙嗛"))
         self.label_87.setText(
             _translate(
                 "MDCx",
-                "<p style='line-height:20px'>复制预告片到视频下的 backdrops 目录，当在 Emby\n"
-                "                          浏览该番号时，预告片会作为背景视频播放。<br>\n"
-                "                          开启主题视频：Emby 设置-显示-主题视频-开（PC 端可以打开，手机端不建议打开，会变成全屏播放...）</p>",
+                "<p style='line-height:20px'>澶嶅埗棰勫憡鐗囧埌瑙嗛涓嬬殑 backdrops 鐩綍锛屽綋鍦?Emby\n"
+                "                          娴忚璇ョ暘鍙锋椂锛岄鍛婄墖浼氫綔涓鸿儗鏅棰戞挱鏀俱€?br>\n"
+                "                          寮€鍚富棰樿棰戯細Emby 璁剧疆-鏄剧ず-涓婚瑙嗛-寮€锛圥C 绔彲浠ユ墦寮€锛屾墜鏈虹涓嶅缓璁墦寮€锛屼細鍙樻垚鍏ㄥ睆鎾斁...锛?/p>",
             )
         )
-        self.checkBox_theme_videos.setText(_translate("MDCx", "使用预告片作为主题视频"))
-        self.pushButton_add_all_theme_videos.setText(_translate("MDCx", "添加所有主题视频"))
-        self.pushButton_del_all_theme_videos.setText(_translate("MDCx", "删除所有主题视频"))
-        self.groupBox_34.setTitle(_translate("MDCx", "创建剧照副本"))
-        self.checkBox_download_extrafanart_copy.setText(_translate("MDCx", "额外复制一份剧照图到文件夹"))
+        self.checkBox_theme_videos.setText(_translate("MDCx", "浣跨敤棰勫憡鐗囦綔涓轰富棰樿棰?))
+        self.pushButton_add_all_theme_videos.setText(_translate("MDCx", "娣诲姞鎵€鏈変富棰樿棰?))
+        self.pushButton_del_all_theme_videos.setText(_translate("MDCx", "鍒犻櫎鎵€鏈変富棰樿棰?))
+        self.groupBox_34.setTitle(_translate("MDCx", "鍒涘缓鍓х収鍓湰"))
+        self.checkBox_download_extrafanart_copy.setText(_translate("MDCx", "棰濆澶嶅埗涓€浠藉墽鐓у浘鍒版枃浠跺す"))
         self.label_59.setText(
             _translate(
                 "MDCx",
-                "<p style='line-height:20px'>在 Emby\n"
-                "                          中，剧照图片作为背景显示，无法手动浏览。<br>\n"
-                "                          如需在 Emby 中手动查看剧照，可复制剧照图片到单独目录，并且媒体库类型选择「家庭视频与照片」<br>\n"
-                "                          请使用「extrafanart」以外的其他名字。目录名字为空或「extrafanart」时，将不会创建副本目录。<br>\n"
-                "                          注意：此处只需填写目录名字，请不要填写完整路径！</p>",
+                "<p style='line-height:20px'>鍦?Emby\n"
+                "                          涓紝鍓х収鍥剧墖浣滀负鑳屾櫙鏄剧ず锛屾棤娉曟墜鍔ㄦ祻瑙堛€?br>\n"
+                "                          濡傞渶鍦?Emby 涓墜鍔ㄦ煡鐪嬪墽鐓э紝鍙鍒跺墽鐓у浘鐗囧埌鍗曠嫭鐩綍锛屽苟涓斿獟浣撳簱绫诲瀷閫夋嫨銆屽搴棰戜笌鐓х墖銆?br>\n"
+                "                          璇蜂娇鐢ㄣ€宔xtrafanart銆嶄互澶栫殑鍏朵粬鍚嶅瓧銆傜洰褰曞悕瀛椾负绌烘垨銆宔xtrafanart銆嶆椂锛屽皢涓嶄細鍒涘缓鍓湰鐩綍銆?br>\n"
+                "                          娉ㄦ剰锛氭澶勫彧闇€濉啓鐩綍鍚嶅瓧锛岃涓嶈濉啓瀹屾暣璺緞锛?/p>",
             )
         )
-        self.pushButton_add_all_extrafanart_copy.setText(_translate("MDCx", "添加所有剧照副本"))
-        self.pushButton_del_all_extrafanart_copy.setText(_translate("MDCx", "删除所有剧照副本"))
-        self.groupBox_52.setTitle(_translate("MDCx", "下载高清图"))
+        self.pushButton_add_all_extrafanart_copy.setText(_translate("MDCx", "娣诲姞鎵€鏈夊墽鐓у壇鏈?))
+        self.pushButton_del_all_extrafanart_copy.setText(_translate("MDCx", "鍒犻櫎鎵€鏈夊墽鐓у壇鏈?))
+        self.groupBox_52.setTitle(_translate("MDCx", "涓嬭浇楂樻竻鍥?))
         self.label_92.setText(
             _translate(
                 "MDCx",
-                "将从日亚官网搜索高清封面图；已收录番号直接使用本地 ASIN 库验证结果，新发现需通过图片相似度校验后入库。",
+                "灏嗕粠鏃ヤ簹瀹樼綉鎼滅储楂樻竻灏侀潰鍥撅紱宸叉敹褰曠暘鍙风洿鎺ヤ娇鐢ㄦ湰鍦?ASIN 搴撻獙璇佺粨鏋滐紝鏂板彂鐜伴渶閫氳繃鍥剧墖鐩镐技搴︽牎楠屽悗鍏ュ簱銆?,
             )
         )
-        self.checkBox_amazon_big_pic.setText(_translate("MDCx", "启用 Amazon 查找高清封面图"))
-        self.label_397.setText(_translate("MDCx", "仅影响 Amazon 高清封面图搜索，不影响普通图片下载"))
-        self.checkBox_amazon_skip_poster_size_precheck.setText(_translate("MDCx", "跳过前置 Poster 大小校验"))
+        self.checkBox_amazon_big_pic.setText(_translate("MDCx", "鍚敤 Amazon 鏌ユ壘楂樻竻灏侀潰鍥?))
+        self.label_397.setText(_translate("MDCx", "浠呭奖鍝?Amazon 楂樻竻灏侀潰鍥炬悳绱紝涓嶅奖鍝嶆櫘閫氬浘鐗囦笅杞?))
+        self.checkBox_amazon_skip_poster_size_precheck.setText(_translate("MDCx", "璺宠繃鍓嶇疆 Poster 澶у皬鏍￠獙"))
         self.label_amazon_skip_poster_size_precheck.setText(
-            _translate("MDCx", "不因当前 Poster 已达标跳过 Amazon（DMM >=700px / >=400KB / 不小于右裁剪）")
+            _translate("MDCx", "涓嶅洜褰撳墠 Poster 宸茶揪鏍囪烦杩?Amazon锛圖MM >=700px / >=400KB / 涓嶅皬浜庡彸瑁佸壀锛?)
         )
-        self.checkBox_dmm_fallback.setText(_translate("MDCx", "官方图源兜底（DMM / MGStage）"))
+        self.checkBox_dmm_fallback.setText(_translate("MDCx", "瀹樻柟鍥炬簮鍏滃簳锛圖MM / MGStage锛?))
         self.label_dmm_fallback.setText(
             _translate(
                 "MDCx",
-                "站点图源全部失败时，按番号直构官方 CDN 高清图：DMM 高清封面（自动学习厂牌前缀）与 MGStage 素人高清海报",
+                "绔欑偣鍥炬簮鍏ㄩ儴澶辫触鏃讹紝鎸夌暘鍙风洿鏋勫畼鏂?CDN 楂樻竻鍥撅細DMM 楂樻竻灏侀潰锛堣嚜鍔ㄥ涔犲巶鐗屽墠缂€锛変笌 MGStage 绱犱汉楂樻竻娴锋姤",
             )
         )
-        self.groupBox_66.setTitle(_translate("MDCx", "显示剧照"))
+        self.groupBox_66.setTitle(_translate("MDCx", "鏄剧ず鍓х収"))
         self.label_333.setText(
             _translate(
                 "MDCx",
-                "<p style='line-height:20px'>复制剧照到视频下的 behind the scenes\n"
-                "                          目录，Emby 浏览时，剧照会作为附加内容在详情页下方显示。<br></p>",
+                "<p style='line-height:20px'>澶嶅埗鍓х収鍒拌棰戜笅鐨?behind the scenes\n"
+                "                          鐩綍锛孍mby 娴忚鏃讹紝鍓х収浼氫綔涓洪檮鍔犲唴瀹瑰湪璇︽儏椤典笅鏂规樉绀恒€?br></p>",
             )
         )
-        self.checkBox_extras.setText(_translate("MDCx", "剧照作为附加内容显示"))
-        self.pushButton_add_all_extras.setText(_translate("MDCx", "为所有视频复制剧照"))
-        self.pushButton_del_all_extras.setText(_translate("MDCx", "删除所有复制的剧照"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), _translate("MDCx", " 下载 "))
-        self.groupBox_8.setTitle(_translate("MDCx", "视频命名规则"))
+        self.checkBox_extras.setText(_translate("MDCx", "鍓х収浣滀负闄勫姞鍐呭鏄剧ず"))
+        self.pushButton_add_all_extras.setText(_translate("MDCx", "涓烘墍鏈夎棰戝鍒跺墽鐓?))
+        self.pushButton_del_all_extras.setText(_translate("MDCx", "鍒犻櫎鎵€鏈夊鍒剁殑鍓х収"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), _translate("MDCx", " 涓嬭浇 "))
+        self.groupBox_8.setTitle(_translate("MDCx", "瑙嗛鍛藉悕瑙勫垯"))
         self.label_66.setText(
             _translate(
                 "MDCx",
                 "<p\n"
-                "                                style='line-height:20px'>当刮削成功时，将为该视频创建一个视频目录，并移动该视频目录到成功输出目录。<br>\n"
-                "                                命名模板使用标准 Jinja2 语法，字段写作 {{ 字段名 }}，条件写作 {% if 字段名 %}...{% endif %}。<br>\n"
-                "                                示例：{{ number }}{% if studio %} [{{ studio }}]{% endif %} {{ originaltitle }} {{ definition }}<br>\n"
-                "                                字段为空时不会自动删除模板中的符号；如果不希望保留空 []、空括号或多余分隔符，请用 Jinja2 的 if 判断包住整段。<br>\n"
-                "                                常用字段：{{ number }} 番号，{{ title }} 标题，{{ originaltitle }} 原标题，{{ actor }} 演员，{{ studio }} 片商，{{ series }} 系列，{{ release }} 发行日期，{{ definition }} 清晰度，{{ filename }} 原文件名。<br>\n"
-                "                                其它字段：all_actor（全部演员），first_actor（首位演员），letters（番号前缀），first_letter（番号首字符），outline（剧情简介），director（导演），publisher（发行商），year（年份），runtime（时长），mosaic（有码/无码），cnword（字幕标识），moword（版本标识），wanted（想看人数），score（评分），four_k（4K/8K/UHD 标识）。<br>\n"
-                "                                注意：<br>\n"
-                "                                1，模板中的 / 表示创建子目录，字段值中的 / 会自动转为 -；Jinja2 只负责生成文本；<br>\n"
-                "                                2，视频目录名留空时，表示不创建视频目录；<br>\n"
-                "                                3，名称超长时会优先缩短简介、标题等长字段，保留番号等关键字段；<br>\n"
-                "                                4，勾选「成功后不移动文件」时，同样不会创建视频目录。</p>",
+                "                                style='line-height:20px'>褰撳埉鍓婃垚鍔熸椂锛屽皢涓鸿瑙嗛鍒涘缓涓€涓棰戠洰褰曪紝骞剁Щ鍔ㄨ瑙嗛鐩綍鍒版垚鍔熻緭鍑虹洰褰曘€?br>\n"
+                "                                鍛藉悕妯℃澘浣跨敤鏍囧噯 Jinja2 璇硶锛屽瓧娈靛啓浣?{{ 瀛楁鍚?}}锛屾潯浠跺啓浣?{% if 瀛楁鍚?%}...{% endif %}銆?br>\n"
+                "                                绀轰緥锛歿{ number }}{% if studio %} [{{ studio }}]{% endif %} {{ originaltitle }} {{ definition }}<br>\n"
+                "                                瀛楁涓虹┖鏃朵笉浼氳嚜鍔ㄥ垹闄ゆā鏉夸腑鐨勭鍙凤紱濡傛灉涓嶅笇鏈涗繚鐣欑┖ []銆佺┖鎷彿鎴栧浣欏垎闅旂锛岃鐢?Jinja2 鐨?if 鍒ゆ柇鍖呬綇鏁存銆?br>\n"
+                "                                甯哥敤瀛楁锛歿{ number }} 鐣彿锛寋{ title }} 鏍囬锛寋{ originaltitle }} 鍘熸爣棰橈紝{{ actor }} 婕斿憳锛寋{ studio }} 鐗囧晢锛寋{ series }} 绯诲垪锛寋{ release }} 鍙戣鏃ユ湡锛寋{ definition }} 娓呮櫚搴︼紝{{ filename }} 鍘熸枃浠跺悕銆?br>\n"
+                "                                鍏跺畠瀛楁锛歛ll_actor锛堝叏閮ㄦ紨鍛橈級锛宖irst_actor锛堥浣嶆紨鍛橈級锛宭etters锛堢暘鍙峰墠缂€锛夛紝first_letter锛堢暘鍙烽瀛楃锛夛紝outline锛堝墽鎯呯畝浠嬶級锛宒irector锛堝婕旓級锛宲ublisher锛堝彂琛屽晢锛夛紝year锛堝勾浠斤級锛宺untime锛堟椂闀匡級锛宮osaic锛堟湁鐮?鏃犵爜锛夛紝cnword锛堝瓧骞曟爣璇嗭級锛宮oword锛堢増鏈爣璇嗭級锛寃anted锛堟兂鐪嬩汉鏁帮級锛宻core锛堣瘎鍒嗭級锛宖our_k锛?K/8K/UHD 鏍囪瘑锛夈€?br>\n"
+                "                                娉ㄦ剰锛?br>\n"
+                "                                1锛屾ā鏉夸腑鐨?/ 琛ㄧず鍒涘缓瀛愮洰褰曪紝瀛楁鍊间腑鐨?/ 浼氳嚜鍔ㄨ浆涓?-锛汮inja2 鍙礋璐ｇ敓鎴愭枃鏈紱<br>\n"
+                "                                2锛岃棰戠洰褰曞悕鐣欑┖鏃讹紝琛ㄧず涓嶅垱寤鸿棰戠洰褰曪紱<br>\n"
+                "                                3锛屽悕绉拌秴闀挎椂浼氫紭鍏堢缉鐭畝浠嬨€佹爣棰樼瓑闀垮瓧娈碉紝淇濈暀鐣彿绛夊叧閿瓧娈碉紱<br>\n"
+                "                                4锛屽嬀閫夈€屾垚鍔熷悗涓嶇Щ鍔ㄦ枃浠躲€嶆椂锛屽悓鏍蜂笉浼氬垱寤鸿棰戠洰褰曘€?/p>",
             )
         )
-        self.label_63.setText(_translate("MDCx", "视频文件名："))
-        self.lineEdit_dir_name.setAccessibleDescription(_translate("MDCx", "测试"))
-        self.label_43.setText(_translate("MDCx", "视频目录名："))
-        self.label_240.setText(_translate("MDCx", "防屏蔽字符："))
+        self.label_63.setText(_translate("MDCx", "瑙嗛鏂囦欢鍚嶏細"))
+        self.lineEdit_dir_name.setAccessibleDescription(_translate("MDCx", "娴嬭瘯"))
+        self.label_43.setText(_translate("MDCx", "瑙嗛鐩綍鍚嶏細"))
+        self.label_240.setText(_translate("MDCx", "闃插睆钄藉瓧绗︼細"))
         self.label_68.setText(
-            _translate("MDCx", "指在 nfo 文件中的标题(title)格式，在 Emby 中作为视频标题显示，支持完整 Jinja2 语法")
+            _translate("MDCx", "鎸囧湪 nfo 鏂囦欢涓殑鏍囬(title)鏍煎紡锛屽湪 Emby 涓綔涓鸿棰戞爣棰樻樉绀猴紝鏀寔瀹屾暣 Jinja2 璇硶")
         )
-        self.label_67.setText(_translate("MDCx", "Emby视频标题："))
-        self.label_61.setText(_translate("MDCx", "指本地视频文件的文件名格式，命名字段同上，推荐 {{ number }}"))
-        self.label_239.setText(_translate("MDCx", "视频文件命名时，可插入防屏蔽字符到文件名的每个字符之间"))
-        self.label_name_template_preview.setText(_translate("MDCx", "模板预览："))
+        self.label_67.setText(_translate("MDCx", "Emby瑙嗛鏍囬锛?))
+        self.label_61.setText(_translate("MDCx", "鎸囨湰鍦拌棰戞枃浠剁殑鏂囦欢鍚嶆牸寮忥紝鍛藉悕瀛楁鍚屼笂锛屾帹鑽?{{ number }}"))
+        self.label_239.setText(_translate("MDCx", "瑙嗛鏂囦欢鍛藉悕鏃讹紝鍙彃鍏ラ槻灞忚斀瀛楃鍒版枃浠跺悕鐨勬瘡涓瓧绗︿箣闂?))
+        self.label_name_template_preview.setText(_translate("MDCx", "妯℃澘棰勮锛?))
         self.plainTextEdit_name_template_preview.setPlaceholderText(
             _translate("MDCx", "{{ number }}{% if studio %} [{{ studio }}]{% endif %} {{ originaltitle }}")
         )
         self.label_name_template_preview_result.setText(
-            _translate("MDCx", "输入 Jinja2 命名模板后，将在这里显示示例渲染结果和语法状态。")
+            _translate("MDCx", "杈撳叆 Jinja2 鍛藉悕妯℃澘鍚庯紝灏嗗湪杩欓噷鏄剧ず绀轰緥娓叉煋缁撴灉鍜岃娉曠姸鎬併€?)
         )
-        self.groupBox_38.setTitle(_translate("MDCx", "分集命名规则"))
-        self.label_98.setText(_translate("MDCx", "大写，-CD1、-CD2"))
+        self.groupBox_38.setTitle(_translate("MDCx", "鍒嗛泦鍛藉悕瑙勫垯"))
+        self.label_98.setText(_translate("MDCx", "澶у啓锛?CD1銆?CD2"))
         self.radioButton_cd_part_lower.setText(_translate("MDCx", "-cd1"))
-        self.label_97.setText(_translate("MDCx", "小写，-cd1，-cd2"))
+        self.label_97.setText(_translate("MDCx", "灏忓啓锛?cd1锛?cd2"))
         self.radioButton_cd_part_upper.setText(_translate("MDCx", "-CD1"))
         self.radioButton_cd_part_digital.setText(_translate("MDCx", "-1"))
-        self.label_349.setText(_translate("MDCx", "数字，-1、-2"))
+        self.label_349.setText(_translate("MDCx", "鏁板瓧锛?1銆?2"))
         self.label_99.setText(
-            _translate("MDCx", "默认识别分集：-CD1｜-PART1｜-HD1｜-1.mp4 （文件名含有这些字符时将识别其中的分集信息）")
+            _translate("MDCx", "榛樿璇嗗埆鍒嗛泦锛?CD1锝?PART1锝?HD1锝?1.mp4 锛堟枃浠跺悕鍚湁杩欎簺瀛楃鏃跺皢璇嗗埆鍏朵腑鐨勫垎闆嗕俊鎭級")
         )
-        self.checkBox_cd_part_a.setText(_translate("MDCx", "-A.mp4｜.A.mp4｜12A.mp4 (字母结尾的分集，不含字母C)"))
-        self.label_350.setText(_translate("MDCx", "允许识别分集："))
-        self.checkBox_cd_part_01.setText(_translate("MDCx", "-01.mp4(两位数字结尾的分集)"))
-        self.checkBox_cd_part_1_xxx.setText(_translate("MDCx", "-1 abc.mp4 (数字不在结尾的分集)"))
-        self.label_408.setText(_translate("MDCx", "允许识别的分隔符："))
-        self.checkBox_cd_part_space.setText(_translate("MDCx", " 空格"))
-        self.checkBox_cd_part_underline.setText(_translate("MDCx", "_ 下划线"))
-        self.checkBox_cd_part_point.setText(_translate("MDCx", ". 小数点"))
-        self.label_409.setText(_translate("MDCx", "默认识别的分集分隔符：- 短横线"))
-        self.checkBox_cd_part_c.setText(_translate("MDCx", "-C.mp4｜.C.mp4｜12C.mp4 (字母C结尾的分集，识别为CD3)"))
-        self.label_430.setText(_translate("MDCx", "勾选后，-C、.C将识别为CD3，不再识别为字幕"))
-        self.groupBox_77.setTitle(_translate("MDCx", "长度命名规则"))
-        self.label_171.setText(_translate("MDCx", "目录名最大长度："))
-        self.label_167.setText(_translate("MDCx", "演员名最大数量："))
+        self.checkBox_cd_part_a.setText(_translate("MDCx", "-A.mp4锝?A.mp4锝?2A.mp4 (瀛楁瘝缁撳熬鐨勫垎闆嗭紝涓嶅惈瀛楁瘝C)"))
+        self.label_350.setText(_translate("MDCx", "鍏佽璇嗗埆鍒嗛泦锛?))
+        self.checkBox_cd_part_01.setText(_translate("MDCx", "-01.mp4(涓や綅鏁板瓧缁撳熬鐨勫垎闆?"))
+        self.checkBox_cd_part_1_xxx.setText(_translate("MDCx", "-1 abc.mp4 (鏁板瓧涓嶅湪缁撳熬鐨勫垎闆?"))
+        self.label_408.setText(_translate("MDCx", "鍏佽璇嗗埆鐨勫垎闅旂锛?))
+        self.checkBox_cd_part_space.setText(_translate("MDCx", " 绌烘牸"))
+        self.checkBox_cd_part_underline.setText(_translate("MDCx", "_ 涓嬪垝绾?))
+        self.checkBox_cd_part_point.setText(_translate("MDCx", ". 灏忔暟鐐?))
+        self.label_409.setText(_translate("MDCx", "榛樿璇嗗埆鐨勫垎闆嗗垎闅旂锛? 鐭í绾?))
+        self.checkBox_cd_part_c.setText(_translate("MDCx", "-C.mp4锝?C.mp4锝?2C.mp4 (瀛楁瘝C缁撳熬鐨勫垎闆嗭紝璇嗗埆涓篊D3)"))
+        self.label_430.setText(_translate("MDCx", "鍕鹃€夊悗锛?C銆?C灏嗚瘑鍒负CD3锛屼笉鍐嶈瘑鍒负瀛楀箷"))
+        self.groupBox_77.setTitle(_translate("MDCx", "闀垮害鍛藉悕瑙勫垯"))
+        self.label_171.setText(_translate("MDCx", "鐩綍鍚嶆渶澶ч暱搴︼細"))
+        self.label_167.setText(_translate("MDCx", "婕斿憳鍚嶆渶澶ф暟閲忥細"))
         self.label_169.setText(
             _translate(
                 "MDCx",
-                "<p style='line-height:20px'>指目录名最长字符数（建议不要超过 100，太长时 Windows\n"
-                "                          可能报错）<br>\n"
-                "                          当超过最大长度时，将通过截短标题字段内容来缩短长度</p>",
+                "<p style='line-height:20px'>鎸囩洰褰曞悕鏈€闀垮瓧绗︽暟锛堝缓璁笉瑕佽秴杩?100锛屽お闀挎椂 Windows\n"
+                "                          鍙兘鎶ラ敊锛?br>\n"
+                "                          褰撹秴杩囨渶澶ч暱搴︽椂锛屽皢閫氳繃鎴煭鏍囬瀛楁鍐呭鏉ョ缉鐭暱搴?/p>",
             )
         )
-        self.label_170.setText(_translate("MDCx", "文件名最大长度："))
+        self.label_170.setText(_translate("MDCx", "鏂囦欢鍚嶆渶澶ч暱搴︼細"))
         self.label_172.setText(
             _translate(
                 "MDCx",
-                "<p style='line-height:20px'>指文件名最长字符数（建议不要超过 100，太长时 Windows\n"
-                "                          可能报错）<br>\n"
-                "                          当超过最大长度时，将通过截短标题字段内容来缩短长度</p>",
+                "<p style='line-height:20px'>鎸囨枃浠跺悕鏈€闀垮瓧绗︽暟锛堝缓璁笉瑕佽秴杩?100锛屽お闀挎椂 Windows\n"
+                "                          鍙兘鎶ラ敊锛?br>\n"
+                "                          褰撹秴杩囨渶澶ч暱搴︽椂锛屽皢閫氳繃鎴煭鏍囬瀛楁鍐呭鏉ョ缉鐭暱搴?/p>",
             )
         )
         self.label_168.setText(
-            _translate("MDCx", "指有多位演员时，命名时最多显示的演员数量。超出的演员将用以下字符替代：")
+            _translate("MDCx", "鎸囨湁澶氫綅婕斿憳鏃讹紝鍛藉悕鏃舵渶澶氭樉绀虹殑婕斿憳鏁伴噺銆傝秴鍑虹殑婕斿憳灏嗙敤浠ヤ笅瀛楃鏇夸唬锛?)
         )
-        self.lineEdit_folder_name_max.setAccessibleDescription(_translate("MDCx", "测试"))
-        self.groupBox_46.setTitle(_translate("MDCx", "马赛克命名规则"))
+        self.lineEdit_folder_name_max.setAccessibleDescription(_translate("MDCx", "娴嬭瘯"))
+        self.groupBox_46.setTitle(_translate("MDCx", "椹禌鍏嬪懡鍚嶈鍒?))
         self.label_285.setText(
-            _translate("MDCx", "指命名时在番号后添加版本命名字符。你也可以使用 moword 字段来调整添加位置")
+            _translate("MDCx", "鎸囧懡鍚嶆椂鍦ㄧ暘鍙峰悗娣诲姞鐗堟湰鍛藉悕瀛楃銆備綘涔熷彲浠ヤ娇鐢?moword 瀛楁鏉ヨ皟鏁存坊鍔犱綅缃?)
         )
-        self.label_189.setText(_translate("MDCx", "无码："))
+        self.label_189.setText(_translate("MDCx", "鏃犵爜锛?))
         self.label_117.setText(
             _translate(
                 "MDCx",
                 "\n"
                 "                          <p\n"
-                "                          style='line-height:20px'>指无码流出版本，当视频文件路径中含有「流出」、「LEAKED」字样时，该文件识别为无码流出版本。在重命名文件名及目录名时，在番号后显示该字符表示为无码流出版本</p>",
+                "                          style='line-height:20px'>鎸囨棤鐮佹祦鍑虹増鏈紝褰撹棰戞枃浠惰矾寰勪腑鍚湁銆屾祦鍑恒€嶃€併€孡EAKED銆嶅瓧鏍锋椂锛岃鏂囦欢璇嗗埆涓烘棤鐮佹祦鍑虹増鏈€傚湪閲嶅懡鍚嶆枃浠跺悕鍙婄洰褰曞悕鏃讹紝鍦ㄧ暘鍙峰悗鏄剧ず璇ュ瓧绗﹁〃绀轰负鏃犵爜娴佸嚭鐗堟湰</p>",
             )
         )
-        self.label_175.setText(_translate("MDCx", "无码流出："))
-        self.label_190.setText(_translate("MDCx", "有码："))
+        self.label_175.setText(_translate("MDCx", "鏃犵爜娴佸嚭锛?))
+        self.label_190.setText(_translate("MDCx", "鏈夌爜锛?))
         self.label_137.setText(
             _translate(
                 "MDCx",
                 "\n"
                 "                          <p\n"
-                "                          style='line-height:20px'>指无码版本，当视频文件路径中含有「无码」、「無碼」、「無修正」、「uncensored」字样时，该文件识别为无码版本。<br>在重命名文件名及目录名时，在番号后显示该字符表示为无码版本</p>",
+                "                          style='line-height:20px'>鎸囨棤鐮佺増鏈紝褰撹棰戞枃浠惰矾寰勪腑鍚湁銆屾棤鐮併€嶃€併€岀劇纰笺€嶃€併€岀劇淇銆嶃€併€寀ncensored銆嶅瓧鏍锋椂锛岃鏂囦欢璇嗗埆涓烘棤鐮佺増鏈€?br>鍦ㄩ噸鍛藉悕鏂囦欢鍚嶅強鐩綍鍚嶆椂锛屽湪鐣彿鍚庢樉绀鸿瀛楃琛ㄧず涓烘棤鐮佺増鏈?/p>",
             )
         )
         self.label_116.setText(
             _translate(
                 "MDCx",
                 "<p\n"
-                "                          style='line-height:20px'>指马赛克有损去除版本，当视频文件路径中含有「-uncensored.」、「.restored」、「破解」、「克破」、「UMR.」等字样时，该文件识别为无码破解版本。<br>\n"
-                "                          在重命名文件名及目录名时，在番号后显示该字符表示为无码破解版本</p>",
+                "                          style='line-height:20px'>鎸囬┈璧涘厠鏈夋崯鍘婚櫎鐗堟湰锛屽綋瑙嗛鏂囦欢璺緞涓惈鏈夈€?uncensored.銆嶃€併€?restored銆嶃€併€岀牬瑙ｃ€嶃€併€屽厠鐮淬€嶃€併€孶MR.銆嶇瓑瀛楁牱鏃讹紝璇ユ枃浠惰瘑鍒负鏃犵爜鐮磋В鐗堟湰銆?br>\n"
+                "                          鍦ㄩ噸鍛藉悕鏂囦欢鍚嶅強鐩綍鍚嶆椂锛屽湪鐣彿鍚庢樉绀鸿瀛楃琛ㄧず涓烘棤鐮佺牬瑙ｇ増鏈?/p>",
             )
         )
-        self.label_174.setText(_translate("MDCx", "无码破解："))
+        self.label_174.setText(_translate("MDCx", "鏃犵爜鐮磋В锛?))
         self.label_145.setText(
             _translate(
                 "MDCx",
-                "<p>指有码版本，当视频文件路径中含有「有码」、「有碼」字样时，该文件识别为\n"
-                "                          有码版本，重命名文件名及目录名时，在番号后显示该字符表示为有码版本</p>",
+                "<p>鎸囨湁鐮佺増鏈紝褰撹棰戞枃浠惰矾寰勪腑鍚湁銆屾湁鐮併€嶃€併€屾湁纰笺€嶅瓧鏍锋椂锛岃鏂囦欢璇嗗埆涓篭n"
+                "                          鏈夌爜鐗堟湰锛岄噸鍛藉悕鏂囦欢鍚嶅強鐩綍鍚嶆椂锛屽湪鐣彿鍚庢樉绀鸿瀛楃琛ㄧず涓烘湁鐮佺増鏈?/p>",
             )
         )
-        self.label_286.setText(_translate("MDCx", "添加马赛克命名字符："))
-        self.checkBox_foldername_mosaic.setText(_translate("MDCx", "视频目录名"))
-        self.checkBox_filename_mosaic.setText(_translate("MDCx", "视频文件名"))
-        self.groupBox_37.setTitle(_translate("MDCx", "图片命名规则"))
-        self.radioButton_pic_with_filename.setText(_translate("MDCx", "视频文件名-poster.jpg "))
+        self.label_286.setText(_translate("MDCx", "娣诲姞椹禌鍏嬪懡鍚嶅瓧绗︼細"))
+        self.checkBox_foldername_mosaic.setText(_translate("MDCx", "瑙嗛鐩綍鍚?))
+        self.checkBox_filename_mosaic.setText(_translate("MDCx", "瑙嗛鏂囦欢鍚?))
+        self.groupBox_37.setTitle(_translate("MDCx", "鍥剧墖鍛藉悕瑙勫垯"))
+        self.radioButton_pic_with_filename.setText(_translate("MDCx", "瑙嗛鏂囦欢鍚?poster.jpg "))
         self.radioButton_pic_no_filename.setText(_translate("MDCx", "poster.jpg"))
-        self.label_95.setText(_translate("MDCx", "视频文件名-thumb.jpg，视频文件名-fanart.jpg"))
-        self.label_96.setText(_translate("MDCx", "thumb.jpg，fanart.jpg"))
-        self.groupBox_62.setTitle(_translate("MDCx", "预告片命名规则"))
-        self.radioButton_trailer_with_filename.setText(_translate("MDCx", "视频文件名-trailer.mp4 "))
+        self.label_95.setText(_translate("MDCx", "瑙嗛鏂囦欢鍚?thumb.jpg锛岃棰戞枃浠跺悕-fanart.jpg"))
+        self.label_96.setText(_translate("MDCx", "thumb.jpg锛宖anart.jpg"))
+        self.groupBox_62.setTitle(_translate("MDCx", "棰勫憡鐗囧懡鍚嶈鍒?))
+        self.radioButton_trailer_with_filename.setText(_translate("MDCx", "瑙嗛鏂囦欢鍚?trailer.mp4 "))
         self.radioButton_trailer_no_filename.setText(_translate("MDCx", "trailer.mp4"))
-        self.label_115.setText(_translate("MDCx", "每个视频创建一个「视频名-trailer.mp4」，多分集时会创建多个"))
-        self.label_122.setText(_translate("MDCx", "在视频目录创建「trailers」文件夹，多分集共用一个「trailer.mp4」"))
-        self.groupBox_40.setTitle(_translate("MDCx", "字段命名规则"))
-        self.label_407.setText(_translate("MDCx", "演员："))
+        self.label_115.setText(_translate("MDCx", "姣忎釜瑙嗛鍒涘缓涓€涓€岃棰戝悕-trailer.mp4銆嶏紝澶氬垎闆嗘椂浼氬垱寤哄涓?))
+        self.label_122.setText(_translate("MDCx", "鍦ㄨ棰戠洰褰曞垱寤恒€宼railers銆嶆枃浠跺す锛屽鍒嗛泦鍏辩敤涓€涓€宼railer.mp4銆?))
+        self.groupBox_40.setTitle(_translate("MDCx", "瀛楁鍛藉悕瑙勫垯"))
+        self.label_407.setText(_translate("MDCx", "婕斿憳锛?))
         self.label_146.setText(
             _translate(
                 "MDCx",
-                "<p>比如moword(自定义的无码标识),cnword(字幕)将显示为: 番号-流出-C<br>\n"
-                "                                此处只控制顺序，需要在对应位置（如“添加 4K 字符”）勾选才能控制是否显示</p>",
+                "<p>姣斿moword(鑷畾涔夌殑鏃犵爜鏍囪瘑),cnword(瀛楀箷)灏嗘樉绀轰负: 鐣彿-娴佸嚭-C<br>\n"
+                "                                姝ゅ鍙帶鍒堕『搴忥紝闇€瑕佸湪瀵瑰簲浣嶇疆锛堝鈥滄坊鍔?4K 瀛楃鈥濓級鍕鹃€夋墠鑳芥帶鍒舵槸鍚︽樉绀?/p>",
             )
         )
         self.checkBox_number_del_num.setText(
-            _translate("MDCx", "去除素人番号前缀数字（比如：259LUXU-1488 将修改为 LUXU-1488，建议保留）")
+            _translate("MDCx", "鍘婚櫎绱犱汉鐣彿鍓嶇紑鏁板瓧锛堟瘮濡傦細259LUXU-1488 灏嗕慨鏀逛负 LUXU-1488锛屽缓璁繚鐣欙級")
         )
         self.checkBox_actor_del_char.setText(
-            _translate("MDCx", "去除演员名括号中的名字（比如：Rio（柚木ティナ）将修改为 Rio）")
+            _translate("MDCx", "鍘婚櫎婕斿憳鍚嶆嫭鍙蜂腑鐨勫悕瀛楋紙姣斿锛歊io锛堟煔鏈ㄣ儐銈ｃ儕锛夊皢淇敼涓?Rio锛?)
         )
-        self.label_319.setText(_translate("MDCx", "素人番号："))
-        self.label_197.setText(_translate("MDCx", "番号后缀顺序："))
+        self.label_319.setText(_translate("MDCx", "绱犱汉鐣彿锛?))
+        self.label_197.setText(_translate("MDCx", "鐣彿鍚庣紑椤哄簭锛?))
         self.checkBox_title_del_actor.setText(
-            _translate("MDCx", "去除标题后的演员名（个别网站在标题末尾额外多加了演员名，建议去除）")
+            _translate("MDCx", "鍘婚櫎鏍囬鍚庣殑婕斿憳鍚嶏紙涓埆缃戠珯鍦ㄦ爣棰樻湯灏鹃澶栧鍔犱簡婕斿憳鍚嶏紝寤鸿鍘婚櫎锛?)
         )
-        self.label_276.setText(_translate("MDCx", "发行日期："))
-        self.label_302.setText(_translate("MDCx", "年: YYYY或YY，月: MM，日:DD，比如: YY.MM.DD 将显示为 22.03.20"))
-        self.label_100.setText(_translate("MDCx", "当演员名不存在时，在使用演员命名字段命名时，使用以上字符替代"))
-        self.label_320.setText(_translate("MDCx", "标题："))
-        self.label_173.setText(_translate("MDCx", "未知演员："))
-        self.checkBox_actor_fc2_seller.setText(_translate("MDCx", "FC2 无演员时，使用卖家名字作为演员名字"))
-        self.groupBox_65.setTitle(_translate("MDCx", "画质命名规则"))
-        self.radioButton_definition_height.setText(_translate("MDCx", "720P、1080P、4K、8K"))
-        self.radioButton_definition_hd.setText(_translate("MDCx", "HD、FHD、QHD、UHD"))
-        self.label_329.setText(_translate("MDCx", "以视频分辨率的高度数值来命名不同画质"))
-        self.label_330.setText(_translate("MDCx", "以视频清晰度的英文缩写来命名不同画质"))
+        self.label_276.setText(_translate("MDCx", "鍙戣鏃ユ湡锛?))
+        self.label_302.setText(_translate("MDCx", "骞? YYYY鎴朰Y锛屾湀: MM锛屾棩:DD锛屾瘮濡? YY.MM.DD 灏嗘樉绀轰负 22.03.20"))
+        self.label_100.setText(_translate("MDCx", "褰撴紨鍛樺悕涓嶅瓨鍦ㄦ椂锛屽湪浣跨敤婕斿憳鍛藉悕瀛楁鍛藉悕鏃讹紝浣跨敤浠ヤ笂瀛楃鏇夸唬"))
+        self.label_320.setText(_translate("MDCx", "鏍囬锛?))
+        self.label_173.setText(_translate("MDCx", "鏈煡婕斿憳锛?))
+        self.checkBox_actor_fc2_seller.setText(_translate("MDCx", "FC2 鏃犳紨鍛樻椂锛屼娇鐢ㄥ崠瀹跺悕瀛椾綔涓烘紨鍛樺悕瀛?))
+        self.groupBox_65.setTitle(_translate("MDCx", "鐢昏川鍛藉悕瑙勫垯"))
+        self.radioButton_definition_height.setText(_translate("MDCx", "720P銆?080P銆?K銆?K"))
+        self.radioButton_definition_hd.setText(_translate("MDCx", "HD銆丗HD銆丵HD銆乁HD"))
+        self.label_329.setText(_translate("MDCx", "浠ヨ棰戝垎杈ㄧ巼鐨勯珮搴︽暟鍊兼潵鍛藉悕涓嶅悓鐢昏川"))
+        self.label_330.setText(_translate("MDCx", "浠ヨ棰戞竻鏅板害鐨勮嫳鏂囩缉鍐欐潵鍛藉悕涓嶅悓鐢昏川"))
         self.label_331.setText(
             _translate(
                 "MDCx",
-                "<p>说明：qHD=540P，HD=720P/960P，FHD=1080P，QHD=1440P(2K)，UHD=4K/8K。低于540P时默认使用高度值命名</p>",
+                "<p>璇存槑锛歲HD=540P锛孒D=720P/960P锛孎HD=1080P锛孮HD=1440P(2K)锛孶HD=4K/8K銆備綆浜?40P鏃堕粯璁や娇鐢ㄩ珮搴﹀€煎懡鍚?/p>",
             )
         )
-        self.radioButton_videosize_video.setText(_translate("MDCx", "读取视频画面的高度"))
-        self.radioButton_videosize_path.setText(_translate("MDCx", "使用路径中包含的画质信息"))
-        self.radioButton_videosize_none.setText(_translate("MDCx", "不获取分辨率"))
-        self.label_332.setText(_translate("MDCx", "分辨率获取方式："))
-        self.label_357.setText(_translate("MDCx", "添加 4K 字符："))
-        self.checkBox_filename_4k.setText(_translate("MDCx", "视频文件名"))
+        self.radioButton_videosize_video.setText(_translate("MDCx", "璇诲彇瑙嗛鐢婚潰鐨勯珮搴?))
+        self.radioButton_videosize_path.setText(_translate("MDCx", "浣跨敤璺緞涓寘鍚殑鐢昏川淇℃伅"))
+        self.radioButton_videosize_none.setText(_translate("MDCx", "涓嶈幏鍙栧垎杈ㄧ巼"))
+        self.label_332.setText(_translate("MDCx", "鍒嗚鲸鐜囪幏鍙栨柟寮忥細"))
+        self.label_357.setText(_translate("MDCx", "娣诲姞 4K 瀛楃锛?))
+        self.checkBox_filename_4k.setText(_translate("MDCx", "瑙嗛鏂囦欢鍚?))
         self.label_358.setText(
-            _translate("MDCx", "指命名时在番号后添加 4K（仅4K）。你也可以使用 4K 字段来调整添加位置")
+            _translate("MDCx", "鎸囧懡鍚嶆椂鍦ㄧ暘鍙峰悗娣诲姞 4K锛堜粎4K锛夈€備綘涔熷彲浠ヤ娇鐢?4K 瀛楁鏉ヨ皟鏁存坊鍔犱綅缃?)
         )
-        self.checkBox_foldername_4k.setText(_translate("MDCx", "视频目录名"))
-        self.groupBox_67.setTitle(_translate("MDCx", "其他说明"))
-        self.label_353.setText(_translate("MDCx", "1，多版本显示："))
+        self.checkBox_foldername_4k.setText(_translate("MDCx", "瑙嗛鐩綍鍚?))
+        self.groupBox_67.setTitle(_translate("MDCx", "鍏朵粬璇存槑"))
+        self.label_353.setText(_translate("MDCx", "1锛屽鐗堟湰鏄剧ず锛?))
         self.label_352.setText(
             _translate(
                 "MDCx",
-                "<p>1）Emby 支持多版本显示（类似选集），\n"
-                "                          需要：</p><p>视频文件名的开头部分必须包含视频目录名。（比如：SSIS-111/SSIS-111-4K.mp4）\n"
-                "                          </p><p>查看规则：<a\n"
+                "<p>1锛塃mby 鏀寔澶氱増鏈樉绀猴紙绫讳技閫夐泦锛夛紝\n"
+                "                          闇€瑕侊細</p><p>瑙嗛鏂囦欢鍚嶇殑寮€澶撮儴鍒嗗繀椤诲寘鍚棰戠洰褰曞悕銆傦紙姣斿锛歋SIS-111/SSIS-111-4K.mp4锛塡n"
+                "                          </p><p>鏌ョ湅瑙勫垯锛?a\n"
                 '                          href="https://support.emby.media/support/solutions/articles/44001159102-movie-naming"><span\n'
                 '                          style=" text-decoration: underline;\n'
-                '                          color:#094fd1;">https://support.emby.media/support/solutions/articles/44001159102-movie-naming</span></a></p><p>2）分集视频默认会显示为附加视频，如果要以多版本样式显示，分集命名规则还需要选择「-1」</p>',
+                '                          color:#094fd1;">https://support.emby.media/support/solutions/articles/44001159102-movie-naming</span></a></p><p>2锛夊垎闆嗚棰戦粯璁や細鏄剧ず涓洪檮鍔犺棰戯紝濡傛灉瑕佷互澶氱増鏈牱寮忔樉绀猴紝鍒嗛泦鍛藉悕瑙勫垯杩橀渶瑕侀€夋嫨銆?1銆?/p>',
             )
         )
         self.label_351.setText(
-            _translate("MDCx", "Emby 分集封面需要每个分集都提供图片，图片命名规则需要选择「视频文件名-poster.jpg」")
+            _translate("MDCx", "Emby 鍒嗛泦灏侀潰闇€瑕佹瘡涓垎闆嗛兘鎻愪緵鍥剧墖锛屽浘鐗囧懡鍚嶈鍒欓渶瑕侀€夋嫨銆岃棰戞枃浠跺悕-poster.jpg銆?)
         )
-        self.label_354.setText(_translate("MDCx", "2，分集封面显示："))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("MDCx", " 命名 "))
-        self.groupBox_trans.setTitle(_translate("MDCx", "翻译引擎"))
-        self.label_81.setText(_translate("MDCx", "翻译引擎："))
+        self.label_354.setText(_translate("MDCx", "2锛屽垎闆嗗皝闈㈡樉绀猴細"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("MDCx", " 鍛藉悕 "))
+        self.groupBox_trans.setTitle(_translate("MDCx", "缈昏瘧寮曟搸"))
+        self.label_81.setText(_translate("MDCx", "缈昏瘧寮曟搸锛?))
         self.label_baidu_hint.setText(
             _translate(
                 "MDCx",
-                "DeepL 与 DeepLX 为独立选项；填写 DeepL API / DeepLX URL / 百度 API 凭据后才会生效，未填写时会自动跳过。",
+                "DeepL 涓?DeepLX 涓虹嫭绔嬮€夐」锛涘～鍐?DeepL API / DeepLX URL / 鐧惧害 API 鍑嵁鍚庢墠浼氱敓鏁堬紝鏈～鍐欐椂浼氳嚜鍔ㄨ烦杩囥€?,
             )
         )
-        self.label_baidu_appid.setText(_translate("MDCx", "百度 APP ID："))
-        self.label_baidu_key.setText(_translate("MDCx", "百度密钥："))
+        self.label_baidu_appid.setText(_translate("MDCx", "鐧惧害 APP ID锛?))
+        self.label_baidu_key.setText(_translate("MDCx", "鐧惧害瀵嗛挜锛?))
         self.checkBox_google.setText(_translate("MDCx", "Google"))
         self.checkBox_deepl.setText(_translate("MDCx", "DeepL"))
         self.checkBox_deeplx.setText(_translate("MDCx", "DeepLX"))
         self.checkBox_llm.setText(_translate("MDCx", "LLM"))
         self.checkBox_bing.setText(_translate("MDCx", "Bing"))
-        self.checkBox_baidu.setText(_translate("MDCx", "百度"))
-        self.label_164.setText(_translate("MDCx", "当勾选多个时，将随机使用所勾选的其中任一翻译引擎，可降低被封几率"))
-        self.label_deepl_api_key.setText(_translate("MDCx", "DeepL API Key："))
-        self.label_80.setText(_translate("MDCx", "DeepLX URL："))
-        self.groupBox_llm.setTitle(_translate("MDCx", "LLM 翻译"))
+        self.checkBox_baidu.setText(_translate("MDCx", "鐧惧害"))
+        self.label_164.setText(_translate("MDCx", "褰撳嬀閫夊涓椂锛屽皢闅忔満浣跨敤鎵€鍕鹃€夌殑鍏朵腑浠讳竴缈昏瘧寮曟搸锛屽彲闄嶄綆琚皝鍑犵巼"))
+        self.label_deepl_api_key.setText(_translate("MDCx", "DeepL API Key锛?))
+        self.label_80.setText(_translate("MDCx", "DeepLX URL锛?))
+        self.groupBox_llm.setTitle(_translate("MDCx", "LLM 缈昏瘧"))
         self.label_llm_url.setText(_translate("MDCx", "API URL:"))
-        self.label_llm_url_desc.setText(_translate("MDCx", "示例: https://api.openai.com/v1"))
+        self.label_llm_url_desc.setText(_translate("MDCx", "绀轰緥: https://api.openai.com/v1"))
         self.label_llm_model.setText(_translate("MDCx", "Model:"))
         self.label_llm_key.setText(_translate("MDCx", "API Key:"))
-        self.label_llm_prompt_title.setText(_translate("MDCx", "标题 Prompt:"))
-        self.label_llm_prompt_outline.setText(_translate("MDCx", "简介 Prompt:"))
-        self.label_llm_prompt_desc.setText(_translate("MDCx", "提示词模板. 可用变量: {content} 原文 {lang} 目标语言"))
-        self.label_llm_max_req_sec.setText(_translate("MDCx", "最大请求速率(/秒):"))
-        self.label_llm_max_req_sec_desc.setText(_translate("MDCx", "根据你使用的 API 提供商的限制设定"))
-        self.label_llm_max_try.setText(_translate("MDCx", "最大尝试次数:"))
-        self.label_llm_max_try_desc.setText(_translate("MDCx", "API 请求失败可能只是因为暂时限流, 因此可多重试几次"))
+        self.label_llm_prompt_title.setText(_translate("MDCx", "鏍囬 Prompt:"))
+        self.label_llm_prompt_outline.setText(_translate("MDCx", "绠€浠?Prompt:"))
+        self.label_llm_prompt_desc.setText(_translate("MDCx", "鎻愮ず璇嶆ā鏉? 鍙敤鍙橀噺: {content} 鍘熸枃 {lang} 鐩爣璇█"))
+        self.label_llm_max_req_sec.setText(_translate("MDCx", "鏈€澶ц姹傞€熺巼(/绉?:"))
+        self.label_llm_max_req_sec_desc.setText(_translate("MDCx", "鏍规嵁浣犱娇鐢ㄧ殑 API 鎻愪緵鍟嗙殑闄愬埗璁惧畾"))
+        self.label_llm_max_try.setText(_translate("MDCx", "鏈€澶у皾璇曟鏁?"))
+        self.label_llm_max_try_desc.setText(_translate("MDCx", "API 璇锋眰澶辫触鍙兘鍙槸鍥犱负鏆傛椂闄愭祦, 鍥犳鍙閲嶈瘯鍑犳"))
         self.label_llm_temperature.setText(_translate("MDCx", "Temperature:"))
-        self.checkBox_llm_disable_thinking.setText(_translate("MDCx", "关闭思考模式"))
+        self.checkBox_llm_disable_thinking.setText(_translate("MDCx", "鍏抽棴鎬濊€冩ā寮?))
         self.label_llm_disable_thinking_desc.setText(
             _translate(
                 "MDCx",
-                "按服务商自动下发关闭思考参数(硅基流动/百炼/火山方舟/Ollama/Gemini), 不支持时自动去参重试; 未收录的服务商跟随模型默认行为",
+                "鎸夋湇鍔″晢鑷姩涓嬪彂鍏抽棴鎬濊€冨弬鏁?纭呭熀娴佸姩/鐧剧偧/鐏北鏂硅垷/Ollama/Gemini), 涓嶆敮鎸佹椂鑷姩鍘诲弬閲嶈瘯; 鏈敹褰曠殑鏈嶅姟鍟嗚窡闅忔ā鍨嬮粯璁よ涓?,
             )
         )
-        self.groupBox_82.setTitle(_translate("MDCx", "标题"))
-        self.checkBox_title_translate.setText(_translate("MDCx", "使用翻译引擎翻译标题"))
-        self.label_242.setText(_translate("MDCx", "标题语言："))
+        self.groupBox_82.setTitle(_translate("MDCx", "鏍囬"))
+        self.checkBox_title_translate.setText(_translate("MDCx", "浣跨敤缈昏瘧寮曟搸缈昏瘧鏍囬"))
+        self.label_242.setText(_translate("MDCx", "鏍囬璇█锛?))
         self.label_74.setText(
-            _translate("MDCx", "将优先使用刮削网站的中文翻译，当刮削页面无中文时，才使用以下翻译方式。")
+            _translate("MDCx", "灏嗕紭鍏堜娇鐢ㄥ埉鍓婄綉绔欑殑涓枃缈昏瘧锛屽綋鍒墛椤甸潰鏃犱腑鏂囨椂锛屾墠浣跨敤浠ヤ笅缈昏瘧鏂瑰紡銆?)
         )
-        self.radioButton_title_zh_cn.setText(_translate("MDCx", "中文简体"))
-        self.radioButton_title_zh_tw.setText(_translate("MDCx", "中文繁体"))
-        self.radioButton_title_jp.setText(_translate("MDCx", "日语"))
-        self.label_244.setText(_translate("MDCx", "翻译方式："))
-        self.groupBox_83.setTitle(_translate("MDCx", "简介"))
-        self.label_133.setText(_translate("MDCx", "简介语言："))
-        self.label_176.setText(_translate("MDCx", "当字段语言选择中文，但只刮削到日语时，可使用翻译引擎进行翻译"))
-        self.label_166.setText(_translate("MDCx", "翻译方式："))
-        self.radioButton_outline_zh_cn.setText(_translate("MDCx", "中文简体"))
-        self.radioButton_outline_zh_tw.setText(_translate("MDCx", "中文繁体"))
-        self.radioButton_outline_jp.setText(_translate("MDCx", "日语"))
-        self.checkBox_outline_translate.setText(_translate("MDCx", "使用翻译引擎翻译简介"))
-        self.checkBox_show_translate_from.setText(_translate("MDCx", "显示翻译来源"))
-        self.radioButton_trans_show_zh_jp.setText(_translate("MDCx", "中文+日语"))
-        self.radioButton_trans_show_jp_zh.setText(_translate("MDCx", "日语+中文"))
-        self.radioButton_trans_show_one.setText(_translate("MDCx", "关闭"))
-        self.label_328.setText(_translate("MDCx", "双语显示："))
-        self.groupBox_84.setTitle(_translate("MDCx", "演员"))
-        self.label_250.setText(_translate("MDCx", "翻译方式："))
-        self.radioButton_actor_zh_cn.setText(_translate("MDCx", "中文简体"))
-        self.radioButton_actor_zh_tw.setText(_translate("MDCx", "中文繁体"))
-        self.radioButton_actor_jp.setText(_translate("MDCx", "日语"))
+        self.radioButton_title_zh_cn.setText(_translate("MDCx", "涓枃绠€浣?))
+        self.radioButton_title_zh_tw.setText(_translate("MDCx", "涓枃绻佷綋"))
+        self.radioButton_title_jp.setText(_translate("MDCx", "鏃ヨ"))
+        self.label_244.setText(_translate("MDCx", "缈昏瘧鏂瑰紡锛?))
+        self.groupBox_83.setTitle(_translate("MDCx", "绠€浠?))
+        self.label_133.setText(_translate("MDCx", "绠€浠嬭瑷€锛?))
+        self.label_176.setText(_translate("MDCx", "褰撳瓧娈佃瑷€閫夋嫨涓枃锛屼絾鍙埉鍓婂埌鏃ヨ鏃讹紝鍙娇鐢ㄧ炕璇戝紩鎿庤繘琛岀炕璇?))
+        self.label_166.setText(_translate("MDCx", "缈昏瘧鏂瑰紡锛?))
+        self.radioButton_outline_zh_cn.setText(_translate("MDCx", "涓枃绠€浣?))
+        self.radioButton_outline_zh_tw.setText(_translate("MDCx", "涓枃绻佷綋"))
+        self.radioButton_outline_jp.setText(_translate("MDCx", "鏃ヨ"))
+        self.checkBox_outline_translate.setText(_translate("MDCx", "浣跨敤缈昏瘧寮曟搸缈昏瘧绠€浠?))
+        self.checkBox_show_translate_from.setText(_translate("MDCx", "鏄剧ず缈昏瘧鏉ユ簮"))
+        self.radioButton_trans_show_zh_jp.setText(_translate("MDCx", "涓枃+鏃ヨ"))
+        self.radioButton_trans_show_jp_zh.setText(_translate("MDCx", "鏃ヨ+涓枃"))
+        self.radioButton_trans_show_one.setText(_translate("MDCx", "鍏抽棴"))
+        self.label_328.setText(_translate("MDCx", "鍙岃鏄剧ず锛?))
+        self.groupBox_84.setTitle(_translate("MDCx", "婕斿憳"))
+        self.label_250.setText(_translate("MDCx", "缈昏瘧鏂瑰紡锛?))
+        self.radioButton_actor_zh_cn.setText(_translate("MDCx", "涓枃绠€浣?))
+        self.radioButton_actor_zh_tw.setText(_translate("MDCx", "涓枃绻佷綋"))
+        self.radioButton_actor_jp.setText(_translate("MDCx", "鏃ヨ"))
         self.label_249.setText(
             _translate(
                 "MDCx",
                 "<p style='line-height:20px'>\n"
-                "                                素人和 FC2 番号演员可能是「素人」之类假名字，勾选「使用AV-wiki获取演员真实名字」，可以请求 AV-wiki\n"
-                "                                获取演员真实日文名，之后可使用映射表翻译为中文！<br>\n"
-                "                                演员名比较复杂，不能简单使用翻译引擎翻译。主要的问题：演员名翻译不准确、演员有多个名字、同一演员不同番号演员名不统一、各网站使用的演员名不统一等。<br>\n"
-                "                                不过，通过演员名映射翻译表可以解决这些问题，使刮削后的演员名整齐统一。<br>\n"
-                "                                实现逻辑：刮削网站获取演员名后，通过查询映射表中的匹配词来映射对应输出词。\n"
+                "                                绱犱汉鍜?FC2 鐣彿婕斿憳鍙兘鏄€岀礌浜恒€嶄箣绫诲亣鍚嶅瓧锛屽嬀閫夈€屼娇鐢ˋV-wiki鑾峰彇婕斿憳鐪熷疄鍚嶅瓧銆嶏紝鍙互璇锋眰 AV-wiki\n"
+                "                                鑾峰彇婕斿憳鐪熷疄鏃ユ枃鍚嶏紝涔嬪悗鍙娇鐢ㄦ槧灏勮〃缈昏瘧涓轰腑鏂囷紒<br>\n"
+                "                                婕斿憳鍚嶆瘮杈冨鏉傦紝涓嶈兘绠€鍗曚娇鐢ㄧ炕璇戝紩鎿庣炕璇戙€備富瑕佺殑闂锛氭紨鍛樺悕缈昏瘧涓嶅噯纭€佹紨鍛樻湁澶氫釜鍚嶅瓧銆佸悓涓€婕斿憳涓嶅悓鐣彿婕斿憳鍚嶄笉缁熶竴銆佸悇缃戠珯浣跨敤鐨勬紨鍛樺悕涓嶇粺涓€绛夈€?br>\n"
+                "                                涓嶈繃锛岄€氳繃婕斿憳鍚嶆槧灏勭炕璇戣〃鍙互瑙ｅ喅杩欎簺闂锛屼娇鍒墛鍚庣殑婕斿憳鍚嶆暣榻愮粺涓€銆?br>\n"
+                "                                瀹炵幇閫昏緫锛氬埉鍓婄綉绔欒幏鍙栨紨鍛樺悕鍚庯紝閫氳繃鏌ヨ鏄犲皠琛ㄤ腑鐨勫尮閰嶈瘝鏉ユ槧灏勫搴旇緭鍑鸿瘝銆俓n"
                 "                                <br>\n"
-                "                                演员名映射翻译表文件名为：actor_database.xlsx<br>\n"
-                "                                ·\n"
-                "                                Windows位置：\\配置文件目录\\userdata\\actor_database.xlsx（配置文件目录在「设置」-「其他」中设置）<br>\n"
-                "                                · Mac位置：/配置文件目录/userdata/actor_database.xlsx<br>\n"
-                "                                你可使用文件编辑工具打开该文件自定义修改添加。映射表中的字段含义如下：<br>\n"
-                "                                1、keyword：匹配词（每个名字前后都要有逗号）。刮削网站获取演员名后，会在 keyword 的名字中进行匹配。<br>\n"
-                "                                2、zh_cn/zh_tw/jp：输出词。当 keyword 匹配到演员名时，可输出对应语言的名字。</p>",
+                "                                婕斿憳鍚嶆槧灏勭炕璇戣〃鏂囦欢鍚嶄负锛歛ctor_database.xlsx<br>\n"
+                "                                路\n"
+                "                                Windows浣嶇疆锛歕\閰嶇疆鏂囦欢鐩綍\\userdata\\actor_database.xlsx锛堥厤缃枃浠剁洰褰曞湪銆岃缃€?銆屽叾浠栥€嶄腑璁剧疆锛?br>\n"
+                "                                路 Mac浣嶇疆锛?閰嶇疆鏂囦欢鐩綍/userdata/actor_database.xlsx<br>\n"
+                "                                浣犲彲浣跨敤鏂囦欢缂栬緫宸ュ叿鎵撳紑璇ユ枃浠惰嚜瀹氫箟淇敼娣诲姞銆傛槧灏勮〃涓殑瀛楁鍚箟濡備笅锛?br>\n"
+                "                                1銆乲eyword锛氬尮閰嶈瘝锛堟瘡涓悕瀛楀墠鍚庨兘瑕佹湁閫楀彿锛夈€傚埉鍓婄綉绔欒幏鍙栨紨鍛樺悕鍚庯紝浼氬湪 keyword 鐨勫悕瀛椾腑杩涜鍖归厤銆?br>\n"
+                "                                2銆亃h_cn/zh_tw/jp锛氳緭鍑鸿瘝銆傚綋 keyword 鍖归厤鍒版紨鍛樺悕鏃讹紝鍙緭鍑哄搴旇瑷€鐨勫悕瀛椼€?/p>",
             )
         )
-        self.checkBox_actor_realname.setText(_translate("MDCx", "使用AV-wiki获取演员真实名字"))
-        self.checkBox_actor_translate.setText(_translate("MDCx", "使用演员映射表翻译演员"))
-        self.label_248.setText(_translate("MDCx", "演员语言："))
-        self.groupBox_85.setTitle(_translate("MDCx", "标签"))
-        self.radioButton_tag_zh_cn.setText(_translate("MDCx", "中文简体"))
-        self.radioButton_tag_zh_tw.setText(_translate("MDCx", "中文繁体"))
-        self.radioButton_tag_jp.setText(_translate("MDCx", "日语"))
+        self.checkBox_actor_realname.setText(_translate("MDCx", "浣跨敤AV-wiki鑾峰彇婕斿憳鐪熷疄鍚嶅瓧"))
+        self.checkBox_actor_translate.setText(_translate("MDCx", "浣跨敤婕斿憳鏄犲皠琛ㄧ炕璇戞紨鍛?))
+        self.label_248.setText(_translate("MDCx", "婕斿憳璇█锛?))
+        self.groupBox_85.setTitle(_translate("MDCx", "鏍囩"))
+        self.radioButton_tag_zh_cn.setText(_translate("MDCx", "涓枃绠€浣?))
+        self.radioButton_tag_zh_tw.setText(_translate("MDCx", "涓枃绻佷綋"))
+        self.radioButton_tag_jp.setText(_translate("MDCx", "鏃ヨ"))
         self.label_165.setText(
-            _translate("MDCx", "映射表文件名：info_database.xlsx。作用和演员映射表类似，说明可参考演员映射表。")
+            _translate("MDCx", "鏄犲皠琛ㄦ枃浠跺悕锛歩nfo_database.xlsx銆備綔鐢ㄥ拰婕斿憳鏄犲皠琛ㄧ被浼硷紝璇存槑鍙弬鑰冩紨鍛樻槧灏勮〃銆?)
         )
-        self.checkBox_tag_translate.setText(_translate("MDCx", "使用信息映射表翻译标签"))
-        self.label_251.setText(_translate("MDCx", "标签语言："))
-        self.label_253.setText(_translate("MDCx", "翻译方式："))
-        self.groupBox_86.setTitle(_translate("MDCx", "系列"))
-        self.label_255.setText(_translate("MDCx", "系列语言："))
-        self.label_256.setText(_translate("MDCx", "翻译方式："))
+        self.checkBox_tag_translate.setText(_translate("MDCx", "浣跨敤淇℃伅鏄犲皠琛ㄧ炕璇戞爣绛?))
+        self.label_251.setText(_translate("MDCx", "鏍囩璇█锛?))
+        self.label_253.setText(_translate("MDCx", "缈昏瘧鏂瑰紡锛?))
+        self.groupBox_86.setTitle(_translate("MDCx", "绯诲垪"))
+        self.label_255.setText(_translate("MDCx", "绯诲垪璇█锛?))
+        self.label_256.setText(_translate("MDCx", "缈昏瘧鏂瑰紡锛?))
         self.label_245.setText(
-            _translate("MDCx", "映射表文件名：info_database.xlsx。作用和演员映射表类似，说明可参考演员映射表。")
+            _translate("MDCx", "鏄犲皠琛ㄦ枃浠跺悕锛歩nfo_database.xlsx銆備綔鐢ㄥ拰婕斿憳鏄犲皠琛ㄧ被浼硷紝璇存槑鍙弬鑰冩紨鍛樻槧灏勮〃銆?)
         )
-        self.radioButton_series_zh_cn.setText(_translate("MDCx", "中文简体"))
-        self.radioButton_series_zh_tw.setText(_translate("MDCx", "中文繁体"))
-        self.radioButton_series_jp.setText(_translate("MDCx", "日语"))
-        self.checkBox_series_translate.setText(_translate("MDCx", "使用信息映射表翻译系列"))
-        self.groupBox_87.setTitle(_translate("MDCx", "片商"))
-        self.label_259.setText(_translate("MDCx", "片商语言："))
-        self.label_260.setText(_translate("MDCx", "翻译方式："))
+        self.radioButton_series_zh_cn.setText(_translate("MDCx", "涓枃绠€浣?))
+        self.radioButton_series_zh_tw.setText(_translate("MDCx", "涓枃绻佷綋"))
+        self.radioButton_series_jp.setText(_translate("MDCx", "鏃ヨ"))
+        self.checkBox_series_translate.setText(_translate("MDCx", "浣跨敤淇℃伅鏄犲皠琛ㄧ炕璇戠郴鍒?))
+        self.groupBox_87.setTitle(_translate("MDCx", "鐗囧晢"))
+        self.label_259.setText(_translate("MDCx", "鐗囧晢璇█锛?))
+        self.label_260.setText(_translate("MDCx", "缈昏瘧鏂瑰紡锛?))
         self.label_247.setText(
-            _translate("MDCx", "映射表文件名：info_database.xlsx。作用和演员映射表类似，说明可参考演员映射表。")
+            _translate("MDCx", "鏄犲皠琛ㄦ枃浠跺悕锛歩nfo_database.xlsx銆備綔鐢ㄥ拰婕斿憳鏄犲皠琛ㄧ被浼硷紝璇存槑鍙弬鑰冩紨鍛樻槧灏勮〃銆?)
         )
-        self.radioButton_studio_zh_cn.setText(_translate("MDCx", "中文简体"))
-        self.radioButton_studio_zh_tw.setText(_translate("MDCx", "中文繁体"))
-        self.radioButton_studio_jp.setText(_translate("MDCx", "日语"))
-        self.checkBox_studio_translate.setText(_translate("MDCx", "使用信息映射表翻译片商"))
-        self.groupBox_88.setTitle(_translate("MDCx", "发行商"))
-        self.label_264.setText(_translate("MDCx", "发行商语言："))
-        self.label_265.setText(_translate("MDCx", "翻译方式："))
+        self.radioButton_studio_zh_cn.setText(_translate("MDCx", "涓枃绠€浣?))
+        self.radioButton_studio_zh_tw.setText(_translate("MDCx", "涓枃绻佷綋"))
+        self.radioButton_studio_jp.setText(_translate("MDCx", "鏃ヨ"))
+        self.checkBox_studio_translate.setText(_translate("MDCx", "浣跨敤淇℃伅鏄犲皠琛ㄧ炕璇戠墖鍟?))
+        self.groupBox_88.setTitle(_translate("MDCx", "鍙戣鍟?))
+        self.label_264.setText(_translate("MDCx", "鍙戣鍟嗚瑷€锛?))
+        self.label_265.setText(_translate("MDCx", "缈昏瘧鏂瑰紡锛?))
         self.label_266.setText(
-            _translate("MDCx", "映射表文件名：info_database.xlsx。作用和演员映射表类似，说明可参考演员映射表。")
+            _translate("MDCx", "鏄犲皠琛ㄦ枃浠跺悕锛歩nfo_database.xlsx銆備綔鐢ㄥ拰婕斿憳鏄犲皠琛ㄧ被浼硷紝璇存槑鍙弬鑰冩紨鍛樻槧灏勮〃銆?)
         )
-        self.radioButton_publisher_zh_cn.setText(_translate("MDCx", "中文简体"))
-        self.radioButton_publisher_zh_tw.setText(_translate("MDCx", "中文繁体"))
-        self.radioButton_publisher_jp.setText(_translate("MDCx", "日语"))
-        self.checkBox_publisher_translate.setText(_translate("MDCx", "使用信息映射表翻译发行商"))
-        self.groupBox_89.setTitle(_translate("MDCx", "导演"))
-        self.label_267.setText(_translate("MDCx", "发行商语言："))
-        self.label_268.setText(_translate("MDCx", "翻译方式："))
+        self.radioButton_publisher_zh_cn.setText(_translate("MDCx", "涓枃绠€浣?))
+        self.radioButton_publisher_zh_tw.setText(_translate("MDCx", "涓枃绻佷綋"))
+        self.radioButton_publisher_jp.setText(_translate("MDCx", "鏃ヨ"))
+        self.checkBox_publisher_translate.setText(_translate("MDCx", "浣跨敤淇℃伅鏄犲皠琛ㄧ炕璇戝彂琛屽晢"))
+        self.groupBox_89.setTitle(_translate("MDCx", "瀵兼紨"))
+        self.label_267.setText(_translate("MDCx", "鍙戣鍟嗚瑷€锛?))
+        self.label_268.setText(_translate("MDCx", "缈昏瘧鏂瑰紡锛?))
         self.label_269.setText(
-            _translate("MDCx", "映射表文件名：info_database.xlsx。作用和演员映射表类似，说明可参考演员映射表。")
+            _translate("MDCx", "鏄犲皠琛ㄦ枃浠跺悕锛歩nfo_database.xlsx銆備綔鐢ㄥ拰婕斿憳鏄犲皠琛ㄧ被浼硷紝璇存槑鍙弬鑰冩紨鍛樻槧灏勮〃銆?)
         )
-        self.checkBox_director_translate.setText(_translate("MDCx", "使用信息映射表翻译导演"))
-        self.radioButton_director_zh_cn.setText(_translate("MDCx", "中文简体"))
-        self.radioButton_director_zh_tw.setText(_translate("MDCx", "中文繁体"))
-        self.radioButton_director_jp.setText(_translate("MDCx", "日语"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_6), _translate("MDCx", " 翻译 "))
-        self.groupBox_20.setTitle(_translate("MDCx", "中文字幕字符规则"))
-        self.label_89.setText(_translate("MDCx", "中文字幕判断字符："))
+        self.checkBox_director_translate.setText(_translate("MDCx", "浣跨敤淇℃伅鏄犲皠琛ㄧ炕璇戝婕?))
+        self.radioButton_director_zh_cn.setText(_translate("MDCx", "涓枃绠€浣?))
+        self.radioButton_director_zh_tw.setText(_translate("MDCx", "涓枃绻佷綋"))
+        self.radioButton_director_jp.setText(_translate("MDCx", "鏃ヨ"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_6), _translate("MDCx", " 缈昏瘧 "))
+        self.groupBox_20.setTitle(_translate("MDCx", "涓枃瀛楀箷瀛楃瑙勫垯"))
+        self.label_89.setText(_translate("MDCx", "涓枃瀛楀箷鍒ゆ柇瀛楃锛?))
         self.label_90.setText(
-            _translate("MDCx", "指视频有中文字幕时，在重命名文件名及目录名时在番号后添加该字符表示有中文字幕")
+            _translate("MDCx", "鎸囪棰戞湁涓枃瀛楀箷鏃讹紝鍦ㄩ噸鍛藉悕鏂囦欢鍚嶅強鐩綍鍚嶆椂鍦ㄧ暘鍙峰悗娣诲姞璇ュ瓧绗﹁〃绀烘湁涓枃瀛楀箷")
         )
         self.label_91.setText(
             _translate(
                 "MDCx",
                 "<p\n"
-                "                                style='line-height:20px'>指视频文件路径中含有以上字符时，视为该文件有中文字幕，多个以逗号分割<br>\n"
-                "                                此外，还会查找同目录是否存在同名字幕文件、nfo 的标签是否有中文字幕字样</p>",
+                "                                style='line-height:20px'>鎸囪棰戞枃浠惰矾寰勪腑鍚湁浠ヤ笂瀛楃鏃讹紝瑙嗕负璇ユ枃浠舵湁涓枃瀛楀箷锛屽涓互閫楀彿鍒嗗壊<br>\n"
+                "                                姝ゅ锛岃繕浼氭煡鎵惧悓鐩綍鏄惁瀛樺湪鍚屽悕瀛楀箷鏂囦欢銆乶fo 鐨勬爣绛炬槸鍚︽湁涓枃瀛楀箷瀛楁牱</p>",
             )
         )
-        self.label_69.setText(_translate("MDCx", "中文字幕命名字符："))
+        self.label_69.setText(_translate("MDCx", "涓枃瀛楀箷鍛藉悕瀛楃锛?))
         self.label_119.setText(
-            _translate("MDCx", "指命名时在番号后添加中文字幕命名字符。你也可以使用 cnword 字段来调整添加位置")
+            _translate("MDCx", "鎸囧懡鍚嶆椂鍦ㄧ暘鍙峰悗娣诲姞涓枃瀛楀箷鍛藉悕瀛楃銆備綘涔熷彲浠ヤ娇鐢?cnword 瀛楁鏉ヨ皟鏁存坊鍔犱綅缃?)
         )
-        self.checkBox_foldername.setText(_translate("MDCx", "视频目录名"))
-        self.checkBox_filename.setText(_translate("MDCx", "视频文件名"))
-        self.label_120.setText(_translate("MDCx", "添加中文字幕字符："))
-        self.groupBox_45.setTitle(_translate("MDCx", "添加外挂字幕"))
+        self.checkBox_foldername.setText(_translate("MDCx", "瑙嗛鐩綍鍚?))
+        self.checkBox_filename.setText(_translate("MDCx", "瑙嗛鏂囦欢鍚?))
+        self.label_120.setText(_translate("MDCx", "娣诲姞涓枃瀛楀箷瀛楃锛?))
+        self.groupBox_45.setTitle(_translate("MDCx", "娣诲姞澶栨寕瀛楀箷"))
         self.label_113.setText(
-            _translate("MDCx", "刮削时，如果视频无内嵌字幕且同目录无字幕文件，则从字幕文件目录查找并复制字幕")
+            _translate("MDCx", "鍒墛鏃讹紝濡傛灉瑙嗛鏃犲唴宓屽瓧骞曚笖鍚岀洰褰曟棤瀛楀箷鏂囦欢锛屽垯浠庡瓧骞曟枃浠剁洰褰曟煡鎵惧苟澶嶅埗瀛楀箷")
         )
-        self.label_102.setText(_translate("MDCx", "下载字幕包解压，填写字幕文件目录的路径"))
-        self.label_download_sub_zip.setText(_translate("MDCx", "点击下载字幕包"))
-        self.label_111.setText(_translate("MDCx", "字幕文件目录："))
-        self.label_112.setText(_translate("MDCx", "刮削时自动添加字幕："))
-        self.radioButton_add_sub_on.setText(_translate("MDCx", "开"))
-        self.radioButton_add_sub_off.setText(_translate("MDCx", "关"))
-        self.pushButton_select_subtitle_folder.setText(_translate("MDCx", "选择目录"))
+        self.label_102.setText(_translate("MDCx", "涓嬭浇瀛楀箷鍖呰В鍘嬶紝濉啓瀛楀箷鏂囦欢鐩綍鐨勮矾寰?))
+        self.label_download_sub_zip.setText(_translate("MDCx", "鐐瑰嚮涓嬭浇瀛楀箷鍖?))
+        self.label_111.setText(_translate("MDCx", "瀛楀箷鏂囦欢鐩綍锛?))
+        self.label_112.setText(_translate("MDCx", "鍒墛鏃惰嚜鍔ㄦ坊鍔犲瓧骞曪細"))
+        self.radioButton_add_sub_on.setText(_translate("MDCx", "寮€"))
+        self.radioButton_add_sub_off.setText(_translate("MDCx", "鍏?))
+        self.pushButton_select_subtitle_folder.setText(_translate("MDCx", "閫夋嫨鐩綍"))
         self.pushButton_add_sub_for_all_video.setText(
-            _translate("MDCx", "点击检查所有视频的字幕情况并为无字幕视频添加字幕")
+            _translate("MDCx", "鐐瑰嚮妫€鏌ユ墍鏈夎棰戠殑瀛楀箷鎯呭喌骞朵负鏃犲瓧骞曡棰戞坊鍔犲瓧骞?)
         )
         self.label_125.setText(
             _translate(
                 "MDCx",
                 "<p\n"
-                "                          style='line-height:20px'>当字幕文件目录为空时，将只检查并统计无字幕的视频列表<br>\n"
-                "                          当视频已识别为有字幕状态时（已有字幕或包含中文字幕字符等），不会重复添加字幕<br>\n"
-                "                          当视频添加新的外挂字幕后，如勾选重新刮削，将在添加结束后自动刮削<br>\n"
-                "                          当视频之前添加了外挂字幕，但是还没有重新刮削时，这时也会自动刮削<br>\n"
-                "                          当勾选添加.chs后缀时，字幕文件会被统一命名为：视频文件名.chs.srt</p>",
+                "                          style='line-height:20px'>褰撳瓧骞曟枃浠剁洰褰曚负绌烘椂锛屽皢鍙鏌ュ苟缁熻鏃犲瓧骞曠殑瑙嗛鍒楄〃<br>\n"
+                "                          褰撹棰戝凡璇嗗埆涓烘湁瀛楀箷鐘舵€佹椂锛堝凡鏈夊瓧骞曟垨鍖呭惈涓枃瀛楀箷瀛楃绛夛級锛屼笉浼氶噸澶嶆坊鍔犲瓧骞?br>\n"
+                "                          褰撹棰戞坊鍔犳柊鐨勫鎸傚瓧骞曞悗锛屽鍕鹃€夐噸鏂板埉鍓婏紝灏嗗湪娣诲姞缁撴潫鍚庤嚜鍔ㄥ埉鍓?br>\n"
+                "                          褰撹棰戜箣鍓嶆坊鍔犱簡澶栨寕瀛楀箷锛屼絾鏄繕娌℃湁閲嶆柊鍒墛鏃讹紝杩欐椂涔熶細鑷姩鍒墛<br>\n"
+                "                          褰撳嬀閫夋坊鍔?chs鍚庣紑鏃讹紝瀛楀箷鏂囦欢浼氳缁熶竴鍛藉悕涓猴細瑙嗛鏂囦欢鍚?chs.srt</p>",
             )
         )
-        self.checkBox_sub_add_chs.setText(_translate("MDCx", "字幕文件名添加.chs后缀"))
-        self.checkBox_sub_rescrape.setText(_translate("MDCx", "新添加字幕的视频在结束后重新刮削"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MDCx", " 字幕 "))
-        self.groupBox_26.setTitle(_translate("MDCx", "自定义水印样式"))
+        self.checkBox_sub_add_chs.setText(_translate("MDCx", "瀛楀箷鏂囦欢鍚嶆坊鍔?chs鍚庣紑"))
+        self.checkBox_sub_rescrape.setText(_translate("MDCx", "鏂版坊鍔犲瓧骞曠殑瑙嗛鍦ㄧ粨鏉熷悗閲嶆柊鍒墛"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MDCx", " 瀛楀箷 "))
+        self.groupBox_26.setTitle(_translate("MDCx", "鑷畾涔夋按鍗版牱寮?))
         self.label_118.setText(
             _translate(
                 "MDCx",
                 "<p\n"
-                "                          style='line-height:20px'>1、下载水印图片包并解压（也可以使用自己的图片），水印图片的保存路径为：<br>\n"
-                "                          · Windows位置：（配置文件目录在「设置」-「高级」中设置）<br>\n"
-                "                          字幕水印：\\配置文件目录\\userdata\\watermark\\sub.png<br>\n"
-                "                          有码水印：\\配置文件目录\\userdata\\watermark\\youma.png<br>\n"
-                "                          破解水印：\\配置文件目录\\userdata\\watermark\\umr.png<br>\n"
-                "                          流出水印：\\配置文件目录\\userdata\\watermark\\leak.png<br>\n"
-                "                          无码水印：\\配置文件目录\\userdata\\watermark\\wuma.png<br>\n"
-                "                          4K水印：\\配置文件目录\\userdata\\watermark\\4k.png<br>\n"
-                "                          8K水印：\\配置文件目录\\userdata\\watermark\\8k.png<br>\n"
-                "                          · Mac位置：（配置文件目录在「设置」-「高级」中设置）<br>\n"
-                "                          字幕水印：/配置文件目录/userdata/watermark/sub.png<br>\n"
-                "                          有码水印：/配置文件目录/userdata/watermark/youma.png<br>\n"
-                "                          破解水印：/配置文件目录/userdata/watermark/umr.png<br>\n"
-                "                          流出水印：/配置文件目录/userdata/watermark/leak.png<br>\n"
-                "                          无码水印：/配置文件目录/userdata/watermark/wuma.png<br>\n"
-                "                          4K水印：/配置文件目录/userdata/watermark/4k.png<br>\n"
-                "                          8K水印：/配置文件目录/userdata/watermark/8k.png<br>\n"
+                "                          style='line-height:20px'>1銆佷笅杞芥按鍗板浘鐗囧寘骞惰В鍘嬶紙涔熷彲浠ヤ娇鐢ㄨ嚜宸辩殑鍥剧墖锛夛紝姘村嵃鍥剧墖鐨勪繚瀛樿矾寰勪负锛?br>\n"
+                "                          路 Windows浣嶇疆锛氾紙閰嶇疆鏂囦欢鐩綍鍦ㄣ€岃缃€?銆岄珮绾с€嶄腑璁剧疆锛?br>\n"
+                "                          瀛楀箷姘村嵃锛歕\閰嶇疆鏂囦欢鐩綍\\userdata\\watermark\\sub.png<br>\n"
+                "                          鏈夌爜姘村嵃锛歕\閰嶇疆鏂囦欢鐩綍\\userdata\\watermark\\youma.png<br>\n"
+                "                          鐮磋В姘村嵃锛歕\閰嶇疆鏂囦欢鐩綍\\userdata\\watermark\\umr.png<br>\n"
+                "                          娴佸嚭姘村嵃锛歕\閰嶇疆鏂囦欢鐩綍\\userdata\\watermark\\leak.png<br>\n"
+                "                          鏃犵爜姘村嵃锛歕\閰嶇疆鏂囦欢鐩綍\\userdata\\watermark\\wuma.png<br>\n"
+                "                          4K姘村嵃锛歕\閰嶇疆鏂囦欢鐩綍\\userdata\\watermark\\4k.png<br>\n"
+                "                          8K姘村嵃锛歕\閰嶇疆鏂囦欢鐩綍\\userdata\\watermark\\8k.png<br>\n"
+                "                          路 Mac浣嶇疆锛氾紙閰嶇疆鏂囦欢鐩綍鍦ㄣ€岃缃€?銆岄珮绾с€嶄腑璁剧疆锛?br>\n"
+                "                          瀛楀箷姘村嵃锛?閰嶇疆鏂囦欢鐩綍/userdata/watermark/sub.png<br>\n"
+                "                          鏈夌爜姘村嵃锛?閰嶇疆鏂囦欢鐩綍/userdata/watermark/youma.png<br>\n"
+                "                          鐮磋В姘村嵃锛?閰嶇疆鏂囦欢鐩綍/userdata/watermark/umr.png<br>\n"
+                "                          娴佸嚭姘村嵃锛?閰嶇疆鏂囦欢鐩綍/userdata/watermark/leak.png<br>\n"
+                "                          鏃犵爜姘村嵃锛?閰嶇疆鏂囦欢鐩綍/userdata/watermark/wuma.png<br>\n"
+                "                          4K姘村嵃锛?閰嶇疆鏂囦欢鐩綍/userdata/watermark/4k.png<br>\n"
+                "                          8K姘村嵃锛?閰嶇疆鏂囦欢鐩綍/userdata/watermark/8k.png<br>\n"
                 "                          <br>\n"
-                "                          2、水印图片显示的逻辑：<br>\n"
-                "                          · 首先计算水印图片的显示高度 = 封面图高度 * 设置的水印大小 / 40<br>\n"
-                "                          比如水印大小设置为 5，则水印图片的高度会缩放为封面图高度的 5/40<br>\n"
-                "                          · 然后根据水印图片的显示高度，和水印图片的宽高比，计算水印图片的显示宽度<br>\n"
-                "                          · 最后根据设置的要添加的水印类型和首个水印位置，顺时针依次显示在封面图的四个角上</p>",
+                "                          2銆佹按鍗板浘鐗囨樉绀虹殑閫昏緫锛?br>\n"
+                "                          路 棣栧厛璁＄畻姘村嵃鍥剧墖鐨勬樉绀洪珮搴?= 灏侀潰鍥鹃珮搴?* 璁剧疆鐨勬按鍗板ぇ灏?/ 40<br>\n"
+                "                          姣斿姘村嵃澶у皬璁剧疆涓?5锛屽垯姘村嵃鍥剧墖鐨勯珮搴︿細缂╂斁涓哄皝闈㈠浘楂樺害鐨?5/40<br>\n"
+                "                          路 鐒跺悗鏍规嵁姘村嵃鍥剧墖鐨勬樉绀洪珮搴︼紝鍜屾按鍗板浘鐗囩殑瀹介珮姣旓紝璁＄畻姘村嵃鍥剧墖鐨勬樉绀哄搴?br>\n"
+                "                          路 鏈€鍚庢牴鎹缃殑瑕佹坊鍔犵殑姘村嵃绫诲瀷鍜岄涓按鍗颁綅缃紝椤烘椂閽堜緷娆℃樉绀哄湪灏侀潰鍥剧殑鍥涗釜瑙掍笂</p>",
             )
         )
-        self.label_download_mark_zip.setText(_translate("MDCx", "点击下载水印图片包"))
-        self.groupBox_31.setTitle(_translate("MDCx", "水印设置"))
-        self.radioButton_not_fixed_position.setText(_translate("MDCx", "不固定位置"))
-        self.radioButton_fixed_corner.setText(_translate("MDCx", "固定一个位置"))
-        self.radioButton_fixed_position.setText(_translate("MDCx", "固定不同位置"))
+        self.label_download_mark_zip.setText(_translate("MDCx", "鐐瑰嚮涓嬭浇姘村嵃鍥剧墖鍖?))
+        self.groupBox_31.setTitle(_translate("MDCx", "姘村嵃璁剧疆"))
+        self.radioButton_not_fixed_position.setText(_translate("MDCx", "涓嶅浐瀹氫綅缃?))
+        self.radioButton_fixed_corner.setText(_translate("MDCx", "鍥哄畾涓€涓綅缃?))
+        self.radioButton_fixed_position.setText(_translate("MDCx", "鍥哄畾涓嶅悓浣嶇疆"))
         self.label_138.setText(
             _translate(
                 "MDCx",
                 "<p\n"
-                "                                style='line-height:20px'>水印分为字幕水印、马赛克水印、4K/8K水印。<br>\n"
-                "                                马赛克水印有四个：有码、破解、流出、无码，将按优先级显示其中一种状态<br>\n"
-                "                                马赛克水印优先级：有码 > 破解 > 流出 > 无码<br>\n"
-                "                                举例：如果视频是流出版本<br>\n"
-                "                                ·当流出和无码都勾选时，会显示流出水印<br>\n"
-                "                                ·当流出未勾选，无码已勾选时，会显示无码水印<br>\n"
-                "                                ·当流出和无码都不勾选时，则不显示水印客</p>",
+                "                                style='line-height:20px'>姘村嵃鍒嗕负瀛楀箷姘村嵃銆侀┈璧涘厠姘村嵃銆?K/8K姘村嵃銆?br>\n"
+                "                                椹禌鍏嬫按鍗版湁鍥涗釜锛氭湁鐮併€佺牬瑙ｃ€佹祦鍑恒€佹棤鐮侊紝灏嗘寜浼樺厛绾ф樉绀哄叾涓竴绉嶇姸鎬?br>\n"
+                "                                椹禌鍏嬫按鍗颁紭鍏堢骇锛氭湁鐮?> 鐮磋В > 娴佸嚭 > 鏃犵爜<br>\n"
+                "                                涓句緥锛氬鏋滆棰戞槸娴佸嚭鐗堟湰<br>\n"
+                "                                路褰撴祦鍑哄拰鏃犵爜閮藉嬀閫夋椂锛屼細鏄剧ず娴佸嚭姘村嵃<br>\n"
+                "                                路褰撴祦鍑烘湭鍕鹃€夛紝鏃犵爜宸插嬀閫夋椂锛屼細鏄剧ず鏃犵爜姘村嵃<br>\n"
+                "                                路褰撴祦鍑哄拰鏃犵爜閮戒笉鍕鹃€夋椂锛屽垯涓嶆樉绀烘按鍗板</p>",
             )
         )
-        self.label_135.setText(_translate("MDCx", "水印类型："))
-        self.label_128.setText(_translate("MDCx", "添加水印的图片："))
-        self.checkBox_sub.setText(_translate("MDCx", "字幕"))
-        self.checkBox_censored.setText(_translate("MDCx", "有码"))
-        self.checkBox_umr.setText(_translate("MDCx", "破解"))
-        self.checkBox_leak.setText(_translate("MDCx", "流出"))
-        self.checkBox_uncensored.setText(_translate("MDCx", "无码"))
+        self.label_135.setText(_translate("MDCx", "姘村嵃绫诲瀷锛?))
+        self.label_128.setText(_translate("MDCx", "娣诲姞姘村嵃鐨勫浘鐗囷細"))
+        self.checkBox_sub.setText(_translate("MDCx", "瀛楀箷"))
+        self.checkBox_censored.setText(_translate("MDCx", "鏈夌爜"))
+        self.checkBox_umr.setText(_translate("MDCx", "鐮磋В"))
+        self.checkBox_leak.setText(_translate("MDCx", "娴佸嚭"))
+        self.checkBox_uncensored.setText(_translate("MDCx", "鏃犵爜"))
         self.checkBox_hd.setText(_translate("MDCx", "4K/8K"))
-        self.label_140.setText(_translate("MDCx", "水印图片的显示高度 = 设置的水印大小 / 40 * 封面图高度"))
+        self.label_140.setText(_translate("MDCx", "姘村嵃鍥剧墖鐨勬樉绀洪珮搴?= 璁剧疆鐨勬按鍗板ぇ灏?/ 40 * 灏侀潰鍥鹃珮搴?))
         self.label_141.setText(
             _translate(
                 "MDCx",
                 "<p\n"
-                "                                style='line-height:20px'>不固定位置：将从首个水印位置开始，顺时针方向依次添加其他水印<br>\n"
-                "                                固定一个位置：水印在指定位置依次横向显示<br>\n"
-                "                                固定多个位置：可单独设置 4K/8K 水印、字幕水印和马赛克水印的位置<br>\n"
-                "                                注意：不固定位置时，4K/8K 水印会使用固定位置方式，并自动挤开其他水印</p>",
+                "                                style='line-height:20px'>涓嶅浐瀹氫綅缃細灏嗕粠棣栦釜姘村嵃浣嶇疆寮€濮嬶紝椤烘椂閽堟柟鍚戜緷娆℃坊鍔犲叾浠栨按鍗?br>\n"
+                "                                鍥哄畾涓€涓綅缃細姘村嵃鍦ㄦ寚瀹氫綅缃緷娆℃í鍚戞樉绀?br>\n"
+                "                                鍥哄畾澶氫釜浣嶇疆锛氬彲鍗曠嫭璁剧疆 4K/8K 姘村嵃銆佸瓧骞曟按鍗板拰椹禌鍏嬫按鍗扮殑浣嶇疆<br>\n"
+                "                                娉ㄦ剰锛氫笉鍥哄畾浣嶇疆鏃讹紝4K/8K 姘村嵃浼氫娇鐢ㄥ浐瀹氫綅缃柟寮忥紝骞惰嚜鍔ㄦ尋寮€鍏朵粬姘村嵃</p>",
             )
         )
         self.checkBox_poster_mark.setText(_translate("MDCx", "poster"))
         self.checkBox_thumb_mark.setText(_translate("MDCx", "thumb"))
         self.checkBox_fanart_mark.setText(_translate("MDCx", "fanart"))
-        self.label_139.setText(_translate("MDCx", "水印大小："))
-        self.label_127.setText(_translate("MDCx", "水印位置："))
+        self.label_139.setText(_translate("MDCx", "姘村嵃澶у皬锛?))
+        self.label_127.setText(_translate("MDCx", "姘村嵃浣嶇疆锛?))
         self.label_130.setText(
-            _translate("MDCx", "Emby 中 fanart 作为背景图，不需要添加水印。其他软件作为预览图时，可添加水印")
+            _translate("MDCx", "Emby 涓?fanart 浣滀负鑳屾櫙鍥撅紝涓嶉渶瑕佹坊鍔犳按鍗般€傚叾浠栬蒋浠朵綔涓洪瑙堝浘鏃讹紝鍙坊鍔犳按鍗?)
         )
-        self.groupBox_36.setTitle(_translate("MDCx", "不固定位置"))
-        self.radioButton_top_left.setText(_translate("MDCx", "左上"))
-        self.radioButton_top_right.setText(_translate("MDCx", "右上"))
-        self.radioButton_bottom_right.setText(_translate("MDCx", "右下"))
-        self.radioButton_bottom_left.setText(_translate("MDCx", "左下"))
-        self.label_126.setText(_translate("MDCx", "首个水印位置："))
-        self.groupBox_42.setTitle(_translate("MDCx", "固定不同位置"))
-        self.radioButton_top_left_sub.setText(_translate("MDCx", "左上"))
-        self.radioButton_top_right_sub.setText(_translate("MDCx", "右上"))
-        self.radioButton_bottom_right_sub.setText(_translate("MDCx", "右下"))
-        self.radioButton_bottom_left_sub.setText(_translate("MDCx", "左下"))
-        self.label_131.setText(_translate("MDCx", "字幕水印位置："))
-        self.radioButton_top_left_mosaic.setText(_translate("MDCx", "左上"))
-        self.radioButton_top_right_mosaic.setText(_translate("MDCx", "右上"))
-        self.radioButton_bottom_right_mosaic.setText(_translate("MDCx", "右下"))
-        self.radioButton_bottom_left_mosaic.setText(_translate("MDCx", "左下"))
-        self.label_134.setText(_translate("MDCx", "马赛克水印位置："))
-        self.radioButton_top_left_hd.setText(_translate("MDCx", "左上"))
-        self.radioButton_top_right_hd.setText(_translate("MDCx", "右上"))
-        self.radioButton_bottom_right_hd.setText(_translate("MDCx", "右下"))
-        self.radioButton_bottom_left_hd.setText(_translate("MDCx", "左下"))
-        self.label_216.setText(_translate("MDCx", "4K/8K水印位置："))
-        self.groupBox_39.setTitle(_translate("MDCx", "固定一个位置"))
-        self.radioButton_top_left_corner.setText(_translate("MDCx", "左上"))
-        self.radioButton_top_right_corner.setText(_translate("MDCx", "右上"))
-        self.radioButton_bottom_right_corner.setText(_translate("MDCx", "右下"))
-        self.radioButton_bottom_left_corner.setText(_translate("MDCx", "左下"))
-        self.label_233.setText(_translate("MDCx", "水印显示位置："))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab4), _translate("MDCx", " 水印 "))
-        self.groupBox_81.setTitle(_translate("MDCx", "写入 NFO 的字段："))
-        self.checkBox_nfo_all_actor.setText(_translate("MDCx", "写入男女演员（不勾选，则仅写入女演员）"))
-        self.checkBox_nfo_actor_tmdbid.setText(_translate("MDCx", "为演员写入 TMDB ID（需配置 TMDB API）"))
-        self.label_391.setText(_translate("MDCx", "年份/时长/想看人数："))
-        self.checkBox_tag_letters.setText(_translate("MDCx", "番号前缀"))
-        self.checkBox_tag_actor.setText(_translate("MDCx", "演员"))
-        self.checkBox_tag_definition.setText(_translate("MDCx", "分辨率"))
-        self.checkBox_tag_cnword.setText(_translate("MDCx", "中文字幕"))
-        self.label_396.setText(_translate("MDCx", "请填写 Tagline 格式："))
-        self.lineEdit_nfo_tagline.setText(_translate("MDCx", "发行日期：release"))
-        self.checkBox_nfo_sorttitle.setText(_translate("MDCx", "类标题（sorttitle）"))
-        self.checkBox_nfo_originaltitle.setText(_translate("MDCx", "原标题（originaltitle）"))
-        self.checkBox_nfo_genre.setText(_translate("MDCx", "风格（使用标签字段）"))
-        self.checkBox_nfo_actor_set.setText(_translate("MDCx", "合集（使用演员字段）"))
-        self.checkBox_nfo_set.setText(_translate("MDCx", "合集（使用系列字段）"))
-        self.checkBox_nfo_poster.setText(_translate("MDCx", "封面（poster）"))
-        self.checkBox_nfo_cover.setText(_translate("MDCx", "背景（cover）"))
-        self.checkBox_nfo_trailer.setText(_translate("MDCx", "预告片（trilaer）"))
-        self.checkBox_nfo_website.setText(_translate("MDCx", "网址（website）"))
-        self.label_163.setText(_translate("MDCx", "标题："))
-        self.label_388.setText(_translate("MDCx", "片商/发行商："))
-        self.checkBox_nfo_outline.setText(_translate("MDCx", "简介（outline）"))
-        self.checkBox_nfo_plot.setText(_translate("MDCx", "简介（plot）"))
-        self.checkBox_nfo_originalplot.setText(_translate("MDCx", "原简介（originalplot）"))
-        self.label_412.setText(_translate("MDCx", "标签中系列的格式："))
-        self.lineEdit_nfo_tag_series.setText(_translate("MDCx", "系列: series"))
-        self.label_416.setText(_translate("MDCx", "标签中片商的格式："))
-        self.lineEdit_nfo_tag_studio.setText(_translate("MDCx", "片商: studio"))
-        self.checkBox_outline_cdata.setText(_translate("MDCx", "简介不写入 <![CDATA[*]]> 标记"))
-        self.label_390.setText(_translate("MDCx", "评分："))
-        self.checkBox_nfo_score.setText(_translate("MDCx", "公众评分（score）"))
-        self.checkBox_nfo_criticrating.setText(_translate("MDCx", "影评人评分（criticrating）"))
-        self.checkBox_nfo_studio.setText(_translate("MDCx", "片商（studio）"))
-        self.checkBox_nfo_maker.setText(_translate("MDCx", "片商（maker）"))
-        self.checkBox_nfo_publisher.setText(_translate("MDCx", "发行商（publisher）"))
-        self.checkBox_nfo_label.setText(_translate("MDCx", "发行商（label）"))
-        self.checkBox_tag_mosaic.setText(_translate("MDCx", "有码/无码"))
-        self.checkBox_tag_series.setText(_translate("MDCx", "系列"))
-        self.checkBox_tag_studio.setText(_translate("MDCx", "片商"))
-        self.checkBox_tag_publisher.setText(_translate("MDCx", "发行商"))
-        self.checkBox_nfo_series.setText(_translate("MDCx", "系列（series）"))
-        self.checkBox_nfo_tag.setText(_translate("MDCx", "标签（tag）"))
-        self.label_384.setText(_translate("MDCx", "简介："))
-        self.label_208.setText(_translate("MDCx", "系列/标签："))
-        self.label_418.setText(_translate("MDCx", "标签中发行的格式："))
-        self.lineEdit_nfo_tag_publisher.setText(_translate("MDCx", "发行: publisher"))
-        self.checkBox_nfo_release.setText(_translate("MDCx", "发行日期（release）"))
-        self.checkBox_nfo_relasedate.setText(_translate("MDCx", "发行日期（releasedate）"))
-        self.checkBox_nfo_premiered.setText(_translate("MDCx", "发行日期（premiered）"))
-        self.label_334.setText(_translate("MDCx", "风格/合集："))
-        self.label_385.setText(_translate("MDCx", "发行日期："))
-        self.label_392.setText(_translate("MDCx", "国家/分级："))
-        self.checkBox_nfo_year.setText(_translate("MDCx", "年份（year）"))
-        self.checkBox_nfo_runtime.setText(_translate("MDCx", "时长（runtime）"))
-        self.checkBox_nfo_wanted.setText(_translate("MDCx", "想看人数（votes）"))
-        self.checkBox_nfo_title_cd.setText(_translate("MDCx", "标题末尾写入分集信息"))
-        self.checkBox_nfo_country.setText(_translate("MDCx", "国家（country）"))
-        self.checkBox_nfo_mpaa.setText(_translate("MDCx", "分级信息（mpaa）"))
-        self.checkBox_nfo_customrating.setText(_translate("MDCx", "自定义分级（customrating）"))
-        self.label_386.setText(_translate("MDCx", "演员/导演："))
-        self.checkBox_nfo_actor.setText(_translate("MDCx", "演员（actor）"))
-        self.checkBox_nfo_director.setText(_translate("MDCx", "导演（director）"))
-        self.label_395.setText(_translate("MDCx", "请勾选写入标签的信息："))
-        self.label_150.setText(_translate("MDCx", "封面/背景/预告片："))
-        self.label_423.setText(_translate("MDCx", "标签中演员的格式："))
+        self.groupBox_36.setTitle(_translate("MDCx", "涓嶅浐瀹氫綅缃?))
+        self.radioButton_top_left.setText(_translate("MDCx", "宸︿笂"))
+        self.radioButton_top_right.setText(_translate("MDCx", "鍙充笂"))
+        self.radioButton_bottom_right.setText(_translate("MDCx", "鍙充笅"))
+        self.radioButton_bottom_left.setText(_translate("MDCx", "宸︿笅"))
+        self.label_126.setText(_translate("MDCx", "棣栦釜姘村嵃浣嶇疆锛?))
+        self.groupBox_42.setTitle(_translate("MDCx", "鍥哄畾涓嶅悓浣嶇疆"))
+        self.radioButton_top_left_sub.setText(_translate("MDCx", "宸︿笂"))
+        self.radioButton_top_right_sub.setText(_translate("MDCx", "鍙充笂"))
+        self.radioButton_bottom_right_sub.setText(_translate("MDCx", "鍙充笅"))
+        self.radioButton_bottom_left_sub.setText(_translate("MDCx", "宸︿笅"))
+        self.label_131.setText(_translate("MDCx", "瀛楀箷姘村嵃浣嶇疆锛?))
+        self.radioButton_top_left_mosaic.setText(_translate("MDCx", "宸︿笂"))
+        self.radioButton_top_right_mosaic.setText(_translate("MDCx", "鍙充笂"))
+        self.radioButton_bottom_right_mosaic.setText(_translate("MDCx", "鍙充笅"))
+        self.radioButton_bottom_left_mosaic.setText(_translate("MDCx", "宸︿笅"))
+        self.label_134.setText(_translate("MDCx", "椹禌鍏嬫按鍗颁綅缃細"))
+        self.radioButton_top_left_hd.setText(_translate("MDCx", "宸︿笂"))
+        self.radioButton_top_right_hd.setText(_translate("MDCx", "鍙充笂"))
+        self.radioButton_bottom_right_hd.setText(_translate("MDCx", "鍙充笅"))
+        self.radioButton_bottom_left_hd.setText(_translate("MDCx", "宸︿笅"))
+        self.label_216.setText(_translate("MDCx", "4K/8K姘村嵃浣嶇疆锛?))
+        self.groupBox_39.setTitle(_translate("MDCx", "鍥哄畾涓€涓綅缃?))
+        self.radioButton_top_left_corner.setText(_translate("MDCx", "宸︿笂"))
+        self.radioButton_top_right_corner.setText(_translate("MDCx", "鍙充笂"))
+        self.radioButton_bottom_right_corner.setText(_translate("MDCx", "鍙充笅"))
+        self.radioButton_bottom_left_corner.setText(_translate("MDCx", "宸︿笅"))
+        self.label_233.setText(_translate("MDCx", "姘村嵃鏄剧ず浣嶇疆锛?))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab4), _translate("MDCx", " 姘村嵃 "))
+        self.groupBox_81.setTitle(_translate("MDCx", "鍐欏叆 NFO 鐨勫瓧娈碉細"))
+        self.checkBox_nfo_all_actor.setText(_translate("MDCx", "鍐欏叆鐢峰コ婕斿憳锛堜笉鍕鹃€夛紝鍒欎粎鍐欏叆濂虫紨鍛橈級"))
+        self.checkBox_nfo_actor_tmdbid.setText(_translate("MDCx", "涓烘紨鍛樺啓鍏?TMDB ID锛堥渶閰嶇疆 TMDB API锛?))
+        self.label_391.setText(_translate("MDCx", "骞翠唤/鏃堕暱/鎯崇湅浜烘暟锛?))
+        self.checkBox_tag_letters.setText(_translate("MDCx", "鐣彿鍓嶇紑"))
+        self.checkBox_tag_actor.setText(_translate("MDCx", "婕斿憳"))
+        self.checkBox_tag_definition.setText(_translate("MDCx", "鍒嗚鲸鐜?))
+        self.checkBox_tag_cnword.setText(_translate("MDCx", "涓枃瀛楀箷"))
+        self.label_396.setText(_translate("MDCx", "璇峰～鍐?Tagline 鏍煎紡锛?))
+        self.lineEdit_nfo_tagline.setText(_translate("MDCx", "鍙戣鏃ユ湡锛歳elease"))
+        self.checkBox_nfo_sorttitle.setText(_translate("MDCx", "绫绘爣棰橈紙sorttitle锛?))
+        self.checkBox_nfo_originaltitle.setText(_translate("MDCx", "鍘熸爣棰橈紙originaltitle锛?))
+        self.checkBox_nfo_genre.setText(_translate("MDCx", "椋庢牸锛堜娇鐢ㄦ爣绛惧瓧娈碉級"))
+        self.checkBox_nfo_actor_set.setText(_translate("MDCx", "鍚堥泦锛堜娇鐢ㄦ紨鍛樺瓧娈碉級"))
+        self.checkBox_nfo_set.setText(_translate("MDCx", "鍚堥泦锛堜娇鐢ㄧ郴鍒楀瓧娈碉級"))
+        self.checkBox_nfo_poster.setText(_translate("MDCx", "灏侀潰锛坧oster锛?))
+        self.checkBox_nfo_cover.setText(_translate("MDCx", "鑳屾櫙锛坈over锛?))
+        self.checkBox_nfo_trailer.setText(_translate("MDCx", "棰勫憡鐗囷紙trilaer锛?))
+        self.checkBox_nfo_website.setText(_translate("MDCx", "缃戝潃锛坵ebsite锛?))
+        self.label_163.setText(_translate("MDCx", "鏍囬锛?))
+        self.label_388.setText(_translate("MDCx", "鐗囧晢/鍙戣鍟嗭細"))
+        self.checkBox_nfo_outline.setText(_translate("MDCx", "绠€浠嬶紙outline锛?))
+        self.checkBox_nfo_plot.setText(_translate("MDCx", "绠€浠嬶紙plot锛?))
+        self.checkBox_nfo_originalplot.setText(_translate("MDCx", "鍘熺畝浠嬶紙originalplot锛?))
+        self.label_412.setText(_translate("MDCx", "鏍囩涓郴鍒楃殑鏍煎紡锛?))
+        self.lineEdit_nfo_tag_series.setText(_translate("MDCx", "绯诲垪: series"))
+        self.label_416.setText(_translate("MDCx", "鏍囩涓墖鍟嗙殑鏍煎紡锛?))
+        self.lineEdit_nfo_tag_studio.setText(_translate("MDCx", "鐗囧晢: studio"))
+        self.checkBox_outline_cdata.setText(_translate("MDCx", "绠€浠嬩笉鍐欏叆 <![CDATA[*]]> 鏍囪"))
+        self.label_390.setText(_translate("MDCx", "璇勫垎锛?))
+        self.checkBox_nfo_score.setText(_translate("MDCx", "鍏紬璇勫垎锛坰core锛?))
+        self.checkBox_nfo_criticrating.setText(_translate("MDCx", "褰辫瘎浜鸿瘎鍒嗭紙criticrating锛?))
+        self.checkBox_nfo_studio.setText(_translate("MDCx", "鐗囧晢锛坰tudio锛?))
+        self.checkBox_nfo_maker.setText(_translate("MDCx", "鐗囧晢锛坢aker锛?))
+        self.checkBox_nfo_publisher.setText(_translate("MDCx", "鍙戣鍟嗭紙publisher锛?))
+        self.checkBox_nfo_label.setText(_translate("MDCx", "鍙戣鍟嗭紙label锛?))
+        self.checkBox_tag_mosaic.setText(_translate("MDCx", "鏈夌爜/鏃犵爜"))
+        self.checkBox_tag_series.setText(_translate("MDCx", "绯诲垪"))
+        self.checkBox_tag_studio.setText(_translate("MDCx", "鐗囧晢"))
+        self.checkBox_tag_publisher.setText(_translate("MDCx", "鍙戣鍟?))
+        self.checkBox_nfo_series.setText(_translate("MDCx", "绯诲垪锛坰eries锛?))
+        self.checkBox_nfo_tag.setText(_translate("MDCx", "鏍囩锛坱ag锛?))
+        self.label_384.setText(_translate("MDCx", "绠€浠嬶細"))
+        self.label_208.setText(_translate("MDCx", "绯诲垪/鏍囩锛?))
+        self.label_418.setText(_translate("MDCx", "鏍囩涓彂琛岀殑鏍煎紡锛?))
+        self.lineEdit_nfo_tag_publisher.setText(_translate("MDCx", "鍙戣: publisher"))
+        self.checkBox_nfo_release.setText(_translate("MDCx", "鍙戣鏃ユ湡锛坮elease锛?))
+        self.checkBox_nfo_relasedate.setText(_translate("MDCx", "鍙戣鏃ユ湡锛坮eleasedate锛?))
+        self.checkBox_nfo_premiered.setText(_translate("MDCx", "鍙戣鏃ユ湡锛坧remiered锛?))
+        self.label_334.setText(_translate("MDCx", "椋庢牸/鍚堥泦锛?))
+        self.label_385.setText(_translate("MDCx", "鍙戣鏃ユ湡锛?))
+        self.label_392.setText(_translate("MDCx", "鍥藉/鍒嗙骇锛?))
+        self.checkBox_nfo_year.setText(_translate("MDCx", "骞翠唤锛坹ear锛?))
+        self.checkBox_nfo_runtime.setText(_translate("MDCx", "鏃堕暱锛坮untime锛?))
+        self.checkBox_nfo_wanted.setText(_translate("MDCx", "鎯崇湅浜烘暟锛坴otes锛?))
+        self.checkBox_nfo_title_cd.setText(_translate("MDCx", "鏍囬鏈熬鍐欏叆鍒嗛泦淇℃伅"))
+        self.checkBox_nfo_country.setText(_translate("MDCx", "鍥藉锛坈ountry锛?))
+        self.checkBox_nfo_mpaa.setText(_translate("MDCx", "鍒嗙骇淇℃伅锛坢paa锛?))
+        self.checkBox_nfo_customrating.setText(_translate("MDCx", "鑷畾涔夊垎绾э紙customrating锛?))
+        self.label_386.setText(_translate("MDCx", "婕斿憳/瀵兼紨锛?))
+        self.checkBox_nfo_actor.setText(_translate("MDCx", "婕斿憳锛坅ctor锛?))
+        self.checkBox_nfo_director.setText(_translate("MDCx", "瀵兼紨锛坉irector锛?))
+        self.label_395.setText(_translate("MDCx", "璇峰嬀閫夊啓鍏ユ爣绛剧殑淇℃伅锛?))
+        self.label_150.setText(_translate("MDCx", "灏侀潰/鑳屾櫙/棰勫憡鐗囷細"))
+        self.label_423.setText(_translate("MDCx", "鏍囩涓紨鍛樼殑鏍煎紡锛?))
         self.lineEdit_nfo_tag_actor.setText(_translate("MDCx", "actor"))
-        self.label_428.setText(_translate("MDCx", "注意：如果需要繁体，请到「设置」-「翻译」-「标签」，勾选为繁体！"))
-        self.label_389.setText(_translate("MDCx", "注：同一字段多个名称可以兼容更多类型版本的媒体库"))
-        self.pushButton_field_tips_nfo.setText(_translate("MDCx", "字段说明"))
+        self.label_428.setText(_translate("MDCx", "娉ㄦ剰锛氬鏋滈渶瑕佺箒浣擄紝璇峰埌銆岃缃€?銆岀炕璇戙€?銆屾爣绛俱€嶏紝鍕鹃€変负绻佷綋锛?))
+        self.label_389.setText(_translate("MDCx", "娉細鍚屼竴瀛楁澶氫釜鍚嶇О鍙互鍏煎鏇村绫诲瀷鐗堟湰鐨勫獟浣撳簱"))
+        self.pushButton_field_tips_nfo.setText(_translate("MDCx", "瀛楁璇存槑"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_7), _translate("MDCx", " NFO "))
-        self.groupBox_43.setTitle(_translate("MDCx", "Emby/Jellyfin 设置"))
-        self.label_104.setText(_translate("MDCx", "服务器地址："))
-        self.label_105.setText(_translate("MDCx", "API 密钥创建方法：控制台->高级->API 密钥->添加（APP 名称任意）"))
-        self.comboBox_pic_actor.setItemText(0, _translate("MDCx", "1 所有演员"))
-        self.comboBox_pic_actor.setItemText(1, _translate("MDCx", "2 有信息，有头像的演员"))
-        self.comboBox_pic_actor.setItemText(2, _translate("MDCx", "3 有信息，没头像的演员"))
-        self.comboBox_pic_actor.setItemText(3, _translate("MDCx", "4 没信息，有头像的演员"))
-        self.comboBox_pic_actor.setItemText(4, _translate("MDCx", "5 没信息，没头像的演员"))
-        self.comboBox_pic_actor.setItemText(5, _translate("MDCx", "6 有信息的演员"))
-        self.comboBox_pic_actor.setItemText(6, _translate("MDCx", "7 没信息的演员"))
-        self.comboBox_pic_actor.setItemText(7, _translate("MDCx", "8 有头像的演员"))
-        self.comboBox_pic_actor.setItemText(8, _translate("MDCx", "9 没头像的演员"))
-        self.pushButton_show_pic_actor.setText(_translate("MDCx", "查看"))
+        self.groupBox_43.setTitle(_translate("MDCx", "Emby/Jellyfin 璁剧疆"))
+        self.label_104.setText(_translate("MDCx", "鏈嶅姟鍣ㄥ湴鍧€锛?))
+        self.label_105.setText(_translate("MDCx", "API 瀵嗛挜鍒涘缓鏂规硶锛氭帶鍒跺彴->楂樼骇->API 瀵嗛挜->娣诲姞锛圓PP 鍚嶇О浠绘剰锛?))
+        self.comboBox_pic_actor.setItemText(0, _translate("MDCx", "1 鎵€鏈夋紨鍛?))
+        self.comboBox_pic_actor.setItemText(1, _translate("MDCx", "2 鏈変俊鎭紝鏈夊ご鍍忕殑婕斿憳"))
+        self.comboBox_pic_actor.setItemText(2, _translate("MDCx", "3 鏈変俊鎭紝娌″ご鍍忕殑婕斿憳"))
+        self.comboBox_pic_actor.setItemText(3, _translate("MDCx", "4 娌′俊鎭紝鏈夊ご鍍忕殑婕斿憳"))
+        self.comboBox_pic_actor.setItemText(4, _translate("MDCx", "5 娌′俊鎭紝娌″ご鍍忕殑婕斿憳"))
+        self.comboBox_pic_actor.setItemText(5, _translate("MDCx", "6 鏈変俊鎭殑婕斿憳"))
+        self.comboBox_pic_actor.setItemText(6, _translate("MDCx", "7 娌′俊鎭殑婕斿憳"))
+        self.comboBox_pic_actor.setItemText(7, _translate("MDCx", "8 鏈夊ご鍍忕殑婕斿憳"))
+        self.comboBox_pic_actor.setItemText(8, _translate("MDCx", "9 娌″ご鍍忕殑婕斿憳"))
+        self.pushButton_show_pic_actor.setText(_translate("MDCx", "鏌ョ湅"))
         self.radioButton_server_emby.setText(_translate("MDCx", "Emby"))
         self.radioButton_server_jellyfin.setText(_translate("MDCx", "Jellyfin"))
-        self.label_298.setText(_translate("MDCx", "查看信息："))
-        self.label_121.setText(_translate("MDCx", "指你的 Emby/Jellyfin 服务器地址，比如：http://192.168.1.5:8096"))
-        self.label_306.setText(_translate("MDCx", "服务器类型："))
-        self.label_108.setText(_translate("MDCx", "用户 ID："))
-        self.label_107.setText(_translate("MDCx", "API 密钥："))
-        self.label_109.setText(_translate("MDCx", "如果设置，将仅获取指定 Emby/Jellyfin 用户媒体库中的演员"))
-        self.groupBox_41.setTitle(_translate("MDCx", "补全 Emby/Jellyfin 演员头像"))
-        self.pushButton_add_actor_pic.setText(_translate("MDCx", "开始补全"))
-        self.label_297.setText(_translate("MDCx", "使用网络头像库或本地头像库，补全 Emby/Jellyfin 演员头像。"))
-        self.checkBox_actor_photo_auto.setText(_translate("MDCx", "刮削结束后自动补全演员头像"))
-        self.radioButton_actor_photo_all.setText(_translate("MDCx", "所有女优"))
-        self.radioButton_actor_photo_miss.setText(_translate("MDCx", "仅缺少头像的女优"))
-        self.label_296.setText(_translate("MDCx", "补全范围："))
-        self.label_77.setText(_translate("MDCx", "下载头像包解压，填写头像图片目录的路径"))
-        self.label_293.setText(_translate("MDCx", "头像来源："))
-        self.label_101.setText(_translate("MDCx", "本地头像库："))
-        self.checkBox_actor_photo_ne_backdrop.setText(_translate("MDCx", "使用 Graphis 背景"))
-        self.checkBox_actor_photo_ne_face.setText(_translate("MDCx", "使用 Graphis 头像"))
-        self.checkBox_actor_photo_ne_new.setText(_translate("MDCx", "请求 Graphis 最新图片"))
-        self.radioButton_actor_photo_net.setText(_translate("MDCx", "网络头像库（Gfriends）"))
-        self.radioButton_actor_photo_local.setText(_translate("MDCx", "本地头像库"))
-        self.label_download_actor_zip.setText(_translate("MDCx", "点击下载头像包"))
-        self.pushButton_select_actor_photo_folder.setText(_translate("MDCx", "选择目录"))
-        self.label_303.setText(_translate("MDCx", "网络头像库："))
+        self.label_298.setText(_translate("MDCx", "鏌ョ湅淇℃伅锛?))
+        self.label_121.setText(_translate("MDCx", "鎸囦綘鐨?Emby/Jellyfin 鏈嶅姟鍣ㄥ湴鍧€锛屾瘮濡傦細http://192.168.1.5:8096"))
+        self.label_306.setText(_translate("MDCx", "鏈嶅姟鍣ㄧ被鍨嬶細"))
+        self.label_108.setText(_translate("MDCx", "鐢ㄦ埛 ID锛?))
+        self.label_107.setText(_translate("MDCx", "API 瀵嗛挜锛?))
+        self.label_109.setText(_translate("MDCx", "濡傛灉璁剧疆锛屽皢浠呰幏鍙栨寚瀹?Emby/Jellyfin 鐢ㄦ埛濯掍綋搴撲腑鐨勬紨鍛?))
+        self.groupBox_41.setTitle(_translate("MDCx", "琛ュ叏 Emby/Jellyfin 婕斿憳澶村儚"))
+        self.pushButton_add_actor_pic.setText(_translate("MDCx", "寮€濮嬭ˉ鍏?))
+        self.label_297.setText(_translate("MDCx", "浣跨敤缃戠粶澶村儚搴撴垨鏈湴澶村儚搴擄紝琛ュ叏 Emby/Jellyfin 婕斿憳澶村儚銆?))
+        self.checkBox_actor_photo_auto.setText(_translate("MDCx", "鍒墛缁撴潫鍚庤嚜鍔ㄨˉ鍏ㄦ紨鍛樺ご鍍?))
+        self.radioButton_actor_photo_all.setText(_translate("MDCx", "鎵€鏈夊コ浼?))
+        self.radioButton_actor_photo_miss.setText(_translate("MDCx", "浠呯己灏戝ご鍍忕殑濂充紭"))
+        self.label_296.setText(_translate("MDCx", "琛ュ叏鑼冨洿锛?))
+        self.label_77.setText(_translate("MDCx", "涓嬭浇澶村儚鍖呰В鍘嬶紝濉啓澶村儚鍥剧墖鐩綍鐨勮矾寰?))
+        self.label_293.setText(_translate("MDCx", "澶村儚鏉ユ簮锛?))
+        self.label_101.setText(_translate("MDCx", "鏈湴澶村儚搴擄細"))
+        self.checkBox_actor_photo_ne_backdrop.setText(_translate("MDCx", "浣跨敤 Graphis 鑳屾櫙"))
+        self.checkBox_actor_photo_ne_face.setText(_translate("MDCx", "浣跨敤 Graphis 澶村儚"))
+        self.checkBox_actor_photo_ne_new.setText(_translate("MDCx", "璇锋眰 Graphis 鏈€鏂板浘鐗?))
+        self.radioButton_actor_photo_net.setText(_translate("MDCx", "缃戠粶澶村儚搴擄紙Gfriends锛?))
+        self.radioButton_actor_photo_local.setText(_translate("MDCx", "鏈湴澶村儚搴?))
+        self.label_download_actor_zip.setText(_translate("MDCx", "鐐瑰嚮涓嬭浇澶村儚鍖?))
+        self.pushButton_select_actor_photo_folder.setText(_translate("MDCx", "閫夋嫨鐩綍"))
+        self.label_303.setText(_translate("MDCx", "缃戠粶澶村儚搴擄細"))
         self.label_123.setText(
             _translate(
                 "MDCx",
-                "<p>支持优先使用 Graphis.ne.jp 的图片作为演员头像和演员背景；<br>Graphis.ne.jp 提供了演员不同时期的图片，默认请求早期的图片。</p>",
+                "<p>鏀寔浼樺厛浣跨敤 Graphis.ne.jp 鐨勫浘鐗囦綔涓烘紨鍛樺ご鍍忓拰婕斿憳鑳屾櫙锛?br>Graphis.ne.jp 鎻愪緵浜嗘紨鍛樹笉鍚屾椂鏈熺殑鍥剧墖锛岄粯璁よ姹傛棭鏈熺殑鍥剧墖銆?/p>",
             )
         )
-        self.label_gfriends_local.setText(_translate("MDCx", "Gfriends 本地仓库："))
-        self.pushButton_select_gfriends_local.setText(_translate("MDCx", "选择目录"))
-        self.pushButton_sync_gfriends.setText(_translate("MDCx", "更新 Gfriends"))
-        self.label_gfriends_update_time.setText(_translate("MDCx", "最后更新: -"))
-        self.groupBox_64.setTitle(_translate("MDCx", "补全 Emby/Jellyfin 演员信息"))
-        self.radioButton_actor_info_zh_cn.setText(_translate("MDCx", "中文简体"))
-        self.radioButton_actor_info_zh_tw.setText(_translate("MDCx", "中文繁体"))
-        self.radioButton_actor_info_ja.setText(_translate("MDCx", "日语"))
-        self.label_431.setText(_translate("MDCx", "演员信息数据库："))
-        self.pushButton_select_actor_info_db.setText(_translate("MDCx", "选择文件"))
-        self.checkBox_actor_db.setText(_translate("MDCx", "使用数据库补全演员信息"))
-        self.label_download_actor_db.setText(_translate("MDCx", "点击下载演员数据库"))
-        self.label_291.setText(_translate("MDCx", "补全语言："))
-        self.checkBox_actor_info_translate.setText(_translate("MDCx", "不存在中文时，翻译日语为中文"))
-        self.label_106.setText(_translate("MDCx", "不勾选则无中文时使用日语"))
-        self.pushButton_add_actor_info.setText(_translate("MDCx", "开始补全"))
+        self.label_gfriends_local.setText(_translate("MDCx", "Gfriends 鏈湴浠撳簱锛?))
+        self.pushButton_select_gfriends_local.setText(_translate("MDCx", "閫夋嫨鐩綍"))
+        self.pushButton_sync_gfriends.setText(_translate("MDCx", "鏇存柊 Gfriends"))
+        self.label_gfriends_update_time.setText(_translate("MDCx", "鏈€鍚庢洿鏂? -"))
+        self.groupBox_64.setTitle(_translate("MDCx", "琛ュ叏 Emby/Jellyfin 婕斿憳淇℃伅"))
+        self.radioButton_actor_info_zh_cn.setText(_translate("MDCx", "涓枃绠€浣?))
+        self.radioButton_actor_info_zh_tw.setText(_translate("MDCx", "涓枃绻佷綋"))
+        self.radioButton_actor_info_ja.setText(_translate("MDCx", "鏃ヨ"))
+        self.label_431.setText(_translate("MDCx", "婕斿憳淇℃伅鏁版嵁搴擄細"))
+        self.pushButton_select_actor_info_db.setText(_translate("MDCx", "閫夋嫨鏂囦欢"))
+        self.checkBox_actor_db.setText(_translate("MDCx", "浣跨敤鏁版嵁搴撹ˉ鍏ㄦ紨鍛樹俊鎭?))
+        self.label_download_actor_db.setText(_translate("MDCx", "鐐瑰嚮涓嬭浇婕斿憳鏁版嵁搴?))
+        self.label_291.setText(_translate("MDCx", "琛ュ叏璇█锛?))
+        self.checkBox_actor_info_translate.setText(_translate("MDCx", "涓嶅瓨鍦ㄤ腑鏂囨椂锛岀炕璇戞棩璇负涓枃"))
+        self.label_106.setText(_translate("MDCx", "涓嶅嬀閫夊垯鏃犱腑鏂囨椂浣跨敤鏃ヨ"))
+        self.pushButton_add_actor_info.setText(_translate("MDCx", "寮€濮嬭ˉ鍏?))
         self.label_295.setText(
             _translate(
-                "MDCx", "使用minnano-av和维基百科补全Emby/Jellyfin演员信息，包括:生日、身高、三围、出道时间和作品等。"
+                "MDCx", "浣跨敤minnano-av鍜岀淮鍩虹櫨绉戣ˉ鍏‥mby/Jellyfin婕斿憳淇℃伅锛屽寘鎷?鐢熸棩銆佽韩楂樸€佷笁鍥淬€佸嚭閬撴椂闂村拰浣滃搧绛夈€?
             )
         )
-        self.radioButton_actor_info_all.setText(_translate("MDCx", "所有女优"))
-        self.radioButton_actor_info_miss.setText(_translate("MDCx", "仅缺少信息的女优"))
-        self.label_299.setText(_translate("MDCx", "补全范围："))
-        self.checkBox_actor_info_photo.setText(_translate("MDCx", "补全完成后自动补全演员头像"))
-        self.groupBox_68.setTitle(_translate("MDCx", "补全 Kodi/Plex/Jvedio 演员头像"))
-        self.pushButton_add_actor_pic_kodi.setText(_translate("MDCx", "开始补全"))
+        self.radioButton_actor_info_all.setText(_translate("MDCx", "鎵€鏈夊コ浼?))
+        self.radioButton_actor_info_miss.setText(_translate("MDCx", "浠呯己灏戜俊鎭殑濂充紭"))
+        self.label_299.setText(_translate("MDCx", "琛ュ叏鑼冨洿锛?))
+        self.checkBox_actor_info_photo.setText(_translate("MDCx", "琛ュ叏瀹屾垚鍚庤嚜鍔ㄨˉ鍏ㄦ紨鍛樺ご鍍?))
+        self.groupBox_68.setTitle(_translate("MDCx", "琛ュ叏 Kodi/Plex/Jvedio 婕斿憳澶村儚"))
+        self.pushButton_add_actor_pic_kodi.setText(_translate("MDCx", "寮€濮嬭ˉ鍏?))
         self.label_414.setText(
             _translate(
-                "MDCx", "将为待刮削目录的每个视频在同目录创建一个 .actors 文件夹，并将该视频的演员图片放在该文件夹中"
+                "MDCx", "灏嗕负寰呭埉鍓婄洰褰曠殑姣忎釜瑙嗛鍦ㄥ悓鐩綍鍒涘缓涓€涓?.actors 鏂囦欢澶癸紝骞跺皢璇ヨ棰戠殑婕斿憳鍥剧墖鏀惧湪璇ユ枃浠跺す涓?
             )
         )
-        self.checkBox_actor_pic_replace.setText(_translate("MDCx", "覆盖已存在的演员图片"))
-        self.label_415.setText(_translate("MDCx", "图片已存在时："))
-        self.pushButton_del_actor_folder.setText(_translate("MDCx", "清除所有 .actors 文件夹"))
-        self.checkBox_actor_photo_kodi.setText(_translate("MDCx", "刮削结束后自动创建"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_5), _translate("MDCx", " 演员 "))
-        self.groupBox_10.setTitle(_translate("MDCx", "Cookie设置"))
-        self.label_45.setText(_translate("MDCx", "javdb：\n（登录状态）"))
-        self.plainTextEdit_cookie_javdb.setPlaceholderText(_translate("MDCx", "刮削FC2需要填写"))
-        self.pushButton_check_javdb_cookie.setText(_translate("MDCx", "检查cookie"))
-        self.label_425.setText(_translate("MDCx", "javbus：\n（登录状态）"))
+        self.checkBox_actor_pic_replace.setText(_translate("MDCx", "瑕嗙洊宸插瓨鍦ㄧ殑婕斿憳鍥剧墖"))
+        self.label_415.setText(_translate("MDCx", "鍥剧墖宸插瓨鍦ㄦ椂锛?))
+        self.pushButton_del_actor_folder.setText(_translate("MDCx", "娓呴櫎鎵€鏈?.actors 鏂囦欢澶?))
+        self.checkBox_actor_photo_kodi.setText(_translate("MDCx", "鍒墛缁撴潫鍚庤嚜鍔ㄥ垱寤?))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_5), _translate("MDCx", " 婕斿憳 "))
+        self.groupBox_10.setTitle(_translate("MDCx", "Cookie璁剧疆"))
+        self.label_45.setText(_translate("MDCx", "javdb锛歕n锛堢櫥褰曠姸鎬侊級"))
+        self.plainTextEdit_cookie_javdb.setPlaceholderText(_translate("MDCx", "鍒墛FC2闇€瑕佸～鍐?))
+        self.pushButton_check_javdb_cookie.setText(_translate("MDCx", "妫€鏌ookie"))
+        self.label_425.setText(_translate("MDCx", "javbus锛歕n锛堢櫥褰曠姸鎬侊級"))
         self.plainTextEdit_cookie_javbus.setPlaceholderText(
-            _translate("MDCx", "美国节点需要填写，其他节点一般不需要填写，除非提示需要填写。")
+            _translate("MDCx", "缇庡浗鑺傜偣闇€瑕佸～鍐欙紝鍏朵粬鑺傜偣涓€鑸笉闇€瑕佸～鍐欙紝闄ら潪鎻愮ず闇€瑕佸～鍐欍€?)
         )
-        self.pushButton_check_javbus_cookie.setText(_translate("MDCx", "检查cookie"))
-        self.label_fc2ppvdb_cookie.setText(_translate("MDCx", "fc2ppvdb：\n（登录状态）"))
+        self.pushButton_check_javbus_cookie.setText(_translate("MDCx", "妫€鏌ookie"))
+        self.label_fc2ppvdb_cookie.setText(_translate("MDCx", "fc2ppvdb锛歕n锛堢櫥褰曠姸鎬侊級"))
         self.plainTextEdit_cookie_fc2ppvdb.setPlaceholderText(
             _translate(
                 "MDCx",
-                "请粘贴 fc2cmadb.com 登录后的完整 Cookie（含 XSRF-TOKEN 与 session 项）\n"
-                "（需登录状态才能刮取演员数据，建议在浏览器登录后从开发者工具复制 Cookie）",
+                "璇风矘璐?fc2cmadb.com 鐧诲綍鍚庣殑瀹屾暣 Cookie锛堝惈 XSRF-TOKEN 涓?session 椤癸級\n"
+                "锛堥渶鐧诲綍鐘舵€佹墠鑳藉埉鍙栨紨鍛樻暟鎹紝寤鸿鍦ㄦ祻瑙堝櫒鐧诲綍鍚庝粠寮€鍙戣€呭伐鍏峰鍒?Cookie锛?,
             )
         )
-        self.pushButton_check_fc2ppvdb_cookie.setText(_translate("MDCx", "检查cookie"))
+        self.pushButton_check_fc2ppvdb_cookie.setText(_translate("MDCx", "妫€鏌ookie"))
         self.label_75.setText(
             _translate(
                 "MDCx",
-                "<p style='line-height:20px'>Cookie 获取方法：<br>\n"
-                "                          1，使用 Chrome 打开目标网站并登录，在页面空白位置点击鼠标右键，选择 「检查」 ；<br>\n"
-                "                          2，右侧弹窗顶部选择：「网络」 -> 「全部」，然后刷新当前页面；<br>\n"
-                "                          3，点击「名称」栏新加载出来的第一个内容 -> 「标头」 -> 「请求表头」 -> 「Cookie」；<br>\n"
-                "                          4，复制 Cookie 对应的全部值填入上面输入框。（不要直接右键点「复制值」！！！！\n"
-                "                          一定要先用鼠标「手动框选」要复制的全部文字，然后再右键点「复制」！！！不是「复制值」！！！！！！）<br>\n"
-                "                          （注意：Cookie 存在有效期，过期无效时请重新获取。）</p>",
+                "<p style='line-height:20px'>Cookie 鑾峰彇鏂规硶锛?br>\n"
+                "                          1锛屼娇鐢?Chrome 鎵撳紑鐩爣缃戠珯骞剁櫥褰曪紝鍦ㄩ〉闈㈢┖鐧戒綅缃偣鍑婚紶鏍囧彸閿紝閫夋嫨 銆屾鏌ャ€?锛?br>\n"
+                "                          2锛屽彸渚у脊绐楅《閮ㄩ€夋嫨锛氥€岀綉缁溿€?-> 銆屽叏閮ㄣ€嶏紝鐒跺悗鍒锋柊褰撳墠椤甸潰锛?br>\n"
+                "                          3锛岀偣鍑汇€屽悕绉般€嶆爮鏂板姞杞藉嚭鏉ョ殑绗竴涓唴瀹?-> 銆屾爣澶淬€?-> 銆岃姹傝〃澶淬€?-> 銆孋ookie銆嶏紱<br>\n"
+                "                          4锛屽鍒?Cookie 瀵瑰簲鐨勫叏閮ㄥ€煎～鍏ヤ笂闈㈣緭鍏ユ銆傦紙涓嶈鐩存帴鍙抽敭鐐广€屽鍒跺€笺€嶏紒锛侊紒锛乗n"
+                "                          涓€瀹氳鍏堢敤榧犳爣銆屾墜鍔ㄦ閫夈€嶈澶嶅埗鐨勫叏閮ㄦ枃瀛楋紝鐒跺悗鍐嶅彸閿偣銆屽鍒躲€嶏紒锛侊紒涓嶆槸銆屽鍒跺€笺€嶏紒锛侊紒锛侊紒锛侊級<br>\n"
+                "                          锛堟敞鎰忥細Cookie 瀛樺湪鏈夋晥鏈燂紝杩囨湡鏃犳晥鏃惰閲嶆柊鑾峰彇銆傦級</p>",
             )
         )
         self.label_get_cookie_url.setText(_translate("MDCx", "https://tieba.baidu.com/p/5492736764"))
-        self.label_7.setText(_translate("MDCx", "演示动画："))
-        self.groupBox_28.setTitle(_translate("MDCx", "网络设置"))
+        self.label_7.setText(_translate("MDCx", "婕旂ず鍔ㄧ敾锛?))
+        self.groupBox_28.setTitle(_translate("MDCx", "缃戠粶璁剧疆"))
         self.label_103.setText(
             _translate(
                 "MDCx",
-                '<p style=\'line-height:20px\'>支持 http(s), socks5(h) 代理. 示例: http://127.0.0.1:7897<br>需要用户名和密码时格式为: schema://username:password@host:port<br>Cloudflare Bypass 地址留空时，若配置了下方"外部 CF 服务"则自动启动适配层；两者均留空时关闭 CF Bypass 功能<br>"使用代理"仅控制常规网络请求代理开关，不控制 CF Bypass 代理<br>"CF Bypass代理"仅作用于 bypass 服务请求（mirror/html）<br>勾选"全部走代理"后，"使用代理"列表不再生效，分流交给代理软件裁决</p>',
+                '<p style=\'line-height:20px\'>鏀寔 http(s), socks5(h) 浠ｇ悊. 绀轰緥: http://127.0.0.1:7897<br>闇€瑕佺敤鎴峰悕鍜屽瘑鐮佹椂鏍煎紡涓? schema://username:password@host:port<br>Cloudflare Bypass 鍦板潃鐣欑┖鏃讹紝鑻ラ厤缃簡涓嬫柟"澶栭儴 CF 鏈嶅姟"鍒欒嚜鍔ㄥ惎鍔ㄩ€傞厤灞傦紱涓よ€呭潎鐣欑┖鏃跺叧闂?CF Bypass 鍔熻兘<br>"浣跨敤浠ｇ悊"浠呮帶鍒跺父瑙勭綉缁滆姹備唬鐞嗗紑鍏筹紝涓嶆帶鍒?CF Bypass 浠ｇ悊<br>"CF Bypass浠ｇ悊"浠呬綔鐢ㄤ簬 bypass 鏈嶅姟璇锋眰锛坢irror/html锛?br>鍕鹃€?鍏ㄩ儴璧颁唬鐞?鍚庯紝"浣跨敤浠ｇ悊"鍒楄〃涓嶅啀鐢熸晥锛屽垎娴佷氦缁欎唬鐞嗚蒋浠惰鍐?/p>',
             )
         )
-        self.checkBox_use_proxy.setToolTip(_translate("MDCx", "仅控制常规网络请求代理开关，不控制 CF Bypass 代理"))
-        self.checkBox_use_proxy.setText(_translate("MDCx", "使用代理"))
-        self.label_73.setText(_translate("MDCx", "超时时间："))
-        self.label_no_proxy_sites.setText(_translate("MDCx", "使用代理："))
-        self.comboBox_no_proxy_sites.setCurrentText(_translate("MDCx", "选择网站..."))
-        self.lineEdit_no_proxy_sites.setPlaceholderText(_translate("MDCx", "逗号分隔，如 api.tmdb.org,libredmm"))
+        self.checkBox_use_proxy.setToolTip(_translate("MDCx", "浠呮帶鍒跺父瑙勭綉缁滆姹備唬鐞嗗紑鍏筹紝涓嶆帶鍒?CF Bypass 浠ｇ悊"))
+        self.checkBox_use_proxy.setText(_translate("MDCx", "浣跨敤浠ｇ悊"))
+        self.label_73.setText(_translate("MDCx", "瓒呮椂鏃堕棿锛?))
+        self.label_no_proxy_sites.setText(_translate("MDCx", "浣跨敤浠ｇ悊锛?))
+        self.comboBox_no_proxy_sites.setCurrentText(_translate("MDCx", "閫夋嫨缃戠珯..."))
+        self.lineEdit_no_proxy_sites.setPlaceholderText(_translate("MDCx", "閫楀彿鍒嗛殧锛屽 api.tmdb.org,libredmm"))
         self.checkBox_proxy_route_all.setToolTip(
             _translate(
                 "MDCx",
-                '开启后所有请求都发给代理地址，分流规则交给代理软件（Clash 等）裁决；"使用代理"列表不再生效。会显著增加代理流量消耗（高清图为大流量来源），默认关闭。',
+                '寮€鍚悗鎵€鏈夎姹傞兘鍙戠粰浠ｇ悊鍦板潃锛屽垎娴佽鍒欎氦缁欎唬鐞嗚蒋浠讹紙Clash 绛夛級瑁佸喅锛?浣跨敤浠ｇ悊"鍒楄〃涓嶅啀鐢熸晥銆備細鏄捐憲澧炲姞浠ｇ悊娴侀噺娑堣€楋紙楂樻竻鍥句负澶ф祦閲忔潵婧愶級锛岄粯璁ゅ叧闂€?,
             )
         )
-        self.checkBox_proxy_route_all.setText(_translate("MDCx", "全部走代理"))
-        self.label_cf_bypass.setText(_translate("MDCx", "CF Bypass："))
+        self.checkBox_proxy_route_all.setText(_translate("MDCx", "鍏ㄩ儴璧颁唬鐞?))
+        self.label_cf_bypass.setText(_translate("MDCx", "CF Bypass锛?))
         self.lineEdit_cf_bypass_url.setPlaceholderText(
-            _translate("MDCx", "留空则由外部 CF 服务自动启动（高级：手动指定 cf_bypasser 协议服务地址）")
+            _translate("MDCx", "鐣欑┖鍒欑敱澶栭儴 CF 鏈嶅姟鑷姩鍚姩锛堥珮绾э細鎵嬪姩鎸囧畾 cf_bypasser 鍗忚鏈嶅姟鍦板潃锛?)
         )
-        self.label_cf_bypass_proxy.setText(_translate("MDCx", "CF Bypass代理："))
-        self.lineEdit_cf_bypass_proxy.setPlaceholderText(_translate("MDCx", "例如: http://127.0.0.1:7890（可选）"))
-        self.label_cf_bypass_trawl.setText(_translate("MDCx", "外部 CF 服务："))
-        self.lineEdit_cf_bypass_trawl_url.setPlaceholderText(_translate("MDCx", "例如: http://127.0.0.1:8191"))
+        self.label_cf_bypass_proxy.setText(_translate("MDCx", "CF Bypass浠ｇ悊锛?))
+        self.lineEdit_cf_bypass_proxy.setPlaceholderText(_translate("MDCx", "渚嬪: http://127.0.0.1:7890锛堝彲閫夛級"))
+        self.label_cf_bypass_trawl.setText(_translate("MDCx", "澶栭儴 CF 鏈嶅姟锛?))
+        self.lineEdit_cf_bypass_trawl_url.setPlaceholderText(_translate("MDCx", "渚嬪: http://127.0.0.1:8191"))
         self.comboBox_cf_bypass_backend.setToolTip(
-            _translate("MDCx", "TRAWL：走 /scrape 原生 API；FlareSolverr：走 /v1 兼容 API")
+            _translate("MDCx", "TRAWL锛氳蛋 /scrape 鍘熺敓 API锛汧lareSolverr锛氳蛋 /v1 鍏煎 API")
         )
         self.comboBox_cf_bypass_backend.setItemText(0, _translate("MDCx", "trawl"))
         self.comboBox_cf_bypass_backend.setItemText(1, _translate("MDCx", "flaresolverr"))
-        self.label_cf_bypass_trusted_hosts.setText(_translate("MDCx", "Bypass落地白名单："))
+        self.label_cf_bypass_trusted_hosts.setText(_translate("MDCx", "Bypass钀藉湴鐧藉悕鍗曪細"))
         self.lineEdit_cf_bypass_trusted_hosts.setPlaceholderText(
-            _translate("MDCx", "逗号分隔，如 javbus.com,*.javdb.com（留空不校验）")
+            _translate("MDCx", "閫楀彿鍒嗛殧锛屽 javbus.com,*.javdb.com锛堢暀绌轰笉鏍￠獙锛?)
         )
         self.lineEdit_cf_bypass_trusted_hosts.setToolTip(
             _translate(
                 "MDCx",
-                "校验 Bypass 服务落地/重定向后的最终域名，防止第三方服务被劫持时把恶意页面当数据；支持 *.example.com 子域通配；留空表示不校验（默认）",
+                "鏍￠獙 Bypass 鏈嶅姟钀藉湴/閲嶅畾鍚戝悗鐨勬渶缁堝煙鍚嶏紝闃叉绗笁鏂规湇鍔¤鍔寔鏃舵妸鎭舵剰椤甸潰褰撴暟鎹紱鏀寔 *.example.com 瀛愬煙閫氶厤锛涚暀绌鸿〃绀轰笉鏍￠獙锛堥粯璁わ級",
             )
         )
         self.label_cf_bypass_trusted_hosts_desc.setText(
             _translate(
                 "MDCx",
-                "用途：校验 Bypass 服务落地/重定向后的最终域名，防止第三方服务被劫持时把恶意页面当数据。支持 *.example.com 子域通配，逗号分隔；留空表示不校验（默认）。一般无需配置。",
+                "鐢ㄩ€旓細鏍￠獙 Bypass 鏈嶅姟钀藉湴/閲嶅畾鍚戝悗鐨勬渶缁堝煙鍚嶏紝闃叉绗笁鏂规湇鍔¤鍔寔鏃舵妸鎭舵剰椤甸潰褰撴暟鎹€傛敮鎸?*.example.com 瀛愬煙閫氶厤锛岄€楀彿鍒嗛殧锛涚暀绌鸿〃绀轰笉鏍￠獙锛堥粯璁わ級銆備竴鑸棤闇€閰嶇疆銆?,
             )
         )
-        self.label_65.setText(_translate("MDCx", "重试次数："))
-        self.label_64.setText(_translate("MDCx", "代理地址："))
-        self.label_verify_ssl.setText(_translate("MDCx", "HTTPS 证书校验："))
-        self.checkBox_verify_ssl.setText(_translate("MDCx", "启用 HTTPS 证书校验（自签名代理 / MITM 调试时关闭）"))
-        self.groupBox_44.setTitle(_translate("MDCx", "网站设置"))
-        self.label_401.setText(_translate("MDCx", "当前网站："))
+        self.label_65.setText(_translate("MDCx", "閲嶈瘯娆℃暟锛?))
+        self.label_64.setText(_translate("MDCx", "浠ｇ悊鍦板潃锛?))
+        self.label_verify_ssl.setText(_translate("MDCx", "HTTPS 璇佷功鏍￠獙锛?))
+        self.checkBox_verify_ssl.setText(_translate("MDCx", "鍚敤 HTTPS 璇佷功鏍￠獙锛堣嚜绛惧悕浠ｇ悊 / MITM 璋冭瘯鏃跺叧闂級"))
+        self.groupBox_44.setTitle(_translate("MDCx", "缃戠珯璁剧疆"))
+        self.label_401.setText(_translate("MDCx", "褰撳墠缃戠珯锛?))
         self.label_132.setText(
             _translate(
                 "MDCx",
-                '<p>可在下方设置选定网站的配置。<span style=" color:#d9001f;">切换网站前需先保存，否则不会生效</span></p><p>注意：当前并非所有网站均支持这些配置，某些设置可能无效</p>',
+                '<p>鍙湪涓嬫柟璁剧疆閫夊畾缃戠珯鐨勯厤缃€?span style=" color:#d9001f;">鍒囨崲缃戠珯鍓嶉渶鍏堜繚瀛橈紝鍚﹀垯涓嶄細鐢熸晥</span></p><p>娉ㄦ剰锛氬綋鍓嶅苟闈炴墍鏈夌綉绔欏潎鏀寔杩欎簺閰嶇疆锛屾煇浜涜缃彲鑳芥棤鏁?/p>',
             )
         )
-        self.label_400.setText(_translate("MDCx", "自定义网址："))
+        self.label_400.setText(_translate("MDCx", "鑷畾涔夌綉鍧€锛?))
         self.label_110.setText(
-            _translate("MDCx", "<html><head/><body><p>自定义指定网站的网址，刮削时将用其代替默认网址</p></body></html>")
+            _translate("MDCx", "<html><head/><body><p>鑷畾涔夋寚瀹氱綉绔欑殑缃戝潃锛屽埉鍓婃椂灏嗙敤鍏朵唬鏇块粯璁ょ綉鍧€</p></body></html>")
         )
         self.label_136.setText(
             _translate(
                 "MDCx",
-                "<html><head/><body><p>必须安装 Chrome 浏览器。可处理某些无法获取的网站，内存占用会显著提高</p></body></html>",
+                "<html><head/><body><p>蹇呴』瀹夎 Chrome 娴忚鍣ㄣ€傚彲澶勭悊鏌愪簺鏃犳硶鑾峰彇鐨勭綉绔欙紝鍐呭瓨鍗犵敤浼氭樉钁楁彁楂?/p></body></html>",
             )
         )
         self.groupBox_14.setTitle(_translate("MDCx", "API Token"))
-        self.label_355.setText(_translate("MDCx", "ThePornDB："))
-        self.label_423_wl.setText(_translate("MDCx", "TMDB API地址："))
+        self.label_355.setText(_translate("MDCx", "ThePornDB锛?))
+        self.label_423_wl.setText(_translate("MDCx", "TMDB API鍦板潃锛?))
         self.lineEdit_tmdb_api_base.setText(_translate("MDCx", "api.tmdb.org"))
-        self.label_424_wl.setText(_translate("MDCx", "TMDB API Key："))
+        self.label_424_wl.setText(_translate("MDCx", "TMDB API Key锛?))
         self.label_356.setText(
             _translate(
                 "MDCx",
@@ -14018,69 +14014,69 @@ class Ui_MDCx(object):
                 '                                href="https://theporndb.net/"><span style="\n'
                 "                                text-decoration: underline;\n"
                 '                                color:#094fd1;">https://theporndb.net/</span></a>\n'
-                "                                注册登录后，点头像 - API Tokens - CREATE。复制生成的 API Token\n"
-                "                                填入此处。</p></body></html>",
+                "                                娉ㄥ唽鐧诲綍鍚庯紝鐐瑰ご鍍?- API Tokens - CREATE銆傚鍒剁敓鎴愮殑 API Token\n"
+                "                                濉叆姝ゅ銆?/p></body></html>",
             )
         )
-        self.checkBox_theporndb_hash.setText(_translate("MDCx", "不使用Hash值匹配数据"))
+        self.checkBox_theporndb_hash.setText(_translate("MDCx", "涓嶄娇鐢℉ash鍊煎尮閰嶆暟鎹?))
         self.label_422.setText(
             _translate(
                 "MDCx",
                 "\n"
-                "                                    <html><head/><body><p>该网站的Hash值匹配结果可能错误</p></body></html>",
+                "                                    <html><head/><body><p>璇ョ綉绔欑殑Hash鍊煎尮閰嶇粨鏋滃彲鑳介敊璇?/p></body></html>",
             )
         )
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab3), _translate("MDCx", " 网络 "))
-        self.groupBox_17.setTitle(_translate("MDCx", "保存日志"))
-        self.radioButton_log_on.setText(_translate("MDCx", "开"))
-        self.radioButton_log_off.setText(_translate("MDCx", "关"))
-        self.groupBox_3.setTitle(_translate("MDCx", "调试模式（日志页面）"))
-        self.checkBox_show_web_log.setText(_translate("MDCx", "显示刮削过程信息"))
-        self.checkBox_show_from_log.setText(_translate("MDCx", "显示字段来源信息"))
-        self.checkBox_show_data_log.setText(_translate("MDCx", "显示字段内容信息"))
-        self.groupBox_4.setTitle(_translate("MDCx", "检查更新"))
-        self.radioButton_update_on.setText(_translate("MDCx", "开"))
-        self.radioButton_update_off.setText(_translate("MDCx", "关"))
-        self.groupBox_12.setTitle(_translate("MDCx", "高级功能"))
-        self.checkBox_hide_window_title.setText(_translate("MDCx", "隐藏边框（美观样式）"))
-        self.checkBox_dark_mode.setText(_translate("MDCx", "暗黑模式"))
-        self.checkBox_hide_dock_icon.setText(_translate("MDCx", "隐藏 Dock 图标（Mac）"))
-        self.label_42.setText(_translate("MDCx", "保存后重启软件生效 "))
-        self.checkBox_hide_menu_icon.setText(_translate("MDCx", "隐藏菜单栏图标（Mac）"))
-        self.label_321.setText(_translate("MDCx", "间歇刮削："))
-        self.checkBox_auto_start.setText(_translate("MDCx", "启动软件后自动开始刮削"))
-        self.checkBox_auto_exit.setText(_translate("MDCx", "刮削结束后自动退出软件"))
-        self.checkBox_show_dialog_exit.setText(_translate("MDCx", "退出软件时"))
-        self.checkBox_show_dialog_stop_scrape.setText(_translate("MDCx", "停止刮削时"))
-        self.checkBox_timed_scrape.setText(_translate("MDCx", "每隔"))
-        self.label_84.setText(_translate("MDCx", "（时:分:秒），自动开始刮削（读取配置时开始计时）"))
-        self.label_308.setText(_translate("MDCx", "自动任务："))
-        self.label_309.setText(_translate("MDCx", "自动刮削："))
-        self.label_277.setText(_translate("MDCx", "弹窗确认："))
-        self.pushButton_select_config_folder.setText(_translate("MDCx", "选择目录"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab3), _translate("MDCx", " 缃戠粶 "))
+        self.groupBox_17.setTitle(_translate("MDCx", "淇濆瓨鏃ュ織"))
+        self.radioButton_log_on.setText(_translate("MDCx", "寮€"))
+        self.radioButton_log_off.setText(_translate("MDCx", "鍏?))
+        self.groupBox_3.setTitle(_translate("MDCx", "璋冭瘯妯″紡锛堟棩蹇楅〉闈級"))
+        self.checkBox_show_web_log.setText(_translate("MDCx", "鏄剧ず鍒墛杩囩▼淇℃伅"))
+        self.checkBox_show_from_log.setText(_translate("MDCx", "鏄剧ず瀛楁鏉ユ簮淇℃伅"))
+        self.checkBox_show_data_log.setText(_translate("MDCx", "鏄剧ず瀛楁鍐呭淇℃伅"))
+        self.groupBox_4.setTitle(_translate("MDCx", "妫€鏌ユ洿鏂?))
+        self.radioButton_update_on.setText(_translate("MDCx", "寮€"))
+        self.radioButton_update_off.setText(_translate("MDCx", "鍏?))
+        self.groupBox_12.setTitle(_translate("MDCx", "楂樼骇鍔熻兘"))
+        self.checkBox_hide_window_title.setText(_translate("MDCx", "闅愯棌杈规锛堢編瑙傛牱寮忥級"))
+        self.checkBox_dark_mode.setText(_translate("MDCx", "鏆楅粦妯″紡"))
+        self.checkBox_hide_dock_icon.setText(_translate("MDCx", "闅愯棌 Dock 鍥炬爣锛圡ac锛?))
+        self.label_42.setText(_translate("MDCx", "淇濆瓨鍚庨噸鍚蒋浠剁敓鏁?"))
+        self.checkBox_hide_menu_icon.setText(_translate("MDCx", "闅愯棌鑿滃崟鏍忓浘鏍囷紙Mac锛?))
+        self.label_321.setText(_translate("MDCx", "闂存瓏鍒墛锛?))
+        self.checkBox_auto_start.setText(_translate("MDCx", "鍚姩杞欢鍚庤嚜鍔ㄥ紑濮嬪埉鍓?))
+        self.checkBox_auto_exit.setText(_translate("MDCx", "鍒墛缁撴潫鍚庤嚜鍔ㄩ€€鍑鸿蒋浠?))
+        self.checkBox_show_dialog_exit.setText(_translate("MDCx", "閫€鍑鸿蒋浠舵椂"))
+        self.checkBox_show_dialog_stop_scrape.setText(_translate("MDCx", "鍋滄鍒墛鏃?))
+        self.checkBox_timed_scrape.setText(_translate("MDCx", "姣忛殧"))
+        self.label_84.setText(_translate("MDCx", "锛堟椂:鍒?绉掞級锛岃嚜鍔ㄥ紑濮嬪埉鍓婏紙璇诲彇閰嶇疆鏃跺紑濮嬭鏃讹級"))
+        self.label_308.setText(_translate("MDCx", "鑷姩浠诲姟锛?))
+        self.label_309.setText(_translate("MDCx", "鑷姩鍒墛锛?))
+        self.label_277.setText(_translate("MDCx", "寮圭獥纭锛?))
+        self.pushButton_select_config_folder.setText(_translate("MDCx", "閫夋嫨鐩綍"))
         self.checkBox_remain_task.setText(
-            _translate("MDCx", "记住未完成的刮削任务，即使退出或中止，下次仍可继续刮削未完成任务")
+            _translate("MDCx", "璁颁綇鏈畬鎴愮殑鍒墛浠诲姟锛屽嵆浣块€€鍑烘垨涓锛屼笅娆′粛鍙户缁埉鍓婃湭瀹屾垚浠诲姟")
         )
-        self.label_279.setText(_translate("MDCx", "保留任务："))
+        self.label_279.setText(_translate("MDCx", "淇濈暀浠诲姟锛?))
         self.label_40.setText(
-            _translate("MDCx", "将读取该目录中的配置文件、映射表、水印图片、演员头像等数据，修改后重启程序方可生效")
+            _translate("MDCx", "灏嗚鍙栬鐩綍涓殑閰嶇疆鏂囦欢銆佹槧灏勮〃銆佹按鍗板浘鐗囥€佹紨鍛樺ご鍍忕瓑鏁版嵁锛屼慨鏀瑰悗閲嶅惎绋嬪簭鏂瑰彲鐢熸晥")
         )
-        self.checkBox_dialog_qt.setText(_translate("MDCx", "使用 QT 选择对话框"))
-        self.label_421.setText(_translate("MDCx", "目录中的文件较多时，可以勾选此项以提高打开速度"))
-        self.label_314.setText(_translate("MDCx", "隐藏图标："))
-        self.label_243.setText(_translate("MDCx", "配置文件目录："))
-        self.radioButton_hide_close.setText(_translate("MDCx", "点关闭按钮"))
-        self.radioButton_hide_mini.setText(_translate("MDCx", "点最小化按钮"))
-        self.radioButton_hide_none.setText(_translate("MDCx", "无"))
-        self.checkBox_rest_scrape.setText(_translate("MDCx", "连续刮削"))
-        self.label_52.setText(_translate("MDCx", "个文件后，自动休息"))
-        self.label_71.setText(_translate("MDCx", "（时:分:秒）"))
-        self.label_313.setText(_translate("MDCx", "隐藏窗口："))
-        self.label_246.setText(_translate("MDCx", "界面外观："))
-        self.label_420.setText(_translate("MDCx", "选择对话框："))
-        self.label_426.setText(_translate("MDCx", "高分屏缩放："))
-        self.comboBox_ui_scale.setToolTip(_translate("MDCx", "界面缩放比例，保存后重启软件生效"))
-        self.comboBox_ui_scale.setItemText(0, _translate("MDCx", "跟随系统"))
+        self.checkBox_dialog_qt.setText(_translate("MDCx", "浣跨敤 QT 閫夋嫨瀵硅瘽妗?))
+        self.label_421.setText(_translate("MDCx", "鐩綍涓殑鏂囦欢杈冨鏃讹紝鍙互鍕鹃€夋椤逛互鎻愰珮鎵撳紑閫熷害"))
+        self.label_314.setText(_translate("MDCx", "闅愯棌鍥炬爣锛?))
+        self.label_243.setText(_translate("MDCx", "閰嶇疆鏂囦欢鐩綍锛?))
+        self.radioButton_hide_close.setText(_translate("MDCx", "鐐瑰叧闂寜閽?))
+        self.radioButton_hide_mini.setText(_translate("MDCx", "鐐规渶灏忓寲鎸夐挳"))
+        self.radioButton_hide_none.setText(_translate("MDCx", "鏃?))
+        self.checkBox_rest_scrape.setText(_translate("MDCx", "杩炵画鍒墛"))
+        self.label_52.setText(_translate("MDCx", "涓枃浠跺悗锛岃嚜鍔ㄤ紤鎭?))
+        self.label_71.setText(_translate("MDCx", "锛堟椂:鍒?绉掞級"))
+        self.label_313.setText(_translate("MDCx", "闅愯棌绐楀彛锛?))
+        self.label_246.setText(_translate("MDCx", "鐣岄潰澶栬锛?))
+        self.label_420.setText(_translate("MDCx", "閫夋嫨瀵硅瘽妗嗭細"))
+        self.label_426.setText(_translate("MDCx", "楂樺垎灞忕缉鏀撅細"))
+        self.comboBox_ui_scale.setToolTip(_translate("MDCx", "鐣岄潰缂╂斁姣斾緥锛屼繚瀛樺悗閲嶅惎杞欢鐢熸晥"))
+        self.comboBox_ui_scale.setItemText(0, _translate("MDCx", "璺熼殢绯荤粺"))
         self.comboBox_ui_scale.setItemText(1, _translate("MDCx", "80%"))
         self.comboBox_ui_scale.setItemText(2, _translate("MDCx", "90%"))
         self.comboBox_ui_scale.setItemText(3, _translate("MDCx", "100%"))
@@ -14088,20 +14084,20 @@ class Ui_MDCx(object):
         self.comboBox_ui_scale.setItemText(5, _translate("MDCx", "150%"))
         self.comboBox_ui_scale.setItemText(6, _translate("MDCx", "175%"))
         self.comboBox_ui_scale.setItemText(7, _translate("MDCx", "200%"))
-        self.label_427.setText(_translate("MDCx", "保存后重启软件生效，可能会有点模糊"))
-        self.label_nav_hide.setText(_translate("MDCx", "隐藏入口："))
+        self.label_427.setText(_translate("MDCx", "淇濆瓨鍚庨噸鍚蒋浠剁敓鏁堬紝鍙兘浼氭湁鐐规ā绯?))
+        self.label_nav_hide.setText(_translate("MDCx", "闅愯棌鍏ュ彛锛?))
         self.checkBox_hide_actor_nav.setToolTip(
-            _translate("MDCx", "隐藏左侧导航的「演员管理」入口，可随时在此重新开启")
+            _translate("MDCx", "闅愯棌宸︿晶瀵艰埅鐨勩€屾紨鍛樼鐞嗐€嶅叆鍙ｏ紝鍙殢鏃跺湪姝ら噸鏂板紑鍚?)
         )
-        self.checkBox_hide_actor_nav.setText(_translate("MDCx", "隐藏 Emby 演员管理"))
-        self.checkBox_hide_nfo_nav.setToolTip(_translate("MDCx", "隐藏左侧导航的「信息管理」入口，可随时在此重新开启"))
-        self.checkBox_hide_nfo_nav.setText(_translate("MDCx", "隐藏 NFO 库管理"))
-        self.label_nav_hide_hint.setText(_translate("MDCx", "仅隐藏入口，功能本身保留，保存后立即生效"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab5), _translate("MDCx", " 高级 "))
-        self.pushButton_init_config.setText(_translate("MDCx", "恢复默认"))
-        self.pushButton_save_config.setText(_translate("MDCx", "保存"))
-        self.label_241.setText(_translate("MDCx", "当前配置："))
-        self.pushButton_save_new_config.setText(_translate("MDCx", "另存为"))
+        self.checkBox_hide_actor_nav.setText(_translate("MDCx", "闅愯棌 Emby 婕斿憳绠＄悊"))
+        self.checkBox_hide_nfo_nav.setToolTip(_translate("MDCx", "闅愯棌宸︿晶瀵艰埅鐨勩€屼俊鎭鐞嗐€嶅叆鍙ｏ紝鍙殢鏃跺湪姝ら噸鏂板紑鍚?))
+        self.checkBox_hide_nfo_nav.setText(_translate("MDCx", "闅愯棌 NFO 搴撶鐞?))
+        self.label_nav_hide_hint.setText(_translate("MDCx", "浠呴殣钘忓叆鍙ｏ紝鍔熻兘鏈韩淇濈暀锛屼繚瀛樺悗绔嬪嵆鐢熸晥"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab5), _translate("MDCx", " 楂樼骇 "))
+        self.pushButton_init_config.setText(_translate("MDCx", "鎭㈠榛樿"))
+        self.pushButton_save_config.setText(_translate("MDCx", "淇濆瓨"))
+        self.label_241.setText(_translate("MDCx", "褰撳墠閰嶇疆锛?))
+        self.pushButton_save_new_config.setText(_translate("MDCx", "鍙﹀瓨涓?))
         self.textBrowser_show_success_list.setHtml(
             _translate(
                 "MDCx",
@@ -14123,10 +14119,10 @@ class Ui_MDCx(object):
                 '                  <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:\'Microsoft YaHei UI\'; font-size:9pt;"> </span></p></body></html>',
             )
         )
-        self.pushButton_success_list_close.setText(_translate("MDCx", "关闭"))
-        self.pushButton_success_list_clear.setText(_translate("MDCx", "清空列表"))
-        self.pushButton_success_list_save.setText(_translate("MDCx", "保存"))
-        self.label_success_title.setText(_translate("MDCx", "已刮削成功文件列表"))
+        self.pushButton_success_list_close.setText(_translate("MDCx", "鍏抽棴"))
+        self.pushButton_success_list_clear.setText(_translate("MDCx", "娓呯┖鍒楄〃"))
+        self.pushButton_success_list_save.setText(_translate("MDCx", "淇濆瓨"))
+        self.label_success_title.setText(_translate("MDCx", "宸插埉鍓婃垚鍔熸枃浠跺垪琛?))
         self.textBrowser_show_tips.setHtml(
             _translate(
                 "MDCx",
@@ -14148,8 +14144,8 @@ class Ui_MDCx(object):
                 '                  <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-family:\'Microsoft YaHei UI\'; font-size:9pt;"> </span></p></body></html>',
             )
         )
-        self.pushButton_show_tips_close.setText(_translate("MDCx", "关闭"))
-        self.label_show_tips_title.setText(_translate("MDCx", "说明"))
+        self.pushButton_show_tips_close.setText(_translate("MDCx", "鍏抽棴"))
+        self.label_show_tips_title.setText(_translate("MDCx", "璇存槑"))
         self.textBrowser_about.setHtml(
             _translate(
                 "MDCx",
@@ -14157,214 +14153,214 @@ class Ui_MDCx(object):
                 '<html><head><meta name="qrichtext" content="1" /><style type="text/css">\n'
                 "p, li { white-space: pre-wrap; }\n"
                 "</style></head><body style=\"font-family:'Microsoft YaHei UI',PingFang SC,sans-serif; font-size:10pt;\">\n"
-                "<h3>MDCx 使用说明</h3>\n"
-                "<p>MDCx 是一款本地视频元数据刮削工具：从各大网站抓取影片的标题、演员、封面、简介等信息，生成标准 .nfo 文件与规范命名的文件夹，供 Emby、Jellyfin、Kodi、Plex 等媒体服务器直接使用。支持 Windows / macOS / Linux。</p>\n"
+                "<h3>MDCx 浣跨敤璇存槑</h3>\n"
+                "<p>MDCx 鏄竴娆炬湰鍦拌棰戝厓鏁版嵁鍒墛宸ュ叿锛氫粠鍚勫ぇ缃戠珯鎶撳彇褰辩墖鐨勬爣棰樸€佹紨鍛樸€佸皝闈€佺畝浠嬬瓑淇℃伅锛岀敓鎴愭爣鍑?.nfo 鏂囦欢涓庤鑼冨懡鍚嶇殑鏂囦欢澶癸紝渚?Emby銆丣ellyfin銆並odi銆丳lex 绛夊獟浣撴湇鍔″櫒鐩存帴浣跨敤銆傛敮鎸?Windows / macOS / Linux銆?/p>\n"
                 "\n"
-                "<h4>一、快速开始</h4>\n"
+                "<h4>涓€銆佸揩閫熷紑濮?/h4>\n"
                 "<ol>\n"
-                "<li><b>设置媒体路径</b>：设置 → 刮削目录，配置「待刮削视频目录」「成功输出目录」和「失败输出目录」。也可以在主界面点击「选择目录」临时选择待刮削目录。</li>\n"
-                "<li><b>选择刮削网站</b>：设置 → 刮削网站，为不同类型（有码 / 无码 / FC2 / 国产 / 欧美）分别选择数据源网站。</li>\n"
-                "<li><b>选择下载项</b>：设置 → 下载，勾选需要下载的元数据、图片与字幕。</li>\n"
-                "<li><b>开始刮削</b>：主界面点击「选择目录」选择待刮削目录，再点击「开始」。建议先用 1~3 个文件测试效果。</li>\n"
+                "<li><b>璁剧疆濯掍綋璺緞</b>锛氳缃?鈫?鍒墛鐩綍锛岄厤缃€屽緟鍒墛瑙嗛鐩綍銆嶃€屾垚鍔熻緭鍑虹洰褰曘€嶅拰銆屽け璐ヨ緭鍑虹洰褰曘€嶃€備篃鍙互鍦ㄤ富鐣岄潰鐐瑰嚮銆岄€夋嫨鐩綍銆嶄复鏃堕€夋嫨寰呭埉鍓婄洰褰曘€?/li>\n"
+                "<li><b>閫夋嫨鍒墛缃戠珯</b>锛氳缃?鈫?鍒墛缃戠珯锛屼负涓嶅悓绫诲瀷锛堟湁鐮?/ 鏃犵爜 / FC2 / 鍥戒骇 / 娆х編锛夊垎鍒€夋嫨鏁版嵁婧愮綉绔欍€?/li>\n"
+                "<li><b>閫夋嫨涓嬭浇椤?/b>锛氳缃?鈫?涓嬭浇锛屽嬀閫夐渶瑕佷笅杞界殑鍏冩暟鎹€佸浘鐗囦笌瀛楀箷銆?/li>\n"
+                "<li><b>寮€濮嬪埉鍓?/b>锛氫富鐣岄潰鐐瑰嚮銆岄€夋嫨鐩綍銆嶉€夋嫨寰呭埉鍓婄洰褰曪紝鍐嶇偣鍑汇€屽紑濮嬨€嶃€傚缓璁厛鐢?1~3 涓枃浠舵祴璇曟晥鏋溿€?/li>\n"
                 "</ol>\n"
                 "\n"
-                "<h4>二、刮削模式</h4>\n"
+                "<h4>浜屻€佸埉鍓婃ā寮?/h4>\n"
                 "<ul>\n"
-                "<li><b>正常模式</b>：通过番号联网抓取元数据、封面、缩略图、背景图，并整理文件。适合新下载的视频建立完整海报墙。</li>\n"
-                "<li><b>整理模式</b>（视频模式）：仅联网刮削番号用于命名，然后重命名和移动视频文件，不下载图片、不生成 NFO。适合不需要海报墙、只想归类文件的用户。</li>\n"
-                "<li><b>更新模式</b>：对已有 NFO 的影片在不改动文件位置结构的前提下重新整理文件结构，按更新规则重新命名目录和文件。适合已刮过但想调整目录结构的情况。</li>\n"
-                "<li><b>读取模式</b>：通过读取本地 NFO 文件实现无需联网的查看或更新，4 个独立选项可自由组合——有 NFO 时更新（按更新规则整理）、无 NFO 时刮削（对没 NFO 的文件联网刮）、重新下载（重新下载图片）、更新 NFO（更新 NFO 内容如补演员 TMDB ID）。读取模式不受断点续刮缓存干扰，始终处理全部选中文件。</li>\n"
-                " <li><b>NFO 合并策略</b>（读取模式区域下拉框）：写入 NFO 前按策略决定如何处理已存在的 NFO——偏好刮削结果（prefer_scraper）/ 偏好本地 NFO（prefer_nfo）/ 数组字段合并（merge_arrays）/ 保留现有（preserve_existing）/ 仅填空缺（fill_missing_only），防止重刮覆盖手动整理的内容。</li>\n"
-                "<li><b>软链接</b>（设置项，非独立模式）：在任意模式下勾选「创建软链接」即可刮削后不移动原视频，而是在目标目录创建软链接（类快捷方式），便于 PT 下载既刮削又保种；需以管理员 / 有权限身份运行。注意：软链接通常只能在媒体库展示，不能直接播放。</li>\n"
-                "<li><b>调试模式</b>：在「设置→高级」的「调试模式（日志页面）」分组中勾选「显示字段内容信息」（完整排查可同时勾选「显示刮削过程信息」「显示字段来源信息」），日志页面会输出番号对应的完整元数据（封面、导演、演员、简介等）供排查。</li>\n"
+                "<li><b>姝ｅ父妯″紡</b>锛氶€氳繃鐣彿鑱旂綉鎶撳彇鍏冩暟鎹€佸皝闈€佺缉鐣ュ浘銆佽儗鏅浘锛屽苟鏁寸悊鏂囦欢銆傞€傚悎鏂颁笅杞界殑瑙嗛寤虹珛瀹屾暣娴锋姤澧欍€?/li>\n"
+                "<li><b>鏁寸悊妯″紡</b>锛堣棰戞ā寮忥級锛氫粎鑱旂綉鍒墛鐣彿鐢ㄤ簬鍛藉悕锛岀劧鍚庨噸鍛藉悕鍜岀Щ鍔ㄨ棰戞枃浠讹紝涓嶄笅杞藉浘鐗囥€佷笉鐢熸垚 NFO銆傞€傚悎涓嶉渶瑕佹捣鎶ュ銆佸彧鎯冲綊绫绘枃浠剁殑鐢ㄦ埛銆?/li>\n"
+                "<li><b>鏇存柊妯″紡</b>锛氬宸叉湁 NFO 鐨勫奖鐗囧湪涓嶆敼鍔ㄦ枃浠朵綅缃粨鏋勭殑鍓嶆彁涓嬮噸鏂版暣鐞嗘枃浠剁粨鏋勶紝鎸夋洿鏂拌鍒欓噸鏂板懡鍚嶇洰褰曞拰鏂囦欢銆傞€傚悎宸插埉杩囦絾鎯宠皟鏁寸洰褰曠粨鏋勭殑鎯呭喌銆?/li>\n"
+                "<li><b>璇诲彇妯″紡</b>锛氶€氳繃璇诲彇鏈湴 NFO 鏂囦欢瀹炵幇鏃犻渶鑱旂綉鐨勬煡鐪嬫垨鏇存柊锛? 涓嫭绔嬮€夐」鍙嚜鐢辩粍鍚堚€斺€旀湁 NFO 鏃舵洿鏂帮紙鎸夋洿鏂拌鍒欐暣鐞嗭級銆佹棤 NFO 鏃跺埉鍓婏紙瀵规病 NFO 鐨勬枃浠惰仈缃戝埉锛夈€侀噸鏂颁笅杞斤紙閲嶆柊涓嬭浇鍥剧墖锛夈€佹洿鏂?NFO锛堟洿鏂?NFO 鍐呭濡傝ˉ婕斿憳 TMDB ID锛夈€傝鍙栨ā寮忎笉鍙楁柇鐐圭画鍒紦瀛樺共鎵帮紝濮嬬粓澶勭悊鍏ㄩ儴閫変腑鏂囦欢銆?/li>\n"
+                " <li><b>NFO 鍚堝苟绛栫暐</b>锛堣鍙栨ā寮忓尯鍩熶笅鎷夋锛夛細鍐欏叆 NFO 鍓嶆寜绛栫暐鍐冲畾濡備綍澶勭悊宸插瓨鍦ㄧ殑 NFO鈥斺€斿亸濂藉埉鍓婄粨鏋滐紙prefer_scraper锛? 鍋忓ソ鏈湴 NFO锛坧refer_nfo锛? 鏁扮粍瀛楁鍚堝苟锛坢erge_arrays锛? 淇濈暀鐜版湁锛坧reserve_existing锛? 浠呭～绌虹己锛坒ill_missing_only锛夛紝闃叉閲嶅埉瑕嗙洊鎵嬪姩鏁寸悊鐨勫唴瀹广€?/li>\n"
+                "<li><b>杞摼鎺?/b>锛堣缃」锛岄潪鐙珛妯″紡锛夛細鍦ㄤ换鎰忔ā寮忎笅鍕鹃€夈€屽垱寤鸿蒋閾炬帴銆嶅嵆鍙埉鍓婂悗涓嶇Щ鍔ㄥ師瑙嗛锛岃€屾槸鍦ㄧ洰鏍囩洰褰曞垱寤鸿蒋閾炬帴锛堢被蹇嵎鏂瑰紡锛夛紝渚夸簬 PT 涓嬭浇鏃㈠埉鍓婂張淇濈锛涢渶浠ョ鐞嗗憳 / 鏈夋潈闄愯韩浠借繍琛屻€傛敞鎰忥細杞摼鎺ラ€氬父鍙兘鍦ㄥ獟浣撳簱灞曠ず锛屼笉鑳界洿鎺ユ挱鏀俱€?/li>\n"
+                "<li><b>璋冭瘯妯″紡</b>锛氬湪銆岃缃啋楂樼骇銆嶇殑銆岃皟璇曟ā寮忥紙鏃ュ織椤甸潰锛夈€嶅垎缁勪腑鍕鹃€夈€屾樉绀哄瓧娈靛唴瀹逛俊鎭€嶏紙瀹屾暣鎺掓煡鍙悓鏃跺嬀閫夈€屾樉绀哄埉鍓婅繃绋嬩俊鎭€嶃€屾樉绀哄瓧娈垫潵婧愪俊鎭€嶏級锛屾棩蹇楅〉闈細杈撳嚭鐣彿瀵瑰簲鐨勫畬鏁村厓鏁版嵁锛堝皝闈€佸婕斻€佹紨鍛樸€佺畝浠嬬瓑锛変緵鎺掓煡銆?/li>\n"
                 "</ul>\n"
                 "\n"
-                "<h4>三、命名规则</h4>\n"
+                "<h4>涓夈€佸懡鍚嶈鍒?/h4>\n"
                 "<ul>\n"
-                "<li><b>目录命名</b>：存放视频的文件夹名，支持多层目录与自定义符号，例：[actor]/studio/number-【title】。</li>\n"
-                "<li><b>标题命名（媒体库）</b>：NFO 中的标题，例：number-[title]。</li>\n"
-                "<li><b>标题命名（本地文件）</b>：本地视频与图片的命名，例：number-[title]。</li>\n"
-                "<li>可用变量：number（番号）、title（标题）、originaltitle（原标题）、actor（演员）、first_actor（首位演员）、all_actor（全部演员）、letters（番号前缀）、first_letter（番号首字符）、outline（简介）、director（导演）、series（系列）、studio（片商）、publisher（发行商）、release（发行日期）、year（年份）、runtime（时长）、mosaic（有码/无码）、definition（清晰度）、cnword（字幕标识）、moword（版本标识）、filename（原文件名）、wanted（想看人数）、score（评分）、four_k（4K 标识）。支持 Jinja2 模板与自定义符号。</li>\n"
+                "<li><b>鐩綍鍛藉悕</b>锛氬瓨鏀捐棰戠殑鏂囦欢澶瑰悕锛屾敮鎸佸灞傜洰褰曚笌鑷畾涔夌鍙凤紝渚嬶細[actor]/studio/number-銆恡itle銆戙€?/li>\n"
+                "<li><b>鏍囬鍛藉悕锛堝獟浣撳簱锛?/b>锛歂FO 涓殑鏍囬锛屼緥锛歯umber-[title]銆?/li>\n"
+                "<li><b>鏍囬鍛藉悕锛堟湰鍦版枃浠讹級</b>锛氭湰鍦拌棰戜笌鍥剧墖鐨勫懡鍚嶏紝渚嬶細number-[title]銆?/li>\n"
+                "<li>鍙敤鍙橀噺锛歯umber锛堢暘鍙凤級銆乼itle锛堟爣棰橈級銆乷riginaltitle锛堝師鏍囬锛夈€乤ctor锛堟紨鍛橈級銆乫irst_actor锛堥浣嶆紨鍛橈級銆乤ll_actor锛堝叏閮ㄦ紨鍛橈級銆乴etters锛堢暘鍙峰墠缂€锛夈€乫irst_letter锛堢暘鍙烽瀛楃锛夈€乷utline锛堢畝浠嬶級銆乨irector锛堝婕旓級銆乻eries锛堢郴鍒楋級銆乻tudio锛堢墖鍟嗭級銆乸ublisher锛堝彂琛屽晢锛夈€乺elease锛堝彂琛屾棩鏈燂級銆亂ear锛堝勾浠斤級銆乺untime锛堟椂闀匡級銆乵osaic锛堟湁鐮?鏃犵爜锛夈€乨efinition锛堟竻鏅板害锛夈€乧nword锛堝瓧骞曟爣璇嗭級銆乵oword锛堢増鏈爣璇嗭級銆乫ilename锛堝師鏂囦欢鍚嶏級銆亀anted锛堟兂鐪嬩汉鏁帮級銆乻core锛堣瘎鍒嗭級銆乫our_k锛?K 鏍囪瘑锛夈€傛敮鎸?Jinja2 妯℃澘涓庤嚜瀹氫箟绗﹀彿銆?/li>\n"
                 "</ul>\n"
                 "\n"
-                "<h4>四、网站选择</h4>\n"
-                "<p>网站下拉框由已注册的爬虫自动生成（当前 35 个），可按需选用全部网站或指定网站。主要来源包括：</p>\n"
+                "<h4>鍥涖€佺綉绔欓€夋嫨</h4>\n"
+                "<p>缃戠珯涓嬫媺妗嗙敱宸叉敞鍐岀殑鐖櫕鑷姩鐢熸垚锛堝綋鍓?35 涓級锛屽彲鎸夐渶閫夌敤鍏ㄩ儴缃戠珯鎴栨寚瀹氱綉绔欍€備富瑕佹潵婧愬寘鎷細</p>\n"
                 " <ul>\n"
-                " <li><b>有码</b>：仅能有码——DMM、DMM-API、TheJavDB-API、LibreDMM、R18.dev、AVBase、Xcity、Prestige、MGStage、Getchu、JavLibrary、FreeJavBT、Lulubar、AVMOO；综合（有码+无码）——JavBus、JavDB 系、MissAV 系、Official、airav.cc、AVSex、JavDay、JavFree、IQQTV</li>\n"
-                " <li><b>无码</b>：AVSOX、AVEntertainments 及综合站（JavBus、JavDB 系、MissAV 系、AVSex、Official、JavDay、IQQTV）</li>\n"
-                " <li><b>素人</b>：MGStage（259LUXU 等）、Prestige、JavBus、JavDB 系、DMM、DMM-API、AVBase、MissAV 系、MyWife、IQQTV</li>\n"
-                " <li><b>FC2</b>：FC2、FC2PPVDB、JavDB 系、JavFree</li>\n"
-                " <li><b>国产</b>：MADOUQU、MADOU_CLUB、AVSex、IQQTV、JavDay</li>\n"
-                " <li><b>欧美</b>：THEPORNDB、AVHEAT</li>\n"
+                " <li><b>鏈夌爜</b>锛氫粎鑳芥湁鐮佲€斺€擠MM銆丏MM-API銆乀heJavDB-API銆丩ibreDMM銆丷18.dev銆丄VBase銆乆city銆丳restige銆丮GStage銆丟etchu銆丣avLibrary銆丗reeJavBT銆丩ulubar銆丄VMOO锛涚患鍚堬紙鏈夌爜+鏃犵爜锛夆€斺€擩avBus銆丣avDB 绯汇€丮issAV 绯汇€丱fficial銆乤irav.cc銆丄VSex銆丣avDay銆丣avFree銆両QQTV</li>\n"
+                " <li><b>鏃犵爜</b>锛欰VSOX銆丄VEntertainments 鍙婄患鍚堢珯锛圝avBus銆丣avDB 绯汇€丮issAV 绯汇€丄VSex銆丱fficial銆丣avDay銆両QQTV锛?/li>\n"
+                " <li><b>绱犱汉</b>锛歁GStage锛?59LUXU 绛夛級銆丳restige銆丣avBus銆丣avDB 绯汇€丏MM銆丏MM-API銆丄VBase銆丮issAV 绯汇€丮yWife銆両QQTV</li>\n"
+                " <li><b>FC2</b>锛欶C2銆丗C2PPVDB銆丣avDB 绯汇€丣avFree</li>\n"
+                " <li><b>鍥戒骇</b>锛歁ADOUQU銆丮ADOU_CLUB銆丄VSex銆両QQTV銆丣avDay</li>\n"
+                " <li><b>娆х編</b>锛歍HEPORNDB銆丄VHEAT</li>\n"
                 " </ul>\n"
                 "\n"
-                "<h4>五、Cloudflare 绕过（CF Bypass）</h4>\n"
-                "<p>MDCx 提供多种 Cloudflare 绕过能力，遇到受 Cloudflare 保护的站点时自动尝试绕过：</p>\n"
+                "<h4>浜斻€丆loudflare 缁曡繃锛圕F Bypass锛?/h4>\n"
+                "<p>MDCx 鎻愪緵澶氱 Cloudflare 缁曡繃鑳藉姏锛岄亣鍒板彈 Cloudflare 淇濇姢鐨勭珯鐐规椂鑷姩灏濊瘯缁曡繃锛?/p>\n"
                 "<ul>\n"
-                '<li><b>外部 CF 服务</b>：在"设置 → 网络"填写 TRAWL / FlareSolverr 风格外部 CF 服务地址（如 http://127.0.0.1:8191），并在右侧选择后端类型：TRAWL（走 /scrape 原生 API）或 FlareSolverr（走 /v1 兼容 API）。MDCx 自动在本地拉起协议适配层把请求翻译给外部服务，无需自行填 /v1 地址。</li>\n'
-                "<li><b>Selenium CF Bypass</b>（JavLibrary 专用）：JavLibrary 遇 Cloudflare JS challenge 时自动 fallback 到 Selenium+Edge headless 获取页面 HTML。默认开启（cf_selenium_bypass），需要 Windows 10/11 + Edge 浏览器，首次使用自动安装 selenium，无 Edge 环境优雅降级，连续失败 3 次进入 5 分钟冷却。</li>\n"
-                "<li><b>Bypass 落地白名单</b>：可填写可信落地域名白名单（逗号分隔，支持 *.example.com 子域通配），用于校验 Bypass 服务落地/重定向后的最终域名，防止第三方服务被劫持时把恶意页面当数据；留空表示不校验（默认）。</li>\n"
-                "<li><b>免 CF 通道</b>：部分站点提供免 CF 的数据接口（javdb_api、javdb_app、missav_api、r18dev、thejavdb_api），默认已加入网站源，可直接选用获得更稳定的抓取。</li>\n"
+                '<li><b>澶栭儴 CF 鏈嶅姟</b>锛氬湪"璁剧疆 鈫?缃戠粶"濉啓 TRAWL / FlareSolverr 椋庢牸澶栭儴 CF 鏈嶅姟鍦板潃锛堝 http://127.0.0.1:8191锛夛紝骞跺湪鍙充晶閫夋嫨鍚庣绫诲瀷锛歍RAWL锛堣蛋 /scrape 鍘熺敓 API锛夋垨 FlareSolverr锛堣蛋 /v1 鍏煎 API锛夈€侻DCx 鑷姩鍦ㄦ湰鍦版媺璧峰崗璁€傞厤灞傛妸璇锋眰缈昏瘧缁欏閮ㄦ湇鍔★紝鏃犻渶鑷濉?/v1 鍦板潃銆?/li>\n'
+                "<li><b>Selenium CF Bypass</b>锛圝avLibrary 涓撶敤锛夛細JavLibrary 閬?Cloudflare JS challenge 鏃惰嚜鍔?fallback 鍒?Selenium+Edge headless 鑾峰彇椤甸潰 HTML銆傞粯璁ゅ紑鍚紙cf_selenium_bypass锛夛紝闇€瑕?Windows 10/11 + Edge 娴忚鍣紝棣栨浣跨敤鑷姩瀹夎 selenium锛屾棤 Edge 鐜浼橀泤闄嶇骇锛岃繛缁け璐?3 娆¤繘鍏?5 鍒嗛挓鍐峰嵈銆?/li>\n"
+                "<li><b>Bypass 钀藉湴鐧藉悕鍗?/b>锛氬彲濉啓鍙俊钀藉湴鍩熷悕鐧藉悕鍗曪紙閫楀彿鍒嗛殧锛屾敮鎸?*.example.com 瀛愬煙閫氶厤锛夛紝鐢ㄤ簬鏍￠獙 Bypass 鏈嶅姟钀藉湴/閲嶅畾鍚戝悗鐨勬渶缁堝煙鍚嶏紝闃叉绗笁鏂规湇鍔¤鍔寔鏃舵妸鎭舵剰椤甸潰褰撴暟鎹紱鐣欑┖琛ㄧず涓嶆牎楠岋紙榛樿锛夈€?/li>\n"
+                "<li><b>鍏?CF 閫氶亾</b>锛氶儴鍒嗙珯鐐规彁渚涘厤 CF 鐨勬暟鎹帴鍙ｏ紙javdb_api銆乯avdb_app銆乵issav_api銆乺18dev銆乼hejavdb_api锛夛紝榛樿宸插姞鍏ョ綉绔欐簮锛屽彲鐩存帴閫夌敤鑾峰緱鏇寸ǔ瀹氱殑鎶撳彇銆?/li>\n"
                 "</ul>\n"
                 "\n"
-                "<h4>六、代理设置</h4>\n"
-                '<p>在"设置 → 网络"中配置：</p>\n'
+                "<h4>鍏€佷唬鐞嗚缃?/h4>\n"
+                '<p>鍦?璁剧疆 鈫?缃戠粶"涓厤缃細</p>\n'
                 "<ul>\n"
-                "<li><b>启用代理</b>：开启后填写 HTTP / HTTPS 或 SOCKS5 代理地址（如 http://127.0.0.1:7890）。</li>\n"
-                "<li><b>走代理网站</b>：仅指定域名走代理，其余直连。默认包含 amazon.co.jp、m.media-amazon.com、xcity.jp、minnano-av.com、avbase.net、javbus.com、javdb.com、javlibrary.com、r18.dev、mgstage.com、prestige-av.com、seesaawiki.jp、avsox.click、avsox.com、avmoo.shop、avmoo.com、avheat.shop、avheat.com、caribbeancom.com、heyzo.com、1pondo.tv、pacopacomama.com、10musume.com、mywife.cc、github.com、raw.githubusercontent.com、google.com、missav.ws、missav.ai、missav.live、aventertainments.com、javfree.me。可按需增删。</li>\n"
-                "<li><b>CF Bypass 代理</b>：为绕过 Cloudflare 的请求单独设置代理。</li>\n"
+                "<li><b>鍚敤浠ｇ悊</b>锛氬紑鍚悗濉啓 HTTP / HTTPS 鎴?SOCKS5 浠ｇ悊鍦板潃锛堝 http://127.0.0.1:7890锛夈€?/li>\n"
+                "<li><b>璧颁唬鐞嗙綉绔?/b>锛氫粎鎸囧畾鍩熷悕璧颁唬鐞嗭紝鍏朵綑鐩磋繛銆傞粯璁ゅ寘鍚?amazon.co.jp銆乵.media-amazon.com銆亁city.jp銆乵innano-av.com銆乤vbase.net銆乯avbus.com銆乯avdb.com銆乯avlibrary.com銆乺18.dev銆乵gstage.com銆乸restige-av.com銆乻eesaawiki.jp銆乤vsox.click銆乤vsox.com銆乤vmoo.shop銆乤vmoo.com銆乤vheat.shop銆乤vheat.com銆乧aribbeancom.com銆乭eyzo.com銆?pondo.tv銆乸acopacomama.com銆?0musume.com銆乵ywife.cc銆乬ithub.com銆乺aw.githubusercontent.com銆乬oogle.com銆乵issav.ws銆乵issav.ai銆乵issav.live銆乤ventertainments.com銆乯avfree.me銆傚彲鎸夐渶澧炲垹銆?/li>\n"
+                "<li><b>CF Bypass 浠ｇ悊</b>锛氫负缁曡繃 Cloudflare 鐨勮姹傚崟鐙缃唬鐞嗐€?/li>\n"
                 "</ul>\n"
-                "<p>如持续提示网络 / 代理错误，请检查地址与端口、确认代理软件处于全局模式，或尝试重启代理与网卡。</p>\n"
+                "<p>濡傛寔缁彁绀虹綉缁?/ 浠ｇ悊閿欒锛岃妫€鏌ュ湴鍧€涓庣鍙ｃ€佺‘璁や唬鐞嗚蒋浠跺浜庡叏灞€妯″紡锛屾垨灏濊瘯閲嶅惎浠ｇ悊涓庣綉鍗°€?/p>\n"
                 "\n"
-                "<h4>七、界面与高分屏</h4>\n"
+                "<h4>涓冦€佺晫闈笌楂樺垎灞?/h4>\n"
                 "<ul>\n"
-                "<li><b>界面缩放</b>：设置 → 界面外观 → 高分屏缩放，提供 跟随系统 / 80% / 90% / 100% / 125% / 150% / 175% / 200% 共 8 档，保存后重启生效。</li>\n"
-                "<li><b>非整数缩放</b>：PassThrough 高 DPI 非整数缩放已默认启用，无需手动开启，Windows 125%/150% 等缩放档位下界面不再模糊。</li>\n"
-                "<li><b>暗色模式</b>：内置暗色主题切换。</li>\n"
-                "</ul>\n"
-                "\n"
-                "<h4>八、断点续刮与相似推荐</h4>\n"
-                "<ul>\n"
-                "<li><b>断点续刮</b>：刮削进度自动保存到本地数据库（userdata/scrape_state.db，WAL 模式 SQLite）。程序重启或崩溃后再次刮削，会自动跳过已完成的文件、恢复上次失败的未超限文件（最多自动重试 3 次），从上次进度继续。<b>读取模式不受断点续刮缓存干扰</b>，始终处理全部选中文件。如需清除缓存重新全量刮削，可使用工具页的「刮削缓存管理」重置。</li>\n"
-                "<li><b>失败重试</b>：刮削失败的文件自动记录，下次启动时重新尝试，连续失败 3 次后停止自动重试。届时可在结果树中对失败项右键「重新刮削」（输入正确番号重刮）或「输入网址重新刮削」（指定详情页网址重刮），手动重刮不受重试次数限制。</li>\n"
-                "<li><b>相似片推荐</b>：在右侧结果树中对任意影片右键 →「查看相似片推荐」，基于标签 IDF 加权 Jaccard 相似度 + 系列/片商/发行商/导演/评分/年份/时长/演员等多维特征本地离线计算，自动推荐风格相近的影片，支持全部历史刮削结果（含跨会话），双击推荐项可跳转。</li>\n"
+                "<li><b>鐣岄潰缂╂斁</b>锛氳缃?鈫?鐣岄潰澶栬 鈫?楂樺垎灞忕缉鏀撅紝鎻愪緵 璺熼殢绯荤粺 / 80% / 90% / 100% / 125% / 150% / 175% / 200% 鍏?8 妗ｏ紝淇濆瓨鍚庨噸鍚敓鏁堛€?/li>\n"
+                "<li><b>闈炴暣鏁扮缉鏀?/b>锛歅assThrough 楂?DPI 闈炴暣鏁扮缉鏀惧凡榛樿鍚敤锛屾棤闇€鎵嬪姩寮€鍚紝Windows 125%/150% 绛夌缉鏀炬。浣嶄笅鐣岄潰涓嶅啀妯＄硦銆?/li>\n"
+                "<li><b>鏆楄壊妯″紡</b>锛氬唴缃殫鑹蹭富棰樺垏鎹€?/li>\n"
                 "</ul>\n"
                 "\n"
-                "<h4>九、其他设置</h4>\n"
+                "<h4>鍏€佹柇鐐圭画鍒笌鐩镐技鎺ㄨ崘</h4>\n"
                 "<ul>\n"
-                "<li><b>排除目录 / 字符 / 字符串</b>：多层目录刮削时跳过指定目录；命名单据时剔除指定字符；提取番号前先删除指定字符串以提高识别率（多项用逗号分隔）。</li>\n"
-                "<li><b>失败后移动</b>：刮削不到信息时，可选择不移动，或自动移入失败输出目录。</li>\n"
-                "<li><b>保存日志</b>：开启后日志写入程序目录下的 Log 文件夹（每次运行一个 txt），可随时删除，不影响运行。</li>\n"
-                "<li><b>下载高清图（官方图源兜底）</b>：勾选后当所有图源站点均无法获取封面时，程序按番号直构官方 CDN 高清图兜底——DMM 高清封面（自动学习各厂牌前缀规则，学习数据保存在 userdata/dmm_prefix_learned.json）+ MGStage 素人高清海报（LUXU/OTIM 等 8 个系列）。所有图片下载统一设 50MB 大小上限，防止异常大文件占用磁盘。</li>\n"
+                "<li><b>鏂偣缁埉</b>锛氬埉鍓婅繘搴﹁嚜鍔ㄤ繚瀛樺埌鏈湴鏁版嵁搴擄紙userdata/scrape_state.db锛學AL 妯″紡 SQLite锛夈€傜▼搴忛噸鍚垨宕╂簝鍚庡啀娆″埉鍓婏紝浼氳嚜鍔ㄨ烦杩囧凡瀹屾垚鐨勬枃浠躲€佹仮澶嶄笂娆″け璐ョ殑鏈秴闄愭枃浠讹紙鏈€澶氳嚜鍔ㄩ噸璇?3 娆★級锛屼粠涓婃杩涘害缁х画銆?b>璇诲彇妯″紡涓嶅彈鏂偣缁埉缂撳瓨骞叉壈</b>锛屽缁堝鐞嗗叏閮ㄩ€変腑鏂囦欢銆傚闇€娓呴櫎缂撳瓨閲嶆柊鍏ㄩ噺鍒墛锛屽彲浣跨敤宸ュ叿椤电殑銆屽埉鍓婄紦瀛樼鐞嗐€嶉噸缃€?/li>\n"
+                "<li><b>澶辫触閲嶈瘯</b>锛氬埉鍓婂け璐ョ殑鏂囦欢鑷姩璁板綍锛屼笅娆″惎鍔ㄦ椂閲嶆柊灏濊瘯锛岃繛缁け璐?3 娆″悗鍋滄鑷姩閲嶈瘯銆傚眾鏃跺彲鍦ㄧ粨鏋滄爲涓澶辫触椤瑰彸閿€岄噸鏂板埉鍓娿€嶏紙杈撳叆姝ｇ‘鐣彿閲嶅埉锛夋垨銆岃緭鍏ョ綉鍧€閲嶆柊鍒墛銆嶏紙鎸囧畾璇︽儏椤电綉鍧€閲嶅埉锛夛紝鎵嬪姩閲嶅埉涓嶅彈閲嶈瘯娆℃暟闄愬埗銆?/li>\n"
+                "<li><b>鐩镐技鐗囨帹鑽?/b>锛氬湪鍙充晶缁撴灉鏍戜腑瀵逛换鎰忓奖鐗囧彸閿?鈫掋€屾煡鐪嬬浉浼肩墖鎺ㄨ崘銆嶏紝鍩轰簬鏍囩 IDF 鍔犳潈 Jaccard 鐩镐技搴?+ 绯诲垪/鐗囧晢/鍙戣鍟?瀵兼紨/璇勫垎/骞翠唤/鏃堕暱/婕斿憳绛夊缁寸壒寰佹湰鍦扮绾胯绠楋紝鑷姩鎺ㄨ崘椋庢牸鐩歌繎鐨勫奖鐗囷紝鏀寔鍏ㄩ儴鍘嗗彶鍒墛缁撴灉锛堝惈璺ㄤ細璇濓級锛屽弻鍑绘帹鑽愰」鍙烦杞€?/li>\n"
                 "</ul>\n"
                 "\n"
-                "<h4>十、工具页面</h4>\n"
+                "<h4>涔濄€佸叾浠栬缃?/h4>\n"
+                "<ul>\n"
+                "<li><b>鎺掗櫎鐩綍 / 瀛楃 / 瀛楃涓?/b>锛氬灞傜洰褰曞埉鍓婃椂璺宠繃鎸囧畾鐩綍锛涘懡鍚嶅崟鎹椂鍓旈櫎鎸囧畾瀛楃锛涙彁鍙栫暘鍙峰墠鍏堝垹闄ゆ寚瀹氬瓧绗︿覆浠ユ彁楂樿瘑鍒巼锛堝椤圭敤閫楀彿鍒嗛殧锛夈€?/li>\n"
+                "<li><b>澶辫触鍚庣Щ鍔?/b>锛氬埉鍓婁笉鍒颁俊鎭椂锛屽彲閫夋嫨涓嶇Щ鍔紝鎴栬嚜鍔ㄧЩ鍏ュけ璐ヨ緭鍑虹洰褰曘€?/li>\n"
+                "<li><b>淇濆瓨鏃ュ織</b>锛氬紑鍚悗鏃ュ織鍐欏叆绋嬪簭鐩綍涓嬬殑 Log 鏂囦欢澶癸紙姣忔杩愯涓€涓?txt锛夛紝鍙殢鏃跺垹闄わ紝涓嶅奖鍝嶈繍琛屻€?/li>\n"
+                "<li><b>涓嬭浇楂樻竻鍥撅紙瀹樻柟鍥炬簮鍏滃簳锛?/b>锛氬嬀閫夊悗褰撴墍鏈夊浘婧愮珯鐐瑰潎鏃犳硶鑾峰彇灏侀潰鏃讹紝绋嬪簭鎸夌暘鍙风洿鏋勫畼鏂?CDN 楂樻竻鍥惧厹搴曗€斺€擠MM 楂樻竻灏侀潰锛堣嚜鍔ㄥ涔犲悇鍘傜墝鍓嶇紑瑙勫垯锛屽涔犳暟鎹繚瀛樺湪 userdata/dmm_prefix_learned.json锛? MGStage 绱犱汉楂樻竻娴锋姤锛圠UXU/OTIM 绛?8 涓郴鍒楋級銆傛墍鏈夊浘鐗囦笅杞界粺涓€璁?50MB 澶у皬涓婇檺锛岄槻姝㈠紓甯稿ぇ鏂囦欢鍗犵敤纾佺洏銆?/li>\n"
+                "</ul>\n"
+                "\n"
+                "<h4>鍗併€佸伐鍏烽〉闈?/h4>\n"
                 " <ul>\n"
-                "  <li><b>NFO 库管理</b>：左侧导航独立页面，浏览和编辑整个 NFO 库。选择目录后递归扫描所有 .nfo 文件生成列表（支持番号/演员/标题筛选）；点列表项读取 NFO 填充 15 字段编辑表单（番号/标题/演员/发行日/年份/时长/导演/制作商/发行商/系列/评分/简介/标签/封面URL/海报URL），右侧同步预览本地海报和缩略图，可调起裁剪工具；保存前自动对比改动弹窗确认（字段级 diff），无改动不写盘；批量操作面板支持多选后一键替换演员名、加标签、删标签、统一系列名；列表右键菜单提供重新刮削（找同目录同名视频入队）、打开所在目录、删除 NFO。</li>\n"
-                "  <li><b>演员库维护</b>：直接操作 actor_database.xlsx。补全中文名（按 TMDB ID 补翻译）、补全 LibreDMM 链接、补全别名（可选来源：TMDB、minnano 或 JavDB；默认仅补缺别名的条目，勾选「全量更新」则并入全部行，不覆盖本地已有别名，支持「起始行/限量」分片续跑）、JavDB 中文名（从 JavDB 影片详情页抓取演员中文名，并发拉取影片详情，支持分片续跑与「停止当前维护任务」）、minnano 补全（从 minnano-av 补缺生日/简介，日文字段自动翻译）、检查用户库（扫描格式/结构/数据异常并弹窗报告，安全项可一键自动修复，tmdb 项给人工修复步骤）、打开数据库（用默认程序打开 xlsx 供手工编辑）、剔除男演员（按 TMDB 性别删除男优）、校验 tmdbid 有效性（清除 TMDB 失效 id 并按名字重搜补回）、更新 nfo tmdbid（用本地库新 id 覆盖 nfo 旧 id）。联网工具支持限量分片与「停止当前维护任务」按钮，网络请求自动并发，进度实时显示。</li>\n"
-                "  <li><b>刮削缓存管理</b>：在工具页刮削缓存面板可查看断点续刮缓存状态（已完成/失败/总数），支持刷新缓存统计、导出缓存数据、重置缓存（清除全部已完成标记，下次全量重刮）、清空缓存（删除 scrape_state.db 文件）。适合在断点续刮数据异常或需要重新全量刮削时使用。</li>\n"
-                "  <li><b>Emby 演员管理器</b>：填写 Emby 地址和 API 密钥后连接服务器，获取演员列表并按媒体库筛选（可配置只获取演员类型 / 重复去重）；从 Gfriends / graphis.ne.jp / minnano-av / 本地文件夹按可配置优先级匹配头像和背景图（本地文件夹采用预扫描索引，N 次全树遍历降为 1 次），从本地演员库 / 维基百科 / minnano-av / 数据库按可配置优先级匹配简介和出生日期；Gfriends / Graphis / 信息链路已合并为统一函数，按数据源优先级依次尝试；「数据源测试」可逐源验证结果，「设置」可配置数据源优先级与获取过滤；预览后批量同步到 Emby（支持仅补缺失或强制重新获取，同步完成后自动刷新列表），双击演员行打开详情编辑对话框，可编辑简介 / 信息并单独同步头像 / 简介；头像缓存持久化到 userdata/emby_actor_cache/ 目录（不再随临时目录清理丢失），「清空缓存文件夹」可一键清理。</li>\n"
-                " <li><b>单文件刮削</b>：指定某个文件的番号网址进行刮削，当存在相同番号时可手工指定。</li>\n"
-                " <li><b>封面补图</b>：输入番号（多个用空格分隔），自动刮削并补齐缺失的 poster.jpg 和 thumb.jpg，复用当前配置的站点优先级、命名、裁切、水印规则；所有站点拿不到图时自动走 DMM 官方高清直链兜底（内置约 110 个主流系列前缀表并自动学习未收录厂牌，竖版高清优先，无码番号跳过）。</li>\n"
-                " <li><b>海报裁剪</b>：将图片裁剪为 2:3 标准封面图大小，支持加水印。</li>\n"
-                " <li><b>软链接助手</b>：将挂载的网盘文件目录及子目录中的所有视频一键创建软链接到本地。</li>\n"
-                " <li><b>移动视频/字幕</b>：将待刮削目录下所有子目录中的视频移动到一个目录中方便查看。</li>\n"
-                " <li><b>检查演员缺失番号</b>：检查资源库中指定演员本地缺失的番号。</li>\n"
+                "  <li><b>NFO 搴撶鐞?/b>锛氬乏渚у鑸嫭绔嬮〉闈紝娴忚鍜岀紪杈戞暣涓?NFO 搴撱€傞€夋嫨鐩綍鍚庨€掑綊鎵弿鎵€鏈?.nfo 鏂囦欢鐢熸垚鍒楄〃锛堟敮鎸佺暘鍙?婕斿憳/鏍囬绛涢€夛級锛涚偣鍒楄〃椤硅鍙?NFO 濉厖 15 瀛楁缂栬緫琛ㄥ崟锛堢暘鍙?鏍囬/婕斿憳/鍙戣鏃?骞翠唤/鏃堕暱/瀵兼紨/鍒朵綔鍟?鍙戣鍟?绯诲垪/璇勫垎/绠€浠?鏍囩/灏侀潰URL/娴锋姤URL锛夛紝鍙充晶鍚屾棰勮鏈湴娴锋姤鍜岀缉鐣ュ浘锛屽彲璋冭捣瑁佸壀宸ュ叿锛涗繚瀛樺墠鑷姩瀵规瘮鏀瑰姩寮圭獥纭锛堝瓧娈电骇 diff锛夛紝鏃犳敼鍔ㄤ笉鍐欑洏锛涙壒閲忔搷浣滈潰鏉挎敮鎸佸閫夊悗涓€閿浛鎹㈡紨鍛樺悕銆佸姞鏍囩銆佸垹鏍囩銆佺粺涓€绯诲垪鍚嶏紱鍒楄〃鍙抽敭鑿滃崟鎻愪緵閲嶆柊鍒墛锛堟壘鍚岀洰褰曞悓鍚嶈棰戝叆闃燂級銆佹墦寮€鎵€鍦ㄧ洰褰曘€佸垹闄?NFO銆?/li>\n"
+                "  <li><b>婕斿憳搴撶淮鎶?/b>锛氱洿鎺ユ搷浣?actor_database.xlsx銆傝ˉ鍏ㄤ腑鏂囧悕锛堟寜 TMDB ID 琛ョ炕璇戯級銆佽ˉ鍏?LibreDMM 閾炬帴銆佽ˉ鍏ㄥ埆鍚嶏紙鍙€夋潵婧愶細TMDB銆乵innano 鎴?JavDB锛涢粯璁や粎琛ョ己鍒悕鐨勬潯鐩紝鍕鹃€夈€屽叏閲忔洿鏂般€嶅垯骞跺叆鍏ㄩ儴琛岋紝涓嶈鐩栨湰鍦板凡鏈夊埆鍚嶏紝鏀寔銆岃捣濮嬭/闄愰噺銆嶅垎鐗囩画璺戯級銆丣avDB 涓枃鍚嶏紙浠?JavDB 褰辩墖璇︽儏椤垫姄鍙栨紨鍛樹腑鏂囧悕锛屽苟鍙戞媺鍙栧奖鐗囪鎯咃紝鏀寔鍒嗙墖缁窇涓庛€屽仠姝㈠綋鍓嶇淮鎶や换鍔°€嶏級銆乵innano 琛ュ叏锛堜粠 minnano-av 琛ョ己鐢熸棩/绠€浠嬶紝鏃ユ枃瀛楁鑷姩缈昏瘧锛夈€佹鏌ョ敤鎴峰簱锛堟壂鎻忔牸寮?缁撴瀯/鏁版嵁寮傚父骞跺脊绐楁姤鍛婏紝瀹夊叏椤瑰彲涓€閿嚜鍔ㄤ慨澶嶏紝tmdb 椤圭粰浜哄伐淇姝ラ锛夈€佹墦寮€鏁版嵁搴擄紙鐢ㄩ粯璁ょ▼搴忔墦寮€ xlsx 渚涙墜宸ョ紪杈戯級銆佸墧闄ょ敺婕斿憳锛堟寜 TMDB 鎬у埆鍒犻櫎鐢蜂紭锛夈€佹牎楠?tmdbid 鏈夋晥鎬э紙娓呴櫎 TMDB 澶辨晥 id 骞舵寜鍚嶅瓧閲嶆悳琛ュ洖锛夈€佹洿鏂?nfo tmdbid锛堢敤鏈湴搴撴柊 id 瑕嗙洊 nfo 鏃?id锛夈€傝仈缃戝伐鍏锋敮鎸侀檺閲忓垎鐗囦笌銆屽仠姝㈠綋鍓嶇淮鎶や换鍔°€嶆寜閽紝缃戠粶璇锋眰鑷姩骞跺彂锛岃繘搴﹀疄鏃舵樉绀恒€?/li>\n"
+                "  <li><b>鍒墛缂撳瓨绠＄悊</b>锛氬湪宸ュ叿椤靛埉鍓婄紦瀛橀潰鏉垮彲鏌ョ湅鏂偣缁埉缂撳瓨鐘舵€侊紙宸插畬鎴?澶辫触/鎬绘暟锛夛紝鏀寔鍒锋柊缂撳瓨缁熻銆佸鍑虹紦瀛樻暟鎹€侀噸缃紦瀛橈紙娓呴櫎鍏ㄩ儴宸插畬鎴愭爣璁帮紝涓嬫鍏ㄩ噺閲嶅埉锛夈€佹竻绌虹紦瀛橈紙鍒犻櫎 scrape_state.db 鏂囦欢锛夈€傞€傚悎鍦ㄦ柇鐐圭画鍒暟鎹紓甯告垨闇€瑕侀噸鏂板叏閲忓埉鍓婃椂浣跨敤銆?/li>\n"
+                "  <li><b>Emby 婕斿憳绠＄悊鍣?/b>锛氬～鍐?Emby 鍦板潃鍜?API 瀵嗛挜鍚庤繛鎺ユ湇鍔″櫒锛岃幏鍙栨紨鍛樺垪琛ㄥ苟鎸夊獟浣撳簱绛涢€夛紙鍙厤缃彧鑾峰彇婕斿憳绫诲瀷 / 閲嶅鍘婚噸锛夛紱浠?Gfriends / graphis.ne.jp / minnano-av / 鏈湴鏂囦欢澶规寜鍙厤缃紭鍏堢骇鍖归厤澶村儚鍜岃儗鏅浘锛堟湰鍦版枃浠跺す閲囩敤棰勬壂鎻忕储寮曪紝N 娆″叏鏍戦亶鍘嗛檷涓?1 娆★級锛屼粠鏈湴婕斿憳搴?/ 缁村熀鐧剧 / minnano-av / 鏁版嵁搴撴寜鍙厤缃紭鍏堢骇鍖归厤绠€浠嬪拰鍑虹敓鏃ユ湡锛汫friends / Graphis / 淇℃伅閾捐矾宸插悎骞朵负缁熶竴鍑芥暟锛屾寜鏁版嵁婧愪紭鍏堢骇渚濇灏濊瘯锛涖€屾暟鎹簮娴嬭瘯銆嶅彲閫愭簮楠岃瘉缁撴灉锛屻€岃缃€嶅彲閰嶇疆鏁版嵁婧愪紭鍏堢骇涓庤幏鍙栬繃婊わ紱棰勮鍚庢壒閲忓悓姝ュ埌 Emby锛堟敮鎸佷粎琛ョ己澶辨垨寮哄埗閲嶆柊鑾峰彇锛屽悓姝ュ畬鎴愬悗鑷姩鍒锋柊鍒楄〃锛夛紝鍙屽嚮婕斿憳琛屾墦寮€璇︽儏缂栬緫瀵硅瘽妗嗭紝鍙紪杈戠畝浠?/ 淇℃伅骞跺崟鐙悓姝ュご鍍?/ 绠€浠嬶紱澶村儚缂撳瓨鎸佷箙鍖栧埌 userdata/emby_actor_cache/ 鐩綍锛堜笉鍐嶉殢涓存椂鐩綍娓呯悊涓㈠け锛夛紝銆屾竻绌虹紦瀛樻枃浠跺す銆嶅彲涓€閿竻鐞嗐€?/li>\n"
+                " <li><b>鍗曟枃浠跺埉鍓?/b>锛氭寚瀹氭煇涓枃浠剁殑鐣彿缃戝潃杩涜鍒墛锛屽綋瀛樺湪鐩稿悓鐣彿鏃跺彲鎵嬪伐鎸囧畾銆?/li>\n"
+                " <li><b>灏侀潰琛ュ浘</b>锛氳緭鍏ョ暘鍙凤紙澶氫釜鐢ㄧ┖鏍煎垎闅旓級锛岃嚜鍔ㄥ埉鍓婂苟琛ラ綈缂哄け鐨?poster.jpg 鍜?thumb.jpg锛屽鐢ㄥ綋鍓嶉厤缃殑绔欑偣浼樺厛绾с€佸懡鍚嶃€佽鍒囥€佹按鍗拌鍒欙紱鎵€鏈夌珯鐐规嬁涓嶅埌鍥炬椂鑷姩璧?DMM 瀹樻柟楂樻竻鐩撮摼鍏滃簳锛堝唴缃害 110 涓富娴佺郴鍒楀墠缂€琛ㄥ苟鑷姩瀛︿範鏈敹褰曞巶鐗岋紝绔栫増楂樻竻浼樺厛锛屾棤鐮佺暘鍙疯烦杩囷級銆?/li>\n"
+                " <li><b>娴锋姤瑁佸壀</b>锛氬皢鍥剧墖瑁佸壀涓?2:3 鏍囧噯灏侀潰鍥惧ぇ灏忥紝鏀寔鍔犳按鍗般€?/li>\n"
+                " <li><b>杞摼鎺ュ姪鎵?/b>锛氬皢鎸傝浇鐨勭綉鐩樻枃浠剁洰褰曞強瀛愮洰褰曚腑鐨勬墍鏈夎棰戜竴閿垱寤鸿蒋閾炬帴鍒版湰鍦般€?/li>\n"
+                " <li><b>绉诲姩瑙嗛/瀛楀箷</b>锛氬皢寰呭埉鍓婄洰褰曚笅鎵€鏈夊瓙鐩綍涓殑瑙嗛绉诲姩鍒颁竴涓洰褰曚腑鏂逛究鏌ョ湅銆?/li>\n"
+                " <li><b>妫€鏌ユ紨鍛樼己澶辩暘鍙?/b>锛氭鏌ヨ祫婧愬簱涓寚瀹氭紨鍛樻湰鍦扮己澶辩殑鐣彿銆?/li>\n"
                 " </ul>\n"
                 "\n"
-                "<h4>十一、常见番号命名参考</h4>\n"
-                "<p>刮削前尽量命名规范、不区分大小写：</p>\n"
+                "<h4>鍗佷竴銆佸父瑙佺暘鍙峰懡鍚嶅弬鑰?/h4>\n"
+                "<p>鍒墛鍓嶅敖閲忓懡鍚嶈鑼冦€佷笉鍖哄垎澶у皬鍐欙細</p>\n"
                 "<ul>\n"
-                "<li><b>标准有码</b>：JavDB / JavBus: SSNI-111；DMM: ssni00111</li>\n"
-                "<li><b>无码</b>：JavDB / JavBus / Avsox: 111111-1111、111111_111、HEYZO-1111、n1111</li>\n"
-                " <li><b>素人</b>：MGStage: 259LUXU-1111；JavDB: LUXU-1111；FC2: FC2-111111、FC2-PPV-111111</li>\n"
-                "<li><b>欧美</b>：JavDB / JavBus: sexart.11.11.11（系列.年.月.日）</li>\n"
-                "<li><b>字幕影片</b>：ssni-xxx-c.mp4 / -C.mp4（字幕标记靠近扩展名）</li>\n"
-                "<li><b>多集影片</b>：ssni-xxx-cd1.mp4、ssni-xxx-cd2.mp4（默认支持 -cdN / -partN / -hdN / 单数字结尾 -1 等形式；如需 -A 字母分集或 -01 两位数字分集，可在设置 → 命名中勾选『允许识别分集』对应选项）</li>\n"
-                "<li><b>外挂字幕</b>：字幕文件名需与影片一致，支持 srt / ass / sub，方可随影片一起移动</li>\n"
+                "<li><b>鏍囧噯鏈夌爜</b>锛欽avDB / JavBus: SSNI-111锛汥MM: ssni00111</li>\n"
+                "<li><b>鏃犵爜</b>锛欽avDB / JavBus / Avsox: 111111-1111銆?11111_111銆丠EYZO-1111銆乶1111</li>\n"
+                " <li><b>绱犱汉</b>锛歁GStage: 259LUXU-1111锛汮avDB: LUXU-1111锛汧C2: FC2-111111銆丗C2-PPV-111111</li>\n"
+                "<li><b>娆х編</b>锛欽avDB / JavBus: sexart.11.11.11锛堢郴鍒?骞?鏈?鏃ワ級</li>\n"
+                "<li><b>瀛楀箷褰辩墖</b>锛歴sni-xxx-c.mp4 / -C.mp4锛堝瓧骞曟爣璁伴潬杩戞墿灞曞悕锛?/li>\n"
+                "<li><b>澶氶泦褰辩墖</b>锛歴sni-xxx-cd1.mp4銆乻sni-xxx-cd2.mp4锛堥粯璁ゆ敮鎸?-cdN / -partN / -hdN / 鍗曟暟瀛楃粨灏?-1 绛夊舰寮忥紱濡傞渶 -A 瀛楁瘝鍒嗛泦鎴?-01 涓や綅鏁板瓧鍒嗛泦锛屽彲鍦ㄨ缃?鈫?鍛藉悕涓嬀閫夈€庡厑璁歌瘑鍒垎闆嗐€忓搴旈€夐」锛?/li>\n"
+                "<li><b>澶栨寕瀛楀箷</b>锛氬瓧骞曟枃浠跺悕闇€涓庡奖鐗囦竴鑷达紝鏀寔 srt / ass / sub锛屾柟鍙殢褰辩墖涓€璧风Щ鍔?/li>\n"
                 "</ul>\n"
                 "\n"
-                "<h4>十二、获取帮助</h4>\n"
+                "<h4>鍗佷簩銆佽幏鍙栧府鍔?/h4>\n"
                 "<ul>\n"
-                "<li>项目主页：https://github.com/cdlongbow/mdcx-diy</li>\n"
-                "<li>Release 下载：https://github.com/cdlongbow/mdcx-diy/releases</li>\n"
-                "<li>常见问题：docs/USER_GUIDE.md（使用手册）、docs/CONFIGURATION.md（配置参考）、docs/FEATURES.md（功能总览）</li>\n"
-                "<li>问题反馈：GitHub Issues；交流：Telegram 群 https://t.me/+OVnB6Cw8gkxlYzM1</li>\n"
+                "<li>椤圭洰涓婚〉锛歨ttps://github.com/cdlongbow/mdcx-diy</li>\n"
+                "<li>Release 涓嬭浇锛歨ttps://github.com/cdlongbow/mdcx-diy/releases</li>\n"
+                "<li>甯歌闂锛歞ocs/USER_GUIDE.md锛堜娇鐢ㄦ墜鍐岋級銆乨ocs/CONFIGURATION.md锛堥厤缃弬鑰冿級銆乨ocs/FEATURES.md锛堝姛鑳芥€昏锛?/li>\n"
+                "<li>闂鍙嶉锛欸itHub Issues锛涗氦娴侊細Telegram 缇?https://t.me/+OVnB6Cw8gkxlYzM1</li>\n"
                 "</ul>\n"
-                '<p style="color:#888888;">MDCx-diy 由 cdlongbow 基于开源社区项目（sqzw-x/mdcx → Hazard804/mdcx → ZiPenOk/mdcx）持续维护，仅供学习与技术交流。向相关开发者表示敬意！</p>\n'
+                '<p style="color:#888888;">MDCx-diy 鐢?cdlongbow 鍩轰簬寮€婧愮ぞ鍖洪」鐩紙sqzw-x/mdcx 鈫?Hazard804/mdcx 鈫?ZiPenOk/mdcx锛夋寔缁淮鎶わ紝浠呬緵瀛︿範涓庢妧鏈氦娴併€傚悜鐩稿叧寮€鍙戣€呰〃绀烘暚鎰忥紒</p>\n'
                 "</body></html>",
             )
         )
-        self.pushButton_nfo_lib_select_dir.setText(_translate("MDCx", "选择目录"))
-        self.lineEdit_nfo_lib_dir.setPlaceholderText(_translate("MDCx", '点击"选择目录"选择 NFO 所在文件夹'))
-        self.label_nfo_lib_count.setText(_translate("MDCx", "共 0 个"))
-        self.lineEdit_nfo_lib_filter.setPlaceholderText(_translate("MDCx", "筛选番号/演员/标题..."))
-        self.pushButton_nfo_lib_refresh.setText(_translate("MDCx", "刷新"))
-        self.label_nfo_lib_list_title.setText(_translate("MDCx", "NFO 文件列表"))
-        self.pushButton_nfo_lib_select_all.setText(_translate("MDCx", "全选"))
-        self.pushButton_nfo_lib_select_none.setText(_translate("MDCx", "全不选"))
+        self.pushButton_nfo_lib_select_dir.setText(_translate("MDCx", "閫夋嫨鐩綍"))
+        self.lineEdit_nfo_lib_dir.setPlaceholderText(_translate("MDCx", '鐐瑰嚮"閫夋嫨鐩綍"閫夋嫨 NFO 鎵€鍦ㄦ枃浠跺す'))
+        self.label_nfo_lib_count.setText(_translate("MDCx", "鍏?0 涓?))
+        self.lineEdit_nfo_lib_filter.setPlaceholderText(_translate("MDCx", "绛涢€夌暘鍙?婕斿憳/鏍囬..."))
+        self.pushButton_nfo_lib_refresh.setText(_translate("MDCx", "鍒锋柊"))
+        self.label_nfo_lib_list_title.setText(_translate("MDCx", "NFO 鏂囦欢鍒楄〃"))
+        self.pushButton_nfo_lib_select_all.setText(_translate("MDCx", "鍏ㄩ€?))
+        self.pushButton_nfo_lib_select_none.setText(_translate("MDCx", "鍏ㄤ笉閫?))
         self.listWidget_nfo_lib.setSortingEnabled(True)
-        self.groupBox_nfo_lib_batch.setTitle(_translate("MDCx", "批量操作（选中多条后使用）"))
-        self.pushButton_nfo_lib_batch_actor.setText(_translate("MDCx", "替换演员名"))
-        self.lineEdit_nfo_lib_batch_actor.setPlaceholderText(_translate("MDCx", "新演员名（逗号分隔）"))
-        self.pushButton_nfo_lib_batch_add_tag.setText(_translate("MDCx", "加标签"))
-        self.lineEdit_nfo_lib_batch_add_tag.setPlaceholderText(_translate("MDCx", "标签（逗号分隔）"))
-        self.pushButton_nfo_lib_batch_del_tag.setText(_translate("MDCx", "删标签"))
-        self.lineEdit_nfo_lib_batch_del_tag.setPlaceholderText(_translate("MDCx", "标签（逗号分隔）"))
-        self.pushButton_nfo_lib_batch_series.setText(_translate("MDCx", "统一系列名"))
-        self.lineEdit_nfo_lib_batch_series.setPlaceholderText(_translate("MDCx", "系列名"))
-        self.pushButton_nfo_lib_batch_save.setText(_translate("MDCx", "批量保存"))
+        self.groupBox_nfo_lib_batch.setTitle(_translate("MDCx", "鎵归噺鎿嶄綔锛堥€変腑澶氭潯鍚庝娇鐢級"))
+        self.pushButton_nfo_lib_batch_actor.setText(_translate("MDCx", "鏇挎崲婕斿憳鍚?))
+        self.lineEdit_nfo_lib_batch_actor.setPlaceholderText(_translate("MDCx", "鏂版紨鍛樺悕锛堥€楀彿鍒嗛殧锛?))
+        self.pushButton_nfo_lib_batch_add_tag.setText(_translate("MDCx", "鍔犳爣绛?))
+        self.lineEdit_nfo_lib_batch_add_tag.setPlaceholderText(_translate("MDCx", "鏍囩锛堥€楀彿鍒嗛殧锛?))
+        self.pushButton_nfo_lib_batch_del_tag.setText(_translate("MDCx", "鍒犳爣绛?))
+        self.lineEdit_nfo_lib_batch_del_tag.setPlaceholderText(_translate("MDCx", "鏍囩锛堥€楀彿鍒嗛殧锛?))
+        self.pushButton_nfo_lib_batch_series.setText(_translate("MDCx", "缁熶竴绯诲垪鍚?))
+        self.lineEdit_nfo_lib_batch_series.setPlaceholderText(_translate("MDCx", "绯诲垪鍚?))
+        self.pushButton_nfo_lib_batch_save.setText(_translate("MDCx", "鎵归噺淇濆瓨"))
         self.label_nfo_lib_batch_hint.setText(
             _translate(
                 "MDCx",
-                "用法：先在左侧 NFO 列表选中多条记录，再填写内容点对应按钮（替换演员名/加标签/删标签/统一系列名），最后点「批量保存」统一写盘生效。",
+                "鐢ㄦ硶锛氬厛鍦ㄥ乏渚?NFO 鍒楄〃閫変腑澶氭潯璁板綍锛屽啀濉啓鍐呭鐐瑰搴旀寜閽紙鏇挎崲婕斿憳鍚?鍔犳爣绛?鍒犳爣绛?缁熶竴绯诲垪鍚嶏級锛屾渶鍚庣偣銆屾壒閲忎繚瀛樸€嶇粺涓€鍐欑洏鐢熸晥銆?,
             )
         )
-        self.label_nfo_lib_number.setText(_translate("MDCx", "番号"))
-        self.label_nfo_lib_title.setText(_translate("MDCx", "标题"))
-        self.label_nfo_lib_actor.setText(_translate("MDCx", "演员"))
-        self.label_nfo_lib_release.setText(_translate("MDCx", "发行日"))
-        self.label_nfo_lib_year.setText(_translate("MDCx", "年份"))
-        self.label_nfo_lib_runtime.setText(_translate("MDCx", "时长"))
-        self.label_nfo_lib_director.setText(_translate("MDCx", "导演"))
-        self.label_nfo_lib_studio.setText(_translate("MDCx", "制作商"))
-        self.label_nfo_lib_publisher.setText(_translate("MDCx", "发行商"))
-        self.label_nfo_lib_series.setText(_translate("MDCx", "系列"))
-        self.label_nfo_lib_score.setText(_translate("MDCx", "评分"))
-        self.label_nfo_lib_outline.setText(_translate("MDCx", "简介"))
-        self.label_nfo_lib_tag.setText(_translate("MDCx", "标签"))
-        self.label_nfo_lib_cover_url.setText(_translate("MDCx", "封面URL"))
-        self.label_nfo_lib_poster_url.setText(_translate("MDCx", "海报URL"))
-        self.pushButton_nfo_lib_save.setText(_translate("MDCx", "保存当前 NFO"))
-        self.label_nfo_lib_poster_preview.setText(_translate("MDCx", "海报预览"))
-        self.label_nfo_lib_thumb_preview.setText(_translate("MDCx", "缩略图预览"))
-        self.pushButton_nfo_lib_crop.setText(_translate("MDCx", "裁剪封面"))
-        self.pushButton_main.setText(_translate("MDCx", " 主界面"))
-        self.pushButton_log.setText(_translate("MDCx", " 日志"))
-        self.pushButton_tool.setText(_translate("MDCx", " 工具"))
-        self.pushButton_emby_manager_nav.setText(_translate("MDCx", " 演员管理"))
+        self.label_nfo_lib_number.setText(_translate("MDCx", "鐣彿"))
+        self.label_nfo_lib_title.setText(_translate("MDCx", "鏍囬"))
+        self.label_nfo_lib_actor.setText(_translate("MDCx", "婕斿憳"))
+        self.label_nfo_lib_release.setText(_translate("MDCx", "鍙戣鏃?))
+        self.label_nfo_lib_year.setText(_translate("MDCx", "骞翠唤"))
+        self.label_nfo_lib_runtime.setText(_translate("MDCx", "鏃堕暱"))
+        self.label_nfo_lib_director.setText(_translate("MDCx", "瀵兼紨"))
+        self.label_nfo_lib_studio.setText(_translate("MDCx", "鍒朵綔鍟?))
+        self.label_nfo_lib_publisher.setText(_translate("MDCx", "鍙戣鍟?))
+        self.label_nfo_lib_series.setText(_translate("MDCx", "绯诲垪"))
+        self.label_nfo_lib_score.setText(_translate("MDCx", "璇勫垎"))
+        self.label_nfo_lib_outline.setText(_translate("MDCx", "绠€浠?))
+        self.label_nfo_lib_tag.setText(_translate("MDCx", "鏍囩"))
+        self.label_nfo_lib_cover_url.setText(_translate("MDCx", "灏侀潰URL"))
+        self.label_nfo_lib_poster_url.setText(_translate("MDCx", "娴锋姤URL"))
+        self.pushButton_nfo_lib_save.setText(_translate("MDCx", "淇濆瓨褰撳墠 NFO"))
+        self.label_nfo_lib_poster_preview.setText(_translate("MDCx", "娴锋姤棰勮"))
+        self.label_nfo_lib_thumb_preview.setText(_translate("MDCx", "缂╃暐鍥鹃瑙?))
+        self.pushButton_nfo_lib_crop.setText(_translate("MDCx", "瑁佸壀灏侀潰"))
+        self.pushButton_main.setText(_translate("MDCx", " 杞欢鐣岄潰"))
+        self.pushButton_log.setText(_translate("MDCx", " 杞欢鏃ュ織"))
+        self.pushButton_tool.setText(_translate("MDCx", " 杞欢宸ュ叿"))
+        self.pushButton_emby_manager_nav.setText(_translate("MDCx", " 婕斿憳绠＄悊"))
         self.pushButton_emby_manager_nav.setToolTip(
             _translate(
-                "MDCx", "Emby 演员管理器（管理演员头像和简介）：连接 Emby 后获取演员列表、匹配头像简介、批量同步写入"
+                "MDCx", "Emby 婕斿憳绠＄悊鍣紙绠＄悊婕斿憳澶村儚鍜岀畝浠嬶級锛氳繛鎺?Emby 鍚庤幏鍙栨紨鍛樺垪琛ㄣ€佸尮閰嶅ご鍍忕畝浠嬨€佹壒閲忓悓姝ュ啓鍏?
             )
         )
-        self.pushButton_nfo_library.setText(_translate("MDCx", " 信息管理"))
-        self.pushButton_setting.setText(_translate("MDCx", " 设置"))
-        self.pushButton_net.setText(_translate("MDCx", " 检测网络"))
-        self.pushButton_about.setText(_translate("MDCx", " 使用说明"))
-        self.pushButton_close.setText(_translate("MDCx", "×"))
+        self.pushButton_nfo_library.setText(_translate("MDCx", " 淇℃伅绠＄悊"))
+        self.pushButton_setting.setText(_translate("MDCx", " 杞欢璁剧疆"))
+        self.pushButton_net.setText(_translate("MDCx", " 妫€娴嬬綉缁?))
+        self.pushButton_about.setText(_translate("MDCx", " 浣跨敤璇存槑"))
+        self.pushButton_close.setText(_translate("MDCx", "脳"))
         self.pushButton_min.setText(_translate("MDCx", "-"))
-        self.label_19.setText(_translate("MDCx", "简介："))
-        self.label_359.setText(_translate("MDCx", "演员："))
-        self.label_360.setText(_translate("MDCx", "番号："))
-        self.label_361.setText(_translate("MDCx", "标题："))
-        self.label_362.setText(_translate("MDCx", "标签："))
-        self.label_363.setText(_translate("MDCx", "发行日期："))
-        self.label_364.setText(_translate("MDCx", "时长："))
-        self.label_365.setText(_translate("MDCx", "系列："))
-        self.label_366.setText(_translate("MDCx", "导演："))
-        self.label_367.setText(_translate("MDCx", "发行商："))
-        self.label_368.setText(_translate("MDCx", "制作商："))
-        self.label_369.setText(_translate("MDCx", "国家："))
+        self.label_19.setText(_translate("MDCx", "绠€浠嬶細"))
+        self.label_359.setText(_translate("MDCx", "婕斿憳锛?))
+        self.label_360.setText(_translate("MDCx", "鐣彿锛?))
+        self.label_361.setText(_translate("MDCx", "鏍囬锛?))
+        self.label_362.setText(_translate("MDCx", "鏍囩锛?))
+        self.label_363.setText(_translate("MDCx", "鍙戣鏃ユ湡锛?))
+        self.label_364.setText(_translate("MDCx", "鏃堕暱锛?))
+        self.label_365.setText(_translate("MDCx", "绯诲垪锛?))
+        self.label_366.setText(_translate("MDCx", "瀵兼紨锛?))
+        self.label_367.setText(_translate("MDCx", "鍙戣鍟嗭細"))
+        self.label_368.setText(_translate("MDCx", "鍒朵綔鍟嗭細"))
+        self.label_369.setText(_translate("MDCx", "鍥藉锛?))
         self.comboBox_nfo.setItemText(0, _translate("MDCx", "JP"))
         self.comboBox_nfo.setItemText(1, _translate("MDCx", "US"))
         self.comboBox_nfo.setItemText(2, _translate("MDCx", "CN"))
-        self.label_371.setText(_translate("MDCx", "原简介："))
-        self.label_372.setText(_translate("MDCx", "原标题："))
-        self.label_375.setText(_translate("MDCx", "封面图地址："))
-        self.label_376.setText(_translate("MDCx", "背景图地址："))
-        self.label_377.setText(_translate("MDCx", "预告片地址："))
-        self.label_378.setText(_translate("MDCx", "网页地址："))
-        self.label_370.setText(_translate("MDCx", "多个以逗号隔开"))
-        self.label_379.setText(_translate("MDCx", "多个以逗号隔开"))
-        self.label_373.setText(_translate("MDCx", "评分："))
-        self.label_374.setText(_translate("MDCx", "想看人数："))
-        self.label_380.setText(_translate("MDCx", "年代："))
-        self.label_381.setText(_translate("MDCx", "文件："))
-        self.pushButton_nfo_save.setText(_translate("MDCx", "保存"))
-        self.pushButton_nfo_close.setText(_translate("MDCx", "关闭"))
+        self.label_371.setText(_translate("MDCx", "鍘熺畝浠嬶細"))
+        self.label_372.setText(_translate("MDCx", "鍘熸爣棰橈細"))
+        self.label_375.setText(_translate("MDCx", "灏侀潰鍥惧湴鍧€锛?))
+        self.label_376.setText(_translate("MDCx", "鑳屾櫙鍥惧湴鍧€锛?))
+        self.label_377.setText(_translate("MDCx", "棰勫憡鐗囧湴鍧€锛?))
+        self.label_378.setText(_translate("MDCx", "缃戦〉鍦板潃锛?))
+        self.label_370.setText(_translate("MDCx", "澶氫釜浠ラ€楀彿闅斿紑"))
+        self.label_379.setText(_translate("MDCx", "澶氫釜浠ラ€楀彿闅斿紑"))
+        self.label_373.setText(_translate("MDCx", "璇勫垎锛?))
+        self.label_374.setText(_translate("MDCx", "鎯崇湅浜烘暟锛?))
+        self.label_380.setText(_translate("MDCx", "骞翠唬锛?))
+        self.label_381.setText(_translate("MDCx", "鏂囦欢锛?))
+        self.pushButton_nfo_save.setText(_translate("MDCx", "淇濆瓨"))
+        self.pushButton_nfo_close.setText(_translate("MDCx", "鍏抽棴"))
         self.pushButton_nfo_close.setShortcut(_translate("MDCx", "Esc"))
-        self.label_4.setText(_translate("MDCx", "编辑 NFO"))
+        self.label_4.setText(_translate("MDCx", "缂栬緫 NFO"))
 
 
 from .CustomClass import CustomQSlider, CustomScrollArea
