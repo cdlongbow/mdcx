@@ -102,6 +102,55 @@ def fake_manager(monkeypatch: pytest.MonkeyPatch):
 
 
 @pytest.mark.anyio
+@pytest.mark.parametrize("anyio_backend", ["asyncio"])
+async def test_7mmtv_in_check_specs_and_probe_path(monkeypatch: pytest.MonkeyPatch):
+    """7mmtv 已注册即自动进入检测清单；搜索探测链路走 _generate_search_url→搜索页匹配。"""
+
+    from mdcx.config.models import Website as WebsiteEnum
+    from mdcx.crawlers import get_registered_crawler_sites
+
+    # 1) 注册爬虫清单含 7mmtv → 检测规格构建自动覆盖
+    values = [s.value for s in get_registered_crawler_sites()]
+    assert "7mmtv" in values
+
+    # 2) 探测路径：搜索页 fixture 匹配探针番号 → OK
+    from mdcx.core.network_check import (
+        NetworkCheckSpec,
+        NetworkCheckStatus,
+        _probe_crawler_capability,
+    )
+
+    class FakeResponse:
+        text = '<figure class="video-preview"><a href="/zh/x/SSNI-647.html"><img alt="SSNI-647 標題"></a></figure>'
+        encoding = "utf-8"
+
+    class FakeClient:
+        async def request(self, method, url, **kwargs):
+            return FakeResponse(), ""
+
+    spec = NetworkCheckSpec(
+        name="7mmtv",
+        group="刮削站点",
+        url="https://www.7mmtv.sx",
+        site=WebsiteEnum.MMTV,
+    )
+    status, message = await _probe_crawler_capability(FakeClient(), spec)
+    assert status is NetworkCheckStatus.OK, f"7mmtv 探测失败: {status} {message}"
+
+    # 3) 搜索页无匹配番号时给 WARNING（未被收录提示），不炸整轮
+    class FakeResponseMiss(FakeResponse):
+        text = '<figure class="video-preview"><a href="/x.html"><img alt="OTHER-1"></a></figure>'
+
+    class FakeClientMiss:
+        async def request(self, method, url, **kwargs):
+            return FakeResponseMiss(), ""
+
+    # get_real_url 无匹配时 _parse_search_page 抛 CrawlerException → 转 WARNING
+    status2, message2 = await _probe_crawler_capability(FakeClientMiss(), spec)
+    assert status2 is NetworkCheckStatus.WARNING, f"未收录场景应 WARNING: {status2} {message2}"
+
+
+@pytest.mark.anyio
 async def test_build_network_check_specs_uses_registered_sites_without_key_error(monkeypatch: pytest.MonkeyPatch):
     class DynamicCrawler:
         @classmethod
