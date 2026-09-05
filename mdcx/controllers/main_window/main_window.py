@@ -567,6 +567,23 @@ class MyMAinWindow(QMainWindow):
         for index in range(stacked.count()):
             stacked.widget(index).resize(avail_w, avail_h)
 
+        # ============ page_main（软件界面）：横向跟随 ============
+        # 设计基准宽 820：宽幅控件拉伸贴右缘、右缘锚定控件保持宽度平移、其余保持原位。
+        # 纵向布局在设计高度内自然排布（用户确认纵向无问题），仅同步横向。
+        main_page = ui.page_main
+        main_w = main_page.width()
+        # 宽幅拉伸（设计右缘≈页面右缘）：文件路径标签、分隔线
+        ui.label_file_path.resize(max(main_w - 34, 300), ui.label_file_path.height())
+        ui.line_14.resize(max(main_w - 49, 300), ui.line_14.height())
+        # 右缘锚定（固定宽，右缘贴齐）：顶部开始按钮、结果树标题、结果树、清空按钮
+        ui.pushButton_start_cap.move(max(main_w - 120 - 20, 20), 13)
+        ui.label_result.move(max(main_w - 211 - 9, 300), 70)
+        ui.treeWidget_number.move(max(main_w - 202 - 18, 300), 110)
+        ui.treeWidget_number.resize(202, max(ui.treeWidget_number.height(), 100))
+        ui.pushButton_tree_clear.move(max(main_w - 20 - 40, 300), 110)
+        # 选择目录按钮跟随开始按钮左移，保持 14px 视觉间距（设计 666 与 680 之间）
+        ui.pushButton_select_media_folder.move(max(ui.pushButton_start_cap.x() - 101 - 14, 20), 13)
+
         # ============ page_setting: tabWidget + 内部12个 scrollArea ============
         # tabWidget 设计参考几何(20,10,800,682) → scrollArea(0,0,796,658)
         # 保持 tabWidget 固定 X/Y=20,10，宽高跟随主窗口
