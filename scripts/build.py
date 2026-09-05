@@ -380,9 +380,19 @@ class BuildManager:
         Returns:
             如果命令执行成功, 返回标准输出内容; 否则返回 False
         """
-        logger.debug(f"Execute: {' '.join(args)}")
+        # subprocess.run 不设 encoding 时 Windows 默认 GBK/charmap 解码输出，
+        # 遇到 UTF-8 内容（emoji/中文路径/依赖 lint 输出）即 `UnicodeDecodeError: charmap`，
+        # release 构建在 Windows runner 直接失败（v2.0.7 tag 20260905 实证）。
+        # 固定 UTF-8 + errors=replace 兜底未知字节。
         try:
-            result = subprocess.run(args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+            result = subprocess.run(
+                args,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+            )
             logger.debug(result.stdout.strip())
         except Exception as exc:
             if error_msg is not None:

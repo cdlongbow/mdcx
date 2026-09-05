@@ -56,6 +56,10 @@
 
 - 文档与 UI 文案全面对齐代码（注册爬虫数/命名变量表/代理域名列表/演员库列/Tab 名称/release 产物名等 20+ 处）；README Telegram 群地址更新；「跳过前置 Poster 校验」说明对齐实际三分支；使用说明内容全面更新
 
+### 工程
+
+- **修复打包脚本 Windows runner 因 GBK 解码崩溃**：`build.py::_run_command` 的 `subprocess.run(text=True)` 未显式指定编码，Windows 默认 GBK/charmap 解码 PyInstaller 输出时含 UTF-8 字节即 `UnicodeDecodeError`，首轮 release 构建直接失败。补 `encoding="utf-8", errors="replace"`，新增哨兵测试锁定
+
 ## v2.0.6 (2026-08-23)
 
 ### 功能

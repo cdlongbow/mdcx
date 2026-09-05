@@ -12,6 +12,7 @@
   - 每次代码改动后跑 `uv run quick-check`；提交前跑 `uv run check --skip-hook-install`。仅改 `docs/*.md` 或本文件时只需 `git diff --check`。**全绿判定"退出码 + grep 错误行"双确认**：`grep -E "\.py:[0-9]+: error|Found [0-9]+ error"` 无输出才算过（mypy 输出可能被 tail 截断、退出码 grep 漏检——CI 连挂三次的教训）。`scripts/` 也在 check 范围，入库前先格式化。
   - 提交前必看 `git status` 未跟踪文件：运行残留与中间产物不得 `git add -A` 入库，先 `.gitignore` 排除。
   - **模块级带值注解的版本差异**（CI 事故）：`x: T | None = None` 在 Python 3.13 立即求值、3.14 延迟（PEP 649）——本地 3.14 全绿掩盖 CI 3.13 NameError。模块级单例声明一律无注解赋值+注释。**"本地全绿≠CI 通过"的三个维度：输出截断 / 版本语义差异 / 平台差异**。
+  - **Windows runner 的 GBK/charmap 解码陷阱**（20260905 发版首轮失败实证）：`subprocess.run(..., text=True)` 不显式给 `encoding="utf-8"` 时，Windows 默认 GBK 解码子进程输出，任何 UTF-8 字节（emoji/依赖 lint 输出/中文路径）都会抛 `UnicodeDecodeError: charmap` 炸掉整条链。同类修复此前只覆盖了测试脚本，build.py 漏同一族。所有跨平台 subprocess 调用一律 `encoding="utf-8", errors="replace"`。
   - 不装 pre-commit；提交前更新 `docs/changelog.md` **当前版本**条目（版本号归属用户，不擅自开新段）。用户要求改版本日期时**两处同步**：changelog 段标题日期 + `mdcx/consts.py` 的 `LOCAL_VERSION`（纯数字 YYYYMMDD，版本比较/更新检查/release tag 全读它）；无测试锁定该值，改动安全。changelog 写作规范（2026-09-05 瘦身实践）：用户视角的发布说明——保留议题号/现象/修复结果/影响，删根因排查叙事、测试细节、提交哈希；已发布历史版本段保持原样。
   - 站点/爬虫/配置改动同步检查：UI 文案（main_window.py/.ui）、README、docs、爬虫总数（`crawler_names()`）、**`config/migrations.py` 旧值清洗**（漏迁移 → pydantic 校验失败 → "保存不生效"）。
   - 文档/UI 写死数字前必须 grep 代码核实。高频漂移锚点：默认网站源顺序、代理域名列表（`Config.proxy_sites`）、命名变量表、设置 Tab 名、字段优先级数（`REDUCED_FIELDS`）、演员库列、指纹池、主窗口行数。
@@ -102,7 +103,7 @@
 - Instructions:
   - 函数内延迟导入须同步加 scripts/build.py 的 --hidden-import/--collect-all；改依赖/构建脚本/Release 工作流逐项核对。
   - EXCLUDED_MODULES 中 rich/typer 等只供构建/CLI；Windows curl_cffi.libs 需显式 --add-binary。
-  - Release Tag 纯数字 YYYYMMDD；scripts/*.py 顶部 `# ruff: noqa: E402` 与探测 import 的 `# noqa: F401` 须保留。
+  - Release 发版全自动流程：推送纯数字 tag（`git tag YYYYMMDD && git push origin YYYYMMDD`）触发 `release.yml`（macOS aarch64 + Windows x86_64 双构建 → 自动建 release 页，正文自动取 changelog 当前版本段）；发版前确认 `consts.py` 的 `LOCAL_VERSION`/`VERSION_NAME` 与 changelog 段标题一致、release 产物名规则 `MDCx-<tag>-<平台>-<arch>-<sha7>.<exe|dmg>`（Windows zip 版由 `package-trawl.yml` 单独管道）。
 
 ## 并发与数据
 
