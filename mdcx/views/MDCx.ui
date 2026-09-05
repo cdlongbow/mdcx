@@ -25481,7 +25481,7 @@ p, li { white-space: pre-wrap; }
                     <bool>false</bool>
                   </property>
                   <property name="text">
-                    <string> 主界面</string>
+                    <string> 软件界面</string>
                   </property>
                 </widget>
               </item>
@@ -25500,7 +25500,7 @@ p, li { white-space: pre-wrap; }
                     </size>
                   </property>
                   <property name="text">
-                    <string> 日志</string>
+                    <string> 软件日志</string>
                   </property>
                 </widget>
               </item>
@@ -25519,7 +25519,7 @@ p, li { white-space: pre-wrap; }
                     </size>
                   </property>
                   <property name="text">
-                    <string> 工具</string>
+                    <string> 软件工具</string>
                   </property>
                 </widget>
               </item>
@@ -25579,7 +25579,7 @@ p, li { white-space: pre-wrap; }
                     </size>
                   </property>
                   <property name="text">
-                    <string> 设置</string>
+                    <string> 软件设置</string>
                   </property>
                 </widget>
               </item>

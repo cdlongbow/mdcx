@@ -14319,9 +14319,9 @@ class Ui_MDCx(object):
         self.label_nfo_lib_poster_preview.setText(_translate("MDCx", "海报预览"))
         self.label_nfo_lib_thumb_preview.setText(_translate("MDCx", "缩略图预览"))
         self.pushButton_nfo_lib_crop.setText(_translate("MDCx", "裁剪封面"))
-        self.pushButton_main.setText(_translate("MDCx", " 主界面"))
-        self.pushButton_log.setText(_translate("MDCx", " 日志"))
-        self.pushButton_tool.setText(_translate("MDCx", " 工具"))
+        self.pushButton_main.setText(_translate("MDCx", " 软件界面"))
+        self.pushButton_log.setText(_translate("MDCx", " 软件日志"))
+        self.pushButton_tool.setText(_translate("MDCx", " 软件工具"))
         self.pushButton_emby_manager_nav.setText(_translate("MDCx", " 演员管理"))
         self.pushButton_emby_manager_nav.setToolTip(
             _translate(
@@ -14329,7 +14329,7 @@ class Ui_MDCx(object):
             )
         )
         self.pushButton_nfo_library.setText(_translate("MDCx", " 信息管理"))
-        self.pushButton_setting.setText(_translate("MDCx", " 设置"))
+        self.pushButton_setting.setText(_translate("MDCx", " 软件设置"))
         self.pushButton_net.setText(_translate("MDCx", " 检测网络"))
         self.pushButton_about.setText(_translate("MDCx", " 使用说明"))
         self.pushButton_close.setText(_translate("MDCx", "×"))
