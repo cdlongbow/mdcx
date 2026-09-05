@@ -3610,10 +3610,13 @@ class MyMAinWindow(QMainWindow):
             self.network_check_results = self.network_check_future.result()
             merge_site_check_cache(self.network_check_results)  # 持久化供站点选择列表回显
         except Exception as e:
-            signal_qt.show_net_info(f"\n⛔️ 网络检测出现异常：{e}")
+            # 议题 #73 实证：空消息异常（裸 TimeoutError 等）只显示「出现异常：」毫无线索。
+            # 带异常类型名，并把 traceback 直接展示在检测页——用户复制结果就是完整诊断。
+            signal_qt.show_net_info(f"\n⛔️ 网络检测出现异常：{type(e).__name__}: {e}")
             signal_qt.show_net_info(
                 "================================================================================\n"
             )
+            signal_qt.show_net_info(traceback.format_exc().rstrip())
             signal_qt.show_traceback_log(str(e))
             signal_qt.show_traceback_log(traceback.format_exc())
         finally:
@@ -3661,7 +3664,8 @@ class MyMAinWindow(QMainWindow):
             self.network_check_results = self.network_check_future.result()
             merge_site_check_cache(self.network_check_results)  # 部分重测同样合并进缓存
         except Exception as e:
-            signal_qt.show_net_info(f"\n⛔️ 重试失败项出现异常：{e}")
+            signal_qt.show_net_info(f"\n⛔️ 重试失败项出现异常：{type(e).__name__}: {e}")
+            signal_qt.show_net_info(traceback.format_exc().rstrip())
             signal_qt.show_traceback_log(traceback.format_exc())
         finally:
             self.network_check_cancel_event = None

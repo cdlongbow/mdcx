@@ -140,6 +140,68 @@ async def test_run_network_check_item_catches_single_item_exception():
 
 
 @pytest.mark.anyio
+async def test_run_network_check_survives_task_level_exception(monkeypatch: pytest.MonkeyPatch):
+    """task.result() 层逃逸的异常（绕过 item 兜底）不应中断整轮检测（议题 #73）。
+
+    实证：检测网络页跑到中途输出「网络检测出现异常：」（空消息）后整轮停止——
+    主循环 task.result() 无兜底，单个 task 逃逸的异常中断整轮。空消息异常
+    （如裸 TimeoutError，str() 为空）还导致用户看不到任何线索。
+    """
+    import mdcx.core.network_check as nc_module
+
+    async def fake_specs():
+        return [
+            NetworkCheckSpec(name="good", group="基础连通性", url="https://good.example"),
+            NetworkCheckSpec(name="boom", group="基础连通性", url="https://boom.example"),
+            NetworkCheckSpec(name="also_good", group="基础连通性", url="https://also.example"),
+        ]
+
+    monkeypatch.setattr("mdcx.core.network_check.build_network_check_specs", fake_specs)
+
+    real_item = nc_module.run_network_check_item
+
+    async def flaky_item(spec, *, cancel_event=None, client=None):
+        if spec.name == "boom":
+            raise TimeoutError  # 空消息异常，复刻用户场景的形态
+        return await real_item(spec, cancel_event=cancel_event, client=client)
+
+    monkeypatch.setattr("mdcx.core.network_check.run_network_check_item", flaky_item)
+    lines: list[str] = []
+
+    results = await run_network_check(progress=lines.append, client=FakeClient(), concurrency=3, emit_header=False)
+
+    assert len(results) == 3
+    by_name = {r.spec.name: r for r in results}
+    assert by_name["good"].status == NetworkCheckStatus.OK
+    assert by_name["also_good"].status == NetworkCheckStatus.OK
+    assert by_name["boom"].status == NetworkCheckStatus.FAILED
+    # 空消息异常也必须带上类型名，否则用户又拿到「出现异常：」空行
+    assert "TimeoutError" in by_name["boom"].error
+    assert any("网络检测已完成" in line for line in lines)
+
+
+@pytest.mark.anyio
+async def test_run_network_check_cancelled_task_propagates(monkeypatch: pytest.MonkeyPatch):
+    """取消语义必须穿透：done 集合中被取消的 task，其 CancelledError 不应被吞成 FAILED。"""
+    import asyncio
+
+    async def fake_specs():
+        return [
+            NetworkCheckSpec(name="cancelled", group="基础连通性", url="https://c.example"),
+        ]
+
+    monkeypatch.setattr("mdcx.core.network_check.build_network_check_specs", fake_specs)
+
+    async def cancelled_item(spec, *, cancel_event=None, client=None):
+        raise asyncio.CancelledError
+
+    monkeypatch.setattr("mdcx.core.network_check.run_network_check_item", cancelled_item)
+
+    with pytest.raises(asyncio.CancelledError):
+        await run_network_check(progress=lambda line: None, client=FakeClient(), emit_header=False)
+
+
+@pytest.mark.anyio
 async def test_run_network_check_does_not_stop_on_single_item_exception(monkeypatch: pytest.MonkeyPatch):
     async def fake_specs():
         return [

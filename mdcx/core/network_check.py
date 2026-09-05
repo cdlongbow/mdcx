@@ -975,7 +975,9 @@ async def run_network_check(
         if not group_specs or group == "基础环境":
             continue
         progress(group)
-        pending = {asyncio.create_task(run_one(spec)) for spec in group_specs}
+        # task → spec 映射：单项逃逸异常时定位所属站点（议题 #73）
+        tasks = {asyncio.create_task(run_one(spec)): spec for spec in group_specs}
+        pending = set(tasks)
         while pending:
             if cancel_event and cancel_event.is_set():
                 for task in pending:
@@ -987,7 +989,20 @@ async def run_network_check(
                 return results
             done, pending = await asyncio.wait(pending, return_when=asyncio.FIRST_COMPLETED)
             for task in done:
-                result = task.result()
+                try:
+                    result = task.result()
+                except asyncio.CancelledError:
+                    raise  # 取消语义必须穿透，不吞成FAILED
+                except Exception as exc:
+                    # 单项任务逃逸了 run_network_check_item 的兜底（探测链深层异常等）。
+                    # 绝不允许一项异常中断整轮检测——转 FAILED 记名续跑（议题 #73）。
+                    # 空消息异常（裸 TimeoutError 等）必须带类型名，否则用户只见空行。
+                    result = NetworkCheckResult(
+                        spec=tasks[task],
+                        status=NetworkCheckStatus.FAILED,
+                        message="检测任务异常",
+                        error=f"{type(exc).__name__}: {exc}",
+                    )
                 results.append(result)
                 if on_item_done is not None:
                     on_item_done(len(results), total)
