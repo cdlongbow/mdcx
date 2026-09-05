@@ -461,6 +461,7 @@ class Website(Enum):
     MADOUCLUB = "madou_club"
     MISSAV = "missav"
     MISSAV_API = "missav_api"
+    MMTV = "7mmtv"
     MGSTAGE = "mgstage"
     MYWIFE = "mywife"
     PRESTIGE = "prestige"

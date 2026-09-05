@@ -82,6 +82,12 @@ register_crawler(JavlibraryCrawler)
 register_crawler(OfficialCrawler)
 register_crawler(TheporndbCrawler)
 
+# 模块名以数字开头（7mmtv），无法用常规 import 语法，走 importlib
+from importlib import import_module as _import_module  # noqa: E402
+
+_7mmtv = _import_module("mdcx.crawlers.7mmtv")
+register_crawler(_7mmtv.MmtvCrawler)
+
 
 def get_registered_crawler_site_values(*, include_hidden: bool = False) -> list[str]:
     """返回已注册刮削器的网站值, 用于 UI 动态填充."""

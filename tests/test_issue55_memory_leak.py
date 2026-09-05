@@ -34,7 +34,7 @@ REMOVED_SITES = [
     "kin8",
     "giga",
     "cableav",
-    "7mmtv",
+    # 7mmtv 2026-09 以聚合站爬虫回归（见 mdcx/crawlers/7mmtv.py），不再剔除
     "hscangku",
     "fc2club",
     "fc2hub",

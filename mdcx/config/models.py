@@ -395,6 +395,7 @@ class Config(BaseModel):
             Website.JAVFREE,
             Website.AIRAV_CC,
             Website.AVSEX,
+            Website.MMTV,
             # 仅能有码：AVMOO、TheJavDB API
             Website.AVMOO,
             Website.THEJAVDB_API,
@@ -416,6 +417,7 @@ class Config(BaseModel):
             Website.MISSAV_API,
             Website.JAVDAY,
             Website.AVSEX,
+            Website.MMTV,
             Website.OFFICIAL,
             Website.IQQTV,
             # 无码专属（覆盖范围较窄）
@@ -437,6 +439,7 @@ class Config(BaseModel):
             Website.MISSAV,
             Website.MISSAV_API,
             Website.MYWIFE,
+            Website.MMTV,
             Website.IQQTV,
         ],
         title="素人网站源",
@@ -446,6 +449,7 @@ class Config(BaseModel):
             Website.FC2,
             Website.FC2PPVDB,
             Website.JAVFREE,
+            Website.MMTV,
             Website.JAVDB,
             Website.JAVDB_API,
             Website.JAVDB_APP,
@@ -699,7 +703,7 @@ class Config(BaseModel):
     use_proxy: bool = Field(default=False, title="代理类型")
     proxy: str = Field(default="http://127.0.0.1:7890", title="代理地址")
     proxy_sites: str = Field(
-        default="amazon.co.jp,m.media-amazon.com,xcity.jp,minnano-av.com,avbase.net,javbus.com,javdb.com,javlibrary.com,r18.dev,mgstage.com,prestige-av.com,seesaawiki.jp,avsox.click,avsox.com,avmoo.shop,avmoo.com,avheat.shop,avheat.com,caribbeancom.com,heyzo.com,1pondo.tv,pacopacomama.com,10musume.com,mywife.cc,github.com,raw.githubusercontent.com,google.com,missav.ws,missav.ai,missav.live,aventertainments.com,javfree.me",
+        default="amazon.co.jp,m.media-amazon.com,xcity.jp,minnano-av.com,avbase.net,javbus.com,javdb.com,javlibrary.com,r18.dev,mgstage.com,prestige-av.com,seesawiki.jp,avsox.click,avsox.com,avmoo.shop,avmoo.com,avheat.shop,avheat.com,caribbeancom.com,heyzo.com,1pondo.tv,pacopacomama.com,10musume.com,mywife.cc,github.com,raw.githubusercontent.com,google.com,missav.ws,missav.ai,missav.live,aventertainments.com,javfree.me,7mmtv.sx,7tv022.com",
         title="使用代理网站",
     )
     proxy_route_all: bool = Field(

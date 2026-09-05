@@ -49,9 +49,11 @@ def _is_valid_site(site: object) -> bool:
     """站点值是否仍存在于当前 `Website` 枚举中。
 
     2026-08 精简了 15 个失效/重复爬虫（cnmdb/hdouban/mdtv/love6/kin8/giga/cableav/
-    7mmtv/hscangku/fc2club/fc2hub/jav321/fantastica/dahlia/faleno），旧配置里残留的
+    hscangku/fc2club/fc2hub/jav321/fantastica/dahlia/faleno），旧配置里残留的
     站点值会让 pydantic 校验整体失败，进而使配置被写入 `_failed.json`
     且界面回写被跳过（表现为「保存不生效」，议题 #55）。故在此静默剔除。
+    7mmtv 曾在同一批被移除，2026-09 以聚合站爬虫形式回归（移植自 Hazard804/mdcx），
+    旧配置中残留的 7mmtv 值因此自动恢复有效。
     """
     value = _enum_value(site)
     return isinstance(value, str) and value in _VALID_SITE_VALUES
