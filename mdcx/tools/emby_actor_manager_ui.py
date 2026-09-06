@@ -331,8 +331,10 @@ class EmbyActorManagerDialog(QDialog):
         self._sync_thread = None
         self._fetch_thread = None
         self._failed_names: set[str] = set()
+        self._log_file: Path | None = None
         self._init_ui()
         self._connect_signals()
+        self._open_log_file()
 
     def _load_stylesheet(self) -> str:
         return """
@@ -562,11 +564,31 @@ class EmbyActorManagerDialog(QDialog):
                     continue
         self.log(f"🧹 已清空 {len(cache_dirs)} 个缓存目录，删除 {removed} 个文件/目录")
 
+    def _open_log_file(self):
+        """打开演员管理器日志文件（追加模式）"""
+        try:
+            log_dir = resources.u("logs")
+            log_dir.mkdir(parents=True, exist_ok=True)
+            self._log_file = log_dir / "actor_manager.log"
+        except Exception:
+            self._log_file = None
+
+    def _close_log_file(self):
+        """关闭日志文件（由 Qt 在窗口关闭时自动调用）"""
+        self._log_file = None
+
     def log(self, msg: str):
         import datetime
 
         ts = datetime.datetime.now().strftime("%H:%M:%S")
-        self.log_text.appendPlainText(f"[{ts}] {msg}")
+        formatted = f"[{ts}] {msg}"
+        self.log_text.appendPlainText(formatted)
+        if self._log_file is not None:
+            try:
+                with open(self._log_file, "a", encoding="utf-8") as f:
+                    f.write(formatted + "\n")
+            except Exception:
+                pass
 
     def _set_buttons_enabled(self, enabled: bool):
         self.btn_connect.setEnabled(enabled)
