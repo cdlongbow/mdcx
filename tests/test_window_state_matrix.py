@@ -479,3 +479,59 @@ def test_switch_to_pages_after_maximize_content_visible(win, app):
         assert tab_content.width() >= tab_scroll.width() - 30, (
             f"设置页内容未拉伸: content={tab_content.width()} viewport={tab_scroll.width()}"
         )
+
+
+def test_nfo_lib_layout_probe(win, app):
+    win.resize(1040, 760)
+    win.show()
+    app.processEvents()
+
+    page = _goto(win, app, "page_nfo_library")
+    top = win.Ui.nfo_lib_top_bar
+    content = win.Ui.nfo_lib_content
+    print(
+        f"before: page={page.width()}x{page.height()} top={top.height()} content={content.width()}x{content.height()}"
+    )
+
+    win.resize(1920, 1040)
+    app.processEvents()
+    print(
+        f"after : page={page.width()}x{page.height()} top={top.height()} content={content.width()}x{content.height()}"
+    )
+    print(
+        f"gap right={page.width() - (content.x() + content.width())} bottom={page.height() - (content.y() + content.height())}"
+    )
+
+    # 嵌套子布局激活验证：page → content → scrollArea → formLayout
+    form_scroll = win.Ui.scrollArea_nfo_lib_form
+    form_content = win.Ui.scrollAreaWidgetContents_nfo_lib
+    form_layout = form_content.layout()
+    print(f"form scroll viewport={form_scroll.viewport().width()} content={form_content.width()}")
+    if form_layout is not None:
+        print(f"form layout active={form_layout.isEnabled()} activated={form_layout.isEmpty()}")
+
+    # 断言内容宽度跟随视口（消除右侧 194px 空白）
+    assert form_content.width() >= form_scroll.viewport().width() - 20, (
+        f"表单内容未跟随视口: content={form_content.width()} viewport={form_scroll.viewport().width()}"
+    )
+
+    # 保存按钮可见性：最大化后表单内容压缩简介/标签面积（议题 #78 用户建议），
+    # 保存按钮必须落在滚动视口内、无需滚动即可见
+    save_btn = win.Ui.pushButton_nfo_lib_save
+    print(f"save btn: y={save_btn.y()} h={save_btn.height()} visible={save_btn.isVisible()}")
+    print(f"form content height={form_content.height()} viewport height={form_scroll.viewport().height()}")
+    # 简介/标签面积压缩（60px 固定，消除下拉栏）
+    outline_h = win.Ui.plainTextEdit_nfo_lib_outline.height()
+    tag_h = win.Ui.plainTextEdit_nfo_lib_tag.height()
+    print(f"outline h={outline_h} tag h={tag_h}")
+    assert outline_h == 60, f"简介未压到 60: {outline_h}"
+    assert tag_h == 60, f"标签未压到 60: {tag_h}"
+    # 保存按钮必须在视口内（无滚动可见），留 4px 安全边距应对平台差异
+    save_bottom = save_btn.y() + save_btn.height()
+    assert save_bottom <= form_scroll.viewport().height() - 4, (
+        f"保存按钮仍被推视口: bottom={save_bottom} viewport={form_scroll.viewport().height()}"
+    )
+    # 内容总高不显著超过视口（缩列下拉栏消除——用户报告"下拉栏"现象）
+    assert form_content.height() <= form_scroll.viewport().height() + 40, (
+        f"表单总高超视口: content={form_content.height()} viewport={form_scroll.viewport().height()}"
+    )

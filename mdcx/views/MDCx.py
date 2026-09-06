@@ -11851,7 +11851,8 @@ class Ui_MDCx(object):
         self.formLayout_nfo_lib = QtWidgets.QFormLayout(self.scrollAreaWidgetContents_nfo_lib)
         self.formLayout_nfo_lib.setFieldGrowthPolicy(QtWidgets.QFormLayout.FieldGrowthPolicy.AllNonFixedFieldsGrow)
         self.formLayout_nfo_lib.setContentsMargins(0, 0, 0, 0)
-        self.formLayout_nfo_lib.setSpacing(6)
+        self.formLayout_nfo_lib.setHorizontalSpacing(6)
+        self.formLayout_nfo_lib.setVerticalSpacing(4)
         self.formLayout_nfo_lib.setObjectName("formLayout_nfo_lib")
         self.label_nfo_lib_number = QtWidgets.QLabel(parent=self.scrollAreaWidgetContents_nfo_lib)
         self.label_nfo_lib_number.setObjectName("label_nfo_lib_number")
@@ -11924,7 +11925,7 @@ class Ui_MDCx(object):
         self.formLayout_nfo_lib.setWidget(11, QtWidgets.QFormLayout.ItemRole.LabelRole, self.label_nfo_lib_outline)
         self.plainTextEdit_nfo_lib_outline = QtWidgets.QPlainTextEdit(parent=self.scrollAreaWidgetContents_nfo_lib)
         self.plainTextEdit_nfo_lib_outline.setMinimumSize(QtCore.QSize(0, 60))
-        self.plainTextEdit_nfo_lib_outline.setMaximumSize(QtCore.QSize(16777215, 110))
+        self.plainTextEdit_nfo_lib_outline.setMaximumSize(QtCore.QSize(16777215, 60))
         self.plainTextEdit_nfo_lib_outline.setObjectName("plainTextEdit_nfo_lib_outline")
         self.formLayout_nfo_lib.setWidget(
             11, QtWidgets.QFormLayout.ItemRole.FieldRole, self.plainTextEdit_nfo_lib_outline
@@ -11934,7 +11935,7 @@ class Ui_MDCx(object):
         self.formLayout_nfo_lib.setWidget(12, QtWidgets.QFormLayout.ItemRole.LabelRole, self.label_nfo_lib_tag)
         self.plainTextEdit_nfo_lib_tag = QtWidgets.QPlainTextEdit(parent=self.scrollAreaWidgetContents_nfo_lib)
         self.plainTextEdit_nfo_lib_tag.setMinimumSize(QtCore.QSize(0, 60))
-        self.plainTextEdit_nfo_lib_tag.setMaximumSize(QtCore.QSize(16777215, 110))
+        self.plainTextEdit_nfo_lib_tag.setMaximumSize(QtCore.QSize(16777215, 60))
         self.plainTextEdit_nfo_lib_tag.setObjectName("plainTextEdit_nfo_lib_tag")
         self.formLayout_nfo_lib.setWidget(12, QtWidgets.QFormLayout.ItemRole.FieldRole, self.plainTextEdit_nfo_lib_tag)
         self.label_nfo_lib_cover_url = QtWidgets.QLabel(parent=self.scrollAreaWidgetContents_nfo_lib)

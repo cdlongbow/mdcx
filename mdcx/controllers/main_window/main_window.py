@@ -563,9 +563,17 @@ class MyMAinWindow(QMainWindow):
         # 关键前置：QStackedWidget 只 resize 当前可见页，休眠页永远停留在设计尺寸。
         # 必须先把所有页面统一 resize 到 stackedWidget 尺寸，后续基于 page.width()/height()
         # 的计算才有正确基准（否则"先缩放窗口再切页"时全部按设计尺寸 820x692 布局）。
+        # Windows 原生边框最大化时，对带 QLayout 页面的 resize 可能因窗口重建事件
+        # 时序错过布局更新（议题 #78：信息管理页右侧残留 ~194px 空白、底部控件坠落
+        # 视野）——resize 后对每页布局显式 invalidate + activate 强制重排。
         stacked = ui.stackedWidget
         for index in range(stacked.count()):
-            stacked.widget(index).resize(avail_w, avail_h)
+            page = stacked.widget(index)
+            page.resize(avail_w, avail_h)
+            layout = page.layout()
+            if layout is not None:
+                layout.invalidate()
+                layout.activate()
 
         # ============ page_main（软件界面）：横向跟随 ============
         # 设计基准宽 820：宽幅控件拉伸贴右缘、右缘锚定控件保持宽度平移、其余保持原位。
