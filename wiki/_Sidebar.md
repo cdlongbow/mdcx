@@ -1,0 +1,13 @@
+- [[首页|🏠 首页]]
+- [[新手三分钟上手|🚀 新手三分钟上手]]
+- [[常见问题-FAQ|❓ 常见问题 FAQ]]
+---
+**进阶参考**（主仓库 docs/ 目录）
+- [完整功能说明](https://github.com/cdlongbow/mdcx-diy/blob/main/docs/FEATURES.md)
+- [配置逐项详解](https://github.com/cdlongbow/mdcx-diy/blob/main/docs/CONFIGURATION.md)
+- [快速上手文档](https://github.com/cdlongbow/mdcx-diy/blob/main/docs/QUICKSTART.md)
+- [开发文档](https://github.com/cdlongbow/mdcx-diy/blob/main/docs/DEVELOPMENT.md)
+- [更新日志](https://github.com/cdlongbow/mdcx-diy/blob/main/docs/changelog.md)
+---
+- [已知议题](https://github.com/cdlongbow/mdcx-diy/issues?q=is%3Aissue)
+- [提新问题](https://github.com/cdlongbow/mdcx-diy/issues/new/choose)
