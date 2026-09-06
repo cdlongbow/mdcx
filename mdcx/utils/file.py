@@ -81,7 +81,11 @@ def _copy_file_atomic_sync(old: Path, new: Path) -> None:
     tmp = Path(tmp_name)
     try:
         os.close(fd)
-        shutil.copy(old, tmp)
+        # 网络/映射盘（用户 Z: 盘实测）上 os.path.samefile 对两个不同文件也会返回
+        # True（inode 不可靠），shutil.copy 内部因此抛 SameFileError。改用字节流读写
+        # 完全避开 samefile 判定，目标只依赖 mkstemp 文件名（OS 原子生成，不重名）。
+        with open(old, "rb") as fsrc, open(tmp, "wb") as fdst:
+            shutil.copyfileobj(fsrc, fdst)
         # Windows 上目标被瞬时占用（杀软扫描/缩略图索引/预览句柄）会 PermissionError，
         # 通常毫秒~秒级自解；短间隔重试后再放弃（用户实测 .fanart.jpg.xxx.tmp 残留案）。
         last_exc: BaseException | None = None

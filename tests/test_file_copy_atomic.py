@@ -16,7 +16,8 @@ def test_copy_file_sync_keeps_existing_target_when_copy_fails(tmp_path: Path, mo
     def fail_copy(*args, **kwargs):
         raise OSError("simulated copy failure")
 
-    monkeypatch.setattr(file_utils.shutil, "copy", fail_copy)
+    # 复制实现已改为字节流 copyfileobj（避开 samefile 假阳性），fail it instead of copy
+    monkeypatch.setattr(file_utils.shutil, "copyfileobj", fail_copy)
 
     success, _ = file_utils.copy_file_sync(source, target)
 
@@ -48,7 +49,8 @@ async def test_copy_file_async_keeps_existing_target_when_copy_fails(tmp_path: P
     def fail_copy(*args, **kwargs):
         raise OSError("simulated copy failure")
 
-    monkeypatch.setattr(file_utils.shutil, "copy", fail_copy)
+    # 复制走字节流 copyfileobj（避开 samefile 假阳性），mock 它模拟故障
+    monkeypatch.setattr(file_utils.shutil, "copyfileobj", fail_copy)
 
     success, _ = await file_utils.copy_file_async(source, target)
 

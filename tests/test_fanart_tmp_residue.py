@@ -26,6 +26,26 @@ def test_atomic_copy_normal_no_tmp_left(tmp_path: Path):
     assert not leftovers, f"正常路径残留: {leftovers}"
 
 
+def test_atomic_copy_bypasses_broken_samefile(tmp_path: Path, monkeypatch):
+    """网络映射盘 samefile 假阳性场景（用户 Z: 驱动实测）.
+
+    shutil.copy 内部调 os.path.samefile；网络盘上 inode 不可靠，
+    os.path.samefile 对完全不同的两个文件返回 True → SameFileError。
+    修复：改用字节流 copyfileobj（不查 samefile）避免误判。
+    """
+    src = tmp_path / "thumb.jpg"
+    src.write_bytes(b"image data")
+    dst = tmp_path / "fanart.jpg"
+
+    # 模拟网络盘上 samefile 假阳性（同盘同文件名乃至任意两文件都返回 True）
+    monkeypatch.setattr(fmod.os.path, "samefile", lambda a, b: True)
+
+    ok, err = fmod.copy_file_sync(src, dst)
+    assert ok, f"samefile 假阳性时复制应成功: {err}"
+    assert dst.read_bytes() == b"image data", "文件内容未正确写入"
+    assert not list(tmp_path.glob(".*fanart.jpg.*.tmp")), "成功后无 tmp 残留"
+
+
 def test_sweep_stale_atomic_temps_cleans_orphans(tmp_path: Path):
     """孤儿 tmp 兜底清理：mkstemp 形态（.fanart.jpg.xxx.tmp）删除，正常文件不动."""
     from mdcx.utils.file import sweep_stale_atomic_temps
