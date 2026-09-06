@@ -10,6 +10,7 @@ from mdcx.core.network_check import (
     NetworkCheckResult,
     NetworkCheckSpec,
     NetworkCheckStatus,
+    _classify_http_result,
     _compute_used_proxy,
     _is_cloudflare_challenge,
     _probe_crawler_capability,
@@ -175,6 +176,136 @@ async def test_build_network_check_specs_uses_registered_sites_without_key_error
     specs = await build_network_check_specs()
 
     assert any(spec.site == Website.OFFICIAL and spec.url == "https://custom.example" for spec in specs)
+
+
+@pytest.mark.anyio
+async def test_probe_crawler_strips_special_check_path_from_base_url(monkeypatch: pytest.MonkeyPatch):
+    """议题 #77：spec.url 拼有 SPECIAL_CHECK_PATHS 探测路径时，探测构造爬虫必须剥回主站根 URL。
+
+    实证：airav_cc 探测 URL 出现 https://airav.io/playon.aspx?hid=44733/cn/search_result?kw=... 畸形拼接；
+    javdb（/v/D16Q5?locale=zh）、javbus（/FSDSS-660）同因导致「搜索失败/未匹配到番号」。
+    """
+    import mdcx.crawlers as crawlers_mod
+
+    recorded: dict = {}
+
+    class OriginCrawler:
+        def __init__(self, client, base_url="", browser=None):
+            self.base_url = base_url
+            recorded["base_url"] = base_url
+
+        def new_context(self, input_data):
+            return SimpleNamespace(input=input_data)
+
+        async def _generate_search_url(self, ctx):
+            return f"{self.base_url}/search?q=TEST"
+
+        async def _parse_search_page(self, ctx, html, search_url):
+            return ["https://example.com/detail"]
+
+        def _get_headers(self, ctx):
+            return None
+
+        def _get_cookies(self, ctx):
+            return None
+
+    monkeypatch.setattr(crawlers_mod, "get_crawler", lambda site: OriginCrawler)
+
+    client = FakeClient()
+    spec = NetworkCheckSpec(
+        name="javbus", group="刮削站点", url="https://www.javbus.com/FSDSS-660", site=Website.JAVBUS
+    )
+
+    status, _ = await _probe_crawler_capability(client, spec)
+
+    assert status is NetworkCheckStatus.OK
+    assert recorded["base_url"] == "https://www.javbus.com"
+    assert client.calls[0]["url"] == "https://www.javbus.com/search?q=TEST"
+
+
+@pytest.mark.anyio
+async def test_mirror_sample_spec_skips_scrape_probe(monkeypatch: pytest.MonkeyPatch):
+    """议题 #77：镜像抽样项（如 xcity·镜像）只验证连通性，不做刮削探测。
+
+    实证：xcity.jp 是展示页域名、/api/search 不存在（实测 404；API 只在 tc.xcity.jp），
+    探测按主站 URL 模式打到镜像域名必出「搜索页请求失败」误报。
+    镜像抽样用途是让主站挂时看到镜像是否可用，连通即达标。
+    """
+    import mdcx.crawlers as crawlers_mod
+
+    probe_called = []
+
+    class ShouldNotBeCalled:
+        def __init__(self, client, base_url="", browser=None):
+            probe_called.append(True)
+
+    monkeypatch.setattr(crawlers_mod, "get_crawler", lambda site: ShouldNotBeCalled)
+
+    spec = NetworkCheckSpec(name="xcity·镜像", group="刮削站点", url="https://xcity.jp", site=Website.XCITY)
+    result = await run_network_check_item(spec, client=FakeClient())
+
+    assert result.status == NetworkCheckStatus.OK
+    assert result.message == "连接正常"
+    assert not probe_called, "镜像抽样不应触发刮削探测"
+
+
+def test_message_for_error_tls_handshake():
+    """SSL_ERROR_SYSCALL / UNEXPECTED_EOF 类的 TLS 握手中断要给出可执行指引（议题 #77 javdb_api/r18dev）。"""
+    from mdcx.core.network_check import _message_for_error
+
+    msg = _message_for_error("SSL_ERROR_SYSCALL; error queue empty: Failed to perform")
+    assert "TLS" in msg or "SSL" in msg
+    assert "节点" in msg
+
+    msg2 = _message_for_error("UNEXPECTED_EOF_WHILE_READING")
+    assert "TLS" in msg2 or "SSL" in msg2
+
+
+def test_classify_403_cf_challenge_hint():
+    """CF 403 要引导配 CF Bypass（议题 #77 lulubar/missav 批）。"""
+    cf_body = "<html><title>Attention Required! | Cloudflare</title><body>cloudflare ray id</body></html>"
+
+    spec = NetworkCheckSpec(name="missav", group="刮削站点", url="https://missav.ai")
+    status, message = _classify_http_result(spec, 403, cf_body)
+
+    assert status == NetworkCheckStatus.WARNING
+    assert "Cloudflare" in message
+    assert "CF Bypass" in message or "外部 CF 服务" in message
+
+
+def test_classify_403_plain_block():
+    """非 CF 的 403（出站 IP 被站点封）提示换节点，不提 CF Bypass。"""
+    spec = NetworkCheckSpec(name="getchu", group="刮削站点", url="http://www.getchu.com")
+    status, message = _classify_http_result(spec, 403, "<html>Forbidden</html>")
+
+    assert status == NetworkCheckStatus.WARNING
+    assert "节点" in message
+    assert "CF Bypass" not in message
+
+
+def test_format_summary_groups_failure_causes():
+    """失败/警告项按成因分组显示在总结里（议题 #77）。"""
+    from mdcx.core.network_check import NetworkCheckResult, format_summary
+
+    def r(name, status, message):
+        return NetworkCheckResult(
+            spec=NetworkCheckSpec(name=name, group="刮削站点", url="https://x.test"),
+            status=status,
+            message=message,
+        )
+
+    results = [
+        r("missav", NetworkCheckStatus.WARNING, "站点可达但搜索页被 Cloudflare 拦截"),
+        r("getchu", NetworkCheckStatus.FAILED, "HTTP 403 请求被拒绝：当前节点出口 IP 可能被站点封禁"),
+        r("javdb_api", NetworkCheckStatus.FAILED, "TLS 握手中断"),
+        r("ok", NetworkCheckStatus.OK, "连接正常"),
+    ]
+    lines = format_summary(results, elapsed=5.0, cancelled=False)
+
+    text = "\n".join(lines)
+    assert "根因分组" in text
+    assert "Cloudflare" in text
+    assert "节点" in text
 
 
 @pytest.mark.anyio
@@ -466,6 +597,49 @@ async def test_run_network_check_item_actively_uses_cf_bypass_on_challenge(monke
     assert client.bypass_calls[0]["target_url"] == "https://cf.example"
     assert client.bypass_calls[0]["headers"] == {"cookie": "a=b"}
     assert client.bypass_calls[0]["timeout"] is None
+
+
+@pytest.mark.anyio
+async def test_run_network_check_item_uses_trawl_adapter_when_only_external_cf_service_configured(
+    monkeypatch: pytest.MonkeyPatch,
+):
+    """议题 #77：只配「外部 CF 服务」(cf_bypass_trawl_url)、cf_bypass_url 留空时，
+    检测链路必须一样走 bypass——适配层是运行时自动启动、地址挂在 client 实例上的，
+    不能用 config.cf_bypass_url 把关。
+    """
+
+    class TrawlConfig(FakeConfig):
+        cf_bypass_url = ""
+        cf_bypass_trawl_url = "http://127.0.0.1:8191"
+
+    class TrawlManager:
+        config = TrawlConfig()
+        computed = None
+
+    class TrawlBypassClient(FakeBypassClient):
+        def __init__(self, *, adapter_ok: bool = True):
+            super().__init__()
+            self.adapter_ok = adapter_ok
+            self.adapter_started = 0
+
+        async def _ensure_local_bypass(self):
+            self.adapter_started += 1
+            return self.adapter_ok
+
+    monkeypatch.setattr("mdcx.core.network_check._manager", lambda: TrawlManager())
+    client = TrawlBypassClient()
+    spec = NetworkCheckSpec(
+        name="cf-site",
+        group="刮削站点",
+        url="https://cf.example",
+        enable_cf_bypass=True,
+    )
+
+    result = await run_network_check_item(spec, client=client)
+
+    assert result.status == NetworkCheckStatus.OK
+    assert "CF Bypass" in result.message
+    assert client.bypass_calls, "bypass 一次都没被调用"
 
 
 @pytest.mark.anyio

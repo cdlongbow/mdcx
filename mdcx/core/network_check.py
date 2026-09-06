@@ -154,11 +154,29 @@ def _is_proxy_error(error: str) -> bool:
     return "proxy" in lowered or "socks" in lowered or "tunnel" in lowered
 
 
+def _is_tls_handshake_error(error: str) -> bool:
+    """TLS 握手中断：curl/curl_cffi 常见形态（议题 #77 javdb_api/r18dev 实测）。"""
+    lowered = error.lower()
+    return any(
+        marker in lowered
+        for marker in (
+            "ssl_error_syscall",
+            "unexpected_eof",
+            "ssl connect",
+            "tls handshake",
+            "handshake failure",
+            "wrong version number",
+        )
+    )
+
+
 def _message_for_error(error: str) -> str:
     if not error:
         return "请求失败"
     if _is_proxy_error(error):
         return "代理连接失败，请检查代理地址或代理软件"
+    if _is_tls_handshake_error(error):
+        return "TLS 握手中断，常为代理节点与目标站不兼容（HTTP/2 指纹/SNI 策略），请更换节点"
     if "超时" in error or "timeout" in error.lower():
         return "连接超时，请检查网络或代理节点"
     if "dns" in error.lower() or "resolve" in error.lower():
@@ -178,7 +196,10 @@ def _clean_error(error: str) -> str:
 
 def _classify_http_result(spec: NetworkCheckSpec, status_code: int, text: str) -> tuple[NetworkCheckStatus, str]:
     if _is_cloudflare_challenge(text):
-        return NetworkCheckStatus.WARNING, "被 Cloudflare 挑战页拦截"
+        return (
+            NetworkCheckStatus.WARNING,
+            "被 Cloudflare 挑战页拦截：请在设置 → 网络配置「外部 CF 服务」（flaresolverr/trawl）让程序自动走 CF Bypass",
+        )
 
     if spec.site == Website.JAVDB:
         manager = _manager()
@@ -215,7 +236,7 @@ def _classify_http_result(spec: NetworkCheckSpec, status_code: int, text: str) -
     if status_code == 401:
         return NetworkCheckStatus.WARNING, "HTTP 401 鉴权失败：请在设置 → 网络中配置该站的 Cookie 或 API Token"
     if status_code == 403:
-        return NetworkCheckStatus.WARNING, "HTTP 403 请求被拒绝：多为反爬或地域限制，请更换代理节点或配置 CF Bypass"
+        return NetworkCheckStatus.WARNING, "HTTP 403 请求被拒绝：当前节点出口 IP 可能被站点封禁，请更换节点"
     if status_code == 429:
         return NetworkCheckStatus.WARNING, "HTTP 429 请求被限流：请稍等几分钟再重试，或在设置中降低并发数"
     if 200 <= status_code < 400:
@@ -301,7 +322,14 @@ async def _probe_crawler_capability(
         crawler_cls = get_crawler(site)
         if crawler_cls is None:
             return None, ""
-        crawler = crawler_cls(client=client, base_url=spec.url.rstrip("/"), browser=None)
+        # spec.url 可能拼有 SPECIAL_CHECK_PATHS 探测路径（如 airav_cc 的 /playon.aspx、
+        # javdb 的 /v/D16Q5、javbus 的 /FSDSS-660），直接当爬虫 base_url 会拼出畸形搜索 URL
+        # （议题 #77），探测爬虫一律回退到去掉该路径后的站点根地址。
+        crawler_base = spec.url.rstrip("/")
+        special_path = SPECIAL_CHECK_PATHS.get(site, "")
+        if special_path and crawler_base.endswith(special_path):
+            crawler_base = crawler_base[: -len(special_path)].rstrip("/")
+        crawler = crawler_cls(client=client, base_url=crawler_base, browser=None)
         probe_number = getattr(crawler_cls, "probe_number", "") or SCRAPE_PROBE_NUMBER
         input_data = CrawlerInput(
             appoint_number="",
@@ -367,6 +395,12 @@ def _is_bypass_capable_client(client: Any) -> bool:
     return callable(getattr(client, "_try_bypass_cloudflare", None))
 
 
+def _bypass_available(config: Any) -> bool:
+    """bypass 可用 = 配了 CF Bypass 地址，或配了「外部 CF 服务」（trawl 适配层运行时自动启动，
+    地址挂在 client 实例上，config.cf_bypass_url 此时为空——议题 #77 漏判根因）。"""
+    return bool((config.cf_bypass_url or "").strip() or (config.cf_bypass_trawl_url or "").strip())
+
+
 async def _try_bypass_for_check(
     client: Any,
     spec: NetworkCheckSpec,
@@ -374,10 +408,19 @@ async def _try_bypass_for_check(
     if not spec.enable_cf_bypass:
         return None, "此检测项未启用 CF Bypass"
     manager = _manager()
-    if not manager.config.cf_bypass_url.strip():
+    if not _bypass_available(manager.config):
         return None, "未配置 CF Bypass"
     if not _is_bypass_capable_client(client):
         return None, "当前客户端不支持 CF Bypass"
+
+    # 仅配「外部 CF 服务」时，适配层地址不在 config 里，需先触发 client 启动适配层
+    ensure_local = getattr(client, "_ensure_local_bypass", None)
+    if callable(ensure_local) and not manager.config.cf_bypass_url.strip():
+        try:
+            if not await ensure_local():
+                return None, "外部 CF 服务适配层启动失败"
+        except Exception as exc:
+            return None, f"外部 CF 服务适配层启动异常: {exc}"
 
     try:
         from httpx import URL
@@ -462,6 +505,38 @@ def format_summary(
         lines.append(
             "⚠️ 全局代理不可用（基础连通性两项均因代理失败）。下方站点失败多为代理导致，请先检查代理软件/节点后再重试。"
         )
+
+    # 失败/警告按根因分组计数，让用户一次看清「该做什么」（议题 #77 实测）
+    cause_counts: dict[str, int] = {"cf": 0, "node_blocked": 0, "unreachable": 0, "not_found": 0, "other": 0}
+    for result in results:
+        if result.status not in (NetworkCheckStatus.FAILED, NetworkCheckStatus.WARNING):
+            continue
+        message = result.message or ""
+        if "Cloudflare" in message:
+            cause_counts["cf"] += 1
+        elif "节点" in message and ("封禁" in message or "出口" in message):
+            cause_counts["node_blocked"] += 1
+        elif "请求超时" in message or "连接超时" in message or "无法连接" in message or "DNS" in message:
+            cause_counts["unreachable"] += 1
+        elif "不存在" in message or "404" in message or "未匹配" in message or "未被" in message:
+            cause_counts["not_found"] += 1
+        else:
+            cause_counts["other"] += 1
+
+    if any(cause_counts.values()):
+        lines.append("失败/警告根因分组：")
+        if cause_counts["cf"]:
+            lines.append(
+                f"  • Cloudflare 拦截 ×{cause_counts['cf']}：请配置「外部 CF 服务」（flaresolverr/trawl），程序会自动走 bypass"
+            )
+        if cause_counts["node_blocked"]:
+            lines.append(f"  • 节点/IP 被封 ×{cause_counts['node_blocked']}：请更换代理节点或改用其他出口重试")
+        if cause_counts["unreachable"]:
+            lines.append(f"  • 站点暂时不可达 ×{cause_counts['unreachable']}：检查网络或稍后重试")
+        if cause_counts["not_found"]:
+            lines.append(f"  • 站点未收录/未匹配 ×{cause_counts['not_found']}：不一定代表站点坏了，可换个番号重试")
+        if cause_counts["other"]:
+            lines.append(f"  • 其他异常 ×{cause_counts['other']}：请上方失败详情，或截图提交议题")
     if failed or warning:
         lines.append(
             "建议优先查看失败/警告项；若基础连通性失败，先检查代理或系统网络；"
@@ -682,12 +757,15 @@ def _build_static_specs() -> list[NetworkCheckSpec]:
             health_url += "&proxy=" + quote_plus(bypass_proxy)
         specs.append(NetworkCheckSpec(name="CF Bypass", group="辅助服务", url=health_url, use_proxy=False))
     else:
+        note = "未配置，仅遇到 Cloudflare 挑战页时需要"
+        if manager.config.cf_bypass_trawl_url.strip():
+            note = "无需单独配置：已配外部 CF 服务，检测到 Cloudflare 挑战页时自动启动适配层"
         specs.append(
             NetworkCheckSpec(
                 name="CF Bypass",
                 group="辅助服务",
                 url="",
-                note="未配置，仅遇到 Cloudflare 挑战页时需要",
+                note=note,
             )
         )
 
@@ -769,7 +847,7 @@ async def run_network_check_item(
             json_data=spec.json_data,
             use_proxy=spec.use_proxy,
             timeout=_diagnostic_timeout(),
-            enable_cf_bypass=spec.enable_cf_bypass and bool(_manager().config.cf_bypass_url.strip()),
+            enable_cf_bypass=spec.enable_cf_bypass and _bypass_available(_manager().config),
         )
         elapsed_ms = int((time.perf_counter() - start_time) * 1000)
         if cancel_event and cancel_event.is_set():
@@ -801,7 +879,7 @@ async def run_network_check_item(
                 used_proxy=used_proxy,
             )
 
-        if _is_cloudflare_challenge(text) and spec.enable_cf_bypass and _manager().config.cf_bypass_url.strip():
+        if _is_cloudflare_challenge(text) and spec.enable_cf_bypass and _bypass_available(_manager().config):
             bypass_response, bypass_error = await _try_bypass_for_check(request_client, spec)
             elapsed_ms = int((time.perf_counter() - start_time) * 1000)
             if bypass_response is None:
@@ -867,6 +945,9 @@ async def run_network_check_item(
             and spec.site is not None
             and not spec.validator
             and spec.name != "CF Bypass"
+            # 镜像抽样项只看连通性（议题 #77）：镜像域名未必复刻主站全部接口
+            # （实测 xcity.jp 无 /api/search），探测会按主站 URL 模式产生误报。
+            and not spec.name.endswith("·镜像")
         ):
             probe_status, probe_message = await _probe_crawler_capability(request_client, spec)
             if probe_status is not None:

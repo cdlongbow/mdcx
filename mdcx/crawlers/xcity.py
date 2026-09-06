@@ -65,34 +65,117 @@ class XcityCrawler(BaseCrawler[XcityContext]):
 
     @override
     async def _generate_search_url(self, ctx: Context) -> list[str] | str | None:
-        return f"{self.base_url}/api/search?q={ctx.input.number.replace('-', '')}"
+        number_no_dash = ctx.input.number.replace("-", "")
+        # API 路径（tc 子域）失败时回退 HTML 搜索页（xcity.jp 无 /api/search，只有 /result/）
+        return [
+            f"{self.base_url}/api/search?q={number_no_dash}",
+            f"https://xcity.jp/result/?q={number_no_dash}",
+        ]
 
     @override
     async def _parse_search_page(self, ctx: XcityContext, html: Any, search_url: str) -> list[str] | str | None:
         data = html.get()
-        if not isinstance(data, dict):
-            ctx.debug(f"xcity 搜索结果格式异常: {type(data).__name__}")
+        if isinstance(data, dict):
+            # tc API JSON 响应
+            program_list = (data.get("frontprogramlist") or {}).get("program") or []
+            if not program_list:
+                ctx.debug("xcity 搜索没有匹配结果")
+                return None
+
+            ctx.cached_program = program_list[0]
+
+            program_id = program_list[0].get("id")
+            if program_id:
+                return [f"{self.base_url}/avod/detail?id={program_id}"]
+
+            ctx.debug("xcity 搜索结果缺少 id")
             return None
 
-        program_list = (data.get("frontprogramlist") or {}).get("program") or []
-        if not program_list:
-            ctx.debug("xcity 搜索没有匹配结果")
+        # xcity.jp HTML 回退：/result/?q= 页面解析详情页链接
+        detail_links = html.xpath("//a[contains(@href, '/avod/detail/?id=')]/@href").getall()
+        if not detail_links:
+            ctx.debug("xcity HTML 搜索没有匹配结果")
             return None
+        href = detail_links[0]
+        detail_url = href if href.startswith("http") else f"https://xcity.jp{href}"
+        ctx.debug(f"xcity HTML 搜索命中: {detail_url}")
+        return [detail_url]
 
-        ctx.cached_program = program_list[0]
+    def _li_value(self, sel: Any, label: str) -> str:
+        """详情页 koumoku 字段值：取 label 所在 li 的全部文本后剥掉字段名。"""
+        li = sel.xpath(f"//li[span[@class='koumoku' and normalize-space(text())='{label}']]")
+        raw = re.sub(r"\s+", " ", li.xpath("string()").get() or "")
+        return raw.replace(label, "", 1).strip()
 
-        program_id = program_list[0].get("id")
-        if program_id:
-            return [f"{self.base_url}/avod/detail?id={program_id}"]
+    def _li_link_text(self, sel: Any, label_contains: str, span_id: str) -> str:
+        return (
+            sel.xpath(f"//li[contains(span[@class='koumoku'],'{label_contains}')]//span[@id='{span_id}']/text()").get()
+            or ""
+        ).strip()
 
-        ctx.debug("xcity 搜索结果缺少 id")
-        return None
+    async def _parse_html_detail(self, ctx: XcityContext, html: Any, detail_url: str) -> CrawlerData | None:
+        """xcity.jp HTML 备用路径解析（tc API 挂时兜底）。
+
+        title/originaltitle 只能拿到日文原标题（HTML 站无中文翻译）。
+        """
+        from parsel import Selector
+
+        sel = html if isinstance(html, Selector) else Selector(text=str(html))
+
+        title = (sel.xpath("//title/text()").get() or "").strip()
+        title = re.sub(r"\s*\|.*$", "", title).strip()
+        if not title:
+            raise CrawlerException("数据获取失败: 未获取到title")
+
+        actors = [
+            a.strip()
+            for a in sel.xpath("//li[span[@class='koumoku' and normalize-space(text())='出演']]//a/text()").getall()
+            if a.strip()
+        ]
+
+        release = self._li_value(sel, "発売日").replace("/", "-")
+        runtime = re.sub(r"\D", "", self._li_value(sel, "収録時間"))
+        series_name = self._li_value(sel, "シリーズ")
+        maker_name = self._li_link_text(sel, "メーカー", "program_detail_maker_name")
+        label_name = self._li_link_text(sel, "メーカー", "program_detail_label_name")
+        tags = [g.strip() for g in sel.xpath("//a[@class='genre']/text()").getall() if g.strip()]
+
+        outline = (sel.xpath("//meta[@property='og:description']/@content").get() or "").strip()
+        cover = sel.xpath("//meta[@property='og:image']/@content").get() or ""
+        front_image = cover.replace("/medium/", "/large/")
+
+        from mdcx.crawlers.dmm_direct import upgrade_dmm_cover
+
+        back_image, front_image2 = await upgrade_dmm_cover(ctx, ctx.input.number, "", front_image)
+        return CrawlerData(
+            # 页面里的「メーカー品番」无横杠（如 ABF050），保留输入的规范番号
+            number=ctx.input.number,
+            title=title,
+            originaltitle=title,
+            actors=actors,
+            all_actors=actors,
+            outline=outline,
+            originalplot=outline,
+            tags=tags,
+            release=release,
+            year=release[:4] if len(release) >= 4 else "",
+            runtime=runtime,
+            series=series_name,
+            studio=maker_name,
+            publisher=label_name,
+            thumb=back_image,
+            poster=front_image2,
+            image_download=False,
+            mosaic="有码",
+            external_id=detail_url,
+        )
 
     @override
     async def _parse_detail_page(self, ctx: XcityContext, html: Any, detail_url: str) -> CrawlerData | None:
         program = ctx.cached_program
         if not program:
-            raise CrawlerException("xcity 数据缺失: 未获取到节目数据")
+            # HTML 备用路径（xcity.jp /result/ → /avod/detail/?id=）：cached_program 为空
+            return await self._parse_html_detail(ctx, html, detail_url)
 
         title = program.get("title") or ""
         originaltitle = program.get("titleKana") or title
