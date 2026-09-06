@@ -735,7 +735,8 @@ def test_setting_content_clears_config_bar_when_scrolled(win, app):
         ui.tabWidget.widget(0)
         .findChild(CustomScrollArea)
         .mapTo(ui.page_setting, ui.tabWidget.widget(0).findChild(CustomScrollArea).viewport().rect().bottomLeft())
-        .y() - ui.label_config.y()
+        .y()
+        - ui.label_config.y()
     )
     margin = CustomScrollArea._CONTENT_BOTTOM_MARGIN
     assert margin > intrusion, f"内容底部余量 {margin} 不足以避开浮框侵入 {intrusion}"
