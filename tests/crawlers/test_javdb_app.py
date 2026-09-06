@@ -5,6 +5,21 @@ from mdcx.crawlers.javdb_app import JavdbAppCrawler
 from mdcx.models.model_types import CrawlerInput
 
 
+@pytest.fixture(autouse=True)
+def _no_anti_scrape_throttle(monkeypatch: pytest.MonkeyPatch):
+    """跳过反爬节流的随机 3-8s 等待（节流是线上礼仪，单测断言行为与此无关）。
+
+    不 patch 时含两次 API 调用的用例要真实 sleep 最多 8s/次，
+    单文件全量曾累积到 40s+（占全量检查总时长约 1/4）。
+    模块内 asyncio.sleep 仅节流一处使用，整模块替换无副作用。
+    """
+
+    async def _sleep_noop(_delay: float) -> None:
+        return None
+
+    monkeypatch.setattr("mdcx.crawlers.javdb_app.asyncio.sleep", _sleep_noop)
+
+
 def test_normalize_image_url_keeps_watermark_free_app_cdn():
     """spfcas 是 App 专用无水印 CDN（加密流由下载层解密），原样保留；老 cmastd 域名归一到 spfcas"""
     crawler = JavdbAppCrawler(client=None)

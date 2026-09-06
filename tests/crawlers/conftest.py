@@ -7,6 +7,34 @@ from mdcx.config.models import Website
 pytestmark = pytest.mark.integration
 
 
+@pytest.fixture(autouse=True)
+def _offline_check_url(request: pytest.FixtureRequest):
+    """爬虫单测默认把 check_url 断网（返回 None = 候选不可用，升级链直接跳过）。
+
+    背景：DMM 图床升级链对 pics.dmm.co.jp 逐候选 GET 验证，测试未 mock 时
+    会真实联网（本环境/CI 对 DMM 域超时或封锁），单条用例平均多耗 3.6s，
+    15+ 条集体拖慢全量检查约 55s，且结果随网络环境抖动。
+
+    - 测试内显式 `monkeypatch.setattr("mdcx.base.web.check_url", ...)` 优先生效
+      （monkeypatch 为属性级覆盖，本 fixture 先行设置后可被其替换）
+    - 真网络验证走 marker: `@pytest.mark.network`（CI 默认跳过）
+    """
+
+    if request.node.get_closest_marker("network"):
+        yield
+        return
+
+    async def _offline(url, *args, **kwargs):
+        return None
+
+    import mdcx.base.web as base_web
+
+    original = base_web.check_url
+    base_web.check_url = _offline
+    yield
+    base_web.check_url = original
+
+
 def pytest_addoption(parser: pytest.Parser):
     """添加自定义命令行参数"""
     g1 = parser.getgroup("parsers", "parser test options")

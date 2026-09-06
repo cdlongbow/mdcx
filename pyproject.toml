@@ -10,7 +10,7 @@ include = ["mdcx*", "scripts*"]
 
 [project]
 name = "mdcx"
-version = "2.0.7"
+version = "2.0.8"
 description = "mdcx"
 readme = "README.md"
 requires-python = ">=3.13.4" # we need os.path.ALLOW_MISSING and type parameter defaults
