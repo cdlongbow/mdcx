@@ -54,9 +54,12 @@ def pushButton_cover_backfill_start_clicked(self):
 
 
 def pushButton_emby_actor_manager_clicked(self):
-    """打开 Emby 演员管理器（单例）。议题 #61：原版每次点击新建 dialog →
+    """打开 Emby 演员管理器（单例）。议题 #61：原版每次点击新开 dialog →
     可同时开多个，"提交或获取数据相互干扰/请求过载"。改为单例复用 +
-    destroyed 信号清引用。"""
+    destroyed 信号清引用。议题 #79：raise_/activateWindow
+    会把主窗拉上前台（Windows 系统行为），移除——由 QDialog 的 show 自身
+    负责焦点，不干涉主窗的最小化状态（多窗口用户关注主窗保持独立）。
+    """
     try:
         from mdcx.tools.emby_actor_manager_ui import EmbyActorManagerDialog
 
@@ -68,8 +71,12 @@ def pushButton_emby_actor_manager_clicked(self):
                     existing.showNormal()
                 else:
                     existing.show()
-                existing.raise_()
-                existing.activateWindow()
+                # Windows 原生边框下，对话框 raise_/activateWindow 会联动拉起主窗
+                # （主窗最小化时）——议题 #79：只在主窗可见时 raise 提前台；主窗
+                # 最小化时交给 show() 自身处理对话框焦点，维持主窗状态不动。
+                if not self.isMinimized() and self.isVisible():
+                    existing.raise_()
+                    existing.activateWindow()
                 return
             except RuntimeError:
                 # C++ 对象已被销毁（WA_DeleteOnClose 释放），换新的
