@@ -204,16 +204,23 @@ class TheporndbCrawler(BaseCrawler):
     def base_url_(cls) -> str:
         return "https://api.theporndb.net"
 
-    def _headers(self):
+    def _headers(self, ctx: Context):
         api_token = manager.config.theporndb_api_token
-        if not api_token:
-            raise CrawlerException("请添加 API Token 后刮削！（「软件设置」-「网络」-「API Token」）")
-        return {
-            "Authorization": f"Bearer {api_token}",
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.202 Safari/537.36",
-        }
+        if api_token:
+            return {
+                "Authorization": f"Bearer {api_token}",
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.202 Safari/537.36",
+            }
+        # ThePornDB 公开的「按 slug 直查详情」端点（/scenes|movies/{slug}）不需要 Token；
+        # 用户指定网页地址时走该端点，不能因为没配 Token 直接拒绝（议题 #81）。
+        if ctx.input.appoint_url:
+            return {
+                "Accept": "application/json",
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.202 Safari/537.36",
+            }
+        raise CrawlerException("请添加 API Token 后刮削！（「软件设置」-「网络」-「API Token」）")
 
     @override
     async def _run(self, ctx: Context):
@@ -231,7 +238,7 @@ class TheporndbCrawler(BaseCrawler):
         raise CrawlerException("；".join(errors))
 
     async def _scrape_kind(self, ctx: Context, kind: TheporndbKind) -> CrawlerData:
-        headers = self._headers()
+        headers = self._headers(ctx)
         file_path = str(ctx.input.file_path or f"{ctx.input.number}.mp4")
         real_url = ctx.input.appoint_url.replace("//theporndb", "//api.theporndb")
         real_url = real_url.replace("/scenes/", f"/{kind}/").replace("/movies/", f"/{kind}/") if real_url else ""

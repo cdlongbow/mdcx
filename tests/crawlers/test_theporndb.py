@@ -97,6 +97,34 @@ async def test_theporndb_crawler_reads_scene_detail_url():
 
 
 @pytest.mark.asyncio
+async def test_theporndb_appoint_url_works_without_api_token():
+    """议题 #81：指定网址（公开 slug 端点）不能因缺 Token 被拒。
+
+    ThePornDB 的 /scenes/{slug} 是公开端点（实测无 Bearer 也能 200），
+    此前 _headers() 无论场景都先校验 Token 直接拒绝，导致用户改输入网址也刮不出。
+    """
+    old_token = manager.config.theporndb_api_token
+    manager.config.theporndb_api_token = ""
+
+    class NoTokenClient:
+        async def get_json(self, url, **kwargs):
+            assert "Authorization" not in (kwargs.get("headers") or {})
+            if url == "https://api.theporndb.net/scenes/test-scene":
+                return {"data": _api_data("test-scene", "scenes")}, ""
+            return None, f"unexpected url: {url}"
+
+    try:
+        crawler = TheporndbCrawler(client=NoTokenClient())
+        res = await crawler.run(_input("https://theporndb.net/scenes/test-scene"))
+    finally:
+        manager.config.theporndb_api_token = old_token
+
+    assert res.debug_info.error is None
+    assert res.data is not None
+    assert res.data.title == "scenes title"
+
+
+@pytest.mark.asyncio
 async def test_theporndb_crawler_falls_back_to_movies():
     old_token = manager.config.theporndb_api_token
     manager.config.theporndb_api_token = "token"
