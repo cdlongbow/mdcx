@@ -70,8 +70,7 @@
 - Date: 2026-08-29
 - Category: 排错调试
 - Instructions:
-  - **curl_cffi 0.16 流式关闭**：`aclose()` 会拉满剩余响应体（放弃 4MB 仍阻塞 3.5s）；同步 `close()` 立即中止。中止流后 session `close()` 抛库内 TypeError 属噪声（`_close_sessions` 有 suppress），后续请求复用正常。改动前看 `web_async.py::_close_response` 注释。
-  - **asyncio 线程池归属**：`AsyncBackgroundExecutor` 后台循环的 default executor 与主 loop 的是两个池——"嵌套 to_thread 死锁"类判断先实测两池是否同一个。
+  - **curl_cffi 0.16 流式关闭**：`aclose()` 会拉满剩余响应体（放弃 4MB 仍阻塞 3.5s）；同步 `close()` 立即中止。中止流后 session `close()` 抛库内 TypeError 属噪声（`_close_sessions` 有 suppress），后续请求复用正常。改动前看 `web_async.py::_close_response` 注释。**asyncio 线程池归属**：`AsyncBackgroundExecutor` 后台循环的 default executor 与主 loop 的是两个池——"嵌套 to_thread 死锁"类判断先实测两池是否同一个。
   - **LogBuffer 任务树归因**：写入按 `_ROOT` contextvar 归因，`process_one_file` 入口 `new_root()` 切断兄弟继承。勿按 task_id 全局聚合、勿回退"get() 拼全局 buffers"旧模式（跨影片污染，测试锁定）。
 
 ## UI 开发与排错
@@ -83,8 +82,7 @@
    - **`setVisible(False)` 只作用于 widget，`QSpacerItem` 是独立 layout item 不受控件显隐控制**（#72 真 bug 实证）：导航按钮间隔靠 7 个 8px 固定 spacer 实现时，#71 的隐藏入口开关只藏了按钮，spacer 残留叠出 16px 空洞且间距错乱。修法：删按钮间全部固定 spacer 改 layout `spacing=8`（Qt 对隐藏 widget 自动收紧），`test_ui_structure.py` 加回归锁定"导航布局不得再出现 spacer"。**新加隐藏开关时审计布局里所有非 widget 占位项**（spacer/stretch/label 摆设位），凡是 setVisible 管不到的都要换方案。
   - 主窗口全局绝对定位无布局管理器：长文本 QLabel 用 wordWrap 查 sizeHint；新增顶层控件纳入 resizeEvent 手动几何同步。
   - QComboBox 装饰后缀：`addItem(icon, 文本, UserRole 纯值)`，消费点统一 `currentData()` 取值；信号 handler 收文本须剥后缀。改动必查 currentText/itemText/currentData/信号连接/AllItems.index 全部点。
-  - 打包前逐页切 stackedWidget 审计边界溢出（scripts/check_ui_layout.py、tests/test_ui_geometry.py）。
-  - Qt 同名 API 重载签名不同，改前确认目标类签名；测试桩显式枚举属性方法（不用 __getattr__ 通配）。
+  - **Qt 同名 API 重载签名不同，改前确认目标类签名**；测试桩显式枚举属性方法（不用 __getattr__ 通配）；打包前逐页切 stackedWidget 审计边界溢出（scripts/check_ui_layout.py、tests/test_ui_geometry.py）。
    - **Qt 绝对定位缩放三连**（#62/#66/#68）：`setGeometry` 不触发子组件 resizeEvent（须 `resize()`）；QStackedWidget 只 resize 当前可见页（休眠页停设计尺寸，`currentChanged` 连 `_sync_page_layouts` 统一同步，**先 resize 所有 pages 再算内部几何**——顺序敏感）；`show_hide_logs` 类硬编码 resize 会覆盖动态同步，一律走统一同步函数。
    - **最大化内容自适应方法论**（2026-09-06 两轮修复实证）：①Qt 对休眠/未重绘 widget 的布局**不自动激活**——容器 setGeometry/resize 后内部 QGridLayout 必须显式 `invalidate()+activate()`，否则输入框列宽永远不变（实测 515 不变 vs 激活后 1114）；②groupBox 内子控件分类跟随：布局容器与输入类控件（QLineEdit/QComboBox/QTextEdit/树/列表，按 className 判）拉伸、右缘控件（浏览按钮）右缘锚定平移、左侧标签保持；③**平移/拉伸一律用「设计基准坐标+extra」固定公式**（`x = 350 + (tree_x - 30 - 570)`），基于当前值的增量平移在 resize 反复触发时会累积漂移；④page_setting 底部「当前配置/另存为/恢复默认/保存」浮框是 page 直接子级（Z 序浮在 tabWidget 上），按设计下缘边距锚定新底部。CustomScrollArea 的 setWidget 时登记设计几何（幂等基准），resize/show 时套用。
   - **PyQt6 测试 qFatal abort**：槽函数未捕获异常触发 qt_assert 原生 abort（栈里无 Python 行号）——查 QTimer 槽与 dummy 桩缺方法。防御：fixture 构造后立即停全部 QTimer；几何断言不需 `window.show()`。不设 offscreen 的 Aborted 是环境固有——先 stash 基线对照区分环境问题与改动引入。
@@ -125,11 +123,13 @@
 - Date: 2026-09-02（治理工程收官重组）
 - Category: 排错调试
 - Instructions:
-  - **证据强度排序定论**：**结构化映射（tenhow cid）> 唯一编码（EAN/JAN 条码）> 文本归一（标题 NFKC 系列互含，`core/title_match.py`）> 相似度分数（图像）**。图像重压缩分数带与真错配重叠，**图像只能兜底不能主证**。`_cover_similarity` 三元组严格判定三阈值同满足：≥0.82/≥0.86/≥0.70。
+  - **证据强度排序**：tenhow cid 结构化映射 > EAN/JAN 条码 > 标题 NFKC 系列互含（`core/title_match.py`）> 图像相似度。图像重压缩分数带重叠真错配，只能兜底。`_cover_similarity` 三阈值：≥0.82/≥0.86/≥0.70。
   - **软校验架构定论**（读零校验+v2 裁决链）：免验/必验按**发现路径**分流——条码/EAN=hard 免验、ASIN 库命中=信任免验、软匹配（标题/演员搜索）=v2 三步链必验（cid 旁证→标题门+**真合集词一票否决**（BEST/コンプリート/N時間；**特典/限定版不否决**，同番号竞争让位正品）→图像兜底）。**入库时序必须延迟到采信点**。演员名兜底是错挂重灾区，全链必走。**出厂库权威合并**（`merge_asin_db_from_backup`）：同番号无条件覆盖用户库 5 列、用户独有保留、出厂独有追加；`_format_asin_worksheet` 内嵌按番号排序。
   - **待修正 sheet 清理三分类法**：① 主表已有番号一致 → 残留直接删；② 主表已有但番号不同 → 用主表番号去 libredmm/javbus 反查标题，与主表日亚标题比对裁谁对；③ 主表未有 → 标题法/cid 反查裁决入库或标记真错。批量行**先按 ASIN 去重**再分类（源表同 ASIN 因不同搜索词出现多行）。
   - **ASIN 列污染教训**（2026-09-02 真 bug）：入库注记列索引错位——注记写到 ASIN 列（`B003CIPVJM [原挂:EBOD-108; ...]`污染 9 行，出厂库对比扫描才发现），本应是搜索关键词列。**列写入走显式列号映射/查表，不手数 index**；入库后 sanity check 一行 `r[1]` 应是纯 ASIN。
-  - **出厂库（resources/userdata/）更新仍须用户明确确认**——本次扩容 26620 行也是用户传文件确认后才替换。
+  - **出厂库（resources/userdata/）更新仍须用户明确确认**——本次扩容 26620 行也是用户确认后才替换。
+  - **网络映射盘（Z: 盘等）的 samefile 假阳性**：网络盘 `os.path.samefile` 对两个完全不同的文件返回 True（inode 不可靠），`shutil.copy` 会抛 `SameFileError`（照抄没有复制）且复制路径被跳过。复制改用 `shutil.copyfileobj`（字节级读写、不依赖 samefile 判断）。本次 v2.0.8 修复（Z 盘实测完成）。
+  - **同一应用的 top-level window 联动（Windows 原生边框）**：主窗最小化后，**任何子窗口（如 Emby 演员管理器）的 raise_/activateWindow 会联动拉起主窗**——老代码里 `.show(); existing.raise_(); existing.activateWindow()` 是诱因。修复：`raise_()/activateWindow()` 只在**主窗可见且未最小化**时使用；主窗最小化时只 `show()` 恢复子窗口自身，主窗状态不变（议题 #79 实锤）。
   - **评估库存价值先问"生产会不会走到那一步"**（用户方法论）：DMM 能给高清图（宽≥700）的番号其日亚记录无运行时价值——探测须按生产标准过滤 147x200 缩略图形态（10-19KB 恰过 4KB 阈值，取"第一个成功"会误判）。
   - **裁决图遍历全部候选取最高分**：同番号存在 digital 再版与 mono 原版双封面（ABF-008 两版都真）；同系列多集误挂同 ASIN 的低分是各集真实差距，不是错杀。
   - **番号规范化预检防假案**：缩位写法（ABF-34 vs ABF-034）会制造"自己和自己冲突"；比对一律 (系列字母, int(数字)) 做 key。批量导入 xlsx 必须走含去重入口（`save_asin_to_excel`），直接 ws.append 产生成批重复。
@@ -138,17 +138,15 @@
   - **DMM 路由表再生纪律**：`dmm_cid_routes.json` 若从归纳数据重新生成，生成后必须先跑全量验证（libredmm 逐系列打 pics.dmm.co.jp 图片 HEAD 判占位图/死链）筛掉死链组合再推生产；`generate_image_candidates` 的 `pads 全≤3` 判断仅是运行时兜底，数据源层面仍需独立验证。
   - **DMM cid 结构**：前缀映射 + 数字双态（5 位补零 digital 与 3 位原样 mono **同系列可并存**）+ 双路径（digital/video 与 mono/movie/adult 各半）+ 变体后缀无需枚举。DMM 图床：站点下架但 CDN 不删对象；占位图 200+<4KB 已拒收（`_validate_dmm_image_url`）。
   - **日亚图域知识**：SL1500 商品图**物理无条码**（0/50，条码 OCR 只能从 DMM/爬虫侧封面联图拿——app 横版联图获取率 94%）；老商品标题用**半角片假名**（NFKC 必做）；日亚 DVD 封与 DMM digital 封**版本不同**，图像比对天花板 ~0.62。
-  - tenhow.net 图床：`images/{ASIN}.jpg` 与日亚 SL1500 同源同分辨率，免代理直取（T0 优先，404 回退）；页面条目图名即可入库 ASIN（全站索引 36441 条）。旧索引 8126 条抓取残缺已作废。
-  - 环境限制：DMM/fanza 地区锁；日亚 dp 页 devbox 直连 404 需代理；tesseract 对日系封面效果差不可作依据。
+  - tenhow.net 图床：`images/{ASIN}.jpg` 与日亚 SL1500 同源同分辨率，免代理直取（T0 优先，404 回退）；页面条目图名即可入库 ASIN（全站索引 36441 条）。旧索引 8126 条抓取残缺已作废。环境限制：DMM/fanza 地区锁；日亚 dp 页 devbox 直连 404 需代理；tesseract 对日系封面效果差不可作依据。
   - **HTTP 4xx 定位顺序**（#56）：先看客户端实际发了什么（条件分支误判覆盖鉴权头之类），再想服务端；同函数多调用点的硬编码分支改一处漏一处是高频错误形态。
-  - **ASIN 校验工程散点教训**（2026-09-02 治理实证）：① 数据治理前先 `Counter` 关键列识别导入批次残留（title 全为 "tenhow" 的 367 行对标题反查=对错误对象用正确方法）；② openpyxl 迭代中 `delete_rows` 后行上移会跳行，稳定模式是一次读出→去重→清空重写；③ javbus 搜索不识别 ASIN，正查通道是番号→详情页标题→与日亚标题比对；④ 多源判定合并禁用 or 链（多源 dict 上 `src.get('a') or src.get('b')` 短路吞判定）；⑤ 外部 API 错误码 marker 取响应原文字面值；⑥ v2 裁决链覆盖 95%+，剩余待人工行给用户一句话解释差什么证据。
+  - **ASIN 校验工程散点教训**：① 数据治理前先 `Counter` 关键列识别导入批次残留（title 全为 "tenhow" 的 367 行对标题反查=对错误对象用正确方法）；② openpyxl 迭代中 `delete_rows` 后行上移会跳行，稳定模式是一次读出→去重→清空重写；③ javbus 搜索不识别 ASIN，正查通道是番号→详情页标题→与日亚标题比对；④ 多源判定合并禁用 or 链（多源 dict 上 `src.get('a') or src.get('b')` 短路吞判定）；⑤ 外部 API 错误码 marker 取响应原文字面值；⑥ v2 裁决链覆盖 95%+，剩余待人工行给用户一句话解释差什么证据。
 
 ## javdb 系爬虫与图源
 
 - Date: 2026-08-31
 - Category: 排错调试
 - Instructions:
-  - **thejavdb_api 与 javdb 无关**（用户澄清），勿归入 javdb 系。
-  - javdb 系三源：javdb（网页）/javdb_api（镜像站 573-575，偶发超时需重试轮换）/javdb_app（App API 免 CF 最稳）。App API 域知识来自**用户私有逆向仓库**，增量时用户会上传 README 到工作区；机制文档 `docs/JAVDB_APP_SIGNATURE.md`。
+  - **thejavdb_api 与 javdb 无关**（用户澄清），勿归入 javdb 系。javdb 系三源：javdb（网页）/javdb_api（镜像站 573-575，偶发超时需重试轮换）/javdb_app（App API 免 CF 最稳）。App API 域知识来自**用户私有逆向仓库**，增量时用户会上传 README 到工作区；机制文档 `docs/JAVDB_APP_SIGNATURE.md`。
   - **图源无水印体系**：`tp.spfcas.com` App 专用无水印 CDN（单字节 XOR 加密流，首字节 key），`c0.jdbstatic.com` 网页版带水印。解密与双向变换集中在 `base/web.py`（`decode_spfcas_image_content`/`jdbstatic_to_spfcas`），下载层三路径自动生效。App CDN 路径中段会变，`learn_spfcas_image_segment` 由 javdb_app 响应学习自愈。**加密流尺寸探测 (0,0) 属预期**（auto_best 用逆向 URL 探测回退），勿当"图失效"。
   - javdb_app 排障锚点：签名失效=三主机同时 400/401/403 或 ParameterInvalid/InvalidSignature（fail-fast 已内建）；环境变量 `MDCX_JAVDB_APP_SIG_PREFIX/SIG_SUFFIX/VERSION_NUMBER` 免改码覆盖；搜索 limit≤50、type=movie，分页须 `movie_sort_by=release`（默认 relevance 不稳定会漏）。
