@@ -8,6 +8,7 @@
 - Category: 工作流协作
 - Instructions:
   - 简体中文回复；面向小白说明按"现象和影响 → 原因 → 可执行步骤"组织；日期时间一律用北京时间 (UTC+8) 表述并显式注明。
+  - **本记忆文件不受 150 行长度限制**（用户 2026-09-06 明示覆盖系统规则）；但入选标准不变——只记"以后每次都该怎么做"，不记单次任务细节、不记读代码即可获知的内容。
   - 改动前说明内容与原因；用户明确要求提交/推送后才执行，绝不擅自操作。直接在当前分支操作。
   - 每次代码改动后跑 `uv run quick-check`；提交前跑 `uv run check --skip-hook-install`。仅改 `docs/*.md` 或本文件时只需 `git diff --check`。**全绿判定"退出码 + grep 错误行"双确认**：`grep -E "\.py:[0-9]+: error|Found [0-9]+ error"` 无输出才算过（mypy 输出可能被 tail 截断、退出码 grep 漏检——CI 连挂三次的教训）。`scripts/` 也在 check 范围，入库前先格式化。
   - 提交前必看 `git status` 未跟踪文件：运行残留与中间产物不得 `git add -A` 入库，先 `.gitignore` 排除。
@@ -62,6 +63,7 @@
   - **ruff B010/B009 与 mypy attr-defined 的组合**：动态属性读写（缓存挂到第三方 Response 对象上）需 `obj._x = v  # type: ignore[attr-defined] # noqa: SLF001` + `getattr(obj, "_x", None)  # noqa: B009`；`setattr` 常量属性被 B010 禁止。
   - **外部探测任务的错误监控先分类错误构成再设阈值**：404 在爬虫场景是"未收录"业务常态（DMM 实测事故：404 计入错误率 → 84%"异常" → 误降并发误回滚三轮折腾）。真实限流信号只有 403/429/连接异常。单 host 批量探测速率天花板是站点侧吞吐（awsimgsrc ~17 req/s），提速靠减少请求数而非加并发。
   - **测试耗时诊断方法论**（2026-09-06 全量 146s→46s 实证）：慢测试两大真凶模式——①**生产节流逻辑真实执行**（javdb_app 反爬 3-8s 随机 sleep 在单测里跑真等待，单条 40s）：autouse fixture patch 掉模块内 asyncio.sleep（先确认模块内该调用仅节流一处）；②**单测偷跑网络**（check_url 对 DMM 图床逐候选真联网，15+ 条各 3.6s 且随网络抖动）：conftest autouse 断网桩（返回 None），显式 monkeypatch 的测试后设优先生效，真网络验证走 network marker。诊断顺序：`pytest --durations=15` 找出头 → 单测 profile（cProfile print_stats 看热点）→ 用打桩计数确认调用次数。**"测试太多导致慢"通常是错觉——先量化再动手，删文件省不了几秒，修慢点收益 10 倍**。
+  - **还原/回程类回归用「三态对比探针」定性**（议题 #82 实证）：fresh 同尺寸 → 最大化 → 还原，三态并排座椅控件的 viewport/content/min 宽高、y 坐标、layout 属性，差异即锁点。纯推断在 Qt 布局系统里不可靠（本轮假设"水平滚动条残留"，实测是 min 尺寸锁死+内容裁剪，方向完全不同）；探针跑在 offscreen pytest fixture 里几十秒出结论，诊断结论转正为正式回归测试后删除探针。
   - **同域测试文件归一纪律**：纯文本/AST 哨兵（断言"源码含某字符串"）被真实行为测试覆盖时删除（test_ui_resize_sync 案例）；同 fixture 的复现测试并入主回归文件（test_maximize_pages_repro 并入 window_state_matrix），文件数减半维护不散。
   - 大范围撤回用 `git revert --no-commit <多提交>` 合并单撤销提交。
 
@@ -85,6 +87,9 @@
   - **Qt 同名 API 重载签名不同，改前确认目标类签名**；测试桩显式枚举属性方法（不用 __getattr__ 通配）；打包前逐页切 stackedWidget 审计边界溢出（scripts/check_ui_layout.py、tests/test_ui_geometry.py）。
    - **Qt 绝对定位缩放三连**（#62/#66/#68）：`setGeometry` 不触发子组件 resizeEvent（须 `resize()`）；QStackedWidget 只 resize 当前可见页（休眠页停设计尺寸，`currentChanged` 连 `_sync_page_layouts` 统一同步，**先 resize 所有 pages 再算内部几何**——顺序敏感）；`show_hide_logs` 类硬编码 resize 会覆盖动态同步，一律走统一同步函数。
    - **最大化内容自适应方法论**（2026-09-06 两轮修复实证）：①Qt 对休眠/未重绘 widget 的布局**不自动激活**——容器 setGeometry/resize 后内部 QGridLayout 必须显式 `invalidate()+activate()`，否则输入框列宽永远不变（实测 515 不变 vs 激活后 1114）；②groupBox 内子控件分类跟随：布局容器与输入类控件（QLineEdit/QComboBox/QTextEdit/树/列表，按 className 判）拉伸、右缘控件（浏览按钮）右缘锚定平移、左侧标签保持；③**平移/拉伸一律用「设计基准坐标+extra」固定公式**（`x = 350 + (tree_x - 30 - 570)`），基于当前值的增量平移在 resize 反复触发时会累积漂移；④page_setting 底部「当前配置/另存为/恢复默认/保存」浮框是 page 直接子级（Z 序浮在 tabWidget 上），按设计下缘边距锚定新底部。CustomScrollArea 的 setWidget 时登记设计几何（幂等基准），resize/show 时套用。
+   - **「设计基准+extra」清单必须整组齐全**（议题 #82 实证）：`_sync_page_layouts` 下半区右列平移清单漏了 y=530 时长行（label_22/label_runtime，设计 x=310/350）——580/630 两行平移了、时长行滞留原位，最大化后时长与日期行错位。**按行分组平移的清单，改前先从设计稿穷举该组全部控件（grep 设计坐标 `setGeometry(QtCore.QRect(310/350, ...)` 同族行），再逐一对照清单**。
+   - **最大化→还原回程必须单独测**（议题 #82 实证）：此前测试矩阵只覆盖「放大」去程，还原回程三个锁死 bug 漏网——①`sync_wide_children_width` 只增不减（extra<=0 return），拉宽的 groupBox 还原不缩回；②`content.minimumWidth` 从膨胀 childrenRect 计算并锁死（设置页 1599/工具页 1603 vs 视口 770），widgetResizable 受 minimumWidth 阻挡无法缩回，内容右缘被裁且水平滚动条 AlwaysOff 无迹可循；③QFormLayout 驱动内容的 Expanding 行（简介/标签多行框）在超高容器中分得额外空间，childrenRect 抬高→minimumHeight 自锁 993 降不回 674，保存按钮被推出视口。**三条军规**：几何同步函数一律「设计基准+extra」双向幂等（负 extra 即缩回）；**min 尺寸的计算源必须稳定**（设计宽 / layout.sizeHint() 紧凑值），禁止取自被拉伸/膨胀后的 childrenRect；layout 驱动 content 的最小尺寸用 layout.sizeHint() 而非 childrenRect。回归测试断言标准：**最大化→还原后与 fresh 同尺寸状态完全一致**（内容宽=min_w≈设计宽、按钮 y 坐标相同）。
+   - **窗口状态操控的汇聚点审计**（议题 #82 问题 1 实证）：「主窗最小化后被弹出」的根因不止 #79 修的显式入口（raise_/activateWindow），还有 `save_config.py`/`load_config.py` 末尾无条件的 `setWindowState(去最小化|WindowActive)+activateWindow()` 隐式路径——**刮削完成自动保存等后台链路同样弹主窗**。修复窗口联动类 bug 时，grep `setWindowState|activateWindow|showNormal|show()` 全库枚举汇聚点逐一加「可见且未最小化」守卫；配置保存/加载这类业务函数**不得顺手操控窗口状态**。
   - **PyQt6 测试 qFatal abort**：槽函数未捕获异常触发 qt_assert 原生 abort（栈里无 Python 行号）——查 QTimer 槽与 dummy 桩缺方法。防御：fixture 构造后立即停全部 QTimer；几何断言不需 `window.show()`。不设 offscreen 的 Aborted 是环境固有——先 stash 基线对照区分环境问题与改动引入。
 
 ## 站点与网络

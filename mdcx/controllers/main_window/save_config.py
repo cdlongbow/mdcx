@@ -813,8 +813,13 @@ def save_config(self: "MyMAinWindow"):
         self._windows_auto_adjust()  # 界面自动调整
     except Exception:
         signal_qt.show_traceback_log(traceback.format_exc())
-    self.setWindowState(self.windowState() & ~Qt.WindowState.WindowMinimized | Qt.WindowState.WindowActive)  # type: ignore
-    self.activateWindow()
+    # 议题 #82：主窗最小化/托盘隐藏时，后台触发的配置保存（如刮削完成自动保存）
+    # 不得还原主窗——setWindowState(去最小化)+activateWindow() 在 Windows 原生边框下
+    # 会强制弹出主窗。仅在主窗可见且未最小化时才恢复激活（用户点保存的交互路径，
+    # 行为与修复前一致）。
+    if self.isVisible() and not self.isMinimized():
+        self.setWindowState(self.windowState() & ~Qt.WindowState.WindowMinimized | Qt.WindowState.WindowActive)  # type: ignore
+        self.activateWindow()
     try:
         movie_path_text = ";".join(str(path) for path in get_movie_path_setting().movie_paths)
         self.set_label_file_path.emit(f"🎈 当前刮削路径: \n {movie_path_text}")  # 主界面右上角显示提示信息

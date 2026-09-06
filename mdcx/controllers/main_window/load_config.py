@@ -1179,8 +1179,11 @@ def load_config(self: "MyMAinWindow"):
             self._windows_auto_adjust()
         except Exception:
             signal_qt.show_traceback_log(traceback.format_exc())
-        self.setWindowState(self.windowState() & ~Qt.WindowState.WindowMinimized | Qt.WindowState.WindowActive)  # type: ignore
-        self.activateWindow()
+        # 议题 #82：同 save_config——主窗最小化/托盘隐藏时不强制还原激活，
+        # 避免后台配置加载（切换配置等）把最小化的主窗弹出。
+        if self.isVisible() and not self.isMinimized():
+            self.setWindowState(self.windowState() & ~Qt.WindowState.WindowMinimized | Qt.WindowState.WindowActive)  # type: ignore
+            self.activateWindow()
         try:
             # 主界面右上角显示提示信息
             movie_path_text = ";".join(str(path) for path in get_movie_path_setting().movie_paths)

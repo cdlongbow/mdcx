@@ -603,11 +603,15 @@ class MyMAinWindow(QMainWindow):
         for ln in ("line_6", "line_7"):
             getattr(ui, ln).resize(max(500 + info_extra, 60), 20)
         # 下半区双列（设计右列 x=350）：右列整组平移，左列保持原位
+        # 议题 #82：时长行（y=530：label_22 标签 + label_runtime 值）曾漏入列，
+        # 最大化后滞留原位与日期行错位。
         for ln, dx in (
             ("label_series", 350),
             ("label_publish", 350),
+            ("label_runtime", 350),
             ("label_31", 310),
             ("label_24", 310),
+            ("label_22", 310),
             ("line_9", 350),
             ("line_10", 350),
             ("line_11", 350),

@@ -70,11 +70,31 @@ class CustomScrollArea(QScrollArea):
         content = self.widget()
         if content is None:
             return
-        children_rect = content.childrenRect()
-        if children_rect.height() <= 0:
-            return
-        min_width = children_rect.right() + 1
-        min_height = children_rect.bottom() + self._CONTENT_BOTTOM_MARGIN
+        # 议题 #82：layout 驱动的内容（如 NFO 表单 QFormLayout）不能按 childrenRect
+        # 算最小高——Expanding 行（简介/标签多行框）在超高容器里会分得额外空间，
+        # childrenRect 随之膨胀，最小高一旦抬高就自锁（还原后永远降不回紧凑态，
+        # 保存按钮被推出视口）。layout.sizeHint() 是紧凑排布尺寸，与容器拉伸无关。
+        content_layout = content.layout()
+        if content_layout is not None:
+            content_layout.invalidate()
+            size_hint = content_layout.sizeHint()
+            if size_hint.height() <= 0:
+                return
+            min_width = size_hint.width()
+            min_height = size_hint.height()
+        else:
+            children_rect = content.childrenRect()
+            if children_rect.height() <= 0:
+                return
+            # 无布局内容：min_width 不能以「可能被拉宽过的」childrenRect 为准——
+            # 最大化后子控件被拉宽，childrenRect.right() 锁在高位，还原窗口时
+            # widgetResizable 受 minimumWidth 阻挡无法把内容缩回视口，右侧被裁剪。
+            # 以登记的设计宽为上界：拉宽场景内容宽由 viewport 决定（>min 不冲突），
+            # 还原场景 min_width 回落到设计宽，内容随之缩回。
+            design_w = getattr(content, "_wide_children_design_width", 0)
+            measured_w = children_rect.right() + 1
+            min_width = min(measured_w, design_w) if design_w > 0 else measured_w
+            min_height = children_rect.bottom() + self._CONTENT_BOTTOM_MARGIN
         if content.minimumWidth() != min_width or content.minimumHeight() != min_height:
             content.setMinimumWidth(min_width)
             content.setMinimumHeight(min_height)
@@ -154,13 +174,18 @@ class CustomScrollArea(QScrollArea):
         setattr(content, "_wide_children_design_width", design_w)
 
     def sync_wide_children_width(self) -> None:
-        """视口宽于内容设计宽时，把宽幅顶层容器拉到视口宽。
+        """宽幅顶层容器宽度跟随视口：视口宽于设计宽时拉宽，窄于设计宽时缩回。
 
         按登记的设计几何计算 extra = 视口宽 - 设计宽，各容器宽度 = 设计宽 + extra，
         保持设计左边距与右缘边距。groupBox 内部子项按分类跟随：
         布局容器与宽幅输入框拉伸（布局容器另需 invalidate+activate 强制重排，
-        否则表单项保持旧列宽）；右缘控件右缘锚定平移；其余保持原位。
+        否则 QGridLayout 内输入框列宽不变）；右缘控件右缘锚定平移；其余保持原位。
         无宽幅容器的滚动区（如 NFO 库 360 宽表单）登记为空自动跳过。
+
+        议题 #82：extra<=0 必须按同一公式缩回（旧实现直接 return 只增不减）——
+        否则最大化后容器宽度锁死在高位，childrenRect 撑大 → content minimumWidth
+        被永久抬高 → 还原窗口后内容右侧被视口裁剪（设置/工具页内容右缘消失）。
+        固定「设计几何 + extra」公式双向幂等，无累积漂移。
         """
         content = self.widget()
         if content is None:
@@ -173,8 +198,6 @@ class CustomScrollArea(QScrollArea):
             return
         design_w = getattr(content, "_wide_children_design_width", 0)
         extra = viewport.width() - design_w
-        if extra <= 0:
-            return
         for entry in registry:
             x, y, w, h = entry.geometry
             box = entry.widget
@@ -195,10 +218,13 @@ class CustomScrollArea(QScrollArea):
 
     def resizeEvent(self, event):
         super().resizeEvent(event)
-        self.sync_content_min_height()
+        # 先同步宽幅容器（含缩回），再按最新 childrenRect 补内容最小尺寸——
+        # 顺序颠倒会让 min_width 吃到拉伸后的旧包围盒，还原路径锁死（议题 #82）
         self.sync_wide_children_width()
+        self.sync_content_min_height()
 
     def showEvent(self, event):
         super().showEvent(event)
-        self.sync_content_min_height()
         self.sync_wide_children_width()
+        self.sync_content_min_height()
+

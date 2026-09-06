@@ -256,6 +256,34 @@ def _size(obj):
     return (obj.width(), obj.height())
 
 
+def test_save_load_config_keeps_minimized_main_window(win, app, monkeypatch):
+    """议题 #82：主窗最小化时，后台触发的配置保存/加载不得还原主窗。
+
+    根因：save_config/load_config 末尾无条件
+    `setWindowState(去最小化 | WindowActive)` + `activateWindow()`——Windows 原生
+    边框下会强制还原最小化主窗。用户场景：主窗最小化跑刮削/操作演员管理器期间，
+    任意自动保存把主窗弹出。修复：仅在主窗可见且未最小化时才恢复激活。
+    """
+    from mdcx.controllers.main_window import main_window as mw_mod
+
+    # dummy manager 无 save 桩——本测试只验证窗口状态行为，配置落盘打桩跳过
+    monkeypatch.setattr(mw_mod.manager, "save", lambda *a, **k: None, raising=False)
+
+    win.show()
+    app.processEvents()
+    win.showMinimized()
+    app.processEvents()
+    assert win.isMinimized()
+
+    win.save_config()
+    app.processEvents()
+    assert win.isMinimized(), "save_config 不应还原最小化主窗"
+
+    win.load_config()
+    app.processEvents()
+    assert win.isMinimized(), "load_config 不应还原最小化主窗"
+
+
 def test_maximize_content_follow_all_pages(win, app):
     """横向放大复现：窗口从设计尺寸放大到 1920 宽（等价 Windows 原生最大化）。"""
 
@@ -443,6 +471,30 @@ def test_probe_main_tool_content(win, app):
     assert after_edit == max((e.width() for e in tool_page.findChildren(QLineEdit)), default=0), "工具页输入框宽漂移"
 
 
+def test_runtime_row_follows_right_column_on_maximize(win, app):
+    """议题 #82：最大化后「时长」行（右列 y=530）必须随右列平移。
+
+    根因：_sync_page_layouts 下半区右列平移清单漏了 label_22（时长：标签,
+    设计 x=310）与 label_runtime（时长值, 设计 x=350）——系列/发行平移后，
+    时长行滞留原位，与左列日期行重叠错位。
+    """
+    win.resize(1040, 760)
+    win.show()
+    app.processEvents()
+
+    win.resize(1920, 1040)
+    app.processEvents()
+
+    tree_x = win.Ui.treeWidget_number.x()
+    expected_extra = tree_x - 30 - 570
+    assert win.Ui.label_22.x() == pytest.approx(310 + expected_extra, abs=4), (
+        f"时长标签未平移: {win.Ui.label_22.x()} != {310 + expected_extra}"
+    )
+    assert win.Ui.label_runtime.x() == pytest.approx(350 + expected_extra, abs=4), (
+        f"时长值未平移: {win.Ui.label_runtime.x()} != {350 + expected_extra}"
+    )
+
+
 def test_switch_to_pages_after_maximize_content_visible(win, app):
     """最大化后切到三个页面，内容尺寸正确（复现用户切页观察）."""
 
@@ -534,4 +586,61 @@ def test_nfo_lib_layout_probe(win, app):
     # 内容总高不显著超过视口（缩列下拉栏消除——用户报告"下拉栏"现象）
     assert form_content.height() <= form_scroll.viewport().height() + 40, (
         f"表单总高超视口: content={form_content.height()} viewport={form_scroll.viewport().height()}"
+    )
+
+
+def test_scrollareas_restore_compact_after_maximize(win, app):
+    """议题 #82：最大化→还原后，各页 scrollArea 内容几何必须回落紧凑基线。
+
+    根因三层叠加：
+    1. sync_wide_children_width 只增不减（extra<=0 直接 return），最大化拉宽的
+       宽幅容器还原时不缩回；
+    2. content.minimumWidth 从「拉宽后的」childrenRect 计算并锁死，widgetResizable
+       受 minimumWidth 阻挡无法把内容缩回视口——设置/工具页内容右缘被裁剪；
+    3. layout 驱动内容（NFO 表单 QFormLayout）的 minimumHeight 从膨胀
+       childrenRect 计算：Expanding 行（简介/标签多行框）在超高容器中分得额外
+       空间，childrenRect 抬高 → 最小高自锁（993 降不回紧凑 674），保存按钮
+       被推出视口。
+    修复：宽幅容器按「设计几何+extra」双向幂等伸缩；min_width 以设计宽为上界；
+    layout 驱动内容的 min 尺寸改用 layout.sizeHint（紧凑排布，与容器拉伸无关）。
+    """
+    from mdcx.views.CustomClass import CustomScrollArea
+
+    win.resize(1040, 760)
+    win.show()
+    app.processEvents()
+    _goto(win, app, "page_nfo_library")
+
+    # 最大化 → 还原
+    win.resize(1920, 1040)
+    app.processEvents()
+    win.resize(1040, 760)
+    app.processEvents()
+
+    # 设置页当前 tab：内容宽度回落视口内，min 宽不再锁死在最大化值（1599）
+    _goto(win, app, "page_setting")
+    tab0 = win.Ui.tabWidget.widget(0)
+    scroll = tab0.findChild(CustomScrollArea)
+    assert scroll.widget().width() <= scroll.viewport().width() + 2, (
+        f"设置页内容宽未回落: content={scroll.widget().width()} viewport={scroll.viewport().width()}"
+    )
+    assert scroll.widget().minimumWidth() <= 800, f"设置页内容 min 宽锁死: {scroll.widget().minimumWidth()}"
+
+    # 工具页：同上（曾锁死 1603）
+    _goto(win, app, "page_tool")
+    tool_scroll = win.Ui.page_tool.findChild(CustomScrollArea)
+    assert tool_scroll.widget().width() <= tool_scroll.viewport().width() + 2, (
+        f"工具页内容宽未回落: content={tool_scroll.widget().width()} viewport={tool_scroll.viewport().width()}"
+    )
+    assert tool_scroll.widget().minimumWidth() <= 800, f"工具页内容 min 宽锁死: {tool_scroll.widget().minimumWidth()}"
+
+    # NFO 表单：内容回落紧凑、保存按钮回到视口内（曾 y=946 > 视口 674）
+    _goto(win, app, "page_nfo_library")
+    app.processEvents()
+    form_scroll = win.Ui.scrollArea_nfo_lib_form
+    form_content = win.Ui.scrollAreaWidgetContents_nfo_lib
+    assert form_content.height() <= 760, f"NFO 表单未回落紧凑: {form_content.height()}"
+    save_btn = win.Ui.pushButton_nfo_lib_save
+    assert save_btn.y() + save_btn.height() <= form_scroll.viewport().height() + 4, (
+        f"NFO 保存按钮仍在视口外: bottom={save_btn.y() + save_btn.height()} viewport={form_scroll.viewport().height()}"
     )
