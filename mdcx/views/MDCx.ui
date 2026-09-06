@@ -24692,7 +24692,7 @@ p, li { white-space: pre-wrap; }
 &lt;p&gt;在"设置 → 网络"中配置：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;b&gt;启用代理&lt;/b&gt;：开启后填写 HTTP / HTTPS 或 SOCKS5 代理地址（如 http://127.0.0.1:7890）。&lt;/li&gt;
-&lt;li&gt;&lt;b&gt;走代理网站&lt;/b&gt;：仅指定域名走代理，其余直连。默认包含 amazon.co.jp、m.media-amazon.com、xcity.jp、minnano-av.com、avbase.net、javbus.com、javdb.com、javlibrary.com、r18.dev、mgstage.com、prestige-av.com、seesaawiki.jp、avsox.click、avsox.com、avmoo.shop、avmoo.com、avheat.shop、avheat.com、caribbeancom.com、heyzo.com、1pondo.tv、pacopacomama.com、10musume.com、mywife.cc、github.com、raw.githubusercontent.com、google.com、missav.ws、missav.ai、missav.live、aventertainments.com、javfree.me。可按需增删。&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;走代理网站&lt;/b&gt;：仅指定域名走代理，其余直连。默认包含 amazon.co.jp、m.media-amazon.com、xcity.jp、minnano-av.com、avbase.net、javbus.com、javdb.com、javlibrary.com、r18.dev、mgstage.com、prestige-av.com、seesaawiki.jp、avsox.click、avsox.com、avmoo.shop、avmoo.com、avheat.shop、avheat.com、caribbeancom.com、heyzo.com、1pondo.tv、pacopacomama.com、10musume.com、mywife.cc、github.com、raw.githubusercontent.com、google.com、missav.ws、missav.ai、missav.live、aventertainments.com、javfree.me、7mmtv.sx、7tv022.com。可按需增删（也可直接填数据源名，如 missav、javdb，站点及其镜像域名将整体走代理）。&lt;/li&gt;
 &lt;li&gt;&lt;b&gt;CF Bypass 代理&lt;/b&gt;：为绕过 Cloudflare 的请求单独设置代理。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;如持续提示网络 / 代理错误，请检查地址与端口、确认代理软件处于全局模式，或尝试重启代理与网卡。&lt;/p&gt;

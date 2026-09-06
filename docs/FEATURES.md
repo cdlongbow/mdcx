@@ -216,7 +216,7 @@ MDCx 支持的功能全景。只想快速上手的话，先看 [QUICKSTART.md](Q
 
 - **HTTP 客户端**：curl-cffi 模拟浏览器 TLS 指纹，默认 7 种浏览器画像自动轮换（Chrome 124/131/136 Win + Chrome 136 Mac + Firefox 133/135 Win + Safari iOS；Amazon 刮削用专用桌面池 6 种）
 - **网络连通性检测**：网络页「开始检测」按钮逐站检查连通性与刮削能力——镜像/动态域名站点多地址检测（主站+镜像），API 类爬虫走真实刮削探测，结果按基础环境/连通性/刮削站点/账号 API/辅助服务分组展示
-- **代理**：支持 HTTP/HTTPS/SOCKS5 代理；仅对"走代理网站"域名列表中的站点走代理（默认含 amazon.co.jp、m.media-amazon.com、xcity.jp、minnano-av.com、avbase.net、javbus.com、javdb.com、javlibrary.com、r18.dev、mgstage.com、prestige-av.com、seesaawiki.jp、avsox/avmoo/avheat 主镜像、无码官网五站、mywife.cc、github.com 系、google.com、missav 三镜像、aventertainments.com、javfree.me、7mmtv.sx、7tv022.com 等共 34 个域名，完整列表见设置 → 网络页），其他直连
+ - **代理**：支持 HTTP/HTTPS/SOCKS5 代理；"走代理网站"列表支持域名与数据源名称两种写法——填数据源名（可从旁边下拉框直接选择，如 missav、javdb、7mmtv）时，该数据源的主域/镜像/备用域名均自动走代理，站点换域名无需改配置（议题 #83）；默认含 amazon.co.jp、m.media-amazon.com、xcity.jp、minnano-av.com、avbase.net、javbus.com、javdb.com、javlibrary.com、r18.dev、mgstage.com、prestige-av.com、seesaawiki.jp、avsox/avmoo/avheat 主镜像、无码官网五站、mywife.cc、github.com 系、google.com、missav 三镜像、aventertainments.com、javfree.me、7mmtv.sx、7tv022.com 等共 34 个域名，完整列表见设置 → 网络页），其他直连
 - **Cloudflare 绕过**：通过外部 CF 服务（TRAWL `/scrape` 或 FlareSolverr `/v1`）自动绕过 CF 防护页，MDCx 自动拉起协议适配层翻译请求，无需内置浏览器；可选配置独立 Bypass 代理；Bypass 服务失效时自动跳过避免空等
 - **Selenium CF Bypass（JavLibrary 专用）**：JavLibrary 遇 Cloudflare JS challenge 时自动 fallback 到 Selenium+Edge headless 获取页面 HTML（cf_selenium_bypass，默认开启）。需要 Windows 10/11 + Edge 浏览器，首次使用自动安装 selenium；无 Edge 环境优雅降级，连续失败 3 次进入 5 分钟冷却
 - **Bypass 落地域名白名单**：可配置可信落地域名列表（逗号分隔，支持 `*.example.com` 子域通配），校验 Bypass 服务落地/重定向后的最终域名，防止第三方服务被劫持时把恶意页面当数据；留空表示不校验

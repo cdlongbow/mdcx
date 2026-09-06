@@ -212,6 +212,10 @@ def migrate_config_data(data: dict[str, Any]) -> list[str]:
         r = r.strip()
         if all(schema not in r for schema in ["http://", "https://", "socks5://", "socks5h://"]):
             data["proxy"] = "http://" + r
+    # 默认 proxy_sites 曾把 seesaawiki.jp 误拼为 seesawiki.jp（mywife 爬虫实际请求域名带双 a），
+    # 存量用户配置静默修正（seesaawiki 中不含 seesawiki 子串，replace 不会误伤已正确值）
+    if isinstance(ps := data.get("proxy_sites"), str) and "seesawiki" in ps:
+        data["proxy_sites"] = ps.replace("seesawiki.jp", "seesaawiki.jp")
     if isinstance(r := data.get("cf_bypass_url"), str):
         r = r.strip().rstrip("/")
         if r and all(schema not in r for schema in ["http://", "https://"]):
