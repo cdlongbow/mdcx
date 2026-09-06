@@ -61,7 +61,9 @@ class CustomScrollArea(QScrollArea):
     """
 
     # Leave enough room for the last row, frame, font metrics, and DPI scaling.
-    _CONTENT_BOTTOM_MARGIN = 60
+    # ≥ 浮框带侵入视口底部的 63px（page_setting 底部配置浮框盖住滚动区下缘），
+    # 保证滚动到底时最后一行完全位于浮框带上方（用户截图：末行文字从浮框后透出）。
+    _CONTENT_BOTTOM_MARGIN = 72
 
     # 顶层容器判定为"宽幅"的右缘阈值比例：设计右缘 ≥ 内容设计宽的 85%。
     _WIDE_CHILD_RIGHT_RATIO = 0.85
@@ -81,7 +83,9 @@ class CustomScrollArea(QScrollArea):
             if size_hint.height() <= 0:
                 return
             min_width = size_hint.width()
-            min_height = size_hint.height()
+            # layout 驱动内容同样补底部余量：sizeHint 是紧凑排布高度，
+            # 不加余量时滚动到底最后一行贴视口底、被浮框带盖住 63px
+            min_height = size_hint.height() + self._CONTENT_BOTTOM_MARGIN
         else:
             children_rect = content.childrenRect()
             if children_rect.height() <= 0:

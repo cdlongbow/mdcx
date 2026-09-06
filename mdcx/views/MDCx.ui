@@ -5013,12 +5013,6 @@
                         <height>0</height>
                       </size>
                     </property>
-                    <property name="maximumSize">
-                      <size>
-                        <width>860</width>
-                        <height>16777215</height>
-                      </size>
-                    </property>
                     <property name="title">
                       <string>刮削模式</string>
                     </property>
@@ -5810,12 +5804,6 @@
                         <height>0</height>
                       </size>
                     </property>
-                    <property name="maximumSize">
-                      <size>
-                        <width>860</width>
-                        <height>16777215</height>
-                      </size>
-                    </property>
                     <property name="title">
                       <string>刮削成功后移动文件</string>
                     </property>
@@ -5911,12 +5899,6 @@
                         <height>0</height>
                       </size>
                     </property>
-                    <property name="maximumSize">
-                      <size>
-                        <width>860</width>
-                        <height>16777215</height>
-                      </size>
-                    </property>
                     <property name="title">
                       <string>刮削失败时移动文件</string>
                     </property>
@@ -6006,12 +5988,6 @@
                         <height>0</height>
                       </size>
                     </property>
-                    <property name="maximumSize">
-                      <size>
-                        <width>860</width>
-                        <height>16777215</height>
-                      </size>
-                    </property>
                     <property name="title">
                       <string>刮削结束后删除空文件夹</string>
                     </property>
@@ -6099,12 +6075,6 @@
                       <size>
                         <width>200</width>
                         <height>0</height>
-                      </size>
-                    </property>
-                    <property name="maximumSize">
-                      <size>
-                        <width>860</width>
-                        <height>16777215</height>
                       </size>
                     </property>
                     <property name="title">
@@ -6691,12 +6661,6 @@
                         <height>0</height>
                       </size>
                     </property>
-                    <property name="maximumSize">
-                      <size>
-                        <width>860</width>
-                        <height>16777215</height>
-                      </size>
-                    </property>
                     <property name="title">
                       <string>刮削成功后重命名文件</string>
                     </property>
@@ -7154,12 +7118,6 @@
                         <height>0</height>
                       </size>
                     </property>
-                    <property name="maximumSize">
-                      <size>
-                        <width>860</width>
-                        <height>16777215</height>
-                      </size>
-                    </property>
                     <property name="title">
                       <string>刮削成功后在输出目录创建软链接或硬链接</string>
                     </property>
@@ -7538,12 +7496,6 @@
                       <size>
                         <width>200</width>
                         <height>0</height>
-                      </size>
-                    </property>
-                    <property name="maximumSize">
-                      <size>
-                        <width>860</width>
-                        <height>16777215</height>
                       </size>
                     </property>
                     <property name="title">
@@ -8433,12 +8385,6 @@
                       <size>
                         <width>200</width>
                         <height>0</height>
-                      </size>
-                    </property>
-                    <property name="maximumSize">
-                      <size>
-                        <width>860</width>
-                        <height>16777215</height>
                       </size>
                     </property>
                     <property name="title">
@@ -9445,12 +9391,6 @@
                       <size>
                         <width>200</width>
                         <height>0</height>
-                      </size>
-                    </property>
-                    <property name="maximumSize">
-                      <size>
-                        <width>860</width>
-                        <height>1600</height>
                       </size>
                     </property>
                     <property name="title">
@@ -11491,12 +11431,6 @@
                         <height>0</height>
                       </size>
                     </property>
-                    <property name="maximumSize">
-                      <size>
-                        <width>860</width>
-                        <height>16777215</height>
-                      </size>
-                    </property>
                     <property name="title">
                       <string>分集命名规则</string>
                     </property>
@@ -12345,12 +12279,6 @@
                         <height>0</height>
                       </size>
                     </property>
-                    <property name="maximumSize">
-                      <size>
-                        <width>860</width>
-                        <height>16777215</height>
-                      </size>
-                    </property>
                     <property name="title">
                       <string>马赛克命名规则</string>
                     </property>
@@ -12940,12 +12868,6 @@
                         <height>0</height>
                       </size>
                     </property>
-                    <property name="maximumSize">
-                      <size>
-                        <width>860</width>
-                        <height>16777215</height>
-                      </size>
-                    </property>
                     <property name="title">
                       <string>图片命名规则</string>
                     </property>
@@ -13048,12 +12970,6 @@
                       <size>
                         <width>200</width>
                         <height>0</height>
-                      </size>
-                    </property>
-                    <property name="maximumSize">
-                      <size>
-                        <width>860</width>
-                        <height>16777215</height>
                       </size>
                     </property>
                     <property name="title">
@@ -13161,12 +13077,6 @@
                       <size>
                         <width>200</width>
                         <height>0</height>
-                      </size>
-                    </property>
-                    <property name="maximumSize">
-                      <size>
-                        <width>860</width>
-                        <height>16777215</height>
                       </size>
                     </property>
                     <property name="title">
@@ -13517,12 +13427,6 @@
                         <height>0</height>
                       </size>
                     </property>
-                    <property name="maximumSize">
-                      <size>
-                        <width>860</width>
-                        <height>16777215</height>
-                      </size>
-                    </property>
                     <property name="title">
                       <string>画质命名规则</string>
                     </property>
@@ -13850,12 +13754,6 @@
                         <height>0</height>
                       </size>
                     </property>
-                    <property name="maximumSize">
-                      <size>
-                        <width>860</width>
-                        <height>16777215</height>
-                      </size>
-                    </property>
                     <property name="title">
                       <string>其他说明</string>
                     </property>
@@ -14033,12 +13931,6 @@
                       <size>
                         <width>200</width>
                         <height>0</height>
-                      </size>
-                    </property>
-                    <property name="maximumSize">
-                      <size>
-                        <width>860</width>
-                        <height>16777215</height>
                       </size>
                     </property>
                     <property name="title">
@@ -14749,12 +14641,6 @@
                         <height>0</height>
                       </size>
                     </property>
-                    <property name="maximumSize">
-                      <size>
-                        <width>860</width>
-                        <height>16777215</height>
-                      </size>
-                    </property>
                     <property name="title">
                       <string>标题</string>
                     </property>
@@ -14898,12 +14784,6 @@
                       <size>
                         <width>200</width>
                         <height>0</height>
-                      </size>
-                    </property>
-                    <property name="maximumSize">
-                      <size>
-                        <width>860</width>
-                        <height>16777215</height>
                       </size>
                     </property>
                     <property name="title">
@@ -15144,12 +15024,6 @@
                         <height>0</height>
                       </size>
                     </property>
-                    <property name="maximumSize">
-                      <size>
-                        <width>860</width>
-                        <height>16777215</height>
-                      </size>
-                    </property>
                     <property name="title">
                       <string>演员</string>
                     </property>
@@ -15321,12 +15195,6 @@
                         <height>0</height>
                       </size>
                     </property>
-                    <property name="maximumSize">
-                      <size>
-                        <width>860</width>
-                        <height>16777215</height>
-                      </size>
-                    </property>
                     <property name="title">
                       <string>标签</string>
                     </property>
@@ -15469,12 +15337,6 @@
                       <size>
                         <width>200</width>
                         <height>0</height>
-                      </size>
-                    </property>
-                    <property name="maximumSize">
-                      <size>
-                        <width>860</width>
-                        <height>16777215</height>
                       </size>
                     </property>
                     <property name="title">
@@ -15621,12 +15483,6 @@
                         <height>0</height>
                       </size>
                     </property>
-                    <property name="maximumSize">
-                      <size>
-                        <width>860</width>
-                        <height>16777215</height>
-                      </size>
-                    </property>
                     <property name="title">
                       <string>片商</string>
                     </property>
@@ -15771,12 +15627,6 @@
                         <height>0</height>
                       </size>
                     </property>
-                    <property name="maximumSize">
-                      <size>
-                        <width>860</width>
-                        <height>16777215</height>
-                      </size>
-                    </property>
                     <property name="title">
                       <string>发行商</string>
                     </property>
@@ -15919,12 +15769,6 @@
                       <size>
                         <width>200</width>
                         <height>0</height>
-                      </size>
-                    </property>
-                    <property name="maximumSize">
-                      <size>
-                        <width>860</width>
-                        <height>16777215</height>
                       </size>
                     </property>
                     <property name="title">
@@ -18048,12 +17892,6 @@
                         <height>0</height>
                       </size>
                     </property>
-                    <property name="maximumSize">
-                      <size>
-                        <width>860</width>
-                        <height>16777215</height>
-                      </size>
-                    </property>
                     <property name="title">
                       <string>写入 NFO 的字段：</string>
                     </property>
@@ -20060,12 +19898,6 @@
                         <height>0</height>
                       </size>
                     </property>
-                    <property name="maximumSize">
-                      <size>
-                        <width>860</width>
-                        <height>16777215</height>
-                      </size>
-                    </property>
                     <property name="title">
                       <string>补全 Emby/Jellyfin 演员头像</string>
                     </property>
@@ -20668,12 +20500,6 @@
                         <height>0</height>
                       </size>
                     </property>
-                    <property name="maximumSize">
-                      <size>
-                        <width>860</width>
-                        <height>16777215</height>
-                      </size>
-                    </property>
                     <property name="title">
                       <string>补全 Emby/Jellyfin 演员信息</string>
                     </property>
@@ -21145,12 +20971,6 @@
                       <size>
                         <width>200</width>
                         <height>0</height>
-                      </size>
-                    </property>
-                    <property name="maximumSize">
-                      <size>
-                        <width>860</width>
-                        <height>16777215</height>
                       </size>
                     </property>
                     <property name="title">
@@ -22999,12 +22819,6 @@
                         <height>0</height>
                       </size>
                     </property>
-                    <property name="maximumSize">
-                      <size>
-                        <width>860</width>
-                        <height>16777215</height>
-                      </size>
-                    </property>
                     <property name="title">
                       <string>保存日志</string>
                     </property>
@@ -23048,12 +22862,6 @@
                       <size>
                         <width>200</width>
                         <height>0</height>
-                      </size>
-                    </property>
-                    <property name="maximumSize">
-                      <size>
-                        <width>860</width>
-                        <height>16777215</height>
                       </size>
                     </property>
                     <property name="title">
@@ -23144,12 +22952,6 @@
                         <height>0</height>
                       </size>
                     </property>
-                    <property name="maximumSize">
-                      <size>
-                        <width>860</width>
-                        <height>16777215</height>
-                      </size>
-                    </property>
                     <property name="title">
                       <string>检查更新</string>
                     </property>
@@ -23193,12 +22995,6 @@
                       <size>
                         <width>200</width>
                         <height>0</height>
-                      </size>
-                    </property>
-                    <property name="maximumSize">
-                      <size>
-                        <width>860</width>
-                        <height>16777215</height>
                       </size>
                     </property>
                     <property name="title">

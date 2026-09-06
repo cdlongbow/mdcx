@@ -9,6 +9,10 @@
 日志页/net 页按钮未跟随页面宽度；下栏隐藏时上栏仍只占 61%。
 """
 
+import os
+
+os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
+
 import sys
 
 import pytest
@@ -644,3 +648,109 @@ def test_scrollareas_restore_compact_after_maximize(win, app):
     assert save_btn.y() + save_btn.height() <= form_scroll.viewport().height() + 4, (
         f"NFO 保存按钮仍在视口外: bottom={save_btn.y() + save_btn.height()} viewport={form_scroll.viewport().height()}"
     )
+
+
+def test_setting_all_tabs_wide_boxes_fill_viewport(win, app):
+    """最大化后 12 个设置 tab 的全部宽幅顶层 groupBox 必须拉伸到位。
+
+    回归背景：.ui 中 34 处 groupBox 带 maximumWidth=860 设计器遗留上限，
+    sync_wide_children_width 的 setGeometry 被上限夹断——同一页面内部分
+    groupBox 拉满（如刮削模式的"多线程刮削"）、部分停在 860（如"刮削模式"
+    框），内容右侧大面积留白。刮削目录页无上限、拉伸正常（用户确认基准）。
+    """
+    from mdcx.views.CustomClass import CustomScrollArea
+
+    _goto(win, app, "page_setting")
+    win.resize(1920, 1170)
+    win.show()
+    app.processEvents()
+
+    ui = win.Ui
+    checked = 0
+    for i in range(ui.tabWidget.count()):
+        ui.tabWidget.setCurrentIndex(i)
+        app.processEvents()
+        page = ui.tabWidget.widget(i)
+        area = page.findChild(CustomScrollArea)
+        content = area.widget()
+        registry = getattr(content, "_wide_children_design", None)
+        if not registry:
+            continue
+        design_w = getattr(content, "_wide_children_design_width", 0)
+        extra = area.viewport().width() - design_w
+        for entry in registry:
+            box = entry.widget
+            _, _, design_box_w, _ = entry.geometry
+            expected = design_box_w + extra
+            assert box.width() == expected, (
+                f"tab{i}({ui.tabWidget.tabText(i)}) {box.objectName()} 拉伸被夹断: "
+                f"w={box.width()} 期望={expected}（maximumWidth={box.maximumWidth()}）"
+            )
+            checked += 1
+    assert checked >= 30, f"宽幅容器登记异常地少: {checked}"
+
+
+def test_setting_config_bar_all_children_docked(win, app):
+    """浮框组全部子件（含「当前配置:」label_241）必须位于底部浮框带内。
+
+    回归背景：_sync_page_layouts 浮框段漏同步 label_241，最大化后它停在
+    设计位置 y=629，与下移到页底的浮框带脱离、悬在滚动内容中部。
+    """
+    _goto(win, app, "page_setting")
+    win.resize(1920, 1170)
+    win.show()
+    app.processEvents()
+
+    ui = win.Ui
+    bar = ui.label_config
+    for name in (
+        "label_241",
+        "comboBox_change_config",
+        "pushButton_save_new_config",
+        "pushButton_init_config",
+        "pushButton_save_config",
+    ):
+        w = getattr(ui, name)
+        assert bar.y() <= w.y() < bar.y() + bar.height(), (
+            f"{name} 脱离浮框带: y={w.y()} 带范围=[{bar.y()},{bar.y() + bar.height()})"
+        )
+
+
+def test_setting_content_clears_config_bar_when_scrolled(win, app):
+    """滚动到底时设置页末行必须位于浮框带上方。
+
+    浮框带（label_config）盖住滚动视口底部 intrusion px；内容最小高必须
+    含 ≥ intrusion 的底部余量，否则最后一行文字从浮框后透出（用户截图）。
+    layout 驱动内容（NFO 表单）此前 sizeHint 不加余量同样受影响。
+    """
+    from mdcx.views.CustomClass import CustomScrollArea
+
+    _goto(win, app, "page_setting")
+    win.resize(1920, 1170)
+    win.show()
+    app.processEvents()
+
+    ui = win.Ui
+    intrusion = (
+        ui.tabWidget.widget(0)
+        .findChild(CustomScrollArea)
+        .mapTo(ui.page_setting, ui.tabWidget.widget(0).findChild(CustomScrollArea).viewport().rect().bottomLeft())
+        .y() - ui.label_config.y()
+    )
+    margin = CustomScrollArea._CONTENT_BOTTOM_MARGIN
+    assert margin > intrusion, f"内容底部余量 {margin} 不足以避开浮框侵入 {intrusion}"
+
+    # layout 驱动页（NFO）：min 高 = sizeHint + 余量
+    for i in range(ui.tabWidget.count()):
+        page = ui.tabWidget.widget(i)
+        area = page.findChild(CustomScrollArea)
+        content = area.widget()
+        if content.layout() is None:
+            continue
+        ui.tabWidget.setCurrentIndex(i)
+        app.processEvents()
+        hint_h = content.layout().sizeHint().height()
+        assert content.minimumHeight() == hint_h + margin, (
+            f"tab{i}({ui.tabWidget.tabText(i)}) layout 内容 min 高缺底部余量: "
+            f"{content.minimumHeight()} != {hint_h}+{margin}"
+        )

@@ -659,6 +659,9 @@ class MyMAinWindow(QMainWindow):
         ui.pushButton_save_new_config.move(270, bottom)
         ui.pushButton_init_config.move(380, bottom)
         ui.pushButton_save_config.move(max(sp_w - 241 - 89, 500), bottom)
+        # 「当前配置:」标签（设计 y=629，与基线 630 差 1）随浮框组贴底，
+        # 否则最大化后停在设计位置、悬在滚动内容中部（用户截图中的浮框问题）
+        ui.label_241.move(20, max(bottom - 1, 100))
 
         # ============ page_tool: scrollArea_10 ============
         tool_area = ui.page_tool
