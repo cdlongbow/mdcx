@@ -13,7 +13,7 @@
   - 提交前必看 `git status` 未跟踪文件：运行残留与中间产物不得 `git add -A` 入库，先 `.gitignore` 排除。
   - **模块级带值注解的版本差异**（CI 事故）：`x: T | None = None` 在 Python 3.13 立即求值、3.14 延迟（PEP 649）——本地 3.14 全绿掩盖 CI 3.13 NameError。模块级单例声明一律无注解赋值+注释。**"本地全绿≠CI 通过"的三个维度：输出截断 / 版本语义差异 / 平台差异**。
   - **Windows runner 的 GBK/charmap 解码陷阱**（20260905 发版首轮失败实证）：`subprocess.run(..., text=True)` 不显式给 `encoding="utf-8"` 时，Windows 默认 GBK 解码子进程输出，任何 UTF-8 字节（emoji/依赖 lint 输出/中文路径）都会抛 `UnicodeDecodeError: charmap` 炸掉整条链。同类修复此前只覆盖了测试脚本，build.py 漏同一族。所有跨平台 subprocess 调用一律 `encoding="utf-8", errors="replace"`。
-  - 不装 pre-commit；提交前更新 `docs/changelog.md` **当前版本**条目（版本号归属用户，不擅自开新段）。用户要求改版本日期时**两处同步**：changelog 段标题日期 + `mdcx/consts.py` 的 `LOCAL_VERSION`（纯数字 YYYYMMDD，版本比较/更新检查/release tag 全读它）；无测试锁定该值，改动安全。changelog 写作规范（2026-09-05 瘦身实践）：用户视角的发布说明——保留议题号/现象/修复结果/影响，删根因排查叙事、测试细节、提交哈希；已发布历史版本段保持原样。
+  - 不装 pre-commit；提交前更新 `docs/changelog.md` **当前版本**条目（版本号归属用户，不擅自开新段）。版本号有**四处同步点**：changelog 段标题、`consts.py` LOCAL_VERSION（纯数字 YYYYMMDD）+ VERSION_NAME、`pyproject.toml` version（version_metadata 测试锁定，20260906 bump 实测漏它测试红）。changelog 写作规范（2026-09-05 瘦身实践）：用户视角的发布说明——保留议题号/现象/修复结果/影响，删根因排查叙事、测试细节、提交哈希；已发布历史版本段保持原样。
   - 站点/爬虫/配置改动同步检查：UI 文案（main_window.py/.ui）、README、docs、爬虫总数（`crawler_names()`）、**`config/migrations.py` 旧值清洗**（漏迁移 → pydantic 校验失败 → "保存不生效"）。
   - 文档/UI 写死数字前必须 grep 代码核实。高频漂移锚点：默认网站源顺序、代理域名列表（`Config.proxy_sites`）、命名变量表、设置 Tab 名、字段优先级数（`REDUCED_FIELDS`）、演员库列、指纹池、主窗口行数。
   - **长时间任务标准做法**：① `background_terminal_create` 后台终端；② checkpoint 断点续传（state 落盘）；③ 分批处理批间落盘；④ wrapper 45-50 分钟自重启（云环境超时杀进程；**后台终端 1 小时上限会连 wrapper 一起回收**——checkpoint 是唯一恢复手段）；⑤ 进度看落盘文件不看终端日志（stdout 全缓冲可能 0 字节假象）。
@@ -27,9 +27,8 @@
 - Date: 2026-09-03（持续更新）
 - Category: 环境配置
 - Instructions:
-   - devbox 本地跑测试的完整姿势：**环境重置后**才需要建环境（uv 已在 PATH 且 .venv 已存在时直接 `uv run`）——先 `pip3 install --break-system-packages uv` 再 `uv sync --frozen`；PyQt6 测试前装系统库 `libgl1 libegl1 libxkbcommon0 libdbus-1-3 libfontconfig1 libglib2.0-0`（缺 libGL 会 ImportError），且必须 `QT_QPA_PLATFORM=offscreen` 运行（不设则 `QApplication()` 创建即 qFatal abort，栈里看不到原因）。**devbox 镜像包索引是空的：apt 装任何系统库前先 `apt-get update`**（实测直装报 E: Couldn't find package，update 后正常）。
-   - **background_terminal 用 sh（dash）解释器**，脚本含 `[[ ]]` 会报 `[[: not found` 且循环空转——后台脚本一律用 POSIX 语法（`case`/`grep`）或 `bash -c "..."` 包装。
-   - CI（ci.yaml）有同款配置但 runner 是 Ubuntu、devbox 是 Debian 12，包名一致可直接照抄 CI 的 apt 列表。
+   - devbox 本地跑测试的完整姿势：**环境重置后**才需要建环境（uv 已在 PATH 且 .venv 已存在时直接 `uv run`）——先 `pip3 install --break-system-packages uv` 再 `uv sync --frozen`；PyQt6 测试前装系统库（清单照抄 ci.yaml 的 apt 列表，缺 libGL 会 ImportError），且必须 `QT_QPA_PLATFORM=offscreen` 运行（不设则 `QApplication()` 创建即 qFatal abort，栈里看不到原因）。**devbox 镜像包索引是空的：apt 装系统库前先 `apt-get update`**。
+   - **background_terminal 用 sh（dash）解释器**，脚本含 `[[ ]]` 会报 `[[: not found` 且循环空转——后台脚本一律用 POSIX 语法（`case`/`grep`）或 `bash -c "..."` 包装。后台终端内 `git credential fill` 拿不到凭据（401），token 获取一律在前台 bash 完成。
 
 - Date: 2026-08-29
 - Category: 环境配置
@@ -62,6 +61,8 @@
   - **conftest dummy 陷阱（M6 案例）**：测试断言依赖的属性可能被 conftest 的 `_DummyManager` 实例属性遮蔽（dummy.path 是实例属性，直接赋 `manager._path` 后断言读 dummy.path 仍返回旧值）；给真实 manager 加新方法时必须同步给 dummy 加同名方法，否则 AttributeError 以 qFatal 形态在 Qt 测试里爆。绕 dummy 验证真实模块用独立 `uv run python` 脚本（无 conftest 干扰）；模块内做 AST 哨兵测试比 importlib 加载真实模块文件可靠（相对导入会失败）。
   - **ruff B010/B009 与 mypy attr-defined 的组合**：动态属性读写（缓存挂到第三方 Response 对象上）需 `obj._x = v  # type: ignore[attr-defined] # noqa: SLF001` + `getattr(obj, "_x", None)  # noqa: B009`；`setattr` 常量属性被 B010 禁止。
   - **外部探测任务的错误监控先分类错误构成再设阈值**：404 在爬虫场景是"未收录"业务常态（DMM 实测事故：404 计入错误率 → 84%"异常" → 误降并发误回滚三轮折腾）。真实限流信号只有 403/429/连接异常。单 host 批量探测速率天花板是站点侧吞吐（awsimgsrc ~17 req/s），提速靠减少请求数而非加并发。
+  - **测试耗时诊断方法论**（2026-09-06 全量 146s→46s 实证）：慢测试两大真凶模式——①**生产节流逻辑真实执行**（javdb_app 反爬 3-8s 随机 sleep 在单测里跑真等待，单条 40s）：autouse fixture patch 掉模块内 asyncio.sleep（先确认模块内该调用仅节流一处）；②**单测偷跑网络**（check_url 对 DMM 图床逐候选真联网，15+ 条各 3.6s 且随网络抖动）：conftest autouse 断网桩（返回 None），显式 monkeypatch 的测试后设优先生效，真网络验证走 network marker。诊断顺序：`pytest --durations=15` 找出头 → 单测 profile（cProfile print_stats 看热点）→ 用打桩计数确认调用次数。**"测试太多导致慢"通常是错觉——先量化再动手，删文件省不了几秒，修慢点收益 10 倍**。
+  - **同域测试文件归一纪律**：纯文本/AST 哨兵（断言"源码含某字符串"）被真实行为测试覆盖时删除（test_ui_resize_sync 案例）；同 fixture 的复现测试并入主回归文件（test_maximize_pages_repro 并入 window_state_matrix），文件数减半维护不散。
   - 大范围撤回用 `git revert --no-commit <多提交>` 合并单撤销提交。
 
 ## 并发与网络库行为（实测实证）
@@ -84,8 +85,9 @@
   - QComboBox 装饰后缀：`addItem(icon, 文本, UserRole 纯值)`，消费点统一 `currentData()` 取值；信号 handler 收文本须剥后缀。改动必查 currentText/itemText/currentData/信号连接/AllItems.index 全部点。
   - 打包前逐页切 stackedWidget 审计边界溢出（scripts/check_ui_layout.py、tests/test_ui_geometry.py）。
   - Qt 同名 API 重载签名不同，改前确认目标类签名；测试桩显式枚举属性方法（不用 __getattr__ 通配）。
-  - **Qt 绝对定位缩放三连**（#62/#66/#68）：`setGeometry` 不触发子组件 resizeEvent（须 `resize()`）；QStackedWidget 只 resize 当前可见页（休眠页停设计尺寸，`currentChanged` 连 `_sync_page_layouts` 统一同步，**先 resize 所有 pages 再算内部几何**——顺序敏感）；`show_hide_logs` 类硬编码 resize 会覆盖动态同步，一律走统一同步函数。
-  - **PyQt6 测试 qFatal abort**：槽函数未捕获异常触发 qt_assert 原生 abort（栈里无 Python 行号）——查 QTimer 槽与 dummy 桩缺方法。防御：fixture 构造后立即停全部 QTimer；几何断言不需 `window.show()`。**devbox 不设 offscreen 时 Qt 测试文件的 Fatal Python error: Aborted 是环境固有**（test_window_state_matrix 实测 stash 基线同 abort；`QT_QPA_PLATFORM=offscreen` 下全部通过；CI 正常）——先 stash 基线对照区分环境问题与改动引入，勿误判为改动引入回归。
+   - **Qt 绝对定位缩放三连**（#62/#66/#68）：`setGeometry` 不触发子组件 resizeEvent（须 `resize()`）；QStackedWidget 只 resize 当前可见页（休眠页停设计尺寸，`currentChanged` 连 `_sync_page_layouts` 统一同步，**先 resize 所有 pages 再算内部几何**——顺序敏感）；`show_hide_logs` 类硬编码 resize 会覆盖动态同步，一律走统一同步函数。
+   - **最大化内容自适应方法论**（2026-09-06 两轮修复实证）：①Qt 对休眠/未重绘 widget 的布局**不自动激活**——容器 setGeometry/resize 后内部 QGridLayout 必须显式 `invalidate()+activate()`，否则输入框列宽永远不变（实测 515 不变 vs 激活后 1114）；②groupBox 内子控件分类跟随：布局容器与输入类控件（QLineEdit/QComboBox/QTextEdit/树/列表，按 className 判）拉伸、右缘控件（浏览按钮）右缘锚定平移、左侧标签保持；③**平移/拉伸一律用「设计基准坐标+extra」固定公式**（`x = 350 + (tree_x - 30 - 570)`），基于当前值的增量平移在 resize 反复触发时会累积漂移；④page_setting 底部「当前配置/另存为/恢复默认/保存」浮框是 page 直接子级（Z 序浮在 tabWidget 上），按设计下缘边距锚定新底部。CustomScrollArea 的 setWidget 时登记设计几何（幂等基准），resize/show 时套用。
+  - **PyQt6 测试 qFatal abort**：槽函数未捕获异常触发 qt_assert 原生 abort（栈里无 Python 行号）——查 QTimer 槽与 dummy 桩缺方法。防御：fixture 构造后立即停全部 QTimer；几何断言不需 `window.show()`。不设 offscreen 的 Aborted 是环境固有——先 stash 基线对照区分环境问题与改动引入。
 
 ## 站点与网络
 
@@ -94,7 +96,8 @@
 - Instructions:
   - 各站探测番号与收录依据见爬虫类注释；javdb 仅搜 FC2 需要 Cookie。
   - 站点 API 坑：missav_api Recombee 仅 POST；DMM Affiliate v3 必需 site/service/floor 且 keyword 用 content_id 形态；madouqu 域名动态维护（24h 缓存）；madou_club 番号无横杠；parsel Selector.get() 纯 JSON 返回 dict，解析兼容 str/dict/Selector 三态。
-  - 站点增删史：2026-08 删 15 站（48 → 33，失效/重复明细见 changelog），后新增 javfree/aventertainments/madou_club 与 getchu_dmm 合并进 getchu，**当前注册爬虫 35**（`get_registered_crawler_sites` 实测，FEATURES.md 同步）；恢复删站从 git 历史找回枚举/注册/默认源。
+   - 站点增删史：2026-08 删 15 站（48 → 33，失效/重复明细见 changelog），后新增 javfree/aventertainments/madou_club 与 getchu_dmm 合并进 getchu；2026-09-05 **7mmtv 回归**（移植自 Hazard804/mdcx，双镜像 7mmtv.sx/7tv022.com 轮询+默认代理），**当前注册爬虫 36**（`get_registered_crawler_sites` 实测，FEATURES.md 同步）。恢复删站从 git 历史找回枚举/注册/默认源；外部仓库移植爬虫时注意异常类名差异（CralwerException vs CrawlerException）。
+   - **数字开头模块名（如 7mmtv.py）无法用常规 import 语法**——`from .7mmtv import` 是 SyntaxError，crawlers/__init__.py 用 `importlib.import_module("mdcx.crawlers.7mmtv")`；测试同款方式加载。
   - 无码官网五站由 official_uncensored.py 统一路由；均需代理；1pondo/pacopacomama/10musume 的 dyn/phpauto JSON API 直通。
   - 被墙站测试：`uv run python -m scripts.dev_proxy start|status|test <url>|stop`；日本 IP 限制站用 `--port 7891 --regions "jp|日本"`。
   - devbox 环境限制：超时属云端限制≠站点死亡；高频批量测试触发 CF IP 拉黑换时段；连通性验证必须 curl_cffi impersonate；批量探测校验 data.title 为真实字符串防假阳性。
@@ -104,7 +107,7 @@
 - Date: 2026-08-24
 - Category: 环境配置
 - Instructions:
-  - 函数内延迟导入须同步加 scripts/build.py 的 --hidden-import/--collect-all；改依赖/构建脚本/Release 工作流逐项核对。
+  - 函数内延迟导入须同步加 scripts/build.py 的 --hidden-import/--collect-all；改依赖/构建脚本/Release 工作流逐项核对。**importlib 动态导入的模块 PyInstaller 静态分析不可靠**（7mmtv 数字开头模块实证），必须显式 --hidden-import 收录，漏收时仅打包版运行时刮削崩溃（源码/CI 均测不出）；`tests/test_build_hidden_imports.py` 哨兵锁定"__init__.py 的 import_module 字面量 ⊆ build.py hidden-import"，新增动态模块自动被 CI 捕获。
   - EXCLUDED_MODULES 中 rich/typer 等只供构建/CLI；Windows curl_cffi.libs 需显式 --add-binary。
   - Release 发版全自动流程：推送纯数字 tag（`git tag YYYYMMDD && git push origin YYYYMMDD`）触发 `release.yml`（macOS aarch64 + Windows x86_64 双构建 → 自动建 release 页，正文自动取 changelog 当前版本段）；发版前确认 `consts.py` 的 `LOCAL_VERSION`/`VERSION_NAME` 与 changelog 段标题一致、release 产物名规则 `MDCx-<tag>-<平台>-<arch>-<sha7>.<exe|dmg>`（Windows zip 版由 `package-trawl.yml` 单独管道）。
 
@@ -122,10 +125,9 @@
 - Date: 2026-09-02（治理工程收官重组）
 - Category: 排错调试
 - Instructions:
-  - **证据强度排序定论**（全量校验工程实证）：**结构化映射（tenhow cid）> 唯一编码（EAN/JAN 条码）> 文本归一（标题 NFKC 系列互含）> 相似度分数（图像）**。cid 反查 367 行零误判；标题法 303+34 翻案零冤案（`core/title_match.py`）；图像法 367 行假阳性——重压缩分数带 0.74-0.89 与真错配 0.42-0.68 重叠，**图像只能兜底不能主证**（旧结论"标题比对不可用"已被推翻——那是原始子串比对时代，NFKC+系列主干互含后质变）。`_cover_similarity` 三元组，严格判定三阈值同满足：≥0.82/≥0.86/≥0.70。
-  - **软校验架构定论**（读零校验+v2 裁决链，提交 32ac739/efb5f26）：免验/必验按**发现路径**分流——条码/EAN=hard 免验（唯一编码无相似性概念，再验是浪费且验错反伤）、ASIN 库命中=信任免验（库交付即 100% 验证过，用户无感知零配置）、软匹配（标题/演员搜索）=v2 三步链必验（cid 旁证→标题门+**真合集词一票否决**（BEST/コンプリート/N時間——图是多片拼盘；**特典/限定版不否决**：图仍是单片真图，唯一 ASIN 正常入库，同番号竞争时让位正品——`_decide_save_outcome` 三态：旧特新正→replace，其余跳过先到先得）→图像兜底）。**入库时序必须延迟到采信点**（搜索即写库让门槛形同虚设）。演员名兜底是错挂重灾区（候选全集=该演员所有作品），全链必走；主搜索路径标题证据复用搜索阶段已聚合文本（match_state 携带 title/search_keyword），零额外请求。
-  - **运行库与出厂库现状**（2026-09-02 彻底收官）：**出厂库已升级**（`resources/userdata/amazon_asin_database.xlsx`）——主表 26620 行（标题法+cid 反查+人工裁决），同番号 ASIN 唯一、错配行清零、按番号严格升序+格式化；"待修正/DMM已覆盖归档/四源校验错配"三个治理 sheet 只在用户运行库、不入出厂库。**合并逻辑升级为"出厂库权威"**（`merge_asin_db_from_backup`）：同番号无条件覆盖用户库 5 列，用户库独有番号保留，出厂库独有番号追加。`_format_asin_worksheet` 内嵌按番号排序（`_asin_sort_key`），保存/合并/重排统一生效。
-  - **待修正 sheet 清理三分类法**（2026-09-02 393 行治理实证）：① 主表已有番号一致 → 残留直接删；② 主表已有但番号不同 → 用主表番号去 libredmm/javbus 反查标题，与主表日亚标题比对裁谁对（36 行中 35 match 主表对、1 无数据待人工）；③ 主表未有 → 标题法/cid 反查裁决入库或标记真错。批量行**先按 ASIN 去重**再分类（待修正源表同 ASIN 因不同搜索词出现多行，35 个 cid ✓ ASIN 展开成 154 行）。
+  - **证据强度排序定论**：**结构化映射（tenhow cid）> 唯一编码（EAN/JAN 条码）> 文本归一（标题 NFKC 系列互含，`core/title_match.py`）> 相似度分数（图像）**。图像重压缩分数带与真错配重叠，**图像只能兜底不能主证**。`_cover_similarity` 三元组严格判定三阈值同满足：≥0.82/≥0.86/≥0.70。
+  - **软校验架构定论**（读零校验+v2 裁决链）：免验/必验按**发现路径**分流——条码/EAN=hard 免验、ASIN 库命中=信任免验、软匹配（标题/演员搜索）=v2 三步链必验（cid 旁证→标题门+**真合集词一票否决**（BEST/コンプリート/N時間；**特典/限定版不否决**，同番号竞争让位正品）→图像兜底）。**入库时序必须延迟到采信点**。演员名兜底是错挂重灾区，全链必走。**出厂库权威合并**（`merge_asin_db_from_backup`）：同番号无条件覆盖用户库 5 列、用户独有保留、出厂独有追加；`_format_asin_worksheet` 内嵌按番号排序。
+  - **待修正 sheet 清理三分类法**：① 主表已有番号一致 → 残留直接删；② 主表已有但番号不同 → 用主表番号去 libredmm/javbus 反查标题，与主表日亚标题比对裁谁对；③ 主表未有 → 标题法/cid 反查裁决入库或标记真错。批量行**先按 ASIN 去重**再分类（源表同 ASIN 因不同搜索词出现多行）。
   - **ASIN 列污染教训**（2026-09-02 真 bug）：入库注记列索引错位——注记写到 ASIN 列（`B003CIPVJM [原挂:EBOD-108; ...]`污染 9 行，出厂库对比扫描才发现），本应是搜索关键词列。**列写入走显式列号映射/查表，不手数 index**；入库后 sanity check 一行 `r[1]` 应是纯 ASIN。
   - **出厂库（resources/userdata/）更新仍须用户明确确认**——本次扩容 26620 行也是用户传文件确认后才替换。
   - **评估库存价值先问"生产会不会走到那一步"**（用户方法论）：DMM 能给高清图（宽≥700）的番号其日亚记录无运行时价值——探测须按生产标准过滤 147x200 缩略图形态（10-19KB 恰过 4KB 阈值，取"第一个成功"会误判）。
@@ -133,7 +135,7 @@
   - **番号规范化预检防假案**：缩位写法（ABF-34 vs ABF-034）会制造"自己和自己冲突"；比对一律 (系列字母, int(数字)) 做 key。批量导入 xlsx 必须走含去重入口（`save_asin_to_excel`），直接 ws.append 产生成批重复。
   - cid→番号规则：`^(\d*)([a-z]+)(\d+)([a-z]?)$` → `系列大写-{int:03d}`（绝不缩成 PED-30）；变体字母归并同番号。tenhow cid 离线索引 `resources/userdata/tenhow_asin_cids.json`（36441 条，`core/asin_cid_index.py` 三态裁决）。
   - **libredmm 归纳安全过滤教训**（提交 e0c98b7）：外部归纳数据接入前先在高频样本做候选顺序回归（覆盖率掩盖顺序污染）；防污染不弃真实增量——按"顺序影响"分级（append 兜底）而非二元弃用（GVG-564 的 mono 3 位真实数据曾被 v1 错杀）。
-  - **DMM 路由表月度健康检查**：`dmm_cid_routes.json` 若后续再从归纳数据重新生成，生成后必须先跑全量验证（libredmm 实测逐系列打 pics.dmm.co.jp 图片 HEAD 判定占位图/死链），把死链的组合筛掉再推送到生产。本次清理后掌握 2291 条（3925->1634 个数字 pad3 组合全为占位图）已清除；若 regenerating：`generate_image_candidates` 中 `pads 全≤3` 的判断已经内置兜底，但数据源层面的组合仍需独立验证。
+  - **DMM 路由表再生纪律**：`dmm_cid_routes.json` 若从归纳数据重新生成，生成后必须先跑全量验证（libredmm 逐系列打 pics.dmm.co.jp 图片 HEAD 判占位图/死链）筛掉死链组合再推生产；`generate_image_candidates` 的 `pads 全≤3` 判断仅是运行时兜底，数据源层面仍需独立验证。
   - **DMM cid 结构**：前缀映射 + 数字双态（5 位补零 digital 与 3 位原样 mono **同系列可并存**）+ 双路径（digital/video 与 mono/movie/adult 各半）+ 变体后缀无需枚举。DMM 图床：站点下架但 CDN 不删对象；占位图 200+<4KB 已拒收（`_validate_dmm_image_url`）。
   - **日亚图域知识**：SL1500 商品图**物理无条码**（0/50，条码 OCR 只能从 DMM/爬虫侧封面联图拿——app 横版联图获取率 94%）；老商品标题用**半角片假名**（NFKC 必做）；日亚 DVD 封与 DMM digital 封**版本不同**，图像比对天花板 ~0.62。
   - tenhow.net 图床：`images/{ASIN}.jpg` 与日亚 SL1500 同源同分辨率，免代理直取（T0 优先，404 回退）；页面条目图名即可入库 ASIN（全站索引 36441 条）。旧索引 8126 条抓取残缺已作废。
