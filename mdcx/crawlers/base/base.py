@@ -2,6 +2,7 @@ import time
 import traceback
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING, Any, Never
+from urllib.parse import urlparse
 
 from parsel import Selector
 
@@ -40,6 +41,34 @@ class GenericBaseCrawler[T: Context = Context](ABC):
     # 网络检测用的探针番号。默认用全局 SCRAPE_PROBE_NUMBER；
     # 站点有收录类型限制时（如欧美/无码站搜不到有码探针番号），子类可覆盖为适用的番号。
     probe_number: str = ""
+
+    @classmethod
+    def known_hosts(cls) -> frozenset[str]:
+        """该站点已知的全部请求域名（默认主域 + 镜像 + 用户自定义 URL），供代理路由按站点归属判断。
+
+        议题 #83：「走代理网站」下拉框按 crawler 站点值（如 missav）选择，但实际请求按
+        host 路由，站点值→域名的映射只来自 WEB_DIC + 六个 TLD 兜底，missav.ai /
+        7tv022.com / madou.club / mywife.cc 等实际域名全部失配，UI 选了代理仍直连。
+        权威数据源就在爬虫自身声明里：base_url_()（含用户自定义 URL）与 _domains 镜像。
+
+        返回小写 host，统一去 `www.` 前缀并存两形态（is_proxy_host 的子域后缀匹配
+        依赖不带 www 的形态）。子类若有额外静态镜像或运行时学习的域名，override 补充。
+        """
+        hosts: set[str] = set()
+        urls: list[str] = [*cls._domains]
+        try:
+            base = cls.base_url_()
+        except Exception:
+            base = ""
+        if base:
+            urls.append(base)
+        for url in urls:
+            host = urlparse(str(url)).netloc.lower().split(":", 1)[0]
+            if host:
+                hosts.add(host)
+                if host.startswith("www."):
+                    hosts.add(host[4:])
+        return frozenset(hosts)
 
     def __init_subclass__(cls, **kwargs: Any) -> None:
         super().__init_subclass__(**kwargs)

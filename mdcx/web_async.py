@@ -59,6 +59,11 @@ def _web_dic_domains_by_value() -> dict[str, frozenset[str]]:
     """构建 WEB_DIC 站点值 → 已知域名集合（含 TLD 变体）映射，供 is_proxy_host 快速反查。
 
     原实现每匹配一个 proxy_site 就遍历整个 WEB_DIC（O(m)）；预构建后 O(1) 取集合。
+
+    议题 #83：映射另并入爬虫注册表的权威域名（crawler 声明的默认主域 + 镜像 +
+    用户自定义 URL）。此前 UI「走代理网站」下拉框提供 crawler 站点值（missav/
+    javday/7mmtv…），但域名映射只靠 WEB_DIC + 六个 TLD 兜底，missav.ai、
+    7tv022.com、madou.club 等实际域名全部失配——UI 选了代理实际仍直连。
     """
     global _WEB_DIC_DOMAINS_BY_VALUE
     if _WEB_DIC_DOMAINS_BY_VALUE is None:
@@ -69,6 +74,17 @@ def _web_dic_domains_by_value() -> dict[str, frozenset[str]]:
             for tld in _PROXY_TLDS:
                 domains.add(domain_key + tld)
             mapping.setdefault(value, set()).update(domains)
+        # 延迟导入：web_async 被 crawlers 反向依赖，顶层导入会循环
+        try:
+            from .crawlers.base.base import crawler_registry
+
+            for site, crawler_cls in crawler_registry.items():
+                try:
+                    mapping.setdefault(site.value, set()).update(crawler_cls.known_hosts())
+                except Exception:  # 单个爬虫的域名收集失败不阻断代理判断
+                    continue
+        except ImportError:
+            pass
         _WEB_DIC_DOMAINS_BY_VALUE = {k: frozenset(v) for k, v in mapping.items()}
     return _WEB_DIC_DOMAINS_BY_VALUE
 

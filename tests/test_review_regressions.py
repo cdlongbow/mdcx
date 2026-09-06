@@ -154,6 +154,45 @@ def test_is_proxy_host_wildcard_match_all():
     assert not is_proxy_host("", ["*"])
 
 
+# ---- 议题 #83：UI 按 crawler 站点值选代理，实际请求域名必须命中 ----
+
+
+@pytest.mark.parametrize(
+    ("site_value", "host"),
+    [
+        # 议题附检测日志中的失配证据逐条锁定
+        ("missav", "missav.ai"),
+        ("missav", "missav.ws"),
+        ("javday", "javday.app"),
+        ("mywife", "mywife.cc"),
+        ("7mmtv", "www.7mmtv.sx"),
+        ("7mmtv", "7mmtv.sx"),
+        ("7mmtv", "7tv022.com"),
+        ("madou_club", "madou.club"),
+        ("javlibrary", "www.f101w.com"),
+        ("javlibrary", "f101w.com"),
+        # 原有命中路径不回退（WEB_DIC 映射与 TLD 兜底）
+        ("lulubar", "lulubar.co"),
+        ("javdb", "javdb.com"),
+    ],
+)
+def test_proxy_host_matches_crawler_declared_domains(site_value, host):
+    """站点值（UI 下拉框所选 crawler 名）必须命中爬虫声明的真实域名/镜像。
+
+    根因：域名映射原来只靠 WEB_DIC + 六个 TLD 兜底，.ai/.ws/.app/.cc/.sx/.club
+    及完全异名镜像（7tv022.com、动态域名 f101w.com）全部失配——用户在 UI 选了
+    走代理，实际请求仍直连。修复后映射并入爬虫注册表的 known_hosts（默认主域
+    + _domains 镜像 + 用户自定义 URL，javlibrary 另并入动态学习域名）。
+    """
+    assert is_proxy_host(host, [site_value]), f"站点 {site_value} 的域名 {host} 未命中代理"
+
+
+def test_proxy_host_no_false_positive():
+    # 近似名不应误命中无关域名
+    assert not is_proxy_host("missav.example.com", ["missav"])
+    assert not is_proxy_host("google.com", ["missav", "javdb", "7mmtv"])
+
+
 # ---- _replace_dir_atomic：目录原子替换与失败回滚 ----
 
 

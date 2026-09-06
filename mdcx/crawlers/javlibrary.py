@@ -143,8 +143,24 @@ class JavlibraryCrawler(BaseCrawler):
 
     @classmethod
     @override
+    def known_hosts(cls) -> frozenset[str]:
+        """javlibrary 额外并入静态镜像表与运行时学习到的最新直连域名（议题 #83）。"""
+        from urllib.parse import urlparse
+
+        from ..base.web import _JAVLIBRARY_DOMAINS, _get_cached_javlibrary_domain
+
+        hosts = set(super().known_hosts())
+        for url in [*_JAVLIBRARY_DOMAINS, _get_cached_javlibrary_domain()]:
+            host = urlparse(str(url)).netloc.lower().split(":", 1)[0]
+            if host:
+                hosts.add(host)
+                if host.startswith("www."):
+                    hosts.add(host[4:])
+        return frozenset(hosts)
+
+    @classmethod
+    @override
     async def check_urls(cls) -> list[str]:
-        """网络检测用最新直连地址 + 已知镜像回退."""
         urls: list[str] = []
         try:
             latest = await get_javlibrary_domain()
