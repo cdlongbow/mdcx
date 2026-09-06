@@ -82,13 +82,49 @@ def _copy_file_atomic_sync(old: Path, new: Path) -> None:
     try:
         os.close(fd)
         shutil.copy(old, tmp)
-        os.replace(tmp, new)
+        # Windows 上目标被瞬时占用（杀软扫描/缩略图索引/预览句柄）会 PermissionError，
+        # 通常毫秒~秒级自解；短间隔重试后再放弃（用户实测 .fanart.jpg.xxx.tmp 残留案）。
+        last_exc: BaseException | None = None
+        for attempt in range(3):
+            try:
+                os.replace(tmp, new)
+                last_exc = None
+                break
+            except PermissionError as exc:
+                last_exc = exc
+                time.sleep(0.1 * (attempt + 1))
+        if last_exc is not None:
+            raise last_exc
     except BaseException:
+        # replace 重试后仍失败：清理尽力而为+记录，孤儿由刮削结束时的
+        # sweep_stale_atomic_temps 兜底回收（Windows 被占用时 unlink 可能同败）。
         try:
             tmp.unlink(missing_ok=True)
-        except OSError:
-            pass
+        except OSError as cleanup_err:
+            signal.add_log(f" 临时文件清理失败（稍后刮削结束时重试）: {tmp} 错误: {cleanup_err}")
         raise
+
+
+def sweep_stale_atomic_temps(directory: str | Path, pattern: str = ".*.tmp") -> list[str]:
+    """清理目录下原子写/原子复制遗留的孤儿临时文件（进程中断/占用残留）。
+
+    命名形态：mkstemp(prefix=".目标名.", suffix=".tmp") → `.fanart.jpg.a8x3f2.tmp`。
+    只删隐藏文件（前导点）且后缀 .tmp 的——不会误伤用户正常文件。
+    返回已清理的文件路径列表（供日志）。
+    """
+    removed: list[str] = []
+    base = Path(directory)
+    if not base.is_dir():
+        return removed
+    for p in base.glob(pattern):
+        if not p.is_file():
+            continue
+        try:
+            p.unlink(missing_ok=True)
+            removed.append(str(p))
+        except OSError:
+            pass  # 仍被占用（Windows）——留给下次刮削结束重试
+    return removed
 
 
 def copy_file_sync(old: Path | str, new: Path | str):

@@ -1520,7 +1520,10 @@ async def fanart_download(
         ):
             if fanart_path:
                 await delete_file_async(fanart_path)
-            await copy_file_async(done_fanart_path, fanart_final_path)
+            ok, copy_err = await copy_file_async(done_fanart_path, fanart_final_path)
+            if not ok:
+                LogBuffer.log().write(f"\n 🔴 Fanart copy failed! 分集复制失败: {copy_err}")
+                return False
             other.fanart_path = fanart_final_path
             LogBuffer.log().write(f"\n 🍀 Fanart done! (copy cd-fanart)({get_used_time(start_time)}s)")
             return True
@@ -1529,7 +1532,16 @@ async def fanart_download(
     if thumb_path:
         if fanart_path:
             await delete_file_async(fanart_path)
-        await copy_file_async(thumb_path, fanart_final_path)
+        ok, copy_err = await copy_file_async(thumb_path, fanart_final_path)
+        if not ok:
+            LogBuffer.log().write(f"\n 🔴 Fanart copy failed! 复制失败: {copy_err}")
+            if DownloadableFile.IGNORE_PIC_FAIL in download_files:
+                LogBuffer.log().write(f"\n 🟠 Fanart failed（已忽略）({get_used_time(start_time)}s)")
+                return True
+            LogBuffer.log().write(
+                "\n 🔴 Fanart failed! 你可以到「软件设置」-「下载」，勾选「图片下载失败时，不视为失败！」 "
+            )
+            return False
         other.fanart_path = fanart_final_path
         other.fanart_marked = other.thumb_marked
         LogBuffer.log().write(f"\n 🍀 Fanart done! (copy thumb)({get_used_time(start_time)}s)")

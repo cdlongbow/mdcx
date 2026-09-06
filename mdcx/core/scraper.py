@@ -360,6 +360,19 @@ class Scraper:
         signal.show_log_text("================================================================================")
         signal.show_scrape_info(f"🎉 刮削完成 {task_count}/{task_count}")
 
+        # 兜底清理：原子写/原子复制中断遗留的孤儿临时文件（Windows 目标被占用时
+        # os.replace 与 unlink 双失败，形态如 .fanart.jpg.XXX.tmp——用户实测报告）。
+        # 只刮本次涉及目录的浅层（影片所在目录），深扫由用户手动触发。
+        from ..utils.file import sweep_stale_atomic_temps
+
+        for media_path in movie_paths:
+            current_paths = (
+                path_settings if media_path == movie_path else get_movie_path_setting(movie_path_override=media_path)
+            )
+            clean_path = current_paths.softlink_path if manager.config.scrape_softlink_path else media_path
+            for removed in sweep_stale_atomic_temps(clean_path):
+                signal.show_log_text(f" 🧹 已清理遗留临时文件: {removed}")
+
         # auto run after scrape
         if EmbyAction.ACTOR_PHOTO_AUTO in manager.config.emby_on:
             await update_emby_actor_photo(manage_button_state=False)
